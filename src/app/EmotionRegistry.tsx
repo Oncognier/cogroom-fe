@@ -1,9 +1,12 @@
 'use client';
 
 import createCache from '@emotion/cache';
-import { CacheProvider } from '@emotion/react';
+import { CacheProvider, Global, ThemeProvider } from '@emotion/react';
 import { useServerInsertedHTML } from 'next/navigation';
 import { useState } from 'react';
+
+import globalStyles from '@/styles/globalStyles';
+import { theme } from '@/styles/theme';
 
 export default function EmotionRegistry({ children }: { children: React.ReactNode }) {
   const [{ cache, flush }] = useState(() => {
@@ -40,5 +43,12 @@ export default function EmotionRegistry({ children }: { children: React.ReactNod
     );
   });
 
-  return <CacheProvider value={cache}>{children}</CacheProvider>;
+  return (
+    <CacheProvider value={cache}>
+      <ThemeProvider theme={theme}>
+        <Global styles={globalStyles()} />
+        {children}
+      </ThemeProvider>
+    </CacheProvider>
+  );
 }

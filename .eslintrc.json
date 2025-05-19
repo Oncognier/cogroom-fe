@@ -15,6 +15,7 @@
     "@typescript-eslint/no-unused-vars": ["warn", { "args": "all" }],
     "prettier/prettier": "off",
     "import/no-unresolved": ["error"],
+    "import/named": "off",
     "import/order": [
       "error",
       {

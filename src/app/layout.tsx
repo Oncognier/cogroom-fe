@@ -1,3 +1,5 @@
+import { pretendard } from '@/styles/typography';
+
 import EmotionRegistry from './EmotionRegistry';
 import { MSWProvider } from './MSWProvider';
 
@@ -13,7 +15,10 @@ if (
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='ko'>
+    <html
+      lang='ko'
+      className={pretendard.variable}
+    >
       <body>
         <EmotionRegistry>
           <MSWProvider>{children}</MSWProvider>
