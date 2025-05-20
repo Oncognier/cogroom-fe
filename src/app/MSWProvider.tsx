@@ -1,7 +1,14 @@
 'use client';
-
 import { Suspense, use } from 'react';
+
 import { handlers } from '@/mocks/handlers';
+
+// HMR 관련 타입
+interface HotModule {
+  hot?: {
+    dispose(callback: () => void): void;
+  };
+}
 
 // MSW 클라이언트 적용
 const mockingEnabledPromise =
@@ -19,7 +26,7 @@ const mockingEnabledPromise =
           },
         });
         worker.use(...handlers);
-        (module as any).hot?.dispose(() => {
+        (module as HotModule).hot?.dispose(() => {
           worker.stop();
         });
       })
