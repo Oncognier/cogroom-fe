@@ -55,15 +55,13 @@ export const responseHandler = (response: AxiosResponse) => {
 };
 
 // Response 에러 handler
-export const responseErrorHandler = (error: any) => {
-  const { response } = error;
-
-  // 서버에 연결할 수 없는 경우 (네트워크 오류 등)
-  if (!response) {
-    throw new HTTPError(0, '서버에 연결할 수 없습니다. 인터넷 연결을 확인해주세요.');
+export const responseErrorHandler = (error: AxiosError<ErrorResponseData>) : never => {
+  // 요청 객체가 없는 경우
+  if (!error.response) {
+    throw new HTTPError(0, '서버에 연결할 수 없습니다.');
   }
 
-  const { status, data } = response;
+  const { status, data } = error.response;
 
   switch (status) {
     case HTTP_STATUS_CODE.BAD_REQUEST:
