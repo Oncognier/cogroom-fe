@@ -1,18 +1,10 @@
+import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
+import { mockingServer } from '@/lib/msw/mockingServer';
+import { MSWProvider } from '@/lib/msw/MSWProvider';
 import { pretendard } from '@/styles/typography';
 
-import EmotionRegistry from './EmotionRegistry';
-import { MSWProvider } from './MSWProvider';
-
-// MSW 서버 적용
-if (
-  process.env.NEXT_RUNTIME === 'nodejs' &&
-  process.env.NODE_ENV !== 'production' &&
-  process.env.NEXT_PUBLIC_MSW_ENABLED !== 'false'
-) {
-  import('@/mocks/server').then(({ server }) => {
-    server.listen();
-  });
-}
+// msw 서버 적용
+mockingServer();
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
