@@ -1,13 +1,9 @@
-import { HTTPError } from '@/utils/errors/HTTPError';
-import { HTTP_STATUS_CODE } from '@/constants/httpStatusCode/httpStatusCode';
 import { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
-// Request 에러 handler 타입
-interface ErrorResponseData {
-  code?: number;
-  message: string;
-  [key: string]: any;
-}
+import { HTTP_STATUS_CODE } from '@/constants/httpStatusCode/httpStatusCode';
+
+import { HTTPError } from './errors/HTTPError';
+import { ErrorResponseData } from './types';
 
 /**
  * requestHandler
