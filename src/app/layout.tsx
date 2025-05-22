@@ -1,6 +1,8 @@
 import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
 import { mockingServer } from '@/lib/msw/mockingServer';
 import { MSWProvider } from '@/lib/msw/MSWProvider';
+import QueryProvider from '@/lib/query/QueryProvider';
+
 import { pretendard } from '@/styles/typography';
 
 // msw 서버 적용
@@ -14,7 +16,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body>
         <EmotionRegistry>
-          <MSWProvider>{children}</MSWProvider>
+          <MSWProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </MSWProvider>
         </EmotionRegistry>
       </body>
     </html>
