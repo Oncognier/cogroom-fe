@@ -1,16 +1,8 @@
 'use client';
 
 import { css } from '@emotion/react';
-import localFont from 'next/font/local';
 
 import { TypographyToken } from './types';
-
-export const pretendard = localFont({
-  src: '../assets/fonts/PretendardVariable.woff2',
-  display: 'swap',
-  weight: '100 900',
-  variable: '--font-pretendard',
-});
 
 const baseTextStyle = {
   display1: css`

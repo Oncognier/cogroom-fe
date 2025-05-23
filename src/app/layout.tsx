@@ -2,8 +2,7 @@ import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
 import { mockingServer } from '@/lib/msw/mockingServer';
 import { MSWProvider } from '@/lib/msw/MSWProvider';
 import QueryProvider from '@/lib/query/QueryProvider';
-
-import { pretendard } from '@/styles/typography';
+import { pretendard } from '@/styles/font';
 
 // msw 서버 적용
 mockingServer();
