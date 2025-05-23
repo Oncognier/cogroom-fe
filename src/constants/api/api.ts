@@ -1,0 +1,89 @@
+export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+
+const API_V1 = `${BASE_URL}/api/v1`;
+
+const BASE_PATH_V1 = {
+  // 회원 API
+  AUTH: `${API_V1}/auth`,
+  MEMBERS: `${API_V1}/members`,
+
+  // 서비스 API
+  NOTICES: `${API_V1}/notices`,
+  DAILY: `${API_V1}/daily`,
+  CONTENTS: `${API_V1}/contents`,
+
+  // 관리자 API
+  ADMIN: `${API_V1}/admin`,
+} as const;
+
+export const END_POINTS_V1 = {
+  // 공통 API
+  PRESIGNED_URL: `${API_V1}/presigned-url/upload`,
+  PRESIGNED_URL_DOWNLOAD: `${API_V1}/presigned-url/download`,
+
+  // 회원 API
+  AUTH: {
+    SOCIAL_SIGNUP: `${BASE_PATH_V1.AUTH}/social-signup`,
+    SOCIAL_LOGIN: `${BASE_PATH_V1.AUTH}/social-login`,
+    LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
+    EMAIL_VERIFICATION: `${BASE_PATH_V1.AUTH}/email-verification`,
+    NICKNAME: `${BASE_PATH_V1.AUTH}/nickname`,
+    TOKENS: `${BASE_PATH_V1.AUTH}/tokens`,
+  },
+  MEMBERS: {
+    MY: BASE_PATH_V1.MEMBERS,
+    INFO: `${BASE_PATH_V1.MEMBERS}/me`,
+    INFO_EDIT: `${BASE_PATH_V1.MEMBERS}/me`,
+    DAILY: `${BASE_PATH_V1.MEMBERS}/daily`,
+    ORDERS: `${BASE_PATH_V1.MEMBERS}/orders`,
+    SIGNOUT: `${BASE_PATH_V1.MEMBERS}/me`,
+  },
+
+  // 서비스 API
+  DAILY: {
+    QUESTIONS: `${BASE_PATH_V1.DAILY}/questions`,
+    ANSWERS: `${BASE_PATH_V1.DAILY}/answers`,
+    ANSWERS_EDIT: (answerId: string) => `${BASE_PATH_V1.DAILY}/answers/${answerId}`,
+    CALENDAR: `${BASE_PATH_V1.DAILY}/calendar`,
+  },
+  CONTENTS: {
+    CONTENTS: BASE_PATH_V1.CONTENTS,
+    RECOMMEND_CONTENTS: `${BASE_PATH_V1.CONTENTS}/recommendations`,
+    CONTENT: (contentId: string) => `${BASE_PATH_V1.CONTENTS}/${contentId}`,
+    CONTENT_REVIEW: (contentId: string) => `${BASE_PATH_V1.CONTENTS}/${contentId}/reviews`,
+  },
+  NOTICES: {
+    NOTICES: BASE_PATH_V1.NOTICES,
+  },
+
+  // 관리자 API
+  ADMIN: {
+    MEMBERS: {
+      MEMBERS: BASE_PATH_V1.ADMIN,
+      MEMBER: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}`,
+      DAILY: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}/daily`,
+      CONTENTS: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}/contents`,
+    },
+    DAILY: {
+      QUESTIONS: `${BASE_PATH_V1.ADMIN}/daily/questions`,
+      QUESTIONS_CREATE: `${BASE_PATH_V1.ADMIN}/daily/questions`,
+      QUESTIONS_EDIT: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
+      QUESTIONS_DELETE: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
+    },
+    CONTENTS: {
+      CONTENTS: `${BASE_PATH_V1.ADMIN}/contents`,
+      CONTENTS_STATUS: `${BASE_PATH_V1.ADMIN}/contents/status`,
+      CONTENTS_CREATE: `${BASE_PATH_V1.ADMIN}/contents`,
+      CONTENTS_EDIT: (contentId: string) => `${BASE_PATH_V1.ADMIN}/contents/${contentId}`,
+      CONTENTS_DELETE: (contentId: string) => `${BASE_PATH_V1.ADMIN}/contents/${contentId}`,
+    },
+    NOTICES: {
+      NOTICES_CREATE: `${BASE_PATH_V1.ADMIN}/notices`,
+      NOTICES_EDIT: (noticeId: string) => `${BASE_PATH_V1.ADMIN}/notices/${noticeId}`,
+      NOTICES_DELETE: (noticeId: string) => `${BASE_PATH_V1.ADMIN}/notices/${noticeId}`,
+    },
+    ORDERS: {
+      ORDERS: `${BASE_PATH_V1.ADMIN}/orders`,
+    },
+  },
+} as const;
