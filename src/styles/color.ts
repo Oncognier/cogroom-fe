@@ -198,6 +198,26 @@ export const palette: Palette = {
 };
 
 export const semantic: Semantic = {
+export const opacity = {
+  0: 0,
+  5: 0.05,
+  8: 0.08,
+  12: 0.12,
+  16: 0.16,
+  22: 0.22,
+  26: 0.26,
+  28: 0.28,
+  35: 0.35,
+  43: 0.43,
+  52: 0.52,
+  61: 0.61,
+  74: 0.74,
+  88: 0.88,
+  97: 0.97,
+  100: 1,
+} as const;
+
+export const semantic = {
   primary: {
     normal: { group: 'blue', level: 60 },
     strong: { group: 'blue', level: 20 },
