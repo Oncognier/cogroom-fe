@@ -1,4 +1,4 @@
-import { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { HTTP_STATUS_CODE } from '@/constants/httpStatusCode/httpStatusCode';
 
@@ -55,7 +55,7 @@ export const responseHandler = (response: AxiosResponse) => {
 };
 
 // Response 에러 handler
-export const responseErrorHandler = (error: AxiosError<ErrorResponseData>) : never => {
+export const responseErrorHandler = (error: AxiosError<ErrorResponseData>): never => {
   // 요청 객체가 없는 경우
   if (!error.response) {
     throw new HTTPError(0, '서버에 연결할 수 없습니다.');

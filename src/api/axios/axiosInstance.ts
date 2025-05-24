@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { requestHandler, requestErrorHandler, responseHandler, responseErrorHandler } from '@/api/axios/interceptors';
+import { requestErrorHandler, requestHandler, responseErrorHandler, responseHandler } from '@/api/axios/interceptors';
 
 const axiosInstance = axios.create({
   // 기본 URL 설정
