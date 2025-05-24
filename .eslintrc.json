@@ -35,8 +35,14 @@
         "newlines-between": "always"
       }
     ],
+
     "no-console": ["error"],
     "react/jsx-no-bind": ["warn"],
     "@typescript-eslint/no-explicit-any": ["error", { "ignoreRestArgs": false }]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }
