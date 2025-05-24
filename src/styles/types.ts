@@ -24,7 +24,7 @@ type TypographyWeightMap = {
   [key in FontWeightName]?: SerializedStyles;
 };
 
-export type TypographyToken = {
+export type Typography = {
   [key in TypographyLevel]: TypographyWeightMap;
 };
 
