@@ -24,7 +24,7 @@ type TypographyWeightMap = {
   [key in FontWeightName]?: SerializedStyles;
 };
 
-export type TypographyToken = {
+export type Typography = {
   [key in TypographyLevel]: TypographyWeightMap;
 };
 
@@ -60,76 +60,4 @@ export type PaletteGroup =
 
 export type Palette = {
   [key in PaletteGroup]: PaletteShades;
-};
-
-type SemanticReference = {
-  group: PaletteGroup;
-  level: PaletteLevel;
-};
-
-export type Semantic = {
-  primary: {
-    normal: SemanticReference;
-    strong: SemanticReference;
-    heavy: SemanticReference;
-  };
-
-  label: {
-    normal: SemanticReference;
-    strong: SemanticReference;
-    neutral: string;
-    alternative: string;
-    assistive: string;
-    disable: string;
-  };
-
-  interaction: {
-    inactive: SemanticReference;
-    disable: SemanticReference;
-  };
-
-  background: {
-    normal: {
-      normal: SemanticReference;
-      alternative: SemanticReference;
-    };
-    elevated: {
-      normal: SemanticReference;
-      alternative: SemanticReference;
-    };
-  };
-
-  line: {
-    normal: string;
-    neutral: string;
-    alternative: string;
-  };
-
-  status: {
-    positive: SemanticReference;
-    cautionary: SemanticReference;
-    destructive: SemanticReference;
-  };
-
-  accent: {
-    redOrange: SemanticReference;
-    lime: SemanticReference;
-    cyan: SemanticReference;
-    lightBlue: SemanticReference;
-    violet: SemanticReference;
-    purple: SemanticReference;
-    pink: SemanticReference;
-  };
-
-  static: {
-    white: SemanticReference;
-    black: SemanticReference;
-  };
-
-  fill: {
-    normal: string;
-    strong: string;
-    alternative: string;
-    dimmer: string;
-  };
 };
