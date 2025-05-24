@@ -1,4 +1,4 @@
-import { Palette, Semantic } from './types';
+import { Palette } from './types';
 
 export const palette: Palette = {
   common: {
@@ -197,16 +197,35 @@ export const palette: Palette = {
   },
 };
 
-export const semantic: Semantic = {
+export const opacity = {
+  0: 0,
+  5: 0.05,
+  8: 0.08,
+  12: 0.12,
+  16: 0.16,
+  22: 0.22,
+  26: 0.26,
+  28: 0.28,
+  35: 0.35,
+  43: 0.43,
+  52: 0.52,
+  61: 0.61,
+  74: 0.74,
+  88: 0.88,
+  97: 0.97,
+  100: 1,
+} as const;
+
+export const semantic = {
   primary: {
-    normal: { group: 'blue', level: 60 },
-    strong: { group: 'blue', level: 20 },
-    heavy: { group: 'blue', level: 10 },
+    normal: palette.blue[60],
+    strong: palette.blue[20],
+    heavy: palette.blue[10],
   },
 
   label: {
-    normal: { group: 'coolNeutral', level: 10 },
-    strong: { group: 'common', level: 100 },
+    normal: palette.coolNeutral[10],
+    strong: palette.common[100],
     neutral: 'rgba(46, 47, 51, 0.88)', // #2E2F33 + 88%
     alternative: 'rgba(55, 56, 60, 0.61)', // #37383C + 61%
     assistive: 'rgba(55, 56, 60, 0.28)', // #37383C + 28%
@@ -214,18 +233,18 @@ export const semantic: Semantic = {
   },
 
   interaction: {
-    inactive: { group: 'coolNeutral', level: 70 },
-    disable: { group: 'coolNeutral', level: 98 },
+    inactive: palette.coolNeutral[70],
+    disable: palette.coolNeutral[98],
   },
 
   background: {
     normal: {
-      normal: { group: 'common', level: 0 },
-      alternative: { group: 'coolNeutral', level: 99 },
+      normal: palette.common[0],
+      alternative: palette.coolNeutral[99],
     },
     elevated: {
-      normal: { group: 'blue', level: 95 },
-      alternative: { group: 'blue', level: 70 },
+      normal: palette.blue[95],
+      alternative: palette.blue[70],
     },
   },
 
@@ -236,24 +255,24 @@ export const semantic: Semantic = {
   },
 
   status: {
-    positive: { group: 'green', level: 60 },
-    cautionary: { group: 'orange', level: 60 },
-    destructive: { group: 'red', level: 60 },
+    positive: palette.green[60],
+    cautionary: palette.orange[60],
+    destructive: palette.red[60],
   },
 
   accent: {
-    redOrange: { group: 'redOrange', level: 60 },
-    lime: { group: 'lime', level: 60 },
-    cyan: { group: 'cyan', level: 60 },
-    lightBlue: { group: 'lightBlue', level: 60 },
-    violet: { group: 'violet', level: 60 },
-    purple: { group: 'purple', level: 60 },
-    pink: { group: 'pink', level: 60 },
+    redOrange: palette.redOrange[60],
+    lime: palette.lime[60],
+    cyan: palette.cyan[60],
+    lightBlue: palette.lightBlue[60],
+    violet: palette.violet[60],
+    purple: palette.purple[60],
+    pink: palette.pink[60],
   },
 
   static: {
-    white: { group: 'common', level: 0 },
-    black: { group: 'common', level: 100 },
+    white: palette.common[0],
+    black: palette.common[100],
   },
 
   fill: {
@@ -262,4 +281,4 @@ export const semantic: Semantic = {
     alternative: 'rgba(194, 196, 200, 0.05)', // #C2C4C8 · 5%
     dimmer: 'rgba(23, 23, 25, 0.52)', // #171719 · 52%
   },
-};
+} as const;

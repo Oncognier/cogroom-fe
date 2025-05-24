@@ -2,7 +2,7 @@
 
 import { css } from '@emotion/react';
 
-import { TypographyToken } from './types';
+import { Typography } from './types';
 
 const baseTextStyle = {
   display1: css`
@@ -94,7 +94,7 @@ const weights = {
   bold: 700,
 };
 
-export const typography: TypographyToken = {
+export const typography: Typography = {
   display1: {
     regular: css`
       ${baseTextStyle.display1};

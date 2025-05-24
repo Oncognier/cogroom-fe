@@ -13,7 +13,7 @@ export const spacing = {
   24: '2.4rem',
   32: '3.2rem',
   40: '4.0rem',
-};
+} as const;
 
 export const radius = {
   0: '0rem',
@@ -25,13 +25,13 @@ export const radius = {
   24: '2.4rem',
   32: '3.2rem',
   40: '4.0rem',
-};
+} as const;
 
 export const breakpoints = {
   desktop: '1440px',
   tablet: '768px',
   mobile: '480px',
-};
+} as const;
 
 export const shadow: Shadow = {
   emphasize: css`
