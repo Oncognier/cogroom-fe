@@ -44,6 +44,44 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+export const NoIcon: Story = {
+  args: {
+    label: 'Label only',
+    color: 'primary',
+    size: 'md',
+    disable: false,
+    interactionVariant: 'normal',
+    interactionColor: '#3067C1',
+    onClick: action('clicked'),
+  },
+};
+
+export const LeftIconOnly: Story = {
+  args: {
+    label: 'Left only',
+    iconLeft: <Blank />,
+    color: 'primary',
+    size: 'md',
+    disable: false,
+    interactionVariant: 'normal',
+    interactionColor: '#3067C1',
+    onClick: action('clicked'),
+  },
+};
+
+export const RightIconOnly: Story = {
+  args: {
+    label: 'Right only',
+    iconRight: <Blank />,
+    color: 'primary',
+    size: 'md',
+    disable: false,
+    interactionVariant: 'normal',
+    interactionColor: '#3067C1',
+    onClick: action('clicked'),
+  },
+};
+
 export const Primary: Story = {
   args: {
     label: 'Label',
