@@ -8,6 +8,7 @@ export type InteractionVariant = 'normal' | 'light' | 'strong';
 export interface InteractionStyleProps {
   interactionVariant: InteractionVariant;
   interactionColor?: string;
+  interactiondisable?: boolean;
 }
 
 const commonStyles = (theme: Theme, interactionColor?: string) => css`
@@ -72,7 +73,8 @@ const variantStyles = {
 
 const InteractionOverlay = styled.div<InteractionStyleProps>`
   ${({ theme, interactionColor }) => commonStyles(theme, interactionColor)}
-  ${({ interactionVariant, theme }) => variantStyles[interactionVariant](theme)}
+  ${({ interactionVariant, theme, interactiondisable }) =>
+    !interactiondisable && variantStyles[interactionVariant](theme)}
 `;
 
 export default InteractionOverlay;
