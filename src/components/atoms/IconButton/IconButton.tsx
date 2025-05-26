@@ -4,7 +4,7 @@ import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
 
 import S, { IconButtonStyleProps } from './IconButton.styled';
 
-interface IconButton extends IconButtonStyleProps, InteractionStyleProps {
+interface IconButtonProps extends IconButtonStyleProps, InteractionStyleProps {
   pushBadge?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export default function IconButton({
   pushBadge,
   onClick,
   children,
-}: IconButton) {
+}: IconButtonProps) {
   return (
     <S.Container>
       <S.IconButtonInteraction
