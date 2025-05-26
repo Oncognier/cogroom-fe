@@ -33,6 +33,11 @@ const meta = {
       defaultValue: 'rgba(55, 56, 60, 0.61)',
     },
     onClick: { action: 'clicked' },
+    interactiondisable: {
+      table: {
+        disable: true,
+      },
+    },
   },
 } satisfies Meta<typeof TextButton>;
 
