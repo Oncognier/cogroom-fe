@@ -1,31 +1,26 @@
 import { SerializedStyles } from '@emotion/serialize';
 
-type FontWeightName = 'regular' | 'medium' | 'semibold' | 'bold';
+type FontWeight = 'regular' | 'medium' | 'semibold' | 'bold';
 
-type TypographyLevel =
-  | 'display1'
-  | 'display2'
-  | 'title1'
-  | 'title2'
-  | 'title3'
-  | 'heading1'
-  | 'heading2'
-  | 'headline1'
-  | 'headline2'
-  | 'body1'
-  | 'body1Reading'
-  | 'body2'
-  | 'label1'
-  | 'label2'
-  | 'caption1'
-  | 'caption2';
-
-type TypographyWeightMap = {
-  [key in FontWeightName]?: SerializedStyles;
-};
+type TypographyStyle = Record<FontWeight, SerializedStyles>;
 
 export type Typography = {
-  [key in TypographyLevel]: TypographyWeightMap;
+  display1: Pick<TypographyStyle, 'regular' | 'medium' | 'bold'>;
+  display2: Pick<TypographyStyle, 'regular' | 'medium' | 'bold'>;
+  title1: Pick<TypographyStyle, 'regular' | 'medium' | 'bold'>;
+  title2: Pick<TypographyStyle, 'regular' | 'medium' | 'bold'>;
+  title3: Pick<TypographyStyle, 'regular' | 'medium' | 'bold'>;
+  heading1: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  heading2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  headline1: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  headline2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  body1: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  body1Reading: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  body2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  label1: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  label2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  caption1: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
+  caption2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
 };
 
 type ShadowLevel = 'emphasize' | 'strong' | 'heavy';
