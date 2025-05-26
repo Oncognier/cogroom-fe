@@ -38,6 +38,16 @@ const meta = {
         disable: true,
       },
     },
+    iconLeft: {
+      table: {
+        disable: true,
+      },
+    },
+    iconRight: {
+      table: {
+        disable: true,
+      },
+    },
   },
 } satisfies Meta<typeof TextButton>;
 
