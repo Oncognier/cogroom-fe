@@ -26,6 +26,7 @@ const commonStyles = (theme: Theme, disable?: boolean) => css`
   border: none;
   background-color: transparent;
   color: ${disable ? theme.semantic.label.disable : theme.semantic.label.normal};
+  padding: 0.8rem;
 
   &:hover {
     cursor: pointer;
@@ -46,9 +47,11 @@ const variantStyles: {
 } = {
   normal: () => css``,
   background: (theme: Theme) => css`
+    padding: 0.4rem;
     background-color: ${theme.semantic.fill.normal};
   `,
   outlined: (theme: Theme) => css`
+    padding: 0.7rem;
     border: 1px solid ${theme.semantic.line.normal};
   `,
   solid: (theme: Theme, disable?: boolean) => css`
