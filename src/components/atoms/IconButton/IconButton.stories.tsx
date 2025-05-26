@@ -6,7 +6,7 @@ import Blank from '@/assets/icons/blank.svg';
 import IconButton from './IconButton';
 
 const meta = {
-  title: 'Components/IconButton',
+  title: 'components/atoms/IconButton',
   component: IconButton,
   tags: ['autodocs'],
   argTypes: {
