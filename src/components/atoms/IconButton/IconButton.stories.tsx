@@ -6,7 +6,7 @@ import Blank from '@/assets/icons/blank.svg';
 import IconButton from './IconButton';
 
 const meta = {
-  title: 'Components/IconButton',
+  title: 'components/atoms/IconButton',
   component: IconButton,
   tags: ['autodocs'],
   argTypes: {
@@ -37,13 +37,18 @@ const meta = {
       defaultValue: false,
     },
     onClick: { action: 'clicked' },
+    interactiondisable: {
+      table: {
+        disable: true,
+      },
+    },
   },
 } satisfies Meta<typeof IconButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const Normal: Story = {
   args: {
     variant: 'normal',
     size: '40px',
