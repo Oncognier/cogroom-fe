@@ -25,6 +25,7 @@ export default function IconButton({
       <S.IconButtonInteraction
         interactionVariant={interactionVariant}
         interactionColor={interactionColor}
+        interactiondisable={disable}
         tabIndex={0}
       >
         <S.IconButton
