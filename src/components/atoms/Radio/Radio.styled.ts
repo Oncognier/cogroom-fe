@@ -7,8 +7,8 @@ type RadioSize = 'sm' | 'md';
 
 export interface RadioStyleProps {
   size: RadioSize;
-  disable: boolean;
-  isChecked: boolean;
+  disable?: boolean;
+  isChecked?: boolean;
 }
 
 const RadioInteraction = styled(InteractionOverlay)`

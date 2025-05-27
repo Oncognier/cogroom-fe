@@ -11,7 +11,7 @@ type TextButtonSize = 'sm' | 'md' | 'lg';
 export interface TextButtonStyleProps {
   color: TextButtonColor;
   size: TextButtonSize;
-  disable: boolean;
+  disable?: boolean;
 }
 
 const TextButtonInteraction = styled(InteractionOverlay)`
