@@ -1,3 +1,5 @@
+'use client';
+
 import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
 
 import S, { RadioStyleProps } from './Radio.styled';

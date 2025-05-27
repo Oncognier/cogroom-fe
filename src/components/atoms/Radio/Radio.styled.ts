@@ -1,3 +1,5 @@
+'use client';
+
 import { SerializedStyles, css } from '@emotion/react';
 import styled from '@emotion/styled';
 
