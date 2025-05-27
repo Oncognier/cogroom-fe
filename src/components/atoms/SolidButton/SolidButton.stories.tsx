@@ -93,7 +93,6 @@ export const Primary: Story = {
     size: 'md',
     disable: false,
     interactionVariant: 'normal',
-    
     onClick: action('clicked'),
   },
 };
