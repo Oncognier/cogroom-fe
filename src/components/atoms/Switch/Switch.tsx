@@ -1,3 +1,5 @@
+'use client';
+
 import S, { SwitchStyleProps } from './Switch.styled';
 
 interface SwitchProps extends SwitchStyleProps {
