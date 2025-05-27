@@ -18,7 +18,7 @@ const TextButtonInteraction = styled(InteractionOverlay)`
   border-radius: ${({ theme }) => theme.radius[4]};
 `;
 
-const baseButtonStyles = (theme: Theme) => css`
+const commonStyles = (theme: Theme) => css`
   display: flex;
   align-items: center;
   gap: 4px;
@@ -59,7 +59,7 @@ const sizeStyles: Record<TextButtonSize, (theme: Theme) => SerializedStyles> = {
 };
 
 const TextButton = styled.div<TextButtonStyleProps>`
-  ${({ theme }) => baseButtonStyles(theme)};
+  ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color, disable }) => colorStyles[color](theme, disable)};
 `;
