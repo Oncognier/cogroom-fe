@@ -14,7 +14,7 @@ export interface IconButtonStyleProps {
 }
 
 const IconButtonInteraction = styled(InteractionOverlay)`
-  border-radius: 10000px;
+  border-radius: 50%;
 `;
 
 const commonStyles = (theme: Theme, disable?: boolean) => css`
@@ -22,7 +22,7 @@ const commonStyles = (theme: Theme, disable?: boolean) => css`
   align-items: center;
   justify-content: center;
 
-  border-radius: 10000px;
+  border-radius: 50%;
   border: none;
   background-color: transparent;
   color: ${disable ? theme.semantic.label.disable : theme.semantic.label.normal};
