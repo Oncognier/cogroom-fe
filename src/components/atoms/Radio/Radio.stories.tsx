@@ -37,12 +37,12 @@ const meta = {
     onToggle: { action: 'toggled' },
     interactionColor: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
     interactionDisabled: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
   },

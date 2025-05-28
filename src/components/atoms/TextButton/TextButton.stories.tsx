@@ -16,7 +16,7 @@ const meta = {
     },
     size: {
       control: 'radio',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'fillContainer'],
     },
     isDisabled: {
       control: 'boolean',
@@ -30,22 +30,22 @@ const meta = {
     onClick: { action: 'clicked' },
     interactionColor: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
     interactionDisabled: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
     iconLeft: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
     iconRight: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
   },

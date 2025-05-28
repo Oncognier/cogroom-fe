@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import InteractionOverlay from '@/styles/InteractionOverlay.styled';
 
 type TextButtonColor = 'primary' | 'assistive';
-type TextButtonSize = 'sm' | 'md' | 'lg';
+type TextButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
 
 export interface TextButtonStyleProps {
   color: TextButtonColor;
@@ -20,6 +20,7 @@ const TextButtonInteraction = styled(InteractionOverlay)`
 const commonStyles = (theme: Theme) => css`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
 
   border: none;
@@ -67,6 +68,10 @@ const sizeStyles: Record<TextButtonSize, (theme: Theme) => SerializedStyles> = {
   `,
   lg: (theme) => css`
     ${theme.typography.body1.semibold};
+  `,
+  fillContainer: (theme) => css`
+    ${theme.typography.body1.semibold};
+    width: 100%;
   `,
 };
 

@@ -34,12 +34,12 @@ const meta = {
     onClick: { action: 'clicked' },
     interactionColor: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
     interactionDisabled: {
       table: {
-        isDisabled: true,
+        disable: true,
       },
     },
   },
