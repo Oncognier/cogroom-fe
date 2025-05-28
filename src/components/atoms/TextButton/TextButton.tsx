@@ -10,6 +10,7 @@ interface TextButtonProps extends TextButtonStyleProps, InteractionStyleProps {
   label: string;
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
+  isDisabled?: boolean;
   onClick?: () => void;
 }
 
@@ -19,7 +20,7 @@ export default function TextButton({
   iconRight,
   color,
   size,
-  disable,
+  isDisabled,
   interactionVariant,
   onClick,
 }: TextButtonProps) {
@@ -37,14 +38,14 @@ export default function TextButton({
     <S.TextButtonInteraction
       interactionVariant={interactionVariant}
       interactionColor={interactionColor}
-      interactiondisable={disable}
+      interactionDisabled={isDisabled}
       tabIndex={0}
     >
       <S.TextButton
         size={size}
         color={color}
-        disable={disable}
-        onClick={disable ? undefined : onClick}
+        disabled={isDisabled}
+        onClick={isDisabled ? undefined : onClick}
       >
         <S.Icon>{iconLeft}</S.Icon>
         {label}

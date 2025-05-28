@@ -8,7 +8,7 @@ type SwitchSize = 'sm' | 'md';
 export interface SwitchStyleProps {
   size: SwitchSize;
   isActive?: boolean;
-  disable?: boolean;
+  isDisabled?: boolean;
 }
 
 const knobTranslateX = {
@@ -29,16 +29,18 @@ const sizeStyles: Record<SwitchSize, SerializedStyles> = {
 
 const Switch = styled.div<SwitchStyleProps>`
   ${({ size }) => sizeStyles[size]};
+
   display: flex;
   align-items: center;
+
   padding: 0.4rem;
   border-radius: 100rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
-
   background-color: ${({ isActive, theme }) => (isActive ? theme.semantic.primary.normal : theme.semantic.fill.strong)};
 
-  opacity: ${({ disable }) => (disable ? 0.43 : 1)};
+  transition: background-color 0.3s;
+  opacity: ${({ isDisabled }) => (isDisabled ? 0.43 : 1)};
+
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
 `;
 
 const Knob = styled.div<{ isActive?: boolean; size: SwitchSize }>`

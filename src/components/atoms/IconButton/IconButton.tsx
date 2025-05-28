@@ -8,6 +8,7 @@ import S, { IconButtonStyleProps } from './IconButton.styled';
 
 interface IconButtonProps extends IconButtonStyleProps, InteractionStyleProps {
   pushBadge?: boolean;
+  isDisabled?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
 }
@@ -15,7 +16,7 @@ interface IconButtonProps extends IconButtonStyleProps, InteractionStyleProps {
 export default function IconButton({
   variant,
   size,
-  disable,
+  isDisabled,
   interactionVariant,
   pushBadge,
   onClick,
@@ -28,13 +29,13 @@ export default function IconButton({
       <S.IconButtonInteraction
         interactionVariant={interactionVariant}
         interactionColor={theme.semantic.label.alternative}
-        interactiondisable={disable}
+        interactionDisabled={isDisabled}
         tabIndex={0}
       >
         <S.IconButton
           size={size}
           variant={variant}
-          disable={disable}
+          disabled={isDisabled}
           onClick={onClick}
         >
           {children}

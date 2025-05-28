@@ -14,7 +14,7 @@ interface RadioProps extends RadioStyleProps, InteractionStyleProps {
 
 export default function Radio({
   size,
-  disable,
+  isDisabled,
   isChecked,
   onToggle,
   required = false,
@@ -24,7 +24,7 @@ export default function Radio({
   const theme = useTheme();
 
   const handleClick = () => {
-    if (!disable) {
+    if (!isDisabled) {
       onToggle(!isChecked);
     }
   };
@@ -37,21 +37,24 @@ export default function Radio({
     <S.RadioInteraction
       interactionVariant={interactionVariant}
       interactionColor={theme.semantic.label.normal}
-      interactiondisable={disable}
+      interactionDisabled={isDisabled}
       tabIndex={0}
     >
-      <S.RadioContainer onClick={handleClick}>
+      <S.RadioContainer
+        isDisabled={isDisabled}
+        onClick={handleClick}
+      >
         <S.HiddenRadio
           type='radio'
           checked={isChecked}
           onChange={handleChange}
-          disabled={disable}
+          disabled={isDisabled}
           name={name}
           required={required}
         />
         <S.RadioOuter
           size={size}
-          disable={disable}
+          isDisabled={isDisabled}
           isChecked={isChecked}
         >
           <S.RadioInner />

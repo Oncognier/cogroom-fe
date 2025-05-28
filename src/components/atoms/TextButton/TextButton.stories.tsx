@@ -18,7 +18,7 @@ const meta = {
       control: 'radio',
       options: ['sm', 'md', 'lg'],
     },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '버튼 비활성화 여부',
       defaultValue: false,
@@ -30,22 +30,22 @@ const meta = {
     onClick: { action: 'clicked' },
     interactionColor: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
-    interactiondisable: {
+    interactionDisabled: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
     iconLeft: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
     iconRight: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
   },
@@ -59,7 +59,7 @@ export const NoIcon: Story = {
     label: 'Label only',
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
   },
@@ -71,7 +71,7 @@ export const LeftIconOnly: Story = {
     iconLeft: <Blank />,
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
   },
@@ -83,7 +83,7 @@ export const RightIconOnly: Story = {
     iconRight: <Blank />,
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
   },
@@ -96,7 +96,7 @@ export const Primary: Story = {
     iconRight: <Blank />,
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
   },
@@ -109,7 +109,7 @@ export const Assistive: Story = {
     iconRight: <Blank />,
     color: 'assistive',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'light',
     onClick: action('clicked'),
   },

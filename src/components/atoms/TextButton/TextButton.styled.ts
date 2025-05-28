@@ -11,7 +11,6 @@ type TextButtonSize = 'sm' | 'md' | 'lg';
 export interface TextButtonStyleProps {
   color: TextButtonColor;
   size: TextButtonSize;
-  disable?: boolean;
 }
 
 const TextButtonInteraction = styled(InteractionOverlay)`
@@ -35,14 +34,27 @@ const commonStyles = (theme: Theme) => css`
   &:focus {
     outline: none;
   }
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+  }
 `;
 
-const colorStyles: Record<TextButtonColor, (theme: Theme, disable?: boolean) => SerializedStyles> = {
-  primary: (theme, disable) => css`
-    color: ${disable ? theme.semantic.label.assistive : theme.semantic.primary.normal};
+const colorStyles: Record<TextButtonColor, (theme: Theme) => SerializedStyles> = {
+  primary: (theme) => css`
+    color: ${theme.semantic.primary.normal};
+
+    &:disabled {
+      color: ${theme.semantic.label.assistive};
+    }
   `,
-  assistive: (theme, disable) => css`
-    color: ${disable ? theme.semantic.label.assistive : theme.semantic.label.alternative};
+  assistive: (theme) => css`
+    color: ${theme.semantic.label.alternative};
+
+    &:disabled {
+      color: ${theme.semantic.label.assistive};
+    }
   `,
 };
 
@@ -58,10 +70,10 @@ const sizeStyles: Record<TextButtonSize, (theme: Theme) => SerializedStyles> = {
   `,
 };
 
-const TextButton = styled.div<TextButtonStyleProps>`
+const TextButton = styled.button<TextButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
-  ${({ theme, color, disable }) => colorStyles[color](theme, disable)};
+  ${({ theme, color }) => colorStyles[color](theme)};
 `;
 
 const Icon = styled.div`

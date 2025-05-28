@@ -13,7 +13,7 @@ const meta = {
       control: 'radio',
       options: ['sm', 'md'],
     },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '라디오 비활성화 여부',
       defaultValue: false,
@@ -37,12 +37,12 @@ const meta = {
     onToggle: { action: 'toggled' },
     interactionColor: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
-    interactiondisable: {
+    interactionDisabled: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
   },
@@ -55,7 +55,7 @@ export const Default: Story = {
   args: {
     size: 'md',
     isChecked: false,
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
     required: false,
     onToggle: () => {},

@@ -21,7 +21,7 @@ const meta = {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
     },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '버튼 비활성화 여부',
       defaultValue: false,
@@ -34,12 +34,12 @@ const meta = {
     onClick: { action: 'clicked' },
     interactionColor: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
-    interactiondisable: {
+    interactionDisabled: {
       table: {
-        disable: true,
+        isDisabled: true,
       },
     },
   },
@@ -53,7 +53,7 @@ export const Normal: Story = {
     variant: 'normal',
     size: '40px',
     interactionVariant: 'normal',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),
@@ -65,7 +65,7 @@ export const Outlined: Story = {
     variant: 'outlined',
     size: '40px',
     interactionVariant: 'light',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),
@@ -77,7 +77,7 @@ export const Solid: Story = {
     variant: 'solid',
     size: '40px',
     interactionVariant: 'strong',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),
@@ -89,7 +89,7 @@ export const Background: Story = {
     variant: 'background',
     size: '40px',
     interactionVariant: 'normal',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),
