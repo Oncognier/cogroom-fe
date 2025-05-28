@@ -74,12 +74,12 @@ const Container = styled.div`
 
 const PushBadge = styled.div`
   position: absolute;
-  top: 8%;
-  right: 8%;
+  top: 12%;
+  right: 12%;
 
   width: 0.4rem;
   height: 0.4rem;
-  border-radius: 0.2rem;
+  border-radius: 50%;
   background-color: ${({ theme }) => theme.semantic.primary.normal};
 `;
 
