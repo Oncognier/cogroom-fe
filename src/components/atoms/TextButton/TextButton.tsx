@@ -1,5 +1,7 @@
 'use client';
 
+import { useTheme } from '@emotion/react';
+
 import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
 
 import S, { TextButtonStyleProps } from './TextButton.styled';
@@ -19,9 +21,18 @@ export default function TextButton({
   size,
   disable,
   interactionVariant,
-  interactionColor,
   onClick,
 }: TextButtonProps) {
+  const theme = useTheme();
+
+  let interactionColor;
+
+  if (color === 'primary') {
+    interactionColor = theme.semantic.primary.normal;
+  } else if (color === 'assistive') {
+    interactionColor = theme.semantic.label.alternative;
+  }
+
   return (
     <S.TextButtonInteraction
       interactionVariant={interactionVariant}

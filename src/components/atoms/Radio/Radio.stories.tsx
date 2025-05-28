@@ -26,11 +26,6 @@ const meta = {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
     },
-    interactionColor: {
-      control: 'color',
-      description: '인터랙션 오버레이 색상',
-      defaultValue: '#171719',
-    },
     required: {
       control: 'boolean',
       defaultValue: false,
@@ -40,6 +35,11 @@ const meta = {
       defaultValue: 'radio-group',
     },
     onToggle: { action: 'toggled' },
+    interactionColor: {
+      table: {
+        disable: true,
+      },
+    },
     interactiondisable: {
       table: {
         disable: true,
@@ -57,7 +57,6 @@ export const Default: Story = {
     isChecked: false,
     disable: false,
     interactionVariant: 'normal',
-    interactionColor: '#171719',
     required: false,
     onToggle: () => {},
     name: 'radio-default',

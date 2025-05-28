@@ -27,12 +27,12 @@ const meta = {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
     },
-    interactionColor: {
-      control: 'color',
-      description: '인터랙션 오버레이 색상',
-      defaultValue: 'rgba(55, 56, 60, 0.61)',
-    },
     onClick: { action: 'clicked' },
+    interactionColor: {
+      table: {
+        disable: true,
+      },
+    },
     interactiondisable: {
       table: {
         disable: true,
@@ -61,7 +61,6 @@ export const NoIcon: Story = {
     size: 'md',
     disable: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -74,7 +73,6 @@ export const LeftIconOnly: Story = {
     size: 'md',
     disable: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -87,7 +85,6 @@ export const RightIconOnly: Story = {
     size: 'md',
     disable: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -101,7 +98,6 @@ export const Primary: Story = {
     size: 'md',
     disable: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -115,7 +111,6 @@ export const Assistive: Story = {
     size: 'md',
     disable: false,
     interactionVariant: 'light',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
     onClick: action('clicked'),
   },
 };

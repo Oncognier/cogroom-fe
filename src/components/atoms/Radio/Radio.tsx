@@ -1,5 +1,7 @@
 'use client';
 
+import { useTheme } from '@emotion/react';
+
 import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
 
 import S, { RadioStyleProps } from './Radio.styled';
@@ -18,8 +20,9 @@ export default function Radio({
   required = false,
   name,
   interactionVariant,
-  interactionColor,
 }: RadioProps) {
+  const theme = useTheme();
+
   const handleClick = () => {
     if (!disable) {
       onToggle(!isChecked);
@@ -33,7 +36,7 @@ export default function Radio({
   return (
     <S.RadioInteraction
       interactionVariant={interactionVariant}
-      interactionColor={interactionColor}
+      interactionColor={theme.semantic.label.normal}
       interactiondisable={disable}
       tabIndex={0}
     >
