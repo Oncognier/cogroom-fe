@@ -23,10 +23,10 @@ const commonStyles = (theme: Theme, disable?: boolean) => css`
   justify-content: center;
 
   border-radius: 50%;
-  border: none;
+  border: 1px solid transparent;
   background-color: transparent;
   color: ${disable ? theme.semantic.label.disable : theme.semantic.label.normal};
-  padding: 0.8rem;
+  padding: 0.7rem;
 
   &:hover {
     cursor: pointer;
@@ -47,16 +47,17 @@ const variantStyles: {
 } = {
   normal: () => css``,
   background: (theme: Theme) => css`
-    padding: 0.4rem;
+    padding: 0.5rem;
     background-color: ${theme.semantic.fill.normal};
+    border-color: ${theme.semantic.fill.normal};
   `,
   outlined: (theme: Theme) => css`
-    padding: 0.7rem;
-    border: 1px solid ${theme.semantic.line.normal};
+    border-color: ${theme.semantic.line.normal};
   `,
   solid: (theme: Theme, disable?: boolean) => css`
     background-color: ${disable ? theme.semantic.interaction.disable : theme.semantic.primary.normal};
     color: ${disable ? theme.semantic.label.disable : theme.semantic.static.white};
+    border-color: ${disable ? theme.semantic.interaction.disable : theme.semantic.primary.normal};
   `,
 };
 
