@@ -35,16 +35,6 @@ const meta = {
       defaultValue: 'radio-group',
     },
     onToggle: { action: 'toggled' },
-    interactionColor: {
-      table: {
-        disable: true,
-      },
-    },
-    interactionDisabled: {
-      table: {
-        disable: true,
-      },
-    },
   },
 } satisfies Meta<typeof Radio>;
 

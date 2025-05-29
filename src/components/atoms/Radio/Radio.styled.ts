@@ -1,9 +1,9 @@
 'use client';
 
-import { SerializedStyles, css } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import InteractionOverlay from '@/styles/InteractionOverlay.styled';
+import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type RadioSize = 'sm' | 'md';
 
@@ -11,11 +11,8 @@ export interface RadioStyleProps {
   size: RadioSize;
   isDisabled?: boolean;
   isChecked?: boolean;
+  interactionVariant: InteractionVariant;
 }
-
-const RadioInteraction = styled(InteractionOverlay)`
-  border-radius: 50%;
-`;
 
 const sizeStyles: Record<RadioSize, SerializedStyles> = {
   sm: css`
@@ -26,29 +23,35 @@ const sizeStyles: Record<RadioSize, SerializedStyles> = {
   `,
 };
 
-const RadioContainer = styled.div<{ isDisabled?: boolean }>`
+const RadioContainer = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
 `;
 
-const RadioOuter = styled.div<RadioStyleProps>`
+const RadioOuter = styled.button<RadioStyleProps>`
+  ${({ size }) => sizeStyles[size]};
+  ${({ theme, interactionVariant, isDisabled }) =>
+    getInteraction(interactionVariant, theme.semantic.label.normal, isDisabled)(theme)};
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  ${({ size }) => sizeStyles[size]};
-
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   border-radius: 50%;
   border: 0.1rem solid
     ${({ isChecked, theme }) => (isChecked ? theme.semantic.primary.normal : theme.semantic.line.normal)};
   background-color: ${({ isChecked, theme }) => (isChecked ? theme.semantic.primary.normal : 'transparent')};
-
   opacity: ${({ isDisabled }) => (isDisabled ? 0.4 : 1)};
+
   transition: all 0.2s ease;
+
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const RadioInner = styled.div`
@@ -72,7 +75,6 @@ const HiddenRadio = styled.input`
 `;
 
 const S = {
-  RadioInteraction,
   RadioContainer,
   RadioOuter,
   RadioInner,

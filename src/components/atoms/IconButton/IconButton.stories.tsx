@@ -32,16 +32,6 @@ const meta = {
       defaultValue: false,
     },
     onClick: { action: 'clicked' },
-    interactionColor: {
-      table: {
-        disable: true,
-      },
-    },
-    interactionDisabled: {
-      table: {
-        disable: true,
-      },
-    },
   },
 } satisfies Meta<typeof IconButton>;
 

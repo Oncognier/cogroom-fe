@@ -28,16 +28,6 @@ const meta = {
       options: ['normal', 'light', 'strong'],
     },
     onClick: { action: 'clicked' },
-    interactionColor: {
-      table: {
-        disable: true,
-      },
-    },
-    interactionDisabled: {
-      table: {
-        disable: true,
-      },
-    },
     iconLeft: {
       table: {
         disable: true,

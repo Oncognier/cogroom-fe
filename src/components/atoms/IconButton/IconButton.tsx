@@ -1,12 +1,8 @@
 'use client';
 
-import { useTheme } from '@emotion/react';
-
-import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
-
 import S, { IconButtonStyleProps } from './IconButton.styled';
 
-interface IconButtonProps extends IconButtonStyleProps, InteractionStyleProps {
+interface IconButtonProps extends IconButtonStyleProps {
   pushBadge?: boolean;
   isDisabled?: boolean;
   onClick?: () => void;
@@ -22,25 +18,17 @@ export default function IconButton({
   onClick,
   children,
 }: IconButtonProps) {
-  const theme = useTheme();
-
   return (
     <S.Container>
-      <S.IconButtonInteraction
+      <S.IconButton
+        size={size}
+        variant={variant}
+        disabled={isDisabled}
         interactionVariant={interactionVariant}
-        interactionColor={theme.semantic.label.alternative}
-        interactionDisabled={isDisabled}
-        tabIndex={0}
+        onClick={onClick}
       >
-        <S.IconButton
-          size={size}
-          variant={variant}
-          disabled={isDisabled}
-          onClick={onClick}
-        >
-          {children}
-        </S.IconButton>
-      </S.IconButtonInteraction>
+        {children}
+      </S.IconButton>
       {pushBadge && <S.PushBadge />}
     </S.Container>
   );
