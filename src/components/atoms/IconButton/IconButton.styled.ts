@@ -1,20 +1,17 @@
 'use client';
 
-import { SerializedStyles, Theme, css } from '@emotion/react';
+import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import InteractionOverlay from '@/styles/InteractionOverlay.styled';
+import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type IconButtonVariant = 'normal' | 'background' | 'outlined' | 'solid';
 
 export interface IconButtonStyleProps {
   size: string;
   variant: IconButtonVariant;
+  interactionVariant: InteractionVariant;
 }
-
-const IconButtonInteraction = styled(InteractionOverlay)`
-  border-radius: 50%;
-`;
 
 const commonStyles = (theme: Theme) => css`
   display: flex;
@@ -46,22 +43,20 @@ const sizeStyles = (size: string) => css`
   height: ${size};
 `;
 
-const variantStyles: {
-  [key in IconButtonVariant]: (theme: Theme) => SerializedStyles;
-} = {
+const variantStyles: Record<IconButtonVariant, (theme: Theme) => SerializedStyles> = {
   normal: () => css``,
 
-  background: (theme: Theme) => css`
+  background: (theme) => css`
     padding: 0.5rem;
     background-color: ${theme.semantic.fill.normal};
     border-color: ${theme.semantic.fill.normal};
   `,
 
-  outlined: (theme: Theme) => css`
+  outlined: (theme) => css`
     border-color: ${theme.semantic.line.normal};
   `,
 
-  solid: (theme: Theme) => css`
+  solid: (theme) => css`
     background-color: ${theme.semantic.primary.normal};
     color: ${theme.semantic.static.white};
     border-color: ${theme.semantic.primary.normal};
@@ -78,6 +73,8 @@ const IconButton = styled.button<IconButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ size }) => sizeStyles(size)};
   ${({ variant, theme }) => variantStyles[variant](theme)};
+  ${({ theme, interactionVariant, disabled }) =>
+    getInteraction(interactionVariant, theme.semantic.label.alternative, disabled)(theme)};
 `;
 
 const Container = styled.div`
@@ -89,7 +86,6 @@ const PushBadge = styled.div`
   position: absolute;
   top: 12%;
   right: 12%;
-
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
@@ -97,7 +93,6 @@ const PushBadge = styled.div`
 `;
 
 const S = {
-  IconButtonInteraction,
   IconButton,
   Container,
   PushBadge,

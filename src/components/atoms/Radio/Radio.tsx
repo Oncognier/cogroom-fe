@@ -1,12 +1,8 @@
 'use client';
 
-import { useTheme } from '@emotion/react';
-
-import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
-
 import S, { RadioStyleProps } from './Radio.styled';
 
-interface RadioProps extends RadioStyleProps, InteractionStyleProps {
+interface RadioProps extends RadioStyleProps {
   onToggle: (checked: boolean) => void;
   required?: boolean;
   name?: string;
@@ -21,45 +17,30 @@ export default function Radio({
   name,
   interactionVariant,
 }: RadioProps) {
-  const theme = useTheme();
-
   const handleClick = () => {
     if (!isDisabled) {
       onToggle(!isChecked);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onToggle(e.target.checked);
-  };
-
   return (
-    <S.RadioInteraction
-      interactionVariant={interactionVariant}
-      interactionColor={theme.semantic.label.normal}
-      interactionDisabled={isDisabled}
-      tabIndex={0}
-    >
-      <S.RadioContainer
+    <S.RadioContainer onClick={handleClick}>
+      <S.HiddenRadio
+        type='radio'
+        checked={isChecked}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToggle(e.target.checked)}
+        disabled={isDisabled}
+        name={name}
+        required={required}
+      />
+      <S.RadioOuter
+        size={size}
         isDisabled={isDisabled}
-        onClick={handleClick}
+        isChecked={isChecked}
+        interactionVariant={interactionVariant}
       >
-        <S.HiddenRadio
-          type='radio'
-          checked={isChecked}
-          onChange={handleChange}
-          disabled={isDisabled}
-          name={name}
-          required={required}
-        />
-        <S.RadioOuter
-          size={size}
-          isDisabled={isDisabled}
-          isChecked={isChecked}
-        >
-          <S.RadioInner />
-        </S.RadioOuter>
-      </S.RadioContainer>
-    </S.RadioInteraction>
+        <S.RadioInner />
+      </S.RadioOuter>
+    </S.RadioContainer>
   );
 }

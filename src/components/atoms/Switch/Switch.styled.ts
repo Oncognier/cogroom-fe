@@ -27,7 +27,7 @@ const sizeStyles: Record<SwitchSize, SerializedStyles> = {
   `,
 };
 
-const Switch = styled.div<SwitchStyleProps>`
+const Switch = styled.button<SwitchStyleProps>`
   ${({ size }) => sizeStyles[size]};
 
   display: flex;
@@ -41,6 +41,10 @@ const Switch = styled.div<SwitchStyleProps>`
   opacity: ${({ isDisabled }) => (isDisabled ? 0.43 : 1)};
 
   cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Knob = styled.div<{ isActive?: boolean; size: SwitchSize }>`

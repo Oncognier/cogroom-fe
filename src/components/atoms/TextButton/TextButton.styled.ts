@@ -3,7 +3,7 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import InteractionOverlay from '@/styles/InteractionOverlay.styled';
+import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type TextButtonColor = 'primary' | 'assistive';
 type TextButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
@@ -11,11 +11,8 @@ type TextButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
 export interface TextButtonStyleProps {
   color: TextButtonColor;
   size: TextButtonSize;
+  interactionVariant: InteractionVariant;
 }
-
-const TextButtonInteraction = styled(InteractionOverlay)`
-  border-radius: ${({ theme }) => theme.radius[4]};
-`;
 
 const commonStyles = (theme: Theme) => css`
   display: flex;
@@ -45,14 +42,12 @@ const commonStyles = (theme: Theme) => css`
 const colorStyles: Record<TextButtonColor, (theme: Theme) => SerializedStyles> = {
   primary: (theme) => css`
     color: ${theme.semantic.primary.normal};
-
     &:disabled {
       color: ${theme.semantic.label.assistive};
     }
   `,
   assistive: (theme) => css`
     color: ${theme.semantic.label.alternative};
-
     &:disabled {
       color: ${theme.semantic.label.assistive};
     }
@@ -75,10 +70,21 @@ const sizeStyles: Record<TextButtonSize, (theme: Theme) => SerializedStyles> = {
   `,
 };
 
+const getInteractionColor = (theme: Theme, color: TextButtonColor) => {
+  if (color === 'primary') {
+    return theme.semantic.primary.normal;
+  }
+  if (color === 'assistive') {
+    return theme.semantic.label.alternative;
+  }
+};
+
 const TextButton = styled.button<TextButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => colorStyles[color](theme)};
+  ${({ theme, interactionVariant, disabled, color }) =>
+    getInteraction(interactionVariant, getInteractionColor(theme, color), disabled)(theme)};
 `;
 
 const Icon = styled.div`
@@ -93,7 +99,6 @@ const Icon = styled.div`
 `;
 
 const S = {
-  TextButtonInteraction,
   TextButton,
   Icon,
 };
