@@ -3,18 +3,14 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import InteractionOverlay from '@/styles/InteractionOverlay.styled';
+import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
-type SolidButtonSize = 'sm' | 'md' | 'lg';
+type SolidButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
 
 export interface SolidButtonStyleProps {
   size: SolidButtonSize;
-  disable?: boolean;
+  interactionVariant: InteractionVariant;
 }
-
-const SolidButtonInteraction = styled(InteractionOverlay)`
-  border-radius: ${({ theme }) => theme.radius[4]};
-`;
 
 const commonStyles = (theme: Theme) => css`
   display: flex;
@@ -31,6 +27,17 @@ const commonStyles = (theme: Theme) => css`
   &:hover {
     cursor: pointer;
   }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: ${theme.semantic.interaction.disable};
+    color: ${theme.semantic.label.assistive};
+    cursor: default;
+    pointer-events: none;
+  }
 `;
 
 const sizeStyles: Record<SolidButtonSize, (theme: Theme) => SerializedStyles> = {
@@ -43,17 +50,17 @@ const sizeStyles: Record<SolidButtonSize, (theme: Theme) => SerializedStyles> = 
   lg: (theme) => css`
     ${theme.typography.body1.semibold}
   `,
+  fillContainer: (theme) => css`
+    ${theme.typography.body1.semibold};
+    width: 100%;
+  `,
 };
-
-const colorStyles: (theme: Theme, disable?: boolean) => SerializedStyles = (theme, disable) => css`
-  background-color: ${disable ? theme.semantic.interaction.disable : theme.semantic.primary.normal};
-  color: ${disable ? theme.semantic.label.assistive : theme.semantic.static.white};
-`;
 
 const SolidButton = styled.button<SolidButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
-  ${({ theme, disable }) => colorStyles(theme, disable)};
+  ${({ theme, interactionVariant, disabled }) =>
+    getInteraction(interactionVariant, theme.semantic.label.alternative, disabled)(theme)};
 `;
 
 const Icon = styled.div`
@@ -68,7 +75,6 @@ const Icon = styled.div`
 `;
 
 const S = {
-  SolidButtonInteraction,
   SolidButton,
   Icon,
 };

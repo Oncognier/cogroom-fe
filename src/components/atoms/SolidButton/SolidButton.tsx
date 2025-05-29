@@ -1,11 +1,10 @@
-import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
-
 import S, { SolidButtonStyleProps } from './SolidButton.styled';
 
-interface SolidButtonProps extends SolidButtonStyleProps, InteractionStyleProps {
+interface SolidButtonProps extends SolidButtonStyleProps {
   label: string;
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
+  isDisabled?: boolean;
   onClick?: () => void;
 }
 
@@ -14,27 +13,20 @@ export default function SolidButton({
   iconLeft,
   iconRight,
   size,
-  disable,
-  interactionVariant,
-  interactionColor,
-  interactiondisable,
+  isDisabled,
   onClick,
+  interactionVariant,
 }: SolidButtonProps) {
   return (
-    <S.SolidButtonInteraction
+    <S.SolidButton
+      size={size}
+      disabled={isDisabled}
+      onClick={onClick}
       interactionVariant={interactionVariant}
-      interactionColor={interactionColor}
-      interactiondisable={interactiondisable}
     >
-      <S.SolidButton
-        size={size}
-        disable={disable}
-        onClick={disable ? undefined : onClick}
-      >
-        <S.Icon>{iconLeft}</S.Icon>
-        {label}
-        <S.Icon>{iconRight}</S.Icon>
-      </S.SolidButton>
-    </S.SolidButtonInteraction>
+      <S.Icon>{iconLeft}</S.Icon>
+      {label}
+      <S.Icon>{iconRight}</S.Icon>
+    </S.SolidButton>
   );
 }

@@ -12,27 +12,17 @@ const meta = {
   argTypes: {
     size: {
       control: 'radio',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'fillContainer'],
     },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '버튼 비활성화 여부',
       defaultValue: false,
     },
+    onClick: { action: 'clicked' },
     interactionVariant: {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
-    },
-    interactionColor: {
-      control: 'color',
-      description: '인터랙션 오버레이 색상',
-      defaultValue: 'rgba(55, 56, 60, 0.61)',
-    },
-    onClick: { action: 'clicked' },
-    interactiondisable: {
-      table: {
-        disable: true,
-      },
     },
     iconLeft: {
       table: {
@@ -54,9 +44,8 @@ export const NoIcon: Story = {
   args: {
     label: 'Label',
     size: 'md',
-    disable: false,
-    interactionVariant: 'normal',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
+    isDisabled: false,
+    interactionVariant: 'strong',
     onClick: action('clicked'),
   },
 };
@@ -66,9 +55,8 @@ export const LeftIconOnly: Story = {
     label: 'Label',
     iconLeft: <Blank />,
     size: 'md',
-    disable: false,
-    interactionVariant: 'normal',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
+    isDisabled: false,
+    interactionVariant: 'strong',
     onClick: action('clicked'),
   },
 };
@@ -78,9 +66,8 @@ export const RightIconOnly: Story = {
     label: 'Label',
     iconRight: <Blank />,
     size: 'md',
-    disable: false,
-    interactionVariant: 'normal',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
+    isDisabled: false,
+    interactionVariant: 'strong',
     onClick: action('clicked'),
   },
 };
@@ -91,8 +78,8 @@ export const Primary: Story = {
     iconLeft: <Blank />,
     iconRight: <Blank />,
     size: 'md',
-    disable: false,
-    interactionVariant: 'normal',
+    isDisabled: false,
+    interactionVariant: 'strong',
     onClick: action('clicked'),
   },
 };
