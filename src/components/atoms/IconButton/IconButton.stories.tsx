@@ -21,12 +21,7 @@ const meta = {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
     },
-    interactionColor: {
-      control: 'color',
-      description: '인터랙션 오버레이의 색상입니다.',
-      defaultValue: 'rgba(55, 56, 60, 0.61)',
-    },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '버튼 비활성화 여부',
       defaultValue: false,
@@ -37,7 +32,12 @@ const meta = {
       defaultValue: false,
     },
     onClick: { action: 'clicked' },
-    interactiondisable: {
+    interactionColor: {
+      table: {
+        disable: true,
+      },
+    },
+    interactionDisabled: {
       table: {
         disable: true,
       },
@@ -53,8 +53,7 @@ export const Normal: Story = {
     variant: 'normal',
     size: '40px',
     interactionVariant: 'normal',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),
@@ -66,8 +65,7 @@ export const Outlined: Story = {
     variant: 'outlined',
     size: '40px',
     interactionVariant: 'light',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),
@@ -79,8 +77,7 @@ export const Solid: Story = {
     variant: 'solid',
     size: '40px',
     interactionVariant: 'strong',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),
@@ -92,8 +89,7 @@ export const Background: Story = {
     variant: 'background',
     size: '40px',
     interactionVariant: 'normal',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
-    disable: false,
+    isDisabled: false,
     pushBadge: false,
     children: <Blank />,
     onClick: action('clicked'),

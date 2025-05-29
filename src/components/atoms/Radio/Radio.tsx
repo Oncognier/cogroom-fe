@@ -1,5 +1,7 @@
 'use client';
 
+import { useTheme } from '@emotion/react';
+
 import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
 
 import S, { RadioStyleProps } from './Radio.styled';
@@ -12,16 +14,17 @@ interface RadioProps extends RadioStyleProps, InteractionStyleProps {
 
 export default function Radio({
   size,
-  disable,
+  isDisabled,
   isChecked,
   onToggle,
   required = false,
   name,
   interactionVariant,
-  interactionColor,
 }: RadioProps) {
+  const theme = useTheme();
+
   const handleClick = () => {
-    if (!disable) {
+    if (!isDisabled) {
       onToggle(!isChecked);
     }
   };
@@ -33,22 +36,25 @@ export default function Radio({
   return (
     <S.RadioInteraction
       interactionVariant={interactionVariant}
-      interactionColor={interactionColor}
-      interactiondisable={disable}
+      interactionColor={theme.semantic.label.normal}
+      interactionDisabled={isDisabled}
       tabIndex={0}
     >
-      <S.RadioContainer onClick={handleClick}>
+      <S.RadioContainer
+        isDisabled={isDisabled}
+        onClick={handleClick}
+      >
         <S.HiddenRadio
           type='radio'
           checked={isChecked}
           onChange={handleChange}
-          disabled={disable}
+          disabled={isDisabled}
           name={name}
           required={required}
         />
         <S.RadioOuter
           size={size}
-          disable={disable}
+          isDisabled={isDisabled}
           isChecked={isChecked}
         >
           <S.RadioInner />

@@ -10,23 +10,22 @@ type IconButtonVariant = 'normal' | 'background' | 'outlined' | 'solid';
 export interface IconButtonStyleProps {
   size: string;
   variant: IconButtonVariant;
-  disable?: boolean;
 }
 
 const IconButtonInteraction = styled(InteractionOverlay)`
   border-radius: 50%;
 `;
 
-const commonStyles = (theme: Theme, disable?: boolean) => css`
+const commonStyles = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: center;
 
   border-radius: 50%;
-  border: none;
+  border: 1px solid transparent;
   background-color: transparent;
-  color: ${disable ? theme.semantic.label.disable : theme.semantic.label.normal};
-  padding: 0.8rem;
+  color: ${theme.semantic.label.normal};
+  padding: 0.7rem;
 
   &:hover {
     cursor: pointer;
@@ -34,6 +33,11 @@ const commonStyles = (theme: Theme, disable?: boolean) => css`
 
   &:focus {
     outline: none;
+  }
+
+  &:disabled {
+    color: ${theme.semantic.label.disable};
+    cursor: default;
   }
 `;
 
@@ -43,27 +47,37 @@ const sizeStyles = (size: string) => css`
 `;
 
 const variantStyles: {
-  [key in IconButtonVariant]: (theme: Theme, disable?: boolean) => SerializedStyles;
+  [key in IconButtonVariant]: (theme: Theme) => SerializedStyles;
 } = {
   normal: () => css``,
+
   background: (theme: Theme) => css`
-    padding: 0.4rem;
+    padding: 0.5rem;
     background-color: ${theme.semantic.fill.normal};
+    border-color: ${theme.semantic.fill.normal};
   `,
+
   outlined: (theme: Theme) => css`
-    padding: 0.7rem;
-    border: 1px solid ${theme.semantic.line.normal};
+    border-color: ${theme.semantic.line.normal};
   `,
-  solid: (theme: Theme, disable?: boolean) => css`
-    background-color: ${disable ? theme.semantic.interaction.disable : theme.semantic.primary.normal};
-    color: ${disable ? theme.semantic.label.disable : theme.semantic.static.white};
+
+  solid: (theme: Theme) => css`
+    background-color: ${theme.semantic.primary.normal};
+    color: ${theme.semantic.static.white};
+    border-color: ${theme.semantic.primary.normal};
+
+    &:disabled {
+      background-color: ${theme.semantic.interaction.disable};
+      color: ${theme.semantic.label.disable};
+      border-color: ${theme.semantic.interaction.disable};
+    }
   `,
 };
 
 const IconButton = styled.button<IconButtonStyleProps>`
-  ${({ theme, disable }) => commonStyles(theme, disable)}
-  ${({ size }) => sizeStyles(size)}
-  ${({ variant, theme, disable }) => variantStyles[variant](theme, disable)}
+  ${({ theme }) => commonStyles(theme)};
+  ${({ size }) => sizeStyles(size)};
+  ${({ variant, theme }) => variantStyles[variant](theme)};
 `;
 
 const Container = styled.div`
@@ -73,12 +87,12 @@ const Container = styled.div`
 
 const PushBadge = styled.div`
   position: absolute;
-  top: 8%;
-  right: 8%;
+  top: 12%;
+  right: 12%;
 
   width: 0.4rem;
   height: 0.4rem;
-  border-radius: 0.2rem;
+  border-radius: 50%;
   background-color: ${({ theme }) => theme.semantic.primary.normal};
 `;
 

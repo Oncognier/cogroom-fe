@@ -9,7 +9,7 @@ type RadioSize = 'sm' | 'md';
 
 export interface RadioStyleProps {
   size: RadioSize;
-  disable?: boolean;
+  isDisabled?: boolean;
   isChecked?: boolean;
 }
 
@@ -26,11 +26,12 @@ const sizeStyles: Record<RadioSize, SerializedStyles> = {
   `,
 };
 
-const RadioContainer = styled.div`
+const RadioContainer = styled.div<{ isDisabled?: boolean }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
 `;
 
 const RadioOuter = styled.div<RadioStyleProps>`
@@ -46,7 +47,7 @@ const RadioOuter = styled.div<RadioStyleProps>`
     ${({ isChecked, theme }) => (isChecked ? theme.semantic.primary.normal : theme.semantic.line.normal)};
   background-color: ${({ isChecked, theme }) => (isChecked ? theme.semantic.primary.normal : 'transparent')};
 
-  opacity: ${({ disable }) => (disable ? 0.4 : 1)};
+  opacity: ${({ isDisabled }) => (isDisabled ? 0.4 : 1)};
   transition: all 0.2s ease;
 `;
 

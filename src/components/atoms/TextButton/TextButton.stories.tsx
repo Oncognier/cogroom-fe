@@ -16,9 +16,9 @@ const meta = {
     },
     size: {
       control: 'radio',
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'fillContainer'],
     },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '버튼 비활성화 여부',
       defaultValue: false,
@@ -27,13 +27,13 @@ const meta = {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
     },
-    interactionColor: {
-      control: 'color',
-      description: '인터랙션 오버레이 색상',
-      defaultValue: 'rgba(55, 56, 60, 0.61)',
-    },
     onClick: { action: 'clicked' },
-    interactiondisable: {
+    interactionColor: {
+      table: {
+        disable: true,
+      },
+    },
+    interactionDisabled: {
       table: {
         disable: true,
       },
@@ -59,9 +59,8 @@ export const NoIcon: Story = {
     label: 'Label only',
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -72,9 +71,8 @@ export const LeftIconOnly: Story = {
     iconLeft: <Blank />,
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -85,9 +83,8 @@ export const RightIconOnly: Story = {
     iconRight: <Blank />,
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -99,9 +96,8 @@ export const Primary: Story = {
     iconRight: <Blank />,
     color: 'primary',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
-    interactionColor: '#3067C1',
     onClick: action('clicked'),
   },
 };
@@ -113,9 +109,8 @@ export const Assistive: Story = {
     iconRight: <Blank />,
     color: 'assistive',
     size: 'md',
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'light',
-    interactionColor: 'rgba(55, 56, 60, 0.61)',
     onClick: action('clicked'),
   },
 };

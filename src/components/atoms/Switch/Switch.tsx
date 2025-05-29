@@ -6,12 +6,12 @@ interface SwitchProps extends SwitchStyleProps {
   onChange: () => void;
 }
 
-export default function Switch({ size, isActive, disable, onChange }: SwitchProps) {
+export default function Switch({ size, isActive, isDisabled, onChange }: SwitchProps) {
   return (
     <S.Switch
       size={size}
       isActive={isActive}
-      disable={disable}
+      isDisabled={isDisabled}
       onClick={onChange}
     >
       <S.Knob

@@ -17,7 +17,7 @@ const meta = {
       control: 'boolean',
       description: '활성 상태',
     },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '비활성화 상태',
     },
@@ -32,7 +32,7 @@ export const Default: Story = {
   args: {
     size: 'md',
     isActive: false,
-    disable: false,
+    isDisabled: false,
     onChange: () => {},
   },
   render: (args) => {
@@ -43,7 +43,7 @@ export const Default: Story = {
     }, [args.isActive]);
 
     const handleChange = () => {
-      if (!args.disable) {
+      if (!args.isDisabled) {
         const next = !active;
         action('toggled')(next);
         setActive(next);

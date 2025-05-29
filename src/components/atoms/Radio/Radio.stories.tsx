@@ -13,7 +13,7 @@ const meta = {
       control: 'radio',
       options: ['sm', 'md'],
     },
-    disable: {
+    isDisabled: {
       control: 'boolean',
       description: '라디오 비활성화 여부',
       defaultValue: false,
@@ -26,11 +26,6 @@ const meta = {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
     },
-    interactionColor: {
-      control: 'color',
-      description: '인터랙션 오버레이 색상',
-      defaultValue: '#171719',
-    },
     required: {
       control: 'boolean',
       defaultValue: false,
@@ -40,7 +35,12 @@ const meta = {
       defaultValue: 'radio-group',
     },
     onToggle: { action: 'toggled' },
-    interactiondisable: {
+    interactionColor: {
+      table: {
+        disable: true,
+      },
+    },
+    interactionDisabled: {
       table: {
         disable: true,
       },
@@ -55,9 +55,8 @@ export const Default: Story = {
   args: {
     size: 'md',
     isChecked: false,
-    disable: false,
+    isDisabled: false,
     interactionVariant: 'normal',
-    interactionColor: '#171719',
     required: false,
     onToggle: () => {},
     name: 'radio-default',
