@@ -1,11 +1,10 @@
-import { InteractionStyleProps } from '@/styles/InteractionOverlay.styled';
-
 import S, { OutlinedButtonStyleProps } from './OutlinedButton.styled';
 
-interface OutlinedButtonProps extends OutlinedButtonStyleProps, InteractionStyleProps {
+interface OutlinedButtonProps extends OutlinedButtonStyleProps {
   label: string;
   iconLeft?: React.ReactNode;
   iconRight?: React.ReactNode;
+  isDisabled?: boolean;
   onClick?: () => void;
 }
 
@@ -15,28 +14,21 @@ export default function OutlinedButton({
   iconRight,
   color,
   size,
-  disable,
-  interactionVariant,
-  interactionColor,
-  interactiondisable,
+  isDisabled,
   onClick,
+  interactionVariant,
 }: OutlinedButtonProps) {
   return (
-    <S.OutlinedButtonInteraction
+    <S.OutlinedButton
+      size={size}
+      color={color}
+      disabled={isDisabled}
+      onClick={onClick}
       interactionVariant={interactionVariant}
-      interactionColor={interactionColor}
-      interactiondisable={interactiondisable}
     >
-      <S.OutlinedButton
-        size={size}
-        color={color}
-        disable={disable}
-        onClick={disable ? undefined : onClick}
-      >
-        <S.Icon>{iconLeft}</S.Icon>
-        {label}
-        <S.Icon>{iconRight}</S.Icon>
-      </S.OutlinedButton>
-    </S.OutlinedButtonInteraction>
+      <S.Icon>{iconLeft}</S.Icon>
+      {label}
+      <S.Icon>{iconRight}</S.Icon>
+    </S.OutlinedButton>
   );
 }

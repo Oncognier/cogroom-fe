@@ -3,20 +3,16 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import InteractionOverlay from '@/styles/InteractionOverlay.styled';
+import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive';
-type OutlinedButtonSize = 'sm' | 'md' | 'lg';
+type OutlinedButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
 
 export interface OutlinedButtonStyleProps {
   color: OutlinedButtonColor;
   size: OutlinedButtonSize;
-  disable?: boolean;
+  interactionVariant: InteractionVariant;
 }
-
-const OutlinedButtonInteraction = styled(InteractionOverlay)`
-  border-radius: ${({ theme }) => theme.radius[4]};
-`;
 
 const commonStyles = (theme: Theme) => css`
   display: flex;
@@ -32,6 +28,11 @@ const commonStyles = (theme: Theme) => css`
   &:hover {
     cursor: pointer;
   }
+
+  &:disabled {
+    cursor: default;
+    pointer-events: none;
+  }
 `;
 
 const sizeStyles: Record<OutlinedButtonSize, (theme: Theme) => SerializedStyles> = {
@@ -44,33 +45,62 @@ const sizeStyles: Record<OutlinedButtonSize, (theme: Theme) => SerializedStyles>
   lg: (theme) => css`
     ${theme.typography.body1.semibold}
   `,
+  fillContainer: (theme) => css`
+    ${theme.typography.body1.semibold};
+    width: 100%;
+  `,
 };
 
 const colorStyles: Record<OutlinedButtonColor, (theme: Theme, disable?: boolean) => SerializedStyles> = {
-  primary: (theme, disable) => css`
-    border-color: ${disable ? theme.semantic.label.assistive : theme.semantic.primary.normal};
-    color: ${disable ? theme.semantic.label.assistive : theme.semantic.primary.normal};
-  `,
-  secondary: (theme, disable) => css`
-    border-color: ${disable ? theme.semantic.label.assistive : theme.semantic.interaction.inactive};
-    color: ${disable ? theme.semantic.label.assistive : theme.semantic.primary.normal};
-    &::after {
-      background-color: ${disable ? theme.semantic.label.assistive : theme.semantic.interaction.inactive};
+  primary: (theme) => css`
+    border-color: ${theme.semantic.primary.normal};
+    color: ${theme.semantic.primary.normal};
+
+    &:disabled {
+      border-color: ${theme.semantic.label.assistive};
+      color: ${theme.semantic.label.assistive};
     }
   `,
-  assistive: (theme, disable) => css`
-    border-color: ${disable ? theme.semantic.label.assistive : theme.semantic.interaction.inactive};
-    color: ${disable ? theme.semantic.label.assistive : theme.semantic.label.normal};
-    &::after {
-      background-color: ${disable ? theme.semantic.label.assistive : theme.semantic.interaction.inactive};
+
+  secondary: (theme) => css`
+    border-color: ${theme.semantic.interaction.inactive};
+    color: ${theme.semantic.primary.normal};
+
+    &:disabled {
+      border-color: ${theme.semantic.label.assistive};
+      color: ${theme.semantic.label.assistive};
     }
   `,
+
+  assistive: (theme) => css`
+    border-color: ${theme.semantic.interaction.inactive};
+    color: ${theme.semantic.label.normal};
+
+    &:disabled {
+      border-color: ${theme.semantic.label.assistive};
+      color: ${theme.semantic.label.assistive};
+    }
+  `,
+};
+
+const getInteractionColor = (theme: Theme, color: OutlinedButtonColor) => {
+  if (color === 'primary') {
+    return theme.semantic.primary.normal;
+  }
+  if (color === 'secondary') {
+    return theme.semantic.label.alternative;
+  }
+  if (color === 'assistive') {
+    return theme.semantic.label.alternative;
+  }
 };
 
 const OutlinedButton = styled.button<OutlinedButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
-  ${({ theme, color, disable }) => colorStyles[color](theme, disable)};
+  ${({ theme, color }) => colorStyles[color](theme)};
+  ${({ theme, interactionVariant, disabled, color }) =>
+    getInteraction(interactionVariant, getInteractionColor(theme, color), disabled)(theme)};
 `;
 
 const Icon = styled.div`
@@ -85,7 +115,6 @@ const Icon = styled.div`
 `;
 
 const S = {
-  OutlinedButtonInteraction,
   OutlinedButton,
   Icon,
 };
