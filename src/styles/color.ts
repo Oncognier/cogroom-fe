@@ -285,4 +285,4 @@ export const semantic = {
 
 export const brandColors = {
   kakao: '#FEE502',
-} as const
+} as const;
