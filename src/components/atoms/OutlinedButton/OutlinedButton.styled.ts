@@ -20,16 +20,18 @@ const commonStyles = (theme: Theme) => css`
   justify-content: center;
   gap: 4px;
 
-  border-radius: ${theme.radius[4]};
+  border-radius: ${theme.radius[12]};
   border: 1px solid ${theme.semantic.primary.normal};
   color: ${theme.semantic.primary.normal};
-  padding: 0.75rem 1.5rem;
+  padding: ${theme.spacing[12]} ${theme.spacing[24]};
 
   &:hover {
     cursor: pointer;
   }
 
   &:disabled {
+    border-color: ${theme.semantic.label.assistive};
+    color: ${theme.semantic.label.assistive};
     cursor: default;
     pointer-events: none;
   }
@@ -55,31 +57,16 @@ const colorStyles: Record<OutlinedButtonColor, (theme: Theme, disable?: boolean)
   primary: (theme) => css`
     border-color: ${theme.semantic.primary.normal};
     color: ${theme.semantic.primary.normal};
-
-    &:disabled {
-      border-color: ${theme.semantic.label.assistive};
-      color: ${theme.semantic.label.assistive};
-    }
   `,
 
   secondary: (theme) => css`
-    border-color: ${theme.semantic.interaction.inactive};
+    border-color: ${theme.semantic.label.assistive};
     color: ${theme.semantic.primary.normal};
-
-    &:disabled {
-      border-color: ${theme.semantic.label.assistive};
-      color: ${theme.semantic.label.assistive};
-    }
   `,
 
   assistive: (theme) => css`
-    border-color: ${theme.semantic.interaction.inactive};
+    border-color: ${theme.semantic.label.assistive};
     color: ${theme.semantic.label.normal};
-
-    &:disabled {
-      border-color: ${theme.semantic.label.assistive};
-      color: ${theme.semantic.label.assistive};
-    }
   `,
 };
 
@@ -87,12 +74,8 @@ const getInteractionColor = (theme: Theme, color: OutlinedButtonColor) => {
   if (color === 'primary') {
     return theme.semantic.primary.normal;
   }
-  if (color === 'secondary') {
-    return theme.semantic.label.alternative;
-  }
-  if (color === 'assistive') {
-    return theme.semantic.label.alternative;
-  }
+
+  return theme.semantic.interaction.inactive;
 };
 
 const OutlinedButton = styled.button<OutlinedButtonStyleProps>`

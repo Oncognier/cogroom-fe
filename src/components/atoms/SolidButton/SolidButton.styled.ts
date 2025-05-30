@@ -24,10 +24,10 @@ const commonStyles = (theme: Theme) => css`
   gap: 4px;
 
   border: none;
-  border-radius: ${theme.radius[4]};
+  border-radius: ${theme.radius[12]};
   background-color: ${theme.semantic.primary.normal};
   color: ${theme.semantic.static.white};
-  padding: 0.75rem 1.5rem;
+  padding: ${theme.spacing[12]} ${theme.spacing[24]};
 
   &:hover {
     cursor: pointer;
@@ -68,8 +68,12 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
   `,
   kakao: (theme) => css`
     background-color: ${theme.brandColors.kakao};
-    color: ${theme.semantic.static.black};
+    color: ${theme.semantic.label.normal};
   `,
+};
+
+const getInteractionColor = (theme: Theme) => {
+  return theme.semantic.label.normal;
 };
 
 const SolidButton = styled.button<SolidButtonStyleProps>`
@@ -77,7 +81,7 @@ const SolidButton = styled.button<SolidButtonStyleProps>`
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>
-    getInteraction(interactionVariant, theme.semantic.label.alternative, disabled)(theme)};
+    getInteraction(interactionVariant, getInteractionColor(theme), disabled)(theme)};
 `;
 
 const Icon = styled.div`
