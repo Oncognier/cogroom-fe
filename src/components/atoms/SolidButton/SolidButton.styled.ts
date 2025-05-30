@@ -3,8 +3,8 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
 import { brandColors } from '@/styles/color';
+import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type BrandColors = keyof typeof brandColors;
 
