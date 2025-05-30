@@ -24,6 +24,10 @@ const meta = {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
     },
+    color: {
+      control: 'radio',
+      options: ['primary', 'kakao'],
+    },
     iconLeft: {
       table: {
         disable: true,
@@ -80,6 +84,19 @@ export const Primary: Story = {
     size: 'md',
     isDisabled: false,
     interactionVariant: 'strong',
+    onClick: action('clicked'),
+  },
+};
+
+export const Kakao: Story = {
+  args: {
+    label: 'Label',
+    iconLeft: <Blank />,
+    iconRight: <Blank />,
+    size: 'md',
+    color: 'kakao',
+    isDisabled: false,
+    interactionVariant: 'normal',
     onClick: action('clicked'),
   },
 };

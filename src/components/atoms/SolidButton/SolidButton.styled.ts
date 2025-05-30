@@ -4,10 +4,15 @@ import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { brandColors } from '@/styles/color';
 
+type BrandColors = keyof typeof brandColors;
+
+type SolidButtonColor = 'primary' | BrandColors;
 type SolidButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
 
 export interface SolidButtonStyleProps {
+  color?: SolidButtonColor;
   size: SolidButtonSize;
   interactionVariant: InteractionVariant;
 }
@@ -56,9 +61,21 @@ const sizeStyles: Record<SolidButtonSize, (theme: Theme) => SerializedStyles> = 
   `,
 };
 
+const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> = {
+  primary: (theme) => css`
+    background-color: ${theme.semantic.primary.normal};
+    color: ${theme.semantic.static.white};
+  `,
+  kakao: (theme) => css`
+    background-color: ${theme.brandColors.kakao};
+    color: ${theme.semantic.static.black};
+  `,
+};
+
 const SolidButton = styled.button<SolidButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
+  ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>
     getInteraction(interactionVariant, theme.semantic.label.alternative, disabled)(theme)};
 `;
