@@ -282,3 +282,7 @@ export const semantic = {
     dimmer: 'rgba(23, 23, 25, 0.52)', // #171719 · 52%
   },
 } as const;
+
+export const brandColors = {
+  kakao: '#FEE502',
+} as const
