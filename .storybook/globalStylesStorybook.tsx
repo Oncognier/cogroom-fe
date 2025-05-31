@@ -1,8 +1,6 @@
 import { css } from '@emotion/react';
 
 const globalStylesStorybook = () => css`
-  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css');
-
   /* Reset CSS */
   * {
     margin: 0;
