@@ -72,16 +72,12 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
   `,
 };
 
-const getInteractionColor = (theme: Theme) => {
-  return theme.semantic.label.normal;
-};
-
 const SolidButton = styled.button<SolidButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>
-    getInteraction(interactionVariant, getInteractionColor(theme), disabled)(theme)};
+    getInteraction(interactionVariant, theme.semantic.label.normal, disabled)(theme)};
 `;
 
 const Icon = styled.div`
