@@ -29,6 +29,10 @@ const commonStyles = (theme: Theme) => css`
     cursor: pointer;
   }
 
+  &:focus {
+    outline: none;
+  }
+
   &:disabled {
     border-color: ${theme.semantic.label.assistive};
     color: ${theme.semantic.label.assistive};
