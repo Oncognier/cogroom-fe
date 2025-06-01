@@ -1,4 +1,4 @@
-import NavItem from '@/components/atoms/NavItem/NavItem';
+import NavItem from '@/components/organism/Header/NavItem/NavItem';
 import { NAV_ITEMS } from '@/constants/navItems';
 
 import S from './NavList.styled';
