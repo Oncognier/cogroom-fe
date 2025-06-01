@@ -48,11 +48,10 @@ export default function Input({
           onChange={onChange}
           disabled={isDisabled}
           isError={hasError}
-          hasValue={hasValue}
           required={required}
           {...props}
         />
-        {hasValue && (
+        {hasError && (
           <S.RemoveButton
             type='button'
             onClick={onClear}

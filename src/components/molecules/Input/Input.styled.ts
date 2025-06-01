@@ -59,6 +59,7 @@ const sizeStyles: Record<InputSize, (theme: Theme) => SerializedStyles> = {
 
 const errorStyle = (theme: Theme) => css`
   border-color: ${theme.semantic.status.destructive};
+  padding-right: 4.4rem;
 `;
 
 const Container = styled.div`
@@ -72,16 +73,10 @@ const InputWrapper = styled.div`
   display: inline-flex;
 `;
 
-const Input = styled.input<InputStyleProps & { hasValue?: boolean; isError?: boolean }>`
+const Input = styled.input<InputStyleProps & { isError?: boolean }>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, inputSize }) => sizeStyles[inputSize](theme)};
   ${({ theme, isError }) => isError && errorStyle(theme)};
-
-  ${({ hasValue }) =>
-    hasValue &&
-    css`
-      padding-right: 4.4rem;
-    `}
 `;
 
 const RemoveButton = styled.button`
