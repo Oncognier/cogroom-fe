@@ -155,6 +155,11 @@ const globalStylesStorybook = () => css`
     overflow: visible;
     cursor: pointer;
   }
+
+  input::placeholder,
+  textarea::placeholder {
+    font-family: 'Pretendard', sans-serif;
+  }
 `;
 
 export default globalStylesStorybook;

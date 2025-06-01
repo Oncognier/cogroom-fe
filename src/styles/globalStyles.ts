@@ -155,6 +155,11 @@ const globalStyles = () => css`
     overflow: visible;
     cursor: pointer;
   }
+
+  input::placeholder,
+  textarea::placeholder {
+    font-family: var(--font-pretendard);
+  }
 `;
 
 export default globalStyles;
