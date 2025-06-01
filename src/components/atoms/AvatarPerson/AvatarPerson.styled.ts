@@ -2,7 +2,7 @@ import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export type AvatarPersonType = 'icon' | 'image';
-export type AvatarPersonSize = 'xsm' | 'sm' | 'md' | 'lg' | 'xlg';
+export type AvatarPersonSize = 'xsm' | 'sm' | 'md' | 'lg' | 'xlg' | 'fillContainer';
 
 export interface AvatarPersonStyleProps {
   type: AvatarPersonType;
@@ -25,6 +25,9 @@ const sizeStyles: Record<AvatarPersonSize, SerializedStyles> = {
   xlg: css`
     height: 5.6rem;
   `,
+  fillContainer: css`
+    height: 100%;
+  `,  
 };
 
 const typeStyles: Record<AvatarPersonType, SerializedStyles> = {
