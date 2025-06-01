@@ -4,7 +4,7 @@ import S from './InputLabel.styled';
 
 interface InputLabelProps {
   label: string;
-  required: boolean;
+  required?: boolean;
 }
 
 export default function InputLabel({ label, required = false }: InputLabelProps) {
