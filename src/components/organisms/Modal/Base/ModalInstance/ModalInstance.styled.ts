@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-const ModalOverlay = styled.dialog`
+const ModalOverlay = styled.dialog<{ $zIndex: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ const ModalOverlay = styled.dialog`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000;
+  z-index: ${({ $zIndex }) => $zIndex};
 
   border: none;
   border-radius: 16px;

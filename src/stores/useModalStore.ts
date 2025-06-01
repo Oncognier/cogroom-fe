@@ -3,22 +3,25 @@ import { create } from 'zustand';
 
 export type ModalType = keyof ModalComponentMap;
 
-type ModalPropsMap = {
+export type ModalPropsMap = {
   [K in ModalType]: Parameters<ModalComponentMap[K]['Component']>[0];
 };
 
+type ModalInstance<T extends ModalType = ModalType> = {
+  type: T;
+  props: ModalPropsMap[T];
+};
+
 type ModalStore = {
-  isOpen: boolean;
-  modalType: ModalType | null;
-  modalProps: ModalType extends keyof ModalPropsMap ? ModalPropsMap[ModalType] : Record<string, unknown>;
+  modals: ModalInstance[];
   open: <T extends ModalType>(type: T, props: ModalPropsMap[T]) => void;
   close: () => void;
+  closeAll: () => void;
 };
 
 export const useModalStore = create<ModalStore>((set) => ({
-  isOpen: false,
-  modalType: null,
-  modalProps: {},
-  open: (type, props) => set({ isOpen: true, modalType: type, modalProps: props }),
-  close: () => set({ isOpen: false, modalType: null, modalProps: {} }),
+  modals: [],
+  open: (type, props) => set((state) => ({ modals: [...state.modals, { type, props }] })),
+  close: () => set((state) => ({ modals: state.modals.slice(0, -1) })),
+  closeAll: () => set(() => ({ modals: [] })),
 }));
