@@ -15,7 +15,7 @@ const meta = {
     },
     size: {
       control: 'radio',
-      options: ['xsm', 'sm', 'md', 'lg', 'xlg'],
+      options: ['xsm', 'sm', 'md', 'lg', 'xlg', 'fillContainer'],
     },
     src: {
       control: 'text',
