@@ -1,0 +1,48 @@
+'use client';
+
+import styled from '@emotion/styled';
+
+const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 6.8rem;
+
+  background-color: ${({ theme }) => theme.semantic.static.white};
+  border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
+  backdrop-filter: blur(1.6rem);
+  -webkit-backdrop-filter: blur(1.6rem);
+
+  padding: 1.3rem 17rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 1.3rem;
+  }
+`;
+
+const LeftNav = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+`;
+
+const RightNav = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NavLogin = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  height: 2.6rem;
+`;
+
+const S = {
+  Header,
+  LeftNav,
+  RightNav,
+  NavLogin,
+};
+
+export default S;

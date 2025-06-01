@@ -1,3 +1,4 @@
+import Header from '@/components/organism/Header/Header';
 import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
 import { mockingServer } from '@/lib/msw/mockingServer';
 import { MSWProvider } from '@/lib/msw/MSWProvider';
@@ -16,7 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <EmotionRegistry>
           <MSWProvider>
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <Header />
+              {children}
+            </QueryProvider>
           </MSWProvider>
         </EmotionRegistry>
       </body>

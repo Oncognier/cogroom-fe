@@ -116,7 +116,8 @@ const globalStylesStorybook = () => css`
   }
 
   ol,
-  ul {
+  ul,
+  li {
     list-style: none;
   }
 
