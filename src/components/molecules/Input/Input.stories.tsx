@@ -36,7 +36,7 @@ const meta = {
     },
     errorStatus: {
       control: 'radio',
-      options: ['error', 'warning', 'info', 'success'],
+      options: ['error', 'warning', 'success', 'disable'],
     },
     onChange: { action: 'changed' },
     onClear: { action: 'cleared' },
