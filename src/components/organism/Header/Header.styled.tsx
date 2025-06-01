@@ -6,24 +6,24 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 66px;
+  height: 6.8rem;
 
   background-color: ${({ theme }) => theme.semantic.static.white};
   border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(1.6rem);
+  -webkit-backdrop-filter: blur(1.6rem);
 
-  padding: 13px 170px;
+  padding: 1.3rem 17rem;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: 13px;
+    padding: 1.3rem;
   }
 `;
 
 const LeftNav = styled.div`
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 4rem;
 `;
 
 const RightNav = styled.div`
@@ -34,8 +34,8 @@ const RightNav = styled.div`
 const NavLogin = styled.div`
   display: flex;
   align-items: center;
-  gap: 7px;
-  height: 26px;
+  gap: 0.7rem;
+  height: 2.6rem;
 `;
 
 const S = {
