@@ -27,7 +27,7 @@ const sizeStyles: Record<AvatarPersonSize, SerializedStyles> = {
   `,
   fillContainer: css`
     height: 100%;
-  `,  
+  `,
 };
 
 const typeStyles: Record<AvatarPersonType, SerializedStyles> = {
@@ -58,6 +58,10 @@ const AvatarPerson = styled.div<AvatarPersonStyleProps>`
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const S = {
