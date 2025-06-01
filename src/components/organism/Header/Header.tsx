@@ -10,7 +10,7 @@ import Search from '@/assets/icons/search.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import NavList from '@/components/molecules/NavList/NavList';
+import NavList from '@/components/organism/Header/NavList/NavList';
 import { DEFAULT_LOGO_HORIZONTAL_NORMAL } from '@/constants/image';
 
 import S from './Header.styled';
@@ -35,26 +35,20 @@ export default function Header() {
 
       <S.RightNav>
         <IconButton
-          size='40px'
+          size='4rem'
           variant='normal'
           interactionVariant='normal'
         >
-          <Search
-            width={24}
-            height={24}
-          />
+          <Search />
         </IconButton>
         {isLoggedIn ? (
           <S.NavLogin>
             <IconButton
-              size='40px'
+              size='4rem'
               variant='normal'
               interactionVariant='normal'
             >
-              <Bell
-                width={24}
-                height={24}
-              />
+              <Bell />
             </IconButton>
             <AvatarPerson
               type='icon'
