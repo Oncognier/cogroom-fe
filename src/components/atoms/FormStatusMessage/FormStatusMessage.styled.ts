@@ -3,10 +3,10 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-type FormStatusMessageStatus = 'error' | 'warning' | 'success' | 'disable';
+export type FormStatusMessageStatus = 'error' | 'warning' | 'success' | 'disable';
 
 export interface FormStatusMessageStyleProps {
-  status: FormStatusMessageStatus;
+  status?: FormStatusMessageStatus;
 }
 
 const statusStyles: Record<FormStatusMessageStatus, (theme: Theme) => SerializedStyles> = {
@@ -29,7 +29,7 @@ const statusStyles: Record<FormStatusMessageStatus, (theme: Theme) => Serialized
 };
 
 const FormStatusMessage = styled.div<FormStatusMessageStyleProps>`
-  ${({ theme, status }) => statusStyles[status](theme)};
+  ${({ theme, status = 'error' }) => statusStyles[status](theme)};
   ${({ theme }) => theme.typography.label2.regular};
 
   display: flex;
