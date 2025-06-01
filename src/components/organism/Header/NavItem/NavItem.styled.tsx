@@ -8,24 +8,17 @@ export interface NavItemStyleProps {
 }
 
 const NavItem = styled.li<NavItemStyleProps>`
-  ${({ theme, isActive }) =>
-    isActive
-      ? css`
-          a {
-            ${theme.typography.body2.semibold};
-          }
-        `
-      : css`
-          a {
-            ${theme.typography.body2.regular};
-          }
-        `}
-
-  // Link
   a {
+    ${({ theme }) => theme.typography.body2.regular};
     color: ${({ theme }) => theme.semantic.label.normal};
     outline: none;
     text-decoration: none;
+
+    ${({ theme, isActive }) =>
+      isActive &&
+      css`
+        ${theme.typography.body2.semibold};
+      `}
   }
 `;
 
