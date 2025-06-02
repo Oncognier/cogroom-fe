@@ -1,13 +1,11 @@
+import type { ModalMap } from '@/types/modalTypes';
 import Login, { LoginProps } from './Login/Login';
 
-export interface ModalRegistry {
-  login: {
-    Component: (props: LoginProps) => React.JSX.Element;
-    disableOutsideClick?: boolean;
-  };
-}
+export type AppModalProps = {
+  login: LoginProps;
+};
 
-export const modalRegistry: ModalRegistry = {
+export const modalRegistry: ModalMap<AppModalProps> = {
   login: {
     Component: Login,
     disableOutsideClick: false,

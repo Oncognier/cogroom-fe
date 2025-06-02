@@ -1,41 +1,33 @@
 import { useEffect, useRef } from 'react';
-
-import type { ModalPropsMap, ModalType } from '@/stores/useModalStore';
-
 import S from './ModalInstance.styled';
-import { ModalRegistry } from '../../modalConfig';
+import type { ModalMap } from '@/types/modalTypes';
 
-interface ModalInstanceProps<T extends ModalType> {
-  type: T;
-  props: ModalPropsMap[T];
+interface ModalInstanceProps<T extends ModalMap<any>, K extends keyof T = keyof T> {
+  type: K;
+  props: Parameters<T[K]['Component']>[0];
   onClose: () => void;
   zIndex: number;
-  modalMap: ModalRegistry;
+  modalMap: T;
 }
 
-export default function ModalInstance<T extends ModalType>({
+export default function ModalInstance<T extends ModalMap<any>, K extends keyof T>({
   type,
   props,
   onClose,
   zIndex,
   modalMap,
-}: ModalInstanceProps<T>) {
+}: ModalInstanceProps<T, K>) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const config = modalMap[type];
-
+  if (!config) return null;
   const { Component, disableOutsideClick } = config;
 
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
     dialog.showModal();
-
-    return () => {
-      dialog.close();
-    };
+    return () => dialog.close();
   }, []);
-
-  if (!config) return null;
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (!disableOutsideClick && e.target === dialogRef.current) {

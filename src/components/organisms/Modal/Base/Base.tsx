@@ -3,47 +3,54 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useModalStore } from '@/stores/useModalStore';
-
-import type { ModalRegistry } from '../modalConfig';
+import type { ModalMap } from '@/types/modalTypes';
 import ModalInstance from './ModalInstance/ModalInstance';
+import { useModalStore as defaultUseModalStore } from '@/stores/useModalStore';
 
-interface BaseProps {
-  modalMap: ModalRegistry;
+interface BaseProps<T extends ModalMap<any>> {
+  modalMap: T;
+  useModalStore?: () => {
+    modals: Array<{ type: string; props: unknown }>;
+    close: () => void;
+  };
 }
 
-export default function Base({ modalMap }: BaseProps) {
-  const { modals, close } = useModalStore();
+export default function Base<T extends ModalMap<any>>({
+  modalMap,
+  useModalStore = defaultUseModalStore,
+}: BaseProps<T>) {
+  const store = useModalStore();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        close();
-      }
+      if (e.key === 'Escape') store.close();
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [close]);
+  }, [store]);
 
-  if (!isMounted || modals.length === 0) return null;
+  if (!isMounted || store.modals.length === 0) return null;
+
+  const portalTarget = document.getElementById('modal-root');
+  if (!portalTarget) return null;
 
   return createPortal(
     <>
-      {modals.map(({ type, props }, index) => (
+      {store.modals.map(({ type, props }, index) => (
         <ModalInstance
           key={index}
           type={type}
           props={props}
-          onClose={close}
+          onClose={store.close}
           zIndex={1000 + index}
           modalMap={modalMap}
         />
       ))}
     </>,
-    document.getElementById('modal-root')!,
+    portalTarget,
   );
 }
