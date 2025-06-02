@@ -1,4 +1,5 @@
 import type { ModalMap } from '@/types/modalTypes';
+
 import Login, { LoginProps } from './Login/Login';
 
 export type AppModalProps = {

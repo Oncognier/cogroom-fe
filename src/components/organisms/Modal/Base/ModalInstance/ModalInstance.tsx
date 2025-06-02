@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from 'react';
-import S from './ModalInstance.styled';
+
 import type { ModalMap } from '@/types/modalTypes';
+
+import S from './ModalInstance.styled';
 
 interface ModalInstanceProps<T extends ModalMap<any>, K extends keyof T = keyof T> {
   type: K;
@@ -19,8 +22,6 @@ export default function ModalInstance<T extends ModalMap<any>, K extends keyof T
 }: ModalInstanceProps<T, K>) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const config = modalMap[type];
-  if (!config) return null;
-  const { Component, disableOutsideClick } = config;
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -28,6 +29,9 @@ export default function ModalInstance<T extends ModalMap<any>, K extends keyof T
     dialog.showModal();
     return () => dialog.close();
   }, []);
+
+  if (!config) return null;
+  const { Component, disableOutsideClick } = config;
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (!disableOutsideClick && e.target === dialogRef.current) {

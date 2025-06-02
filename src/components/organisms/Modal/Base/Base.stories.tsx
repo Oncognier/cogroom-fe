@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Base from './Base';
 import { createModalStore } from '@/stores/createModalStore';
 import type { ModalMap } from '@/types/modalTypes';
+
+import Base from './Base';
 
 type TestProps = {
   message: string;

@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import type { ModalMap } from '@/types/modalTypes';
-import ModalInstance from './ModalInstance/ModalInstance';
 import { useModalStore as defaultUseModalStore } from '@/stores/useModalStore';
+import type { ModalMap } from '@/types/modalTypes';
+
+import ModalInstance from './ModalInstance/ModalInstance';
 
 interface BaseProps<T extends ModalMap<any>> {
   modalMap: T;
