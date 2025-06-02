@@ -1,10 +1,10 @@
-import { ModalComponentMap } from '@/components/organisms/Modal/modalConfig';
+import { ModalRegistry } from '@/components/organisms/Modal/modalConfig';
 import { create } from 'zustand';
 
-export type ModalType = keyof ModalComponentMap;
+export type ModalType = keyof ModalRegistry;
 
 export type ModalPropsMap = {
-  [K in ModalType]: Parameters<ModalComponentMap[K]['Component']>[0];
+  [K in ModalType]: Parameters<ModalRegistry[K]['Component']>[0];
 };
 
 type ModalInstance<T extends ModalType = ModalType> = {

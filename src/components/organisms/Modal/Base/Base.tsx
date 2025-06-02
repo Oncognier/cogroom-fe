@@ -3,9 +3,14 @@
 import { useModalStore } from '@/stores/useModalStore';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import type { ModalRegistry } from '../modalConfig';
 import ModalInstance from './ModalInstance/ModalInstance';
 
-export default function Base() {
+interface BaseProps {
+  modalMap: ModalRegistry;
+}
+
+export default function Base({ modalMap }: BaseProps) {
   const { modals, close } = useModalStore();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -33,6 +38,7 @@ export default function Base() {
           props={props}
           onClose={close}
           zIndex={1000 + index}
+          modalMap={modalMap}
         />
       ))}
     </>,

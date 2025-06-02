@@ -1,5 +1,6 @@
 import Header from '@/components/organism/Header/Header';
 import Base from '@/components/organisms/Modal/Base/Base';
+import { modalRegistry } from '@/components/organisms/Modal/modalConfig';
 import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
 import { mockingServer } from '@/lib/msw/mockingServer';
 import { MSWProvider } from '@/lib/msw/MSWProvider';
@@ -21,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <QueryProvider>
               <Header />
               {children}
-              <Base />
+              <Base modalMap={modalRegistry} />
               <div id='modal-root' />
             </QueryProvider>
           </MSWProvider>

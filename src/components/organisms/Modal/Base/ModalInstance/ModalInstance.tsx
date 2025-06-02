@@ -1,6 +1,6 @@
 import type { ModalPropsMap, ModalType } from '@/stores/useModalStore';
 import { useEffect, useRef } from 'react';
-import { modalComponents } from '../../modalConfig';
+import type { ModalRegistry } from '../../modalConfig';
 import S from './ModalInstance.styled';
 
 interface ModalInstanceProps<T extends ModalType> {
@@ -8,11 +8,18 @@ interface ModalInstanceProps<T extends ModalType> {
   props: ModalPropsMap[T];
   onClose: () => void;
   zIndex: number;
+  modalMap: ModalRegistry;
 }
 
-export default function ModalInstance<T extends ModalType>({ type, props, onClose, zIndex }: ModalInstanceProps<T>) {
+export default function ModalInstance<T extends ModalType>({
+  type,
+  props,
+  onClose,
+  zIndex,
+  modalMap,
+}: ModalInstanceProps<T>) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const config = modalComponents[type];
+  const config = modalMap[type];
   if (!config) return null;
 
   const { Component, disableOutsideClick } = config;
