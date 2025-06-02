@@ -30,7 +30,6 @@ export default function Input({
   ...props
 }: InputProps) {
   const hasError = !!error || !!errorMessage;
-  const hasValue = Boolean(value);
 
   return (
     <S.Container>
