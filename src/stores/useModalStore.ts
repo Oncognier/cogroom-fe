@@ -1,5 +1,6 @@
-import { ModalRegistry } from '@/components/organisms/Modal/modalConfig';
 import { create } from 'zustand';
+
+import { ModalRegistry } from '@/components/organisms/Modal/modalConfig';
 
 export type ModalType = keyof ModalRegistry;
 

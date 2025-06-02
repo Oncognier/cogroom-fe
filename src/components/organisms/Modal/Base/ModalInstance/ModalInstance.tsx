@@ -1,7 +1,9 @@
-import type { ModalPropsMap, ModalType } from '@/stores/useModalStore';
 import { useEffect, useRef } from 'react';
-import type { ModalRegistry } from '../../modalConfig';
+
+import type { ModalPropsMap, ModalType } from '@/stores/useModalStore';
+
 import S from './ModalInstance.styled';
+import { ModalRegistry } from '../../modalConfig';
 
 interface ModalInstanceProps<T extends ModalType> {
   type: T;
@@ -20,7 +22,6 @@ export default function ModalInstance<T extends ModalType>({
 }: ModalInstanceProps<T>) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const config = modalMap[type];
-  if (!config) return null;
 
   const { Component, disableOutsideClick } = config;
 
@@ -33,6 +34,8 @@ export default function ModalInstance<T extends ModalType>({
       dialog.close();
     };
   }, []);
+
+  if (!config) return null;
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLDialogElement>) => {
     if (!disableOutsideClick && e.target === dialogRef.current) {

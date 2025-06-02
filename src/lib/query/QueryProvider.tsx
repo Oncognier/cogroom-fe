@@ -9,7 +9,7 @@ function makeQueryClient() {
         throwOnError: true,
       },
       mutations: {
-        onError: (error) => {
+        onError: () => {
           // console.log(error); TODO: 에러 처리 로직 (toast 등)
         },
       },

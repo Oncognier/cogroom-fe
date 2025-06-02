@@ -1,8 +1,10 @@
 'use client';
 
-import { useModalStore } from '@/stores/useModalStore';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+
+import { useModalStore } from '@/stores/useModalStore';
+
 import type { ModalRegistry } from '../modalConfig';
 import ModalInstance from './ModalInstance/ModalInstance';
 
