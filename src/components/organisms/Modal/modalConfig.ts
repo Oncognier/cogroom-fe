@@ -1,9 +1,9 @@
 import type { ModalMap } from '@/types/modalTypes';
 
-import Login, { LoginProps } from './Login/Login';
+import Login from './Login/Login';
 
 export type AppModalProps = {
-  login: LoginProps;
+  login: undefined;
 };
 
 export const modalRegistry: ModalMap<AppModalProps> = {
