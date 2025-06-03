@@ -96,8 +96,8 @@ const Icon = styled.div`
   align-items: center;
 
   & > svg {
-    width: 1em;
-    height: 1em;
+    width: 1.13em;
+    height: 1.13em;
   }
 `;
 
