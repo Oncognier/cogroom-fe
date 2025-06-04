@@ -6,7 +6,7 @@ import X from '@/assets/icons/x.svg';
 import S from './Login.styled';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import { useModalStore } from '@/stores/useModalStore';
-import { KAKAO_AUTH_API_URL } from '@/constants/api/api';
+import { KAKAO_AUTH_API_URL } from '@/constants/api';
 
 export default function Login() {
   const { close } = useModalStore();

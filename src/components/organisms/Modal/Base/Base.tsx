@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { useModalStore as defaultUseModalStore } from '@/stores/useModalStore';
-import type { ModalMap } from '@/types/modalTypes';
+import type { ModalMap } from '@/types/modal';
 
 import ModalInstance from './ModalInstance/ModalInstance';
 

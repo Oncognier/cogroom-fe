@@ -1,4 +1,4 @@
-import type { ModalMap } from '@/types/modalTypes';
+import type { ModalMap } from '@/types/modal';
 
 import Login from './Login/Login';
 

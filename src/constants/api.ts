@@ -23,8 +23,8 @@ export const END_POINTS_V1 = {
 
   // 회원 API
   AUTH: {
-    SOCIAL_SIGNUP: `${BASE_PATH_V1.AUTH}/social-signup`,
-    SOCIAL_LOGIN: `${BASE_PATH_V1.AUTH}/social-login`,
+    SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
+    LOGIN: `${BASE_PATH_V1.AUTH}/login`,
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
     EMAIL_VERIFICATION: `${BASE_PATH_V1.AUTH}/email-verification`,
     NICKNAME: `${BASE_PATH_V1.AUTH}/nickname`,
