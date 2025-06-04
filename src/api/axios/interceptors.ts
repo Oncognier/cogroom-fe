@@ -1,8 +1,9 @@
 import { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
+import { HTTP_STATUS_CODE } from '@/constants/api';
+
 import { HTTPError } from './errors/HTTPError';
 import { ErrorResponseData } from './types';
-import { HTTP_STATUS_CODE } from '@/constants/api';
 
 /**
  * requestHandler

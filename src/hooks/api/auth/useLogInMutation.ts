@@ -1,6 +1,7 @@
-import { postLogIn } from '@/api/auth/authApis';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+
+import { postLogIn } from '@/api/authApis';
 
 export const useLogInMutation = () => {
   const router = useRouter();

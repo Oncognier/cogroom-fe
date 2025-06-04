@@ -1,12 +1,13 @@
 'use client';
 
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Kakao from '@/assets/icons/kakao.svg';
 import X from '@/assets/icons/x.svg';
-import S from './Login.styled';
 import IconButton from '@/components/atoms/IconButton/IconButton';
-import { useModalStore } from '@/stores/useModalStore';
+import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { KAKAO_AUTH_API_URL } from '@/constants/api';
+import { useModalStore } from '@/stores/useModalStore';
+
+import S from './Login.styled';
 
 export default function Login() {
   const { close } = useModalStore();

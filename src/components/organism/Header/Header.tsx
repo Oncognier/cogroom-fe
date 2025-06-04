@@ -12,9 +12,9 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import NavList from '@/components/organism/Header/NavList/NavList';
 import { DEFAULT_LOGO_HORIZONTAL_NORMAL } from '@/constants/image';
+import { useModalStore } from '@/stores/useModalStore';
 
 import S from './Header.styled';
-import { useModalStore } from '@/stores/useModalStore';
 
 export default function Header() {
   const { open } = useModalStore();
