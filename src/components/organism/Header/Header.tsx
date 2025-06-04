@@ -12,13 +12,16 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import NavList from '@/components/organism/Header/NavList/NavList';
 import { DEFAULT_LOGO_HORIZONTAL_NORMAL } from '@/constants/image';
+import { useModalStore } from '@/stores/useModalStore';
 
 import S from './Header.styled';
 
 export default function Header() {
-  // TODO: 로그인 상태 관리 추가
+  const { open } = useModalStore();
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname() || '/';
+
   return (
     <S.Header>
       <S.LeftNav>
@@ -61,7 +64,7 @@ export default function Header() {
             size='sm'
             color='primary'
             interactionVariant='normal'
-            onClick={() => setIsLoggedIn(true)}
+            onClick={() => open('login', undefined)}
           />
         )}
       </S.RightNav>

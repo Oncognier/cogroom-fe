@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from 'react';
 
-import type { ModalMap } from '@/types/modalTypes';
+import type { ModalMap } from '@/types/modal';
 
 import S from './ModalInstance.styled';
 

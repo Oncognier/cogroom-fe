@@ -23,8 +23,8 @@ export const END_POINTS_V1 = {
 
   // 회원 API
   AUTH: {
-    SOCIAL_SIGNUP: `${BASE_PATH_V1.AUTH}/social-signup`,
-    SOCIAL_LOGIN: `${BASE_PATH_V1.AUTH}/social-login`,
+    SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
+    LOGIN: `${BASE_PATH_V1.AUTH}/login`,
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
     EMAIL_VERIFICATION: `${BASE_PATH_V1.AUTH}/email-verification`,
     NICKNAME: `${BASE_PATH_V1.AUTH}/nickname`,
@@ -87,3 +87,22 @@ export const END_POINTS_V1 = {
     },
   },
 } as const;
+
+export const HTTP_STATUS_CODE = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+  SERVICE_UNAVAILABLE: 503,
+};
+
+const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
+
+const OAUTH_BASE_URL = process.env.NEXT_PUBLIC_OAUTH_BASE_URL;
+
+const REDIRECT_BASE_URL = `${OAUTH_BASE_URL}/callback`;
+
+export const KAKAO_AUTH_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}&response_type=code`;
