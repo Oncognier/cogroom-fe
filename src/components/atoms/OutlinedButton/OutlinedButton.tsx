@@ -1,3 +1,5 @@
+'use client';
+
 import S, { OutlinedButtonStyleProps } from './OutlinedButton.styled';
 
 interface OutlinedButtonProps extends OutlinedButtonStyleProps {

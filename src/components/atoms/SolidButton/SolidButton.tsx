@@ -1,3 +1,5 @@
+'use client';
+
 import S, { SolidButtonStyleProps } from './SolidButton.styled';
 
 interface SolidButtonProps extends SolidButtonStyleProps {
