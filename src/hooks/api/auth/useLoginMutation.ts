@@ -6,7 +6,7 @@ import { postLogin } from '@/api/authApis';
 export const useLoginMutation = () => {
   const router = useRouter();
 
-  const logInMutation = useMutation({
+  const loginMutation = useMutation({
     mutationFn: postLogin,
     onSuccess: ({ needSignup }) => {
       router.push('/');
@@ -18,5 +18,5 @@ export const useLoginMutation = () => {
     },
   });
 
-  return { mutateLogin: logInMutation.mutate };
+  return { mutateLogin: loginMutation.mutate };
 };

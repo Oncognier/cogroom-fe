@@ -8,7 +8,7 @@ import {
   postLoginMockErrorResponse,
   postLoginMockResponse,
   refreshToken,
-} from '../data/auth/PostLoginMockResponse';
+} from '../data/auth/postLoginMockResponse';
 
 export const authHandlers = [
   http.post(`${END_POINTS_V1.AUTH.LOGIN}`, async ({ request }) => {
