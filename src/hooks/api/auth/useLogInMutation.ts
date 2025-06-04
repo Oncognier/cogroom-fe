@@ -1,13 +1,13 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import { postLogIn } from '@/api/authApis';
+import { postLogin } from '@/api/authApis';
 
-export const useLogInMutation = () => {
+export const useLoginMutation = () => {
   const router = useRouter();
 
   const logInMutation = useMutation({
-    mutationFn: postLogIn,
+    mutationFn: postLogin,
     onSuccess: ({ needSignup }) => {
       router.push('/');
       //console.log(needSignup);
@@ -18,5 +18,5 @@ export const useLogInMutation = () => {
     },
   });
 
-  return { mutateLogIn: logInMutation.mutate };
+  return { mutateLogin: logInMutation.mutate };
 };
