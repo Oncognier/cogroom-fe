@@ -51,7 +51,7 @@ export const requestErrorHandler = (error: AxiosError<ErrorResponseData>): never
 
 // Response 성공 handler
 export const responseHandler = (response: AxiosResponse) => {
-  return response.data.result;
+  return response;
 };
 
 // Response 에러 handler

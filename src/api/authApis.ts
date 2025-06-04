@@ -12,7 +12,7 @@ export const postLogIn = async ({ code, provider }: PostLogInRequestBody) => {
     { useAuth: false },
   );
 
-  return data;
+  return data.result;
 };
 
 const authApis = {
