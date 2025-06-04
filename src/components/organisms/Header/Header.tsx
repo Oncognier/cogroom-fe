@@ -10,11 +10,11 @@ import Search from '@/assets/icons/search.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import NavList from '@/components/organism/Header/NavList/NavList';
 import { DEFAULT_LOGO_HORIZONTAL_NORMAL } from '@/constants/image';
 import { useModalStore } from '@/stores/useModalStore';
 
 import S from './Header.styled';
+import NavList from './NavList/NavList';
 
 export default function Header() {
   const { open } = useModalStore();

@@ -1,7 +1,7 @@
-import NavItem from '@/components/organism/Header/NavItem/NavItem';
 import { NAV_ITEMS } from '@/constants/navItems';
 
 import S from './NavList.styled';
+import NavItem from '../NavItem/NavItem';
 
 interface NavListProps {
   pathname: string;
