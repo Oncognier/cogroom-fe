@@ -1,4 +1,4 @@
-import { handlers } from '@/mocks/handlers';
+import { handlers } from '@/mocks/handlers/handlers';
 
 import { HotModule } from './types';
 
