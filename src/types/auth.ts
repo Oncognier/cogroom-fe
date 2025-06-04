@@ -4,8 +4,9 @@ export interface PostLogInRequestBody {
 }
 
 export interface PostLogInResponse {
-  tokens: {
-    accessToken: string;
+  code: number;
+  message: string;
+  result: {
+    needSignup: boolean;
   };
-  needSignup: boolean;
 }

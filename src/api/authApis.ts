@@ -1,7 +1,9 @@
+import type { AxiosResponse } from 'axios';
+
 import axiosInstance from '@/api/axios/axiosInstance';
 import { END_POINTS_V1 } from '@/constants/api';
-import type { AxiosResponse } from 'axios';
-import { PostLogInRequestBody, PostLogInResponse } from './types';
+
+import { PostLogInRequestBody, PostLogInResponse } from '../types/auth';
 
 export const postLogIn = async ({ code, provider }: PostLogInRequestBody) => {
   const { data } = await axiosInstance.post<PostLogInRequestBody, AxiosResponse<PostLogInResponse>>(
