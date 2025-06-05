@@ -8,6 +8,7 @@ interface SolidButtonProps extends SolidButtonStyleProps {
   iconRight?: React.ReactNode;
   isDisabled?: boolean;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export default function SolidButton({
@@ -19,6 +20,7 @@ export default function SolidButton({
   isDisabled,
   onClick,
   interactionVariant,
+  type = 'button',
 }: SolidButtonProps) {
   return (
     <S.SolidButton
@@ -27,6 +29,7 @@ export default function SolidButton({
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}
+      type={type}
     >
       <S.Icon>{iconLeft}</S.Icon>
       {label}

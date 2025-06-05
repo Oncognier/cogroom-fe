@@ -8,6 +8,7 @@ interface OutlinedButtonProps extends OutlinedButtonStyleProps {
   iconRight?: React.ReactNode;
   isDisabled?: boolean;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export default function OutlinedButton({
@@ -19,6 +20,7 @@ export default function OutlinedButton({
   isDisabled,
   onClick,
   interactionVariant,
+  type = 'button',
 }: OutlinedButtonProps) {
   return (
     <S.OutlinedButton
@@ -27,6 +29,7 @@ export default function OutlinedButton({
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}
+      type={type}
     >
       <S.Icon>{iconLeft}</S.Icon>
       {label}
