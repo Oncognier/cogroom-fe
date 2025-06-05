@@ -7,6 +7,8 @@ export interface PostLoginResponse {
   code: number;
   message: string;
   result: {
+    email?: string;
+    nickname?: string;
     needSignup: boolean;
   };
 }

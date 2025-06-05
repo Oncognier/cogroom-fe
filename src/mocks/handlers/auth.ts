@@ -6,7 +6,7 @@ import { PostLoginRequestBody } from '@/types/auth';
 import {
   accessToken,
   postLoginMockErrorResponse,
-  postLoginMockResponse,
+  postLoginMockResponse_NewUser,
   refreshToken,
 } from '../data/auth/postLoginMockResponse';
 
@@ -20,7 +20,7 @@ export const authHandlers = [
       });
     }
 
-    return new HttpResponse(JSON.stringify(postLoginMockResponse), {
+    return new HttpResponse(JSON.stringify(postLoginMockResponse_NewUser), {
       status: HTTP_STATUS_CODE.OK,
       headers: new Headers([
         ['Set-Cookie', `accessToken=${accessToken}; Path=/`],
