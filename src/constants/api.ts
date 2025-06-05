@@ -26,7 +26,7 @@ export const END_POINTS_V1 = {
     SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
     LOGIN: `${BASE_PATH_V1.AUTH}/login`,
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
-    EMAIL_VERIFICATION: `${BASE_PATH_V1.AUTH}/email-verification`,
+    SEND_EMAIL: `${BASE_PATH_V1.AUTH}/email-verification`,
     NICKNAME: `${BASE_PATH_V1.AUTH}/nickname`,
     TOKENS: `${BASE_PATH_V1.AUTH}/tokens`,
   },

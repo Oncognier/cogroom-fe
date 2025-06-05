@@ -1,15 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import { postLogin } from '@/api/authApis';
 import { useModalStore } from '@/stores/useModalStore';
+import authApis from '@/api/authApis';
 
 export const useLoginMutation = () => {
   const router = useRouter();
   const { open } = useModalStore();
 
   const loginMutation = useMutation({
-    mutationFn: postLogin,
+    mutationFn: authApis.postLogin,
     onSuccess: ({ email, nickname, needSignup }: { email?: string; nickname?: string; needSignup: boolean }) => {
       router.push('/');
       if (needSignup || !!email || !!nickname) {
