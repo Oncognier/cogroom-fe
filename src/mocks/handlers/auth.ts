@@ -10,6 +10,7 @@ import {
   refreshToken,
 } from '../data/auth/postLoginMockResponse';
 import { postSendEmailMockErrorResponse, postSendEmailMockResponse } from '../data/auth/postSendEmailMockResponse';
+import { postCheckEmailVerificationStatusResponse } from '../data/auth/postCheckEmailVerificationStatus';
 
 export const authHandlers = [
   http.post(`${END_POINTS_V1.AUTH.LOGIN}`, async ({ request }) => {
@@ -41,6 +42,20 @@ export const authHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(postSendEmailMockResponse), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.post(`${END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFICATION_STATUS}`, async ({ request }) => {
+    const body = (await request.json()) as PostSendEmailBody;
+
+    if (!body.email) {
+      return new HttpResponse(JSON.stringify(postLoginMockErrorResponse), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(postCheckEmailVerificationStatusResponse), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

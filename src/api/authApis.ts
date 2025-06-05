@@ -2,7 +2,12 @@ import type { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
 
-import { PostLoginRequestBody, PostLoginResponse, PostSendEmailBody } from '../types/auth';
+import {
+  PostEmailVerificationStatusBody,
+  PostLoginRequestBody,
+  PostLoginResponse,
+  PostSendEmailBody,
+} from '../types/auth';
 import { ApiResponse } from '@/types/api';
 import { axiosInstance } from './axios/axiosInstance';
 
@@ -26,9 +31,20 @@ const postSendEmail = async ({ email }: PostSendEmailBody) => {
   return data;
 };
 
+const postEmailVerificationStatus = async ({ email }: PostEmailVerificationStatusBody) => {
+  const { data } = await axiosInstance.post<PostEmailVerificationStatusBody, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFICATION_STATUS,
+    { email },
+    { useAuth: false },
+  );
+
+  return data;
+};
+
 const authApis = {
   postLogin,
   postSendEmail,
+  postEmailVerificationStatus,
 };
 
 export default authApis;

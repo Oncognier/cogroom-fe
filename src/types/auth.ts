@@ -16,3 +16,7 @@ export interface PostLoginResponse extends ApiResponse {
 export interface PostSendEmailBody {
   email: string;
 }
+
+export interface PostEmailVerificationStatusBody {
+  email: string;
+}
