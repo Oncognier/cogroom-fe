@@ -1,4 +1,4 @@
-import Header from '@/components/organism/Header/Header';
+import Header from '@/components/organisms/Header/Header';
 import Base from '@/components/organisms/Modal/Base/Base';
 import { modalRegistry } from '@/components/organisms/Modal/modalConfig';
 import EmotionRegistry from '@/lib/emotion/EmotionRegistry';

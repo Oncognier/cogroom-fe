@@ -1,7 +1,7 @@
 export const accessToken = 'cogroomAccessToken';
 export const refreshToken = 'cogroomRefreshToken';
 
-export const postLogInMockResponse = {
+export const postLoginMockResponse = {
   code: 1000,
   message: '로그인에 성공했습니다.',
   result: {
@@ -9,7 +9,7 @@ export const postLogInMockResponse = {
   },
 };
 
-export const postLogInMockErrorResponse = {
+export const postLoginMockErrorResponse = {
   code: 1001,
   message: '로그인에 실패했습니다.',
 };

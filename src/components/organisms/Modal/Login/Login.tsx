@@ -24,6 +24,7 @@ export default function Login() {
           size='4rem'
           variant='normal'
           interactionVariant='normal'
+          onClick={close}
         >
           <X />
         </IconButton>

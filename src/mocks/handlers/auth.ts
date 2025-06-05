@@ -1,26 +1,26 @@
 import { http, HttpResponse } from 'msw';
 
 import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
-import { PostLogInRequestBody } from '@/types/auth';
+import { PostLoginRequestBody } from '@/types/auth';
 
 import {
   accessToken,
-  postLogInMockErrorResponse,
-  postLogInMockResponse,
+  postLoginMockErrorResponse,
+  postLoginMockResponse,
   refreshToken,
-} from '../data/auth/PostLogInMockResponse';
+} from '../data/auth/postLoginMockResponse';
 
 export const authHandlers = [
   http.post(`${END_POINTS_V1.AUTH.LOGIN}`, async ({ request }) => {
-    const body = (await request.json()) as PostLogInRequestBody;
+    const body = (await request.json()) as PostLoginRequestBody;
 
     if (!body.code || !body.provider) {
-      return new HttpResponse(JSON.stringify(postLogInMockErrorResponse), {
+      return new HttpResponse(JSON.stringify(postLoginMockErrorResponse), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(JSON.stringify(postLogInMockResponse), {
+    return new HttpResponse(JSON.stringify(postLoginMockResponse), {
       status: HTTP_STATUS_CODE.OK,
       headers: new Headers([
         ['Set-Cookie', `accessToken=${accessToken}; Path=/`],

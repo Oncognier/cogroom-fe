@@ -1,9 +1,9 @@
-export interface PostLogInRequestBody {
+export interface PostLoginRequestBody {
   code: string;
   provider: string;
 }
 
-export interface PostLogInResponse {
+export interface PostLoginResponse {
   code: number;
   message: string;
   result: {

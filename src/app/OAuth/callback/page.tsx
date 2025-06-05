@@ -3,17 +3,17 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { useLogInMutation } from '@/hooks/api/auth/useLogInMutation';
+import { useLoginMutation } from '@/hooks/api/auth/useLoginMutation';
 
 export default function OAuthCallback() {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
-  const { mutateLogIn } = useLogInMutation();
+  const { mutateLogin } = useLoginMutation();
 
   useEffect(() => {
     if (!code) return;
-    mutateLogIn({ provider: 'KAKAO', code });
-  }, [code, mutateLogIn]);
+    mutateLogin({ provider: 'KAKAO', code });
+  }, [code, mutateLogin]);
 
   return <div>Loading...</div>;
 }
