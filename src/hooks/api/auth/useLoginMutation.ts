@@ -2,15 +2,19 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { postLogin } from '@/api/authApis';
+import { useModalStore } from '@/stores/useModalStore';
 
 export const useLoginMutation = () => {
   const router = useRouter();
+  const { open } = useModalStore();
 
   const loginMutation = useMutation({
     mutationFn: postLogin,
-    onSuccess: ({ needSignup }) => {
+    onSuccess: ({ email, nickname, needSignup }: { email?: string; nickname?: string; needSignup: boolean }) => {
       router.push('/');
-      //console.log(needSignup);
+      if (needSignup || !!email || !!nickname) {
+        open('signup', { email: email ?? '', nickname: nickname ?? '' });
+      }
     },
     onError: () => {
       alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
