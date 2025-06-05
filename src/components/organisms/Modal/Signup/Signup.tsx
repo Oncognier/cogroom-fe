@@ -10,6 +10,7 @@ import { useModalStore } from '@/stores/useModalStore';
 import S from './Signup.styled';
 import Step1 from './Step1/Step1';
 import Step2 from './Step2/Step2';
+import Step3 from './Step3/Step3';
 
 export interface SignupProps {
   email: string;
@@ -31,6 +32,7 @@ export default function Signup({ email, nickname }: SignupProps) {
 
   const handleConfirmEmail = () => setStep(3);
   const handleUseAnotherEmail = () => setStep(2);
+  const handleCompleteEmail = () => setStep(4);
 
   return (
     <FormProvider {...methods}>
@@ -57,6 +59,12 @@ export default function Signup({ email, nickname }: SignupProps) {
           <Step2
             email={email}
             onConfirm={handleConfirmEmail}
+          />
+        )}
+        {step === 3 && (
+          <Step3
+            email={email}
+            onConfirm={handleCompleteEmail}
           />
         )}
       </S.Container>
