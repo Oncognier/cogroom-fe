@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import X from '@/assets/icons/x.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
@@ -8,19 +9,27 @@ import { useModalStore } from '@/stores/useModalStore';
 
 import S from './Signup.styled';
 import Step1 from './Step1/Step1';
+import Step2 from './Step2/Step2';
 
 export interface SignupProps {
   email: string;
   nickname: string;
 }
 
+interface FormValues {
+  email: string;
+}
 
 export default function Signup({ email, nickname }: SignupProps) {
   const { close } = useModalStore();
   const [step, setStep] = useState(1);
 
+  const methods = useForm<FormValues>({
+    mode: 'onChange',
+    reValidateMode: 'onBlur',
+  });
 
-  const handleConfirmEmail = async () => setStep(3);
+  const handleConfirmEmail = () => setStep(3);
   const handleUseAnotherEmail = () => setStep(2);
 
   return (
@@ -42,6 +51,12 @@ export default function Signup({ email, nickname }: SignupProps) {
             email={email}
             onConfirm={handleConfirmEmail}
             onChangeEmail={handleUseAnotherEmail}
+          />
+        )}
+        {step === 2 && (
+          <Step2
+            email={email}
+            onConfirm={handleConfirmEmail}
           />
         )}
       </S.Container>

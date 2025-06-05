@@ -5,6 +5,7 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 
 import S from './Step1.styled';
+import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
 
 export interface Step1Props {
   email: string;
@@ -13,6 +14,12 @@ export interface Step1Props {
 }
 
 export default function Step1({ email, onConfirm, onChangeEmail }: Step1Props) {
+  const { mutateSendEmail } = useSendEmailMutation(onConfirm);
+
+  const onSubmit = () => {
+    mutateSendEmail({ email });
+  };
+
   return (
     <>
       <S.TextWrapper>
@@ -34,7 +41,7 @@ export default function Step1({ email, onConfirm, onChangeEmail }: Step1Props) {
           size='fillContainer'
           color='primary'
           interactionVariant='normal'
-          onClick={onConfirm}
+          onClick={onSubmit}
         />
         <OutlinedButton
           label='다른 이메일 사용하기'
