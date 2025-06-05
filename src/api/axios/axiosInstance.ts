@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import { requestErrorHandler, requestHandler, responseErrorHandler, responseHandler } from '@/api/axios/interceptors';
+import { checkAndSetToken, handleAPIError, handleTokenError } from '@/api/axios/interceptors';
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   // 기본 URL 설정
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
 
@@ -16,10 +16,8 @@ const axiosInstance = axios.create({
   useAuth: true,
 });
 
-// 요청 시 interceptor
-axiosInstance.interceptors.request.use(requestHandler, requestErrorHandler);
+axiosInstance.interceptors.request.use(checkAndSetToken, handleAPIError);
 
-// 응답 시 interceptor
-axiosInstance.interceptors.response.use(responseHandler, responseErrorHandler);
+axiosInstance.interceptors.response.use((response) => response, handleTokenError);
 
-export default axiosInstance;
+axiosInstance.interceptors.response.use((response) => response, handleAPIError);
