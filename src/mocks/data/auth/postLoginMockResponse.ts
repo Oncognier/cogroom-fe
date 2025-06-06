@@ -13,8 +13,12 @@ export const postLoginMockResponse_NewUser = {
   code: '1000',
   message: '로그인에 성공했습니다.',
   result: {
-    email: 'cogroom@gmail.com',
-    nickname: 'cogroom',
+    socialUserInfo: {
+      provider: 'KAKAO',
+      providerId: '4281330880',
+      email: 'cogroom@naver.com',
+      nickname: '코그룸',
+    },
     needSignup: true,
   },
 };

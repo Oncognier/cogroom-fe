@@ -7,6 +7,7 @@ import {
   PostLoginRequestBody,
   PostLoginResponse,
   PostSendEmailBody,
+  PostSignupBody,
 } from '../types/auth';
 import { ApiResponse } from '@/types/api';
 import { axiosInstance } from './axios/axiosInstance';
@@ -18,7 +19,7 @@ const postLogin = async ({ code, provider }: PostLoginRequestBody) => {
     { useAuth: false },
   );
 
-  return data.result;
+  return data;
 };
 
 const postSendEmail = async ({ email }: PostSendEmailBody) => {

@@ -7,8 +7,12 @@ export interface PostLoginRequestBody {
 
 export interface PostLoginResponse extends ApiResponse {
   result: {
-    email?: string;
-    nickname?: string;
+    socialUserInfo: {
+      provider: string;
+      providerId: string;
+      email: string;
+      nickname: string;
+    };
     needSignup: boolean;
   };
 }
@@ -19,4 +23,11 @@ export interface PostSendEmailBody {
 
 export interface PostEmailVerificationStatusBody {
   email: string;
+}
+
+export interface PostSignupBody {
+  provider: string;
+  providerId: string;
+  email: string;
+  nickname: string;
 }

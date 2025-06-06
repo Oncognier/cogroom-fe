@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 
 import { useModalStore } from '@/stores/useModalStore';
 import authApis from '@/api/authApis';
+import { PostLoginResponse } from '@/types/auth';
 
 export const useLoginMutation = () => {
   const router = useRouter();
@@ -10,15 +11,22 @@ export const useLoginMutation = () => {
 
   const loginMutation = useMutation({
     mutationFn: authApis.postLogin,
-    onSuccess: ({ email, nickname, needSignup }: { email?: string; nickname?: string; needSignup: boolean }) => {
+    onSuccess: ({ result }: PostLoginResponse) => {
+      const { socialUserInfo, needSignup } = result;
+
       router.push('/');
-      if (needSignup || !!email || !!nickname) {
-        open('signup', { email: email ?? '', nickname: nickname ?? '' });
+
+      if (needSignup || socialUserInfo) {
+        open('signup', {
+          provider: socialUserInfo.provider ?? '',
+          providerId: socialUserInfo.providerId ?? '',
+          email: socialUserInfo.email ?? '',
+          nickname: socialUserInfo.nickname ?? '',
+        });
       }
     },
     onError: () => {
-      alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-      router.push('/');
+      alert('로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
     },
   });
 
