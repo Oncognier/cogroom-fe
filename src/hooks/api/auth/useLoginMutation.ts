@@ -1,22 +1,38 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import { postLogin } from '@/api/authApis';
+import { authApi } from '@/api/authApis';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useModalStore } from '@/stores/useModalStore';
+import { LoginResponse } from '@/types/auth';
 
 export const useLoginMutation = () => {
   const router = useRouter();
+  const { open } = useModalStore();
+  const checkAuth = useAuthStore((state) => state.checkAuth);
 
-  const loginMutation = useMutation({
-    mutationFn: postLogin,
-    onSuccess: ({ needSignup }) => {
+  const mutation = useMutation({
+    mutationFn: authApi.login,
+    onSuccess: ({ result }: LoginResponse) => {
+      const { socialUserInfo, needSignup } = result;
+
       router.push('/');
-      //console.log(needSignup);
+
+      if (needSignup || socialUserInfo) {
+        open('signup', {
+          provider: socialUserInfo.provider ?? '',
+          providerId: socialUserInfo.providerId ?? '',
+          email: socialUserInfo.email ?? '',
+          nickname: socialUserInfo.nickname ?? '',
+        });
+      } else {
+        checkAuth();
+      }
     },
     onError: () => {
-      alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-      router.push('/');
+      alert('로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
     },
   });
 
-  return { mutateLogin: loginMutation.mutate };
+  return { login: mutation.mutate };
 };

@@ -1,4 +1,6 @@
-import { ComponentProps } from 'react';
+'use client';
+
+import { forwardRef } from 'react';
 
 import XCircle from '@/assets/icons/xcircle-fill.svg';
 import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMessage';
@@ -7,68 +9,66 @@ import InputLabel from '@/components/atoms/InputLabel/InputLabel';
 
 import S, { InputStyleProps } from './Input.styled';
 
-interface InputProps extends ComponentProps<'input'>, InputStyleProps {
+interface InputProps extends InputStyleProps {
   label?: string;
-  errorMessage?: string;
-  errorStatus?: FormStatusMessageStatus;
   error?: string;
   isDisabled?: boolean;
   onClear?: () => void;
 }
 
-export default function Input({
-  label,
-  value,
-  onChange,
-  inputSize,
-  required,
-  isDisabled,
-  errorMessage,
-  errorStatus,
-  error,
-  onClear,
-  ...props
-}: InputProps) {
-  const hasError = !!error || !!errorMessage;
+const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
+  ({ label, inputSize, required, isDisabled, error, onClear, ...props }, ref) => {
+    const hasError = !!error;
 
-  return (
-    <S.Container>
-      {label && (
-        <InputLabel
-          label={label}
-          required={required}
-        />
-      )}
+    const [errorType, errorContent] = error?.split(':') ?? [];
 
-      <S.InputWrapper>
-        <S.Input
-          inputSize={inputSize}
-          value={value}
-          onChange={onChange}
-          disabled={isDisabled}
-          isError={hasError}
-          required={required}
-          {...props}
-        />
-        {hasError && (
-          <S.RemoveButton
-            type='button'
-            onClick={onClear}
-            aria-label='입력값 지우기'
-          >
-            <XCircle />
-          </S.RemoveButton>
+    const isNormalError = errorType === 'normal';
+    const isStatusError =
+      errorType === 'error' || errorType === 'warning' || errorType === 'success' || errorType === 'disable';
+
+    return (
+      <S.Container>
+        {label && (
+          <InputLabel
+            label={label}
+            required={required}
+          />
         )}
-      </S.InputWrapper>
 
-      {errorMessage && <S.Error>{errorMessage}</S.Error>}
+        <S.InputWrapper>
+          <S.Input
+            ref={ref}
+            inputSize={inputSize}
+            disabled={isDisabled}
+            isError={hasError}
+            required={required}
+            {...props}
+          />
 
-      {error && (
-        <FormStatusMessage
-          status={errorStatus}
-          label={error}
-        />
-      )}
-    </S.Container>
-  );
-}
+          {hasError && onClear && (
+            <S.RemoveButton
+              type='button'
+              onClick={onClear}
+              aria-label='입력값 지우기'
+            >
+              <XCircle />
+            </S.RemoveButton>
+          )}
+        </S.InputWrapper>
+
+        {isNormalError && <S.Error>{errorContent}</S.Error>}
+
+        {isStatusError && (
+          <FormStatusMessage
+            status={errorType as FormStatusMessageStatus}
+            label={errorContent}
+          />
+        )}
+      </S.Container>
+    );
+  },
+);
+
+Input.displayName = 'Input';
+
+export default Input;

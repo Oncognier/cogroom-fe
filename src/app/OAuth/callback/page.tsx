@@ -8,12 +8,12 @@ import { useLoginMutation } from '@/hooks/api/auth/useLoginMutation';
 export default function OAuthCallback() {
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
-  const { mutateLogin } = useLoginMutation();
+  const { login } = useLoginMutation();
 
   useEffect(() => {
     if (!code) return;
-    mutateLogin({ provider: 'KAKAO', code });
-  }, [code, mutateLogin]);
+    login({ provider: 'KAKAO', code });
+  }, [code, login]);
 
   return <div>Loading...</div>;
 }

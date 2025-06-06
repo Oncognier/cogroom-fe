@@ -60,6 +60,14 @@ const sizeStyles: Record<InputSize, (theme: Theme) => SerializedStyles> = {
 const errorStyle = (theme: Theme) => css`
   border-color: ${theme.semantic.status.destructive};
   padding-right: 4.4rem;
+
+  &:hover {
+    border-color: ${theme.semantic.status.destructive};
+
+    &::placeholder {
+      color: ${theme.semantic.label.alternative};
+    }
+  }
 `;
 
 const Container = styled.div`

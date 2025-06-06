@@ -37,6 +37,9 @@ const commonStyles = (theme: Theme) => css`
 
 const errorStyle = (theme: Theme) => css`
   border-color: ${theme.semantic.status.destructive};
+  &:hover {
+    border-color: ${theme.semantic.status.destructive};
+  }
 `;
 
 const Container = styled.div`
