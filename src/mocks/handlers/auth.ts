@@ -4,16 +4,16 @@ import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
 import { PostEmailVerificationStatusBody, PostLoginRequestBody, PostSendEmailBody, PostSignupBody } from '@/types/auth';
 
 import {
+  postCheckEmailVerificationStatusMockErrorResponse,
+  postCheckEmailVerificationStatusMockResponse,
+} from '../data/auth/postCheckEmailVerificationStatusMockResponse';
+import {
   accessToken,
   postLoginMockErrorResponse,
   postLoginMockResponse_NewUser,
   refreshToken,
 } from '../data/auth/postLoginMockResponse';
 import { postSendEmailMockErrorResponse, postSendEmailMockResponse } from '../data/auth/postSendEmailMockResponse';
-import {
-  postCheckEmailVerificationStatusMockErrorResponse,
-  postCheckEmailVerificationStatusMockResponse,
-} from '../data/auth/postCheckEmailVerificationStatusMockResponse';
 import { postSignupMockErrorResponse, postSignupMockResponse } from '../data/auth/postSignupMockResponse';
 
 export const authHandlers = [

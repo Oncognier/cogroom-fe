@@ -1,10 +1,12 @@
 'use client';
 
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import S from './Step4.styled';
 import { useFormContext } from 'react-hook-form';
+
+import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useSignupMutation } from '@/hooks/api/auth/useSignup';
 import { useModalStore } from '@/stores/useModalStore';
+
+import S from './Step4.styled';
 
 export interface Step4Props {
   provider: string;

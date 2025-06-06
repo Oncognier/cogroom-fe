@@ -4,10 +4,10 @@ import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Input from '@/components/molecules/Input/Input';
+import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
+import { validateEmail } from '@/utils/validators/emailValidators';
 
 import S from './Step2.styled';
-import { validateEmail } from '@/utils/validators/emailValidators';
-import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
 
 export interface Step2Props {
   email: string;

@@ -1,6 +1,7 @@
 import type { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
+import { ApiResponse } from '@/types/api';
 
 import {
   PostEmailVerificationStatusBody,
@@ -9,7 +10,6 @@ import {
   PostSendEmailBody,
   PostSignupBody,
 } from '../types/auth';
-import { ApiResponse } from '@/types/api';
 import { axiosInstance } from './axios/axiosInstance';
 
 const postLogin = async ({ code, provider }: PostLoginRequestBody) => {

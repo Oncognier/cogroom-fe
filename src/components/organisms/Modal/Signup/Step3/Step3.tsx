@@ -5,8 +5,9 @@ import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
-import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
 import { useEmailVerificationStatusMutation } from '@/hooks/api/auth/useEmailVerificationStatus';
+import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
+
 import S from './Step3.styled';
 
 export interface Step3Props {
@@ -29,7 +30,6 @@ export default function Step3({ onConfirm }: Step3Props) {
 
   const handleComplete = () => {
     const email = getValues('email');
-    console.log(getValues());
     mutateEmailVerificationStatus({ email });
   };
 
