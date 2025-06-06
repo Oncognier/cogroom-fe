@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useEmailVerificationStatus';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
+import { useCooldown } from '@/hooks/useCooldown';
 
 import S from './Step3.styled';
 
@@ -20,26 +21,20 @@ export default function Step3({ onConfirm }: Step3Props) {
   const { sendEmail } = useSendEmailMutation();
   const { checkEmailVerified } = useCheckEmailVerifiedMutation(onConfirm);
 
-  const [isConfirmDisabled, setIsConfirmDisabled] = useState(true);
-  const [isResendDisabled, setIsResendDisabled] = useState(false);
+  const { value: isConfirmDisabled, start: startConfirmCooldown } = useCooldown(3000);
+  const { value: isResendDisabled, start: startResendCooldown } = useCooldown(3000);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsConfirmDisabled(false), 3000);
-    return () => clearTimeout(timer);
-  }, []);
+    startConfirmCooldown();
+  }, [startConfirmCooldown]);
 
   const handleComplete = () => {
-    const email = getValues('email');
-    checkEmailVerified({ email });
+    checkEmailVerified({ email: getValues('email') });
   };
 
   const handleResend = () => {
-    const email = getValues('email');
-    sendEmail({ email });
-    setIsResendDisabled(true);
-
-    const timer = setTimeout(() => setIsResendDisabled(false), 3000);
-    return () => clearTimeout(timer);
+    sendEmail({ email: getValues('email') });
+    startResendCooldown();
   };
 
   return (
@@ -50,8 +45,7 @@ export default function Step3({ onConfirm }: Step3Props) {
           <S.Title>인증 메일이 발송됐어요</S.Title>
         </S.TitleWrapper>
         <S.Description>
-          이메일 내 인증 링크 클릭 후
-          <br />
+          이메일 내 인증 링크 클릭 후<br />
           인증 확인 버튼을 누르면 가입이 완료됩니다
         </S.Description>
       </S.TextWrapper>

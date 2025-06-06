@@ -20,22 +20,31 @@ export interface SignupProps {
   nickname: string;
 }
 
-interface FormValues {
+interface SignupFormFields {
   email: string;
 }
 
+const STEP = {
+  CHECK_ORIGINAL_EMAIL: 'CHECK_ORIGINAL_EMAIL',
+  INPUT_NEW_EMAIL: 'INPUT_NEW_EMAIL',
+  VERIFY_EMAIL: 'VERIFY_EMAIL',
+  COMPLETE: 'COMPLETE',
+} as const;
+
+type Step = (typeof STEP)[keyof typeof STEP];
+
 export default function Signup({ provider, providerId, email, nickname }: SignupProps) {
   const { close } = useModalStore();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<Step>(STEP.CHECK_ORIGINAL_EMAIL);
 
-  const methods = useForm<FormValues>({
+  const methods = useForm<SignupFormFields>({
     mode: 'onChange',
     reValidateMode: 'onBlur',
   });
 
-  const handleConfirmEmail = () => setStep(3);
-  const handleUseAnotherEmail = () => setStep(2);
-  const handleCompleteEmail = () => setStep(4);
+  const handleConfirmEmail = () => setStep(STEP.VERIFY_EMAIL);
+  const handleUseAnotherEmail = () => setStep(STEP.INPUT_NEW_EMAIL);
+  const handleCompleteEmail = () => setStep(STEP.COMPLETE);
 
   return (
     <FormProvider {...methods}>
@@ -51,21 +60,21 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
           </IconButton>
         </S.Close>
 
-        {step === 1 && (
+        {step === STEP.CHECK_ORIGINAL_EMAIL && (
           <Step1
             email={email}
             onConfirm={handleConfirmEmail}
             onChangeEmail={handleUseAnotherEmail}
           />
         )}
-        {step === 2 && (
+        {step === STEP.INPUT_NEW_EMAIL && (
           <Step2
             email={email}
             onConfirm={handleConfirmEmail}
           />
         )}
-        {step === 3 && <Step3 onConfirm={handleCompleteEmail} />}
-        {step === 4 && (
+        {step === STEP.VERIFY_EMAIL && <Step3 onConfirm={handleCompleteEmail} />}
+        {step === STEP.COMPLETE && (
           <Step4
             provider={provider}
             providerId={providerId}

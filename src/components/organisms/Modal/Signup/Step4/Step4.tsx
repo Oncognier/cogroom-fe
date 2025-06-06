@@ -20,7 +20,7 @@ export default function Step4({ provider, providerId, nickname }: Step4Props) {
   const { getValues } = useFormContext<{ email: string }>();
   const email = getValues('email');
 
-  const handleGo = () => {
+  const handleSignup = () => {
     signup({ provider, providerId, email, nickname });
     close();
   };
@@ -30,7 +30,7 @@ export default function Step4({ provider, providerId, nickname }: Step4Props) {
       <S.TextWrapper>
         <S.TitleWrapper>
           <S.SubTitle>가입이 완료되었어요</S.SubTitle>
-          <S.Title>코그룸에 오신걸 환영해요</S.Title>
+          <S.Title>코그룸에 오신 걸 환영해요</S.Title>
         </S.TitleWrapper>
         <S.Description>
           코그룸은 단순한 학습이 아닌
@@ -44,7 +44,7 @@ export default function Step4({ provider, providerId, nickname }: Step4Props) {
         size='fillContainer'
         color='primary'
         interactionVariant='normal'
-        onClick={handleGo}
+        onClick={handleSignup}
       />
     </>
   );

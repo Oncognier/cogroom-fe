@@ -19,7 +19,7 @@ export default function Step1({ email, onConfirm, onChangeEmail }: Step1Props) {
   const { sendEmail } = useSendEmailMutation(onConfirm);
   const { setValue } = useFormContext<{ email: string }>();
 
-  const onSubmit = () => {
+  const handleSubmit = () => {
     setValue('email', email);
     sendEmail({ email });
   };
@@ -45,7 +45,7 @@ export default function Step1({ email, onConfirm, onChangeEmail }: Step1Props) {
           size='fillContainer'
           color='primary'
           interactionVariant='normal'
-          onClick={onSubmit}
+          onClick={handleSubmit}
         />
         <OutlinedButton
           label='다른 이메일 사용하기'

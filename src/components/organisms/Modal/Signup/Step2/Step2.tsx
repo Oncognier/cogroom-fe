@@ -22,8 +22,8 @@ export default function Step2({ email, onConfirm }: Step2Props) {
   } = useFormContext<{ email: string }>();
   const { sendEmail } = useSendEmailMutation(onConfirm);
 
-  const onSubmit = (data: { email: string }) => {
-    sendEmail({ email: data.email });
+  const onSubmit = ({ email }: { email: string }) => {
+    sendEmail({ email });
   };
 
   return (
