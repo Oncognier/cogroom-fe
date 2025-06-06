@@ -6,6 +6,7 @@ import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 
 import S from './Step1.styled';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
+import { useFormContext } from 'react-hook-form';
 
 export interface Step1Props {
   email: string;
@@ -15,8 +16,10 @@ export interface Step1Props {
 
 export default function Step1({ email, onConfirm, onChangeEmail }: Step1Props) {
   const { mutateSendEmail } = useSendEmailMutation(onConfirm);
+  const { setValue } = useFormContext<{ email: string }>();
 
   const onSubmit = () => {
+    setValue('email', email);
     mutateSendEmail({ email });
   };
 

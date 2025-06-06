@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
@@ -8,11 +10,12 @@ import { useEmailVerificationStatusMutation } from '@/hooks/api/auth/useEmailVer
 import S from './Step3.styled';
 
 export interface Step3Props {
-  email: string;
   onConfirm: () => void;
 }
 
-export default function Step3({ email, onConfirm }: Step3Props) {
+export default function Step3({ onConfirm }: Step3Props) {
+  const { getValues } = useFormContext<{ email: string }>();
+
   const { mutateSendEmail } = useSendEmailMutation();
   const { mutateEmailVerificationStatus } = useEmailVerificationStatusMutation(onConfirm);
 
@@ -25,10 +28,13 @@ export default function Step3({ email, onConfirm }: Step3Props) {
   }, []);
 
   const handleComplete = () => {
+    const email = getValues('email');
+    console.log(getValues());
     mutateEmailVerificationStatus({ email });
   };
 
   const handleResend = () => {
+    const email = getValues('email');
     mutateSendEmail({ email });
     setIsResendDisabled(true);
 

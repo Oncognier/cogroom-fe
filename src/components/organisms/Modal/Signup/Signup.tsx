@@ -66,6 +66,10 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
         )}
         {step === 3 && <Step3 onConfirm={handleCompleteEmail} />}
         {step === 4 && (
+          <Step4
+            provider={provider}
+            providerId={providerId}
+            nickname={nickname}
           />
         )}
       </S.Container>
