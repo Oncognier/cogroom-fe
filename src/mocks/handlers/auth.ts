@@ -3,18 +3,10 @@ import { http, HttpResponse } from 'msw';
 import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
 import { CheckEmailVerifiedRequest, LoginRequest, SendEmailRequest, SignupRequest } from '@/types/auth';
 
-import {
-  checkEmailVerifiedError,
-  checkEmailVerifiedSuccess,
-} from '../data/auth/postCheckEmailVerificationStatusMockResponse';
-import {
-  loginError,
-  loginSuccess_NewUser,
-  mockAccessToken,
-  mockRefreshToken,
-} from '../data/auth/postLoginMockResponse';
-import { sendEmailError, sendEmailSuccess } from '../data/auth/postSendEmailMockResponse';
-import { signupError, signupSuccess } from '../data/auth/postSignupMockResponse';
+import { checkEmailVerifiedError, checkEmailVerifiedSuccess } from '../data/auth/checkEmailVerifiedMock';
+import { loginError, loginSuccess_NewUser, mockAccessToken, mockRefreshToken } from '../data/auth/loginMock';
+import { sendEmailError, sendEmailSuccess } from '../data/auth/sendEmailMock';
+import { signupError, signupSuccess } from '../data/auth/signupMock';
 
 export const authHandlers = [
   http.post(END_POINTS_V1.AUTH.LOGIN, async ({ request }) => {
