@@ -1,4 +1,4 @@
-import { NAV_ITEMS } from '@/constants/navItems';
+import { NAV_ITEMS } from '@/constants/common';
 
 import S from './NavList.styled';
 import NavItem from '../NavItem/NavItem';
