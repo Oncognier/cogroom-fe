@@ -38,6 +38,7 @@ const Description = styled.p`
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing[12]};
 `;
 

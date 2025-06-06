@@ -67,7 +67,7 @@ export default function Step3({ onConfirm }: Step3Props) {
         />
         <TextButton
           label='메일 재전송'
-          size='fillContainer'
+          size='sm'
           color='assistive'
           interactionVariant='normal'
           onClick={handleResend}
