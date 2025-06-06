@@ -9,13 +9,13 @@ import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useEmailVerifica
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
 import { useCooldown } from '@/hooks/useCooldown';
 
-import S from './Step3.styled';
+import S from './VerifyEmail.styled';
 
-export interface Step3Props {
+export interface VerifyEmailProps {
   onConfirm: () => void;
 }
 
-export default function Step3({ onConfirm }: Step3Props) {
+export default function VerifyEmail({ onConfirm }: VerifyEmailProps) {
   const { getValues } = useFormContext<{ email: string }>();
 
   const { sendEmail } = useSendEmailMutation();

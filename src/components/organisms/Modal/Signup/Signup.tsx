@@ -45,25 +45,25 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
           </IconButton>
         </S.Close>
 
-          <Step1
         {step === SIGNUP_STEP.CHECK_ORIGINAL_EMAIL && (
+          <CheckEmail
             email={email}
             onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)}
             onChangeEmail={() => setStep(SIGNUP_STEP.INPUT_NEW_EMAIL)}
           />
         )}
-          <Step2
 
         {step === SIGNUP_STEP.INPUT_NEW_EMAIL && (
+          <InputEmail
             email={email}
             onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)}
           />
         )}
-        {step === STEP.VERIFY_EMAIL && <Step3 onConfirm={handleCompleteEmail} />}
-          <Step4
 
+        {step === SIGNUP_STEP.VERIFY_EMAIL && <VerifyEmail onConfirm={() => setStep(SIGNUP_STEP.COMPLETE)} />}
 
         {step === SIGNUP_STEP.COMPLETE && (
+          <Complete
             provider={provider}
             providerId={providerId}
             nickname={nickname}

@@ -6,15 +6,15 @@ import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useSignupMutation } from '@/hooks/api/auth/useSignup';
 import { useModalStore } from '@/stores/useModalStore';
 
-import S from './Step4.styled';
+import S from './Complete.styled';
 
-export interface Step4Props {
+export interface CompleteProps {
   provider: string;
   providerId: string;
   nickname: string;
 }
 
-export default function Step4({ provider, providerId, nickname }: Step4Props) {
+export default function Complete({ provider, providerId, nickname }: CompleteProps) {
   const { signup } = useSignupMutation();
   const { close } = useModalStore();
   const { getValues } = useFormContext<{ email: string }>();

@@ -7,15 +7,15 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
 
-import S from './Step1.styled';
+import S from './CheckEmail.styled';
 
-export interface Step1Props {
+export interface CheckEmailProps {
   email: string;
   onConfirm: () => void;
   onChangeEmail: () => void;
 }
 
-export default function Step1({ email, onConfirm, onChangeEmail }: Step1Props) {
+export default function CheckEmail({ email, onConfirm, onChangeEmail }: CheckEmailProps) {
   const { sendEmail } = useSendEmailMutation(onConfirm);
   const { setValue } = useFormContext<{ email: string }>();
 

@@ -7,14 +7,14 @@ import Input from '@/components/molecules/Input/Input';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
 import { validateEmail } from '@/utils/validators/emailValidators';
 
-import S from './Step2.styled';
+import S from './InputEmail.styled';
 
-export interface Step2Props {
+export interface InputEmailProps {
   email: string;
   onConfirm: () => void;
 }
 
-export default function Step2({ email, onConfirm }: Step2Props) {
+export default function InputEmail({ email, onConfirm }: InputEmailProps) {
   const {
     register,
     handleSubmit,
