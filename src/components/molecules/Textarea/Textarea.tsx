@@ -1,4 +1,6 @@
-import { ComponentProps } from 'react';
+'use client';
+
+import { forwardRef, ComponentProps } from 'react';
 
 import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMessage';
 import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
@@ -8,52 +10,49 @@ import S from './Textarea.styled';
 
 interface TextareaProps extends ComponentProps<'textarea'> {
   label?: string;
-  errorMessage?: string;
-  errorStatus?: FormStatusMessageStatus;
   error?: string;
   isDisabled?: boolean;
-  onClear?: () => void;
 }
 
-export default function Textarea({
-  label,
-  value,
-  onChange,
-  required,
-  isDisabled,
-  errorMessage,
-  errorStatus,
-  error,
-  ...props
-}: TextareaProps) {
-  const hasError = !!error || !!errorMessage;
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+  ({ label, required, isDisabled, error, ...props }, ref) => {
+    const hasError = !!error;
+    const [errorType, errorContent] = error?.split(':') ?? [];
 
-  return (
-    <S.Container>
-      {label && (
-        <InputLabel
-          label={label}
+    const isNormalError = errorType === 'normal';
+    const isStatusError =
+      errorType === 'error' || errorType === 'warning' || errorType === 'success' || errorType === 'disable';
+
+    return (
+      <S.Container>
+        {label && (
+          <InputLabel
+            label={label}
+            required={required}
+          />
+        )}
+
+        <S.Textarea
+          ref={ref}
+          disabled={isDisabled}
+          isError={hasError}
           required={required}
+          {...props}
         />
-      )}
 
-      <S.Textarea
-        value={value}
-        onChange={onChange}
-        disabled={isDisabled}
-        isError={hasError}
-        required={required}
-        {...props}
-      />
+        {isNormalError && <S.Error>{errorContent}</S.Error>}
 
-      {errorMessage && <S.Error>{errorMessage}</S.Error>}
+        {isStatusError && (
+          <FormStatusMessage
+            status={errorType as FormStatusMessageStatus}
+            label={errorContent}
+          />
+        )}
+      </S.Container>
+    );
+  },
+);
 
-      {error && (
-        <FormStatusMessage
-          status={errorStatus}
-          label={error}
-        />
-      )}
-    </S.Container>
-  );
-}
+Textarea.displayName = 'Textarea';
+
+export default Textarea;
