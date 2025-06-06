@@ -5,13 +5,11 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import X from '@/assets/icons/x.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
+import { SIGNUP_STEP, SignupStep } from '@/constants/common';
 import { useModalStore } from '@/stores/useModalStore';
 
 import S from './Signup.styled';
-import Step1 from './Step1/Step1';
-import Step2 from './Step2/Step2';
-import Step3 from './Step3/Step3';
-import Step4 from './Step4/Step4';
+import { CheckEmail, InputEmail, VerifyEmail, Complete } from './Steps';
 
 export interface SignupProps {
   provider: string;
@@ -24,27 +22,14 @@ interface SignupFormFields {
   email: string;
 }
 
-const STEP = {
-  CHECK_ORIGINAL_EMAIL: 'CHECK_ORIGINAL_EMAIL',
-  INPUT_NEW_EMAIL: 'INPUT_NEW_EMAIL',
-  VERIFY_EMAIL: 'VERIFY_EMAIL',
-  COMPLETE: 'COMPLETE',
-} as const;
-
-type Step = (typeof STEP)[keyof typeof STEP];
-
 export default function Signup({ provider, providerId, email, nickname }: SignupProps) {
   const { close } = useModalStore();
-  const [step, setStep] = useState<Step>(STEP.CHECK_ORIGINAL_EMAIL);
+  const [step, setStep] = useState<SignupStep>(SIGNUP_STEP.CHECK_ORIGINAL_EMAIL);
 
   const methods = useForm<SignupFormFields>({
     mode: 'onChange',
     reValidateMode: 'onBlur',
   });
-
-  const handleConfirmEmail = () => setStep(STEP.VERIFY_EMAIL);
-  const handleUseAnotherEmail = () => setStep(STEP.INPUT_NEW_EMAIL);
-  const handleCompleteEmail = () => setStep(STEP.COMPLETE);
 
   return (
     <FormProvider {...methods}>
@@ -60,22 +45,25 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
           </IconButton>
         </S.Close>
 
-        {step === STEP.CHECK_ORIGINAL_EMAIL && (
           <Step1
+        {step === SIGNUP_STEP.CHECK_ORIGINAL_EMAIL && (
             email={email}
-            onConfirm={handleConfirmEmail}
-            onChangeEmail={handleUseAnotherEmail}
+            onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)}
+            onChangeEmail={() => setStep(SIGNUP_STEP.INPUT_NEW_EMAIL)}
           />
         )}
-        {step === STEP.INPUT_NEW_EMAIL && (
           <Step2
+
+        {step === SIGNUP_STEP.INPUT_NEW_EMAIL && (
             email={email}
-            onConfirm={handleConfirmEmail}
+            onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)}
           />
         )}
         {step === STEP.VERIFY_EMAIL && <Step3 onConfirm={handleCompleteEmail} />}
-        {step === STEP.COMPLETE && (
           <Step4
+
+
+        {step === SIGNUP_STEP.COMPLETE && (
             provider={provider}
             providerId={providerId}
             nickname={nickname}
