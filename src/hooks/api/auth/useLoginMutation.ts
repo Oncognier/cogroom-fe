@@ -2,12 +2,14 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useModalStore } from '@/stores/useModalStore';
 import { LoginResponse } from '@/types/auth';
 
 export const useLoginMutation = () => {
   const router = useRouter();
   const { open } = useModalStore();
+  const checkAuth = useAuthStore((state) => state.checkAuth);
 
   const mutation = useMutation({
     mutationFn: authApi.login,
@@ -23,6 +25,8 @@ export const useLoginMutation = () => {
           email: socialUserInfo.email ?? '',
           nickname: socialUserInfo.nickname ?? '',
         });
+      } else {
+        checkAuth();
       }
     },
     onError: () => {

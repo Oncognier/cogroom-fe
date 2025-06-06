@@ -26,7 +26,7 @@ export default function Step3({ onConfirm }: Step3Props) {
 
   useEffect(() => {
     startConfirmCooldown();
-  }, [startConfirmCooldown]);
+  }, []);
 
   const handleComplete = () => {
     checkEmailVerified({ email: getValues('email') });
