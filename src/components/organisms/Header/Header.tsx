@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Bell from '@/assets/icons/bell.svg';
 import Search from '@/assets/icons/search.svg';
@@ -20,6 +20,7 @@ export default function Header() {
   const { open } = useModalStore();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const pathname = usePathname() || '/';
+  const router = useRouter();
 
   return (
     <S.Header>
@@ -56,6 +57,7 @@ export default function Header() {
             <AvatarPerson
               type='icon'
               size='fillContainer'
+              onClick={() => router.push('/mypage')}
             />
           </S.NavLogin>
         ) : (

@@ -1,7 +1,15 @@
-export const NAV_ITEMS = [
+export const HEADER_NAV_ITEMS = [
   { label: '데일리', href: '/daily' },
   { label: '콘텐츠', href: '/content' },
   { label: '커뮤니티', href: '/community' },
+] as const;
+
+export const SIDEBAR_NAV_ITEMS = [
+  { label: '개인정보 설정', href: '/mypage/setting' },
+  { label: '학습 및 활동 기록', href: '/mypage/history' },
+  { label: '구매 기록', href: '/mypage/purchase' },
+  { label: '커뮤니티 활동', href: '/mypage/community' },
+  { label: '푸시 및 카톡 알림', href: '/mypage/notification' },
 ] as const;
 
 export const SIGNUP_STEP = {
