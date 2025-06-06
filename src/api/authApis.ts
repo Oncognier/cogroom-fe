@@ -42,10 +42,21 @@ const postEmailVerificationStatus = async ({ email }: PostEmailVerificationStatu
   return data;
 };
 
+const postSignup = async ({ provider, providerId, email, nickname }: PostSignupBody) => {
+  const { data } = await axiosInstance.post<PostSignupBody, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.AUTH.SIGNUP,
+    { provider, providerId, email, nickname },
+    { useAuth: false },
+  );
+
+  return data;
+};
+
 const authApis = {
   postLogin,
   postSendEmail,
   postEmailVerificationStatus,
+  postSignup,
 };
 
 export default authApis;
