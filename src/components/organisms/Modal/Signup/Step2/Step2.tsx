@@ -18,6 +18,7 @@ export default function Step2({ email, onConfirm }: Step2Props) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors, isValid },
   } = useFormContext<{ email: string }>();
   const { sendEmail } = useSendEmailMutation(onConfirm);
@@ -39,10 +40,11 @@ export default function Step2({ email, onConfirm }: Step2Props) {
           inputSize='md'
           placeholder={email}
           {...register('email', {
-            required: '이메일은 필수입니다.',
+            required: 'normal: 이메일은 필수입니다.',
             validate: validateEmail,
           })}
           error={errors.email?.message}
+          onClear={() => reset({ email: '' })}
         />
         <SolidButton
           label='이 이메일로 시작하기'
