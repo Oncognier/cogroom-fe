@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
-import { useEmailVerificationStatusMutation } from '@/hooks/api/auth/useEmailVerificationStatus';
+import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useEmailVerificationStatus';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
 
 import S from './Step3.styled';
@@ -17,8 +17,8 @@ export interface Step3Props {
 export default function Step3({ onConfirm }: Step3Props) {
   const { getValues } = useFormContext<{ email: string }>();
 
-  const { mutateSendEmail } = useSendEmailMutation();
-  const { mutateEmailVerificationStatus } = useEmailVerificationStatusMutation(onConfirm);
+  const { sendEmail } = useSendEmailMutation();
+  const { checkEmailVerified } = useCheckEmailVerifiedMutation(onConfirm);
 
   const [isConfirmDisabled, setIsConfirmDisabled] = useState(true);
   const [isResendDisabled, setIsResendDisabled] = useState(false);
@@ -30,12 +30,12 @@ export default function Step3({ onConfirm }: Step3Props) {
 
   const handleComplete = () => {
     const email = getValues('email');
-    mutateEmailVerificationStatus({ email });
+    checkEmailVerified({ email });
   };
 
   const handleResend = () => {
     const email = getValues('email');
-    mutateSendEmail({ email });
+    sendEmail({ email });
     setIsResendDisabled(true);
 
     const timer = setTimeout(() => setIsResendDisabled(false), 3000);

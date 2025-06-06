@@ -20,10 +20,10 @@ export default function Step2({ email, onConfirm }: Step2Props) {
     handleSubmit,
     formState: { errors, isValid },
   } = useFormContext<{ email: string }>();
-  const { mutateSendEmail } = useSendEmailMutation(onConfirm);
+  const { sendEmail } = useSendEmailMutation(onConfirm);
 
   const onSubmit = (data: { email: string }) => {
-    mutateSendEmail({ email: data.email });
+    sendEmail({ email: data.email });
   };
 
   return (

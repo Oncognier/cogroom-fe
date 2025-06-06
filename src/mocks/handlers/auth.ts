@@ -1,79 +1,84 @@
 import { http, HttpResponse } from 'msw';
 
 import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
-import { PostEmailVerificationStatusBody, PostLoginRequestBody, PostSendEmailBody, PostSignupBody } from '@/types/auth';
+import { CheckEmailVerifiedRequest, LoginRequest, SendEmailRequest, SignupRequest } from '@/types/auth';
 
 import {
-  postCheckEmailVerificationStatusMockErrorResponse,
-  postCheckEmailVerificationStatusMockResponse,
+  checkEmailVerifiedError,
+  checkEmailVerifiedSuccess,
 } from '../data/auth/postCheckEmailVerificationStatusMockResponse';
 import {
-  accessToken,
-  postLoginMockErrorResponse,
-  postLoginMockResponse_NewUser,
-  refreshToken,
+  loginError,
+  loginSuccess_NewUser,
+  mockAccessToken,
+  mockRefreshToken,
 } from '../data/auth/postLoginMockResponse';
-import { postSendEmailMockErrorResponse, postSendEmailMockResponse } from '../data/auth/postSendEmailMockResponse';
-import { postSignupMockErrorResponse, postSignupMockResponse } from '../data/auth/postSignupMockResponse';
+import { sendEmailError, sendEmailSuccess } from '../data/auth/postSendEmailMockResponse';
+import { signupError, signupSuccess } from '../data/auth/postSignupMockResponse';
 
 export const authHandlers = [
-  http.post(`${END_POINTS_V1.AUTH.LOGIN}`, async ({ request }) => {
-    const body = (await request.json()) as PostLoginRequestBody;
+  http.post(END_POINTS_V1.AUTH.LOGIN, async ({ request }) => {
+    const body = (await request.json()) as LoginRequest;
 
     if (!body.code || !body.provider) {
-      return new HttpResponse(JSON.stringify(postLoginMockErrorResponse), {
+      return new HttpResponse(JSON.stringify(loginError), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(JSON.stringify(postLoginMockResponse_NewUser), {
+    return new HttpResponse(JSON.stringify(loginSuccess_NewUser), {
       status: HTTP_STATUS_CODE.OK,
       headers: new Headers([
-        ['Set-Cookie', `accessToken=${accessToken}; Path=/`],
-        ['Set-Cookie', `refreshToken=${refreshToken}; HttpOnly; Path=/`],
+        ['Set-Cookie', `accessToken=${mockAccessToken}; Path=/`],
+        ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
         ['Content-Type', 'application/json'],
       ]),
     });
   }),
 
-  http.post(`${END_POINTS_V1.AUTH.SEND_EMAIL}`, async ({ request }) => {
-    const body = (await request.json()) as PostSendEmailBody;
-
-    if (!body.email) {
-      return new HttpResponse(JSON.stringify(postSendEmailMockErrorResponse), {
-        status: HTTP_STATUS_CODE.BAD_REQUEST,
-      });
-    }
-
-    return new HttpResponse(JSON.stringify(postSendEmailMockResponse), {
-      status: HTTP_STATUS_CODE.OK,
-    });
-  }),
-
-  http.post(`${END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFICATION_STATUS}`, async ({ request }) => {
-    const body = (await request.json()) as PostEmailVerificationStatusBody;
-
-    if (!body.email) {
-      return new HttpResponse(JSON.stringify(postCheckEmailVerificationStatusMockErrorResponse), {
-        status: HTTP_STATUS_CODE.BAD_REQUEST,
-      });
-    }
-
-    return new HttpResponse(JSON.stringify(postCheckEmailVerificationStatusMockResponse), {
-      status: HTTP_STATUS_CODE.OK,
-    });
-  }),
-
-  http.post(`${END_POINTS_V1.AUTH.SIGNUP}`, async ({ request }) => {
-    const body = (await request.json()) as PostSignupBody;
+  http.post(END_POINTS_V1.AUTH.SIGNUP, async ({ request }) => {
+    const body = (await request.json()) as SignupRequest;
 
     if (!body.provider || !body.providerId || !body.email || !body.nickname) {
-      return new HttpResponse(JSON.stringify(postSignupMockErrorResponse), {
+      return new HttpResponse(JSON.stringify(signupError), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
 
-    return new HttpResponse(JSON.stringify(postSignupMockResponse), {
+    return new HttpResponse(JSON.stringify(signupSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+      headers: new Headers([
+        ['Set-Cookie', `accessToken=${mockAccessToken}; Path=/`],
+        ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
+        ['Content-Type', 'application/json'],
+      ]),
+    });
+  }),
+
+  http.post(END_POINTS_V1.AUTH.SEND_EMAIL, async ({ request }) => {
+    const body = (await request.json()) as SendEmailRequest;
+
+    if (!body.email) {
+      return new HttpResponse(JSON.stringify(sendEmailError), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(sendEmailSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.post(END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFIED, async ({ request }) => {
+    const body = (await request.json()) as CheckEmailVerifiedRequest;
+
+    if (!body.email) {
+      return new HttpResponse(JSON.stringify(checkEmailVerifiedError), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(checkEmailVerifiedSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 import { useFormContext } from 'react-hook-form';
 
-import authApis from '@/api/authApis';
+import { authApi } from '@/api/authApis';
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 
 export const useSendEmailMutation = (onConfirm?: () => void) => {
   const { setError } = useFormContext<{ email: string }>();
 
-  const sendEmailMutation = useMutation({
-    mutationFn: authApis.postSendEmail,
+  const mutation = useMutation({
+    mutationFn: authApi.sendEmail,
     onSuccess: () => {
       onConfirm?.();
     },
@@ -22,5 +22,5 @@ export const useSendEmailMutation = (onConfirm?: () => void) => {
     },
   });
 
-  return { mutateSendEmail: sendEmailMutation.mutate };
+  return { sendEmail: mutation.mutate };
 };

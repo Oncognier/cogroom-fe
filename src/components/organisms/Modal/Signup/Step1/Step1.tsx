@@ -16,12 +16,12 @@ export interface Step1Props {
 }
 
 export default function Step1({ email, onConfirm, onChangeEmail }: Step1Props) {
-  const { mutateSendEmail } = useSendEmailMutation(onConfirm);
+  const { sendEmail } = useSendEmailMutation(onConfirm);
   const { setValue } = useFormContext<{ email: string }>();
 
   const onSubmit = () => {
     setValue('email', email);
-    mutateSendEmail({ email });
+    sendEmail({ email });
   };
 
   return (

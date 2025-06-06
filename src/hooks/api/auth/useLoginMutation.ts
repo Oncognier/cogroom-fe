@@ -1,17 +1,17 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import authApis from '@/api/authApis';
+import { authApi } from '@/api/authApis';
 import { useModalStore } from '@/stores/useModalStore';
-import { PostLoginResponse } from '@/types/auth';
+import { LoginResponse } from '@/types/auth';
 
 export const useLoginMutation = () => {
   const router = useRouter();
   const { open } = useModalStore();
 
-  const loginMutation = useMutation({
-    mutationFn: authApis.postLogin,
-    onSuccess: ({ result }: PostLoginResponse) => {
+  const mutation = useMutation({
+    mutationFn: authApi.login,
+    onSuccess: ({ result }: LoginResponse) => {
       const { socialUserInfo, needSignup } = result;
 
       router.push('/');
@@ -30,5 +30,5 @@ export const useLoginMutation = () => {
     },
   });
 
-  return { mutateLogin: loginMutation.mutate };
+  return { login: mutation.mutate };
 };

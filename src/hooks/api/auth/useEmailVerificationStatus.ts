@@ -1,14 +1,14 @@
 import { useMutation } from '@tanstack/react-query';
 
-import authApis from '@/api/authApis';
+import { authApi } from '@/api/authApis';
 
-export const useEmailVerificationStatusMutation = (onConfirm?: () => void) => {
-  const emailVerificationStatusMutation = useMutation({
-    mutationFn: authApis.postEmailVerificationStatus,
+export const useCheckEmailVerifiedMutation = (onConfirm?: () => void) => {
+  const mutation = useMutation({
+    mutationFn: authApi.checkEmailVerified,
     onSuccess: () => {
       onConfirm?.();
     },
   });
 
-  return { mutateEmailVerificationStatus: emailVerificationStatusMutation.mutate };
+  return { checkEmailVerified: mutation.mutate };
 };

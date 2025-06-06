@@ -1,11 +1,11 @@
 import { ApiResponse } from './api';
 
-export interface PostLoginRequestBody {
+export interface LoginRequest {
   code: string;
   provider: string;
 }
 
-export interface PostLoginResponse extends ApiResponse {
+export interface LoginResponse extends ApiResponse {
   result: {
     socialUserInfo: {
       provider: string;
@@ -17,15 +17,15 @@ export interface PostLoginResponse extends ApiResponse {
   };
 }
 
-export interface PostSendEmailBody {
+export interface SendEmailRequest {
   email: string;
 }
 
-export interface PostEmailVerificationStatusBody {
+export interface CheckEmailVerifiedRequest {
   email: string;
 }
 
-export interface PostSignupBody {
+export interface SignupRequest {
   provider: string;
   providerId: string;
   email: string;

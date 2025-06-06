@@ -15,13 +15,13 @@ export interface Step4Props {
 }
 
 export default function Step4({ provider, providerId, nickname }: Step4Props) {
-  const { mutateSignup } = useSignupMutation();
+  const { signup } = useSignupMutation();
   const { close } = useModalStore();
   const { getValues } = useFormContext<{ email: string }>();
   const email = getValues('email');
 
   const handleGo = () => {
-    mutateSignup({ provider, providerId, email, nickname });
+    signup({ provider, providerId, email, nickname });
     close();
   };
 

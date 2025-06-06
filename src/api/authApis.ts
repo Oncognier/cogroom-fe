@@ -3,60 +3,48 @@ import type { AxiosResponse } from 'axios';
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 
-import {
-  PostEmailVerificationStatusBody,
-  PostLoginRequestBody,
-  PostLoginResponse,
-  PostSendEmailBody,
-  PostSignupBody,
-} from '../types/auth';
+import { LoginRequest, LoginResponse, SendEmailRequest, CheckEmailVerifiedRequest, SignupRequest } from '../types/auth';
 import { axiosInstance } from './axios/axiosInstance';
 
-const postLogin = async ({ code, provider }: PostLoginRequestBody) => {
-  const { data } = await axiosInstance.post<PostLoginRequestBody, AxiosResponse<PostLoginResponse>>(
+const login = async ({ code, provider }: LoginRequest) => {
+  const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(
     END_POINTS_V1.AUTH.LOGIN,
     { code, provider },
     { useAuth: false },
   );
-
   return data;
 };
 
-const postSendEmail = async ({ email }: PostSendEmailBody) => {
-  const { data } = await axiosInstance.post<PostSendEmailBody, AxiosResponse<ApiResponse>>(
-    END_POINTS_V1.AUTH.SEND_EMAIL,
-    { email },
-    { useAuth: false },
-  );
-
-  return data;
-};
-
-const postEmailVerificationStatus = async ({ email }: PostEmailVerificationStatusBody) => {
-  const { data } = await axiosInstance.post<PostEmailVerificationStatusBody, AxiosResponse<ApiResponse>>(
-    END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFICATION_STATUS,
-    { email },
-    { useAuth: false },
-  );
-
-  return data;
-};
-
-const postSignup = async ({ provider, providerId, email, nickname }: PostSignupBody) => {
-  const { data } = await axiosInstance.post<PostSignupBody, AxiosResponse<ApiResponse>>(
+const signup = async ({ provider, providerId, email, nickname }: SignupRequest) => {
+  const { data } = await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.AUTH.SIGNUP,
     { provider, providerId, email, nickname },
     { useAuth: false },
   );
-
   return data;
 };
 
-const authApis = {
-  postLogin,
-  postSendEmail,
-  postEmailVerificationStatus,
-  postSignup,
+const sendEmail = async ({ email }: SendEmailRequest) => {
+  const { data } = await axiosInstance.post<SendEmailRequest, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.AUTH.SEND_EMAIL,
+    { email },
+    { useAuth: false },
+  );
+  return data;
 };
 
-export default authApis;
+const checkEmailVerified = async ({ email }: CheckEmailVerifiedRequest) => {
+  const { data } = await axiosInstance.post<CheckEmailVerifiedRequest, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFIED,
+    { email },
+    { useAuth: false },
+  );
+  return data;
+};
+
+export const authApi = {
+  login,
+  signup,
+  sendEmail,
+  checkEmailVerified,
+};

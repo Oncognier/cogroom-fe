@@ -3,31 +3,26 @@ export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const API_V1 = `${BASE_URL}/api/v1`;
 
 const BASE_PATH_V1 = {
-  // 회원 API
   AUTH: `${API_V1}/auth`,
   MEMBERS: `${API_V1}/members`,
 
-  // 서비스 API
   NOTICES: `${API_V1}/notices`,
   DAILY: `${API_V1}/daily`,
   CONTENTS: `${API_V1}/contents`,
 
-  // 관리자 API
   ADMIN: `${API_V1}/admin`,
 } as const;
 
 export const END_POINTS_V1 = {
-  // 공통 API
   PRESIGNED_URL: `${API_V1}/presigned-url/upload`,
   PRESIGNED_URL_DOWNLOAD: `${API_V1}/presigned-url/download`,
 
-  // 회원 API
   AUTH: {
     SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
     LOGIN: `${BASE_PATH_V1.AUTH}/login`,
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
     SEND_EMAIL: `${BASE_PATH_V1.AUTH}/email-verification`,
-    CHECK_EMAIL_VERIFICATION_STATUS: `${BASE_PATH_V1.AUTH}/email/status`,
+    CHECK_EMAIL_VERIFIED: `${BASE_PATH_V1.AUTH}/email/status`,
     NICKNAME: `${BASE_PATH_V1.AUTH}/nickname`,
     TOKENS: `${BASE_PATH_V1.AUTH}/tokens`,
   },
@@ -40,7 +35,6 @@ export const END_POINTS_V1 = {
     SIGNOUT: `${BASE_PATH_V1.MEMBERS}/me`,
   },
 
-  // 서비스 API
   DAILY: {
     QUESTIONS: `${BASE_PATH_V1.DAILY}/questions`,
     ANSWERS: `${BASE_PATH_V1.DAILY}/answers`,
@@ -57,7 +51,6 @@ export const END_POINTS_V1 = {
     NOTICES: BASE_PATH_V1.NOTICES,
   },
 
-  // 관리자 API
   ADMIN: {
     MEMBERS: {
       MEMBERS: BASE_PATH_V1.ADMIN,
