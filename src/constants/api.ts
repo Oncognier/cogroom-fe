@@ -28,6 +28,7 @@ export const END_POINTS_V1 = {
   },
   MEMBERS: {
     MY: BASE_PATH_V1.MEMBERS,
+    SUMMARY: `${BASE_PATH_V1.MEMBERS}/me/summary`,
     INFO: `${BASE_PATH_V1.MEMBERS}/me`,
     INFO_EDIT: `${BASE_PATH_V1.MEMBERS}/me`,
     DAILY: `${BASE_PATH_V1.MEMBERS}/daily`,
