@@ -6,3 +6,21 @@ export interface UserSummaryResponse extends ApiResponse {
     imageUrl: string;
   };
 }
+
+export interface UserInfoResponse extends ApiResponse {
+  result: {
+    email: string;
+    nickname: string;
+    imageUrl: string;
+    phoneNumber: string;
+    description: string;
+  };
+}
+
+export interface EditUserInfoRequest {
+  email: string;
+  nickname: string;
+  imageUrl?: string;
+  phoneNumber?: string;
+  description?: string;
+}
