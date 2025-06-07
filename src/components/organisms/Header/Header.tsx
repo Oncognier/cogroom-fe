@@ -2,25 +2,16 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-import Bell from '@/assets/icons/bell.svg';
-import Search from '@/assets/icons/search.svg';
-import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
-import IconButton from '@/components/atoms/IconButton/IconButton';
-import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { DEFAULT_LOGO_HORIZONTAL_NORMAL } from '@/constants/image';
-import { useAuthStore } from '@/stores/useAuthStore';
-import { useModalStore } from '@/stores/useModalStore';
 
 import S from './Header.styled';
 import NavList from './NavList/NavList';
+import RightNav from './RightNav/RightNav';
 
 export default function Header() {
-  const { open } = useModalStore();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const pathname = usePathname() || '/';
-  const router = useRouter();
 
   return (
     <S.Header>
@@ -36,40 +27,7 @@ export default function Header() {
         <NavList pathname={pathname} />
       </S.LeftNav>
 
-      <S.RightNav>
-        <IconButton
-          size='4rem'
-          variant='normal'
-          interactionVariant='normal'
-        >
-          <Search />
-        </IconButton>
-
-        {isLoggedIn ? (
-          <S.NavLogin>
-            <IconButton
-              size='4rem'
-              variant='normal'
-              interactionVariant='normal'
-            >
-              <Bell />
-            </IconButton>
-            <AvatarPerson
-              type='icon'
-              size='fillContainer'
-              onClick={() => router.push('/mypage')}
-            />
-          </S.NavLogin>
-        ) : (
-          <OutlinedButton
-            label='코그룸 시작하기'
-            size='sm'
-            color='primary'
-            interactionVariant='normal'
-            onClick={() => open('login', undefined)}
-          />
-        )}
-      </S.RightNav>
+      <RightNav />
     </S.Header>
   );
 }
