@@ -9,14 +9,12 @@ const BASE_PATH_V1 = {
   NOTICES: `${API_V1}/notices`,
   DAILY: `${API_V1}/daily`,
   CONTENTS: `${API_V1}/contents`,
+  FILE: `${API_V1}/files`,
 
   ADMIN: `${API_V1}/admin`,
 } as const;
 
 export const END_POINTS_V1 = {
-  PRESIGNED_URL: `${API_V1}/presigned-url/upload`,
-  PRESIGNED_URL_DOWNLOAD: `${API_V1}/presigned-url/download`,
-
   AUTH: {
     SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
     LOGIN: `${BASE_PATH_V1.AUTH}/login`,
@@ -50,6 +48,9 @@ export const END_POINTS_V1 = {
   },
   NOTICES: {
     NOTICES: BASE_PATH_V1.NOTICES,
+  },
+  FILE: {
+    PRESIGNED_URL: `${BASE_PATH_V1.FILE}/presigned-url/upload`,
   },
 
   ADMIN: {
