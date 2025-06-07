@@ -16,9 +16,21 @@ const Profile = styled.div`
   gap: 1.5rem;
 `;
 
+const NameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[4]};
+`;
+
 const UserName = styled.p`
   ${({ theme }) => theme.typography.body1.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};
+`;
+
+const SettingIcon = styled.button`
+  width: 1.6rem;
+  height: 1.6rem;
+  color: ${({ theme }) => theme.semantic.label.assistive};
 `;
 
 const SidebarNavList = styled.div`
@@ -35,7 +47,9 @@ const Logout = styled.p`
 const S = {
   Sidebar,
   Profile,
+  NameWrapper,
   UserName,
+  SettingIcon,
   SidebarNavList,
   Logout,
 };

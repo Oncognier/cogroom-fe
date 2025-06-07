@@ -1,5 +1,6 @@
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
+import Setting from '@/assets/icons/setting.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
@@ -9,6 +10,7 @@ import SidebarNavItem from './SidebarNavItem/SidebarNavItem';
 
 export default function Sidebar() {
   const { data, isLoading } = useGetUserSummary();
+  const router = useRouter();
   const pathname = usePathname() || '/';
 
   return (
@@ -21,8 +23,14 @@ export default function Sidebar() {
               size='lg'
               src={data?.imageUrl}
             />
-            <S.UserName>{data?.nickname || 's'}</S.UserName>
+            <S.NameWrapper>
+              <S.UserName>{data?.nickname || ''}</S.UserName>
+              <S.SettingIcon onClick={() => router.push('/mypage/setting')}>
+                <Setting />
+              </S.SettingIcon>
+            </S.NameWrapper>
           </S.Profile>
+
           <S.SidebarNavList>
             {SIDEBAR_NAV_ITEMS.map(({ label, href }) => (
               <SidebarNavItem
