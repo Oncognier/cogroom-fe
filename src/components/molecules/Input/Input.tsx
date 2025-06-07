@@ -17,7 +17,7 @@ interface InputProps extends InputStyleProps {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
-  ({ label, inputSize, required, isDisabled, error, onClear, ...props }, ref) => {
+  ({ label, inputSize, required, isDisabled, error, onClear, width, ...props }, ref) => {
     const hasError = !!error;
 
     const [errorType, errorContent] = error?.split(':') ?? [];
@@ -39,6 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttribute
           <S.Input
             ref={ref}
             inputSize={inputSize}
+            width={width}
             disabled={isDisabled}
             isError={hasError}
             required={required}
