@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { useLoginMutation } from '@/hooks/api/auth/useLoginMutation';
+import { useLoginMutation } from '@/hooks/api/auth/useLogin';
 
 export default function OAuthCallback() {
   const searchParams = useSearchParams();

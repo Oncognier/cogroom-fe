@@ -12,6 +12,7 @@ const login = async ({ code, provider }: LoginRequest) => {
     { code, provider },
     { useAuth: false },
   );
+
   return data;
 };
 
@@ -21,6 +22,7 @@ const signup = async ({ provider, providerId, email, nickname }: SignupRequest) 
     { provider, providerId, email, nickname },
     { useAuth: false },
   );
+
   return data;
 };
 
@@ -30,6 +32,7 @@ const sendEmail = async ({ email }: SendEmailRequest) => {
     { email },
     { useAuth: false },
   );
+
   return data;
 };
 
@@ -39,6 +42,7 @@ const checkEmailVerified = async ({ email }: CheckEmailVerifiedRequest) => {
     { email },
     { useAuth: false },
   );
+
   return data;
 };
 

@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Input from '@/components/molecules/Input/Input';
-import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
+import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { validateEmail } from '@/utils/validators/emailValidators';
 
 import S from './InputEmail.styled';
