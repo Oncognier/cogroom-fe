@@ -23,7 +23,7 @@ const commonStyles = (theme: Theme) => css`
   border-radius: ${theme.radius[12]};
   border: 1px solid ${theme.semantic.primary.normal};
   color: ${theme.semantic.primary.normal};
-  padding: ${theme.spacing[12]} ${theme.spacing[24]};
+  padding: 1.1rem 2.3rem;
 
   &:hover {
     cursor: pointer;
