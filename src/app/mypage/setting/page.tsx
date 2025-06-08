@@ -25,16 +25,18 @@ export default function Setting() {
   const { data, isLoading } = useGetUserInfo();
   const { editUserInfo } = useEditUserInfoMutation();
 
+  const getDefaultValues = (data?: SettingFormFields): SettingFormFields => ({
+    nickname: data?.nickname ?? '',
+    email: data?.email ?? '',
+    phoneNumber: data?.phoneNumber ?? '',
+    description: data?.description ?? '',
+    imageUrl: data?.imageUrl,
+  });
+
   const methods = useForm<SettingFormFields>({
     mode: 'onChange',
     reValidateMode: 'onBlur',
-    defaultValues: {
-      nickname: '',
-      email: '',
-      phoneNumber: '',
-      description: '',
-      imageUrl: '',
-    },
+    defaultValues: getDefaultValues(),
   });
 
   const {
@@ -47,13 +49,7 @@ export default function Setting() {
 
   useEffect(() => {
     if (data && !isLoading) {
-      reset({
-        nickname: data.nickname ?? '',
-        email: data.email ?? '',
-        phoneNumber: data.phoneNumber ?? '',
-        description: data.description ?? '',
-        imageUrl: data.imageUrl ?? '',
-      });
+      reset(getDefaultValues(data));
     }
   }, [data, isLoading, reset]);
 
@@ -64,54 +60,52 @@ export default function Setting() {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <S.Container>
-      <FormProvider {...methods}>
-        <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
-          <SettingProfile
-            imageUrl={data?.imageUrl}
-            onUploadComplete={(url) => {
-              setValue('imageUrl', url, { shouldValidate: true });
-            }}
+    <FormProvider {...methods}>
+      <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
+        <SettingProfile
+          imageUrl={data?.imageUrl}
+          onUploadComplete={(url) => {
+            setValue('imageUrl', url, { shouldValidate: true });
+          }}
+        />
+
+        <Input
+          inputSize='md'
+          label='닉네임'
+          required
+          {...register('nickname', { required: '닉네임은 필수입니다.' })}
+          error={errors.nickname?.message}
+          width='34.5rem'
+        />
+
+        <EmailForm />
+
+        <Input
+          inputSize='md'
+          label='전화번호'
+          {...register('phoneNumber')}
+          error={errors.phoneNumber?.message}
+          width='34.5rem'
+        />
+
+        <Textarea
+          label='자기소개'
+          {...register('description')}
+          error={errors.description?.message}
+          width='34.5rem'
+        />
+
+        <S.ButtonWrapper>
+          <OutlinedButton
+            size='sm'
+            color='primary'
+            label='저장하기'
+            interactionVariant='normal'
+            type='submit'
+            isDisabled={!isValid}
           />
-
-          <Input
-            inputSize='md'
-            label='닉네임'
-            required
-            {...register('nickname', { required: '닉네임은 필수입니다.' })}
-            error={errors.nickname?.message}
-            width='34.5rem'
-          />
-
-          <EmailForm />
-
-          <Input
-            inputSize='md'
-            label='전화번호'
-            {...register('phoneNumber')}
-            error={errors.phoneNumber?.message}
-            width='34.5rem'
-          />
-
-          <Textarea
-            label='자기소개'
-            {...register('description')}
-            error={errors.description?.message}
-            width='34.5rem'
-          />
-
-          <S.ButtonWrapper>
-            <OutlinedButton
-              size='sm'
-              color='primary'
-              label='저장하기'
-              interactionVariant='normal'
-              type='submit'
-              isDisabled={!isValid}
-            />
-          </S.ButtonWrapper>
-        </S.SettingForm>
-      </FormProvider>
-    </S.Container>
+        </S.ButtonWrapper>
+      </S.SettingForm>
+    </FormProvider>
   );
 }

@@ -2,12 +2,6 @@
 
 import styled from '@emotion/styled';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[24]};
-`;
-
 const SettingProfile = styled.div`
   position: relative;
 
@@ -32,7 +26,6 @@ const ButtonWrapper = styled.div`
 `;
 
 const S = {
-  Container,
   SettingProfile,
   SetImage,
   SettingForm,
