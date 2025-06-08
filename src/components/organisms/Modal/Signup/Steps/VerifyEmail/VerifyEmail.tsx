@@ -6,7 +6,7 @@ import { useFormContext } from 'react-hook-form';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useEmailVerificationStatus';
-import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
+import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
 
 import S from './VerifyEmail.styled';

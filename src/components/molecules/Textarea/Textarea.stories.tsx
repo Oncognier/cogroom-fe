@@ -24,15 +24,12 @@ const meta = {
     isDisabled: {
       control: 'boolean',
     },
-    errorMessage: {
-      control: 'text',
-    },
     error: {
       control: 'text',
     },
-    errorStatus: {
-      control: 'radio',
-      options: ['error', 'warning', 'success', 'disable'],
+    width: {
+      control: 'text',
+      description: '텍스트에어리어 너비 (예: "100%", "32rem")',
     },
     onChange: { action: 'changed' },
   },
@@ -48,9 +45,8 @@ export const Default: Story = {
     value: '',
     required: true,
     isDisabled: false,
-    errorMessage: '',
     error: '',
-    errorStatus: 'error',
+    width: '32rem',
   },
   render: (args) => {
     const [text, setText] = useState(args.value);

@@ -7,6 +7,7 @@ type InputSize = 'sm' | 'md' | 'lg';
 
 export interface InputStyleProps {
   inputSize: InputSize;
+  width?: string;
 }
 
 const commonStyles = (theme: Theme) => css`
@@ -15,7 +16,6 @@ const commonStyles = (theme: Theme) => css`
   justify-content: center;
   gap: ${theme.spacing[12]};
 
-  width: 100%;
   border: 1px solid ${theme.semantic.label.assistive};
   border-radius: ${theme.radius[12]};
   background-color: ${theme.semantic.static.white};
@@ -29,6 +29,7 @@ const commonStyles = (theme: Theme) => css`
 
   &:disabled {
     background-color: ${theme.semantic.fill.normal};
+    color: ${theme.semantic.label.assistive};
     pointer-events: none;
   }
 
@@ -42,6 +43,7 @@ const commonStyles = (theme: Theme) => css`
 
   &:focus {
     outline: none;
+    background-color: ${theme.semantic.static.white};
   }
 `;
 
@@ -85,6 +87,12 @@ const Input = styled.input<InputStyleProps & { isError?: boolean }>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, inputSize }) => sizeStyles[inputSize](theme)};
   ${({ theme, isError }) => isError && errorStyle(theme)};
+  width: ${({ width }) => width || '100%'};
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px ${({ theme }) => theme.semantic.static.white} inset;
+    -webkit-box-shadow: 0 0 0 1000px ${({ theme }) => theme.semantic.static.white} inset;
+  }
 `;
 
 const RemoveButton = styled.button`

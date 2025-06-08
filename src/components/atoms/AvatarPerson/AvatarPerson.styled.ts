@@ -11,18 +11,23 @@ export interface AvatarPersonStyleProps {
 
 const sizeStyles: Record<AvatarPersonSize, SerializedStyles> = {
   xsm: css`
+    width: 2.4rem;
     height: 2.4rem;
   `,
   sm: css`
+    width: 3.6rem;
     height: 3.6rem;
   `,
   md: css`
+    width: 4rem;
     height: 4rem;
   `,
   lg: css`
+    width: 4.8rem;
     height: 4.8rem;
   `,
   xlg: css`
+    width: 5.6rem;
     height: 5.6rem;
   `,
   fillContainer: css`

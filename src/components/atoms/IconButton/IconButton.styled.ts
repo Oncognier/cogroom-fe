@@ -53,6 +53,7 @@ const variantStyles: Record<IconButtonVariant, (theme: Theme) => SerializedStyle
   `,
 
   outlined: (theme) => css`
+    background-color: ${theme.palette.common[0]};
     border-color: ${theme.semantic.line.normal};
   `,
 

@@ -4,13 +4,13 @@ import { useFormContext } from 'react-hook-form';
 import { authApi } from '@/api/authApis';
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 
-export const useSendEmailMutation = (onConfirm?: () => void) => {
+export const useSendEmailMutation = (onSuccess?: () => void) => {
   const { setError } = useFormContext<{ email: string }>();
 
   const mutation = useMutation({
     mutationFn: authApi.sendEmail,
     onSuccess: () => {
-      onConfirm?.();
+      onSuccess?.();
     },
     onError: (error) => {
       if (error instanceof HTTPError) {

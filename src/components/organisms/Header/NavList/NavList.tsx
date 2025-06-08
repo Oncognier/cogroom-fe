@@ -1,4 +1,4 @@
-import { NAV_ITEMS } from '@/constants/common';
+import { HEADER_NAV_ITEMS } from '@/constants/common';
 
 import S from './NavList.styled';
 import NavItem from '../NavItem/NavItem';
@@ -10,7 +10,7 @@ interface NavListProps {
 export default function NavList({ pathname }: NavListProps) {
   return (
     <S.NavList>
-      {NAV_ITEMS.map(({ label, href }) => (
+      {HEADER_NAV_ITEMS.map(({ label, href }) => (
         <NavItem
           key={href}
           label={label}

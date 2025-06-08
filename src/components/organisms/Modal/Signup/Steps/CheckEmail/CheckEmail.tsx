@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import Kakao from '@/assets/icons/kakao.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmailMutation';
+import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 
 import S from './CheckEmail.styled';
 

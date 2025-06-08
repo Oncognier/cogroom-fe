@@ -3,12 +3,16 @@
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
+interface TextareaStyleProps {
+  isError?: boolean;
+  width?: string;
+}
+
 const commonStyles = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 100%;
   height: 100%;
   ${theme.typography.body1.regular};
   border: 1px solid ${theme.semantic.label.assistive};
@@ -48,9 +52,10 @@ const Container = styled.div`
   gap: 0.7rem;
 `;
 
-const Textarea = styled.textarea<{ isError?: boolean }>`
+const Textarea = styled.textarea<TextareaStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, isError }) => isError && errorStyle(theme)};
+  width: ${({ width }) => width || '100%'};
 `;
 
 const Error = styled.p`

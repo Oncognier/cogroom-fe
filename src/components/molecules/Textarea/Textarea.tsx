@@ -12,10 +12,11 @@ interface TextareaProps extends ComponentProps<'textarea'> {
   label?: string;
   error?: string;
   isDisabled?: boolean;
+  width?: string;
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ label, required, isDisabled, error, ...props }, ref) => {
+  ({ label, required, isDisabled, error, width, ...props }, ref) => {
     const hasError = !!error;
     const [errorType, errorContent] = error?.split(':') ?? [];
 
@@ -37,6 +38,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           disabled={isDisabled}
           isError={hasError}
           required={required}
+          width={width}
           {...props}
         />
 

@@ -28,15 +28,12 @@ const meta = {
     isDisabled: {
       control: 'boolean',
     },
-    errorMessage: {
-      control: 'text',
-    },
     error: {
       control: 'text',
     },
-    errorStatus: {
-      control: 'radio',
-      options: ['error', 'warning', 'success', 'disable'],
+    width: {
+      control: 'text',
+      description: '인풋 너비 (예: "100%", "32rem")',
     },
     onChange: { action: 'changed' },
     onClear: { action: 'cleared' },
@@ -54,9 +51,8 @@ export const Default: Story = {
     value: '',
     required: true,
     isDisabled: false,
-    errorMessage: '',
     error: '',
-    errorStatus: 'error',
+    width: '32rem',
   },
   render: (args) => {
     const [inputValue, setInputValue] = useState(args.value);
