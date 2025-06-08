@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 import { EditUserInfoRequest, UserInfoResponse, UserSummaryResponse } from '@/types/member';
@@ -17,13 +19,16 @@ const getUserInfo = async () => {
 };
 
 const editUserInfo = async ({ email, nickname, imageUrl, phoneNumber, description }: EditUserInfoRequest) => {
-  const { data } = await axiosInstance.patch<ApiResponse>(END_POINTS_V1.MEMBERS.INFO_EDIT, {
-    email,
-    nickname,
-    imageUrl,
-    phoneNumber,
-    description,
-  });
+  const { data } = await axiosInstance.patch<EditUserInfoRequest, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.MEMBERS.INFO_EDIT,
+    {
+      email,
+      nickname,
+      imageUrl,
+      phoneNumber,
+      description,
+    },
+  );
 
   return data;
 };
