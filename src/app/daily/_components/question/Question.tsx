@@ -26,11 +26,10 @@ export default function Question({ question, answer }: QuestionProps) {
 
   const handleInput = () => {
     const el = textareaRef.current;
-    if (el) {
-      el.style.height = '2rem';
-      const newHeight = Math.min(el.scrollHeight, 40);
-      el.style.height = `${newHeight / 10}rem`;
-    }
+    if (!el) return;
+
+    el.style.height = '0rem';
+    el.style.height = `${el.scrollHeight / 10}rem`;
   };
 
   const handleSubmit = () => {
@@ -62,6 +61,10 @@ export default function Question({ question, answer }: QuestionProps) {
     }
   }, [answer]);
 
+  useEffect(() => {
+    handleInput();
+  }, [inputValue]);
+
   return (
     <S.QuestionCard>
       <Image
@@ -85,8 +88,9 @@ export default function Question({ question, answer }: QuestionProps) {
             ref={textareaRef}
             value={inputValue}
             placeholder='지금 느끼는 감정을 솔직하게 적어보세요!'
-            onChange={(e) => setInputValue(e.target.value)}
-            onInput={handleInput}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+            }}
             onKeyDown={handleKeyDown}
           />
         </S.InputGroup>
