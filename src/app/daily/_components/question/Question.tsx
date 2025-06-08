@@ -76,11 +76,11 @@ export default function Question({ question, answer }: QuestionProps) {
 
       <S.Form>
         <S.InputGroup>
-          {isAnswered ? (
+          {isAnswered && (
             <S.AnswerStamp>
               <CheckCircle />
             </S.AnswerStamp>
-          ) : null}
+          )}
           <S.Input
             ref={textareaRef}
             value={inputValue}

@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import ChevronRight from '@/assets/icons/chevronright.svg';
 
-export const BreadcrumbList = styled.ol`
+export const Breadcrumb = styled.ol`
   display: flex;
   align-items: center;
   gap: 0.4rem;

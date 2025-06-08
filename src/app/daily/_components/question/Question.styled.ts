@@ -59,7 +59,7 @@ export const QuestionText = styled.p`
   word-break: break-word;
 
   text-align: center;
-  ${({ theme }) => theme.typography.body1.regular}
+  ${({ theme }) => theme.typography.body1.medium}
   color: ${({ theme }) => theme.semantic.static.white};
 `;
 
@@ -102,7 +102,7 @@ export const Input = styled.textarea`
   color: ${({ theme }) => theme.semantic.label.normal};
 
   ::placeholder {
-    color: ${({ theme }) => theme.semantic.label.assistive};
+    color: ${({ theme }) => theme.semantic.label.alternative};
   }
 `;
 

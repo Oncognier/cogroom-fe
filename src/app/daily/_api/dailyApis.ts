@@ -6,10 +6,9 @@ import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 
 export const getDaily = async () => {
-  const response = await axiosInstance.get<DailyQuestionResponse, AxiosResponse<ApiResponse>>(
-    END_POINTS_V1.DAILY.QUESTIONS,
-    { useAuth: true },
-  );
+  const response = await axiosInstance.get<DailyQuestionResponse>(END_POINTS_V1.DAILY.QUESTIONS, {
+    useAuth: true,
+  });
   return response.data;
 };
 
@@ -32,9 +31,6 @@ export const patchDailyAnswer = async ({ answer }: DailyAnswerRequest) => {
 };
 
 export const getStreakCalendar = async () => {
-  const response = await axiosInstance.get<StreakCalendarResponse, AxiosResponse<ApiResponse>>(
-    END_POINTS_V1.STREAKS.CALENDAR,
-    { useAuth: true },
-  );
+  const response = await axiosInstance.get<StreakCalendarResponse>(END_POINTS_V1.STREAKS.CALENDAR, { useAuth: true });
   return response.data;
 };

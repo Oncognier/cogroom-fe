@@ -13,7 +13,7 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ items }: BreadcrumbProps) {
   return (
-    <S.BreadcrumbList>
+    <S.Breadcrumb>
       {items.map((item, index) => {
         const isLast = index === items.length - 1;
         return (
@@ -23,6 +23,6 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
           </S.BreadcrumbItem>
         );
       })}
-    </S.BreadcrumbList>
+    </S.Breadcrumb>
   );
 }

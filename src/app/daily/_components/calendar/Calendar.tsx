@@ -34,16 +34,9 @@ export default function Calendar({ streakDateList }: CalendarProps) {
             <p>
               {today.getFullYear()}년 {today.getMonth() + 1}월
             </p>
-
-            {isMonthly ? (
-              <S.BreadcrumbChevron onClick={() => setIsMonthly((prev) => !prev)}>
-                <ChevronUp />
-              </S.BreadcrumbChevron>
-            ) : (
-              <S.BreadcrumbChevron onClick={() => setIsMonthly((prev) => !prev)}>
-                <ChevronDown />
-              </S.BreadcrumbChevron>
-            )}
+            <S.BreadcrumbChevron onClick={() => setIsMonthly((prev) => !prev)}>
+              {isMonthly ? <ChevronUp /> : <ChevronDown />}
+            </S.BreadcrumbChevron>
           </S.MonthSelector>
           <S.Grid>
             {WEEK_DAYS.map((day) => (
