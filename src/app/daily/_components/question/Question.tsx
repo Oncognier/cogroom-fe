@@ -28,8 +28,8 @@ export default function Question({ question, answer }: QuestionProps) {
   const handleInput = () => {
     const el = textareaRef.current;
     if (el) {
-      el.style.height = '2.4rem';
-      const newHeight = Math.min(el.scrollHeight, 48);
+      el.style.height = '2rem';
+      const newHeight = Math.min(el.scrollHeight, 40);
       el.style.height = `${newHeight / 10}rem`;
     }
   };
@@ -47,6 +47,13 @@ export default function Question({ question, answer }: QuestionProps) {
 
   const handleEdit = () => {
     patchMutation.mutate({ answer: inputValue });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      isAnswered ? handleEdit() : handleSubmit();
+    }
   };
 
   useEffect(() => {
@@ -80,6 +87,7 @@ export default function Question({ question, answer }: QuestionProps) {
             placeholder='지금 느끼는 감정을 솔직하게 적어보세요!'
             onChange={(e) => setInputValue(e.target.value)}
             onInput={handleInput}
+            onKeyDown={handleKeyDown}
           />
         </S.InputGroup>
         {!isAnswered ? (

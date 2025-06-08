@@ -89,12 +89,9 @@ export const InputGroup = styled.div`
 `;
 
 export const Input = styled.textarea`
-  display: block;
-  flex: 1;
-
   width: 100%;
   overflow-y: auto;
-  height: 2.4rem;
+  height: 2rem;
   max-height: 4rem;
 
   resize: none;
