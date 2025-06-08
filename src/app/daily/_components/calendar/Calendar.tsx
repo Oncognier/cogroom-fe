@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { WEEK_DAYS } from '@/app/daily/_constants/weekDays';
@@ -17,6 +18,7 @@ interface CalendarProps {
 }
 
 export default function Calendar({ streakDateList }: CalendarProps) {
+  const router = useRouter();
   const [isMonthly, setIsMonthly] = useState(false);
   const today = new Date();
   const dates = isMonthly
@@ -76,7 +78,7 @@ export default function Calendar({ streakDateList }: CalendarProps) {
           size='fillContainer'
           interactionVariant='normal'
           onClick={() => {
-            // TODO: 리포트 페이지로 이동
+            router.push('/mypage/history');
           }}
         />
       </S.CalendarContentWrapper>
