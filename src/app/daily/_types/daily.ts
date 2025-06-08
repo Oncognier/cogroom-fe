@@ -1,6 +1,6 @@
-export interface DailyQuestionResponse {
-  code: string;
-  message: string;
+import { ApiResponse } from "@/types/api";
+
+export interface DailyQuestionResponse extends ApiResponse {
   result: {
     streakDays: number;
     questionId: number;
@@ -13,9 +13,7 @@ export interface DailyAnswerRequest {
   answer: string;
 }
 
-export interface StreakCalendarResponse {
-  code: string;
-  message: string;
+export interface StreakCalendarResponse extends ApiResponse {
   result: {
     streakDateList: string[];
   };

@@ -6,31 +6,31 @@ import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 
 export const getDaily = async () => {
-  const response = await axiosInstance.get<DailyQuestionResponse>(END_POINTS_V1.DAILY.QUESTIONS, {
+  const { data } = await axiosInstance.get<DailyQuestionResponse>(END_POINTS_V1.DAILY.QUESTIONS, {
     useAuth: true,
   });
-  return response.data;
+  return data;
 };
 
 export const postDailyAnswer = async ({ answer }: DailyAnswerRequest) => {
-  const response = await axiosInstance.post<DailyAnswerRequest, AxiosResponse<ApiResponse>>(
+  const { data } = await axiosInstance.post<DailyAnswerRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.DAILY.ANSWERS,
     { answer },
     { useAuth: true },
   );
-  return response.data;
+  return data;
 };
 
 export const patchDailyAnswer = async ({ answer }: DailyAnswerRequest) => {
-  const response = await axiosInstance.patch<DailyAnswerRequest, AxiosResponse<ApiResponse>>(
+  const { data } = await axiosInstance.patch<DailyAnswerRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.DAILY.ANSWERS,
     { answer },
     { useAuth: true },
   );
-  return response.data;
+  return data;
 };
 
 export const getStreakCalendar = async () => {
-  const response = await axiosInstance.get<StreakCalendarResponse>(END_POINTS_V1.STREAKS.CALENDAR, { useAuth: true });
-  return response.data;
+  const { data } = await axiosInstance.get<StreakCalendarResponse>(END_POINTS_V1.STREAKS.CALENDAR, { useAuth: true });
+  return data;
 };
