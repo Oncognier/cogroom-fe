@@ -10,6 +10,7 @@ const BASE_PATH_V1 = {
   DAILY: `${API_V1}/daily`,
   CONTENTS: `${API_V1}/contents`,
   FILE: `${API_V1}/files`,
+  STREAKS: `${API_V1}/streaks`,
 
   ADMIN: `${API_V1}/admin`,
 } as const;
@@ -52,6 +53,10 @@ export const END_POINTS_V1 = {
   FILE: {
     PRESIGNED_URL: `${BASE_PATH_V1.FILE}/presigned-url/upload`,
   },
+  STREAKS: {
+    CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
+  },
+
 
   ADMIN: {
     MEMBERS: {
