@@ -4,7 +4,6 @@ import { fileApi } from '@/api/fileApis';
 
 interface UseUploadFileToS3Props {
   onSuccess?: (uploadedUrl: string) => void;
-  onError?: () => void;
 }
 
 export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props = {}) => {
