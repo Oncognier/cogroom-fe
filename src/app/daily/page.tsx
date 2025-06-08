@@ -40,7 +40,10 @@ export default function Daily() {
       />
       <S.DailyContentWrapper>
         <Streak streaksDays={dailyData?.result.streakDays ?? 0} />
-        <Question question={dailyData?.result.question ?? ''} answer={dailyData?.result.answer ?? ''}/>
+        <Question
+          question={dailyData?.result.question ?? ''}
+          answer={dailyData?.result.answer ?? ''}
+        />
         <Calendar streakDateList={calendarData?.result.streakDateList ?? []} />
       </S.DailyContentWrapper>
     </S.DailyPageWrapper>

@@ -54,4 +54,3 @@ export const Description = styled.p`
 
   text-align: center;
 `;
-

@@ -57,7 +57,6 @@ export const END_POINTS_V1 = {
     CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
   },
 
-
   ADMIN: {
     MEMBERS: {
       MEMBERS: BASE_PATH_V1.ADMIN,

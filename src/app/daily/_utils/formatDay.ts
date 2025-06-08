@@ -67,11 +67,3 @@ function getEndOfWeek(date: Date): Date {
   clonedDate.setDate(clonedDate.getDate() + daysToAdd);
   return clonedDate;
 }
-
-function isSameDate(calendarDate: Date, getDate: Date): boolean {
-  return (
-    calendarDate.getFullYear() === getDate.getFullYear() &&
-    calendarDate.getMonth() === getDate.getMonth() &&
-    calendarDate.getDate() === getDate.getDate()
-  );
-}
