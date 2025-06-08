@@ -16,7 +16,6 @@ interface QuestionProps {
 }
 
 export default function Question({ question, answer }: QuestionProps) {
-  // TODO: 금일 답변 여부 확인
   const [inputValue, setInputValue] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
 
@@ -59,6 +58,7 @@ export default function Question({ question, answer }: QuestionProps) {
   useEffect(() => {
     if (answer) {
       setInputValue(answer);
+      setIsAnswered(true);
     }
   }, [answer]);
 
@@ -90,23 +90,13 @@ export default function Question({ question, answer }: QuestionProps) {
             onKeyDown={handleKeyDown}
           />
         </S.InputGroup>
-        {!isAnswered ? (
-          <TextButton
-            label='제출하기'
-            color='assistive'
-            size='sm'
-            interactionVariant='normal'
-            onClick={handleSubmit}
-          />
-        ) : (
-          <TextButton
-            label='수정하기'
-            color='assistive'
-            size='sm'
-            interactionVariant='normal'
-            onClick={handleEdit}
-          />
-        )}
+        <TextButton
+          label={isAnswered ? '수정하기' : '제출하기'}
+          color='assistive'
+          size='sm'
+          interactionVariant='normal'
+          onClick={isAnswered ? handleEdit : handleSubmit}
+        />
       </S.Form>
     </S.QuestionCard>
   );
