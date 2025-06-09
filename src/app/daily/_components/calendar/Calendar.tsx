@@ -1,15 +1,17 @@
 'use client';
 
+import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { WEEK_DAYS } from '@/app/daily/_constants/weekDays';
-import { getCalendarMonthDates, getCalendarWeekDates, formatDateToYYYYMMDD } from '@/app/daily/_utils/formatDay';
+import { getCalendarMonthDates, getCalendarWeekDates } from '@/app/daily/_utils/getCalendar';
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ChevronUp from '@/assets/icons/chevronup.svg';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { DEFAULT_WATERDROP } from '@/constants/image';
+import { formatDateToYYYYMMDD } from '@/utils/formatDay';
 
 import * as S from './Calendar.styled';
 
@@ -20,10 +22,13 @@ interface CalendarProps {
 export default function Calendar({ streakDateList }: CalendarProps) {
   const router = useRouter();
   const [isMonthly, setIsMonthly] = useState(false);
-  const today = new Date();
-  const dates = isMonthly
-    ? getCalendarMonthDates(today.getFullYear(), today.getMonth() + 1)
-    : getCalendarWeekDates(today);
+  const today = dayjs();
+
+  const monthDates = useMemo(() => getCalendarMonthDates(today.year(), today.month() + 1), [today]);
+
+  const weekDates = useMemo(() => getCalendarWeekDates(today), [today]);
+
+  const dates = isMonthly ? monthDates : weekDates;
 
   return (
     <S.CalendarCard>
@@ -31,9 +36,7 @@ export default function Calendar({ streakDateList }: CalendarProps) {
         <S.Title>내 물방울 기록</S.Title>
         <S.CalendarWrapper>
           <S.MonthSelector>
-            <p>
-              {today.getFullYear()}년 {today.getMonth() + 1}월
-            </p>
+            {today.year()}년 {today.month() + 1}월
             <S.BreadcrumbChevron onClick={() => setIsMonthly((prev) => !prev)}>
               {isMonthly ? <ChevronUp /> : <ChevronDown />}
             </S.BreadcrumbChevron>
@@ -44,7 +47,7 @@ export default function Calendar({ streakDateList }: CalendarProps) {
             ))}
             {dates.map((date) => {
               const streakSet = new Set(streakDateList);
-              const formatted = formatDateToYYYYMMDD(date);
+              const formatted = formatDateToYYYYMMDD(date.toDate());
               const isAnswered = streakSet.has(formatted);
               return (
                 <S.DateCell
@@ -59,7 +62,7 @@ export default function Calendar({ streakDateList }: CalendarProps) {
                       height={16}
                     />
                   ) : (
-                    date.getDate()
+                    date.date()
                   )}
                 </S.DateCell>
               );

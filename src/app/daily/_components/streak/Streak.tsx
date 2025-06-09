@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
 import { DEFAULT_WATERDROP } from '@/constants/image';
+import { formatDayAsYYMMDD } from '@/utils/formatDay';
 
 import * as S from './Streak.styled';
-import { formatDayAsYYMMDD } from '../../_utils/formatDay';
 
 interface StreakProps {
   streaksDays: number;
