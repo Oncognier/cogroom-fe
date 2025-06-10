@@ -9,7 +9,7 @@ export default function useGetUserSummary() {
 
   return useQuery({
     queryKey: [USER_QUERY_KEYS.USER_SUMMARY],
-    queryFn: () => memberApi.getUserSummary(),
+    queryFn: memberApi.getUserSummary,
     enabled: isLoggedIn,
   });
 }
