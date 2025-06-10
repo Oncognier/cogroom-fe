@@ -2,12 +2,6 @@
 
 import styled from '@emotion/styled';
 
-interface DateCellProps {
-  dimmed?: boolean;
-  today?: boolean;
-  isAnswered?: boolean;
-}
-
 export const CalendarCard = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,22 +69,6 @@ export const WeekDay = styled.div`
 
   ${({ theme }) => theme.typography.label1.medium}
   color: ${({ theme }) => theme.semantic.label.assistive};
-`;
-
-export const DateCell = styled.div<DateCellProps>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 3rem;
-  height: 3rem;
-  border-radius: ${({ theme }) => theme.radius[40]};
-  text-align: center;
-
-  ${({ theme }) => theme.typography.label1.medium}
-  color: ${({ theme }) => theme.semantic.label.assistive};
-  background-color: ${({ theme, isAnswered }) =>
-    isAnswered ? theme.semantic.background.elevated.normal : theme.semantic.fill.strong};
 `;
 
 export const BreadcrumbChevron = styled.div`
