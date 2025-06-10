@@ -11,7 +11,7 @@ import * as S from './styled';
 
 export default function Daily() {
   const { data: dailyData, isLoading } = useGetDailyQuery();
-  const { data: calendarData } = useGetStreakDaysQuery();
+  const { data: streakData } = useGetStreakDaysQuery();
 
   return (
     <S.DailyPageWrapper>
@@ -29,7 +29,7 @@ export default function Daily() {
               question={dailyData?.result.question ?? ''}
               answer={dailyData?.result.answer ?? ''}
             />
-            <Calendar streakDateList={calendarData?.result.streakDateList ?? []} />
+            <Calendar streakDateList={streakData?.result.streakDateList ?? []} />
           </>
         )}
       </S.DailyContentWrapper>

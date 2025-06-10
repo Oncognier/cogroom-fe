@@ -6,8 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import CheckCircle from '@/assets/icons/checkcircle-fill.svg';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { DEFAULT_STREAK_BACKGROUND } from '@/constants/image';
-import { usePatchDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
-import { usePostDailyAnswerMutation } from '@/hooks/api/daily/usePostDailyAnswer';
+import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
+import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
 
 import * as S from './Question.styled';
 
@@ -20,10 +20,10 @@ export default function Question({ question, answer }: QuestionProps) {
   const [inputValue, setInputValue] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
 
-  const { postDailyAnswer } = usePostDailyAnswerMutation();
-  const { patchDailyAnswer } = usePatchDailyAnswerMutation();
-
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
+  const { editDailyAnswer } = useEditDailyAnswerMutation();
 
   const handleInput = () => {
     const el = textareaRef.current;
@@ -34,18 +34,11 @@ export default function Question({ question, answer }: QuestionProps) {
   };
 
   const handleSubmit = () => {
-    postDailyAnswer(
-      { answer: inputValue },
-      {
-        onSuccess: () => {
-          setIsAnswered(true);
-        },
-      },
-    );
+    submitDailyAnswer({ answer: inputValue });
   };
 
   const handleEdit = () => {
-    patchDailyAnswer({ answer: inputValue });
+    editDailyAnswer({ answer: inputValue });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

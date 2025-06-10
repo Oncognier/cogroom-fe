@@ -2,15 +2,15 @@
 
 import { useMutation } from '@tanstack/react-query';
 
-import { patchDailyAnswer } from '@/api/dailyApis';
+import { dailyApi } from '@/api/dailyApis';
 import { useModalStore } from '@/stores/useModalStore';
 
 // 답변 수정
-export const usePatchDailyAnswerMutation = () => {
+export const useEditDailyAnswerMutation = () => {
   const { open } = useModalStore();
 
   const mutation = useMutation({
-    mutationFn: patchDailyAnswer,
+    mutationFn: dailyApi.editDailyAnswer,
     onSuccess: () => {
       open('dailyAnswerEdit', undefined);
     },
@@ -20,5 +20,5 @@ export const usePatchDailyAnswerMutation = () => {
     },
   });
 
-  return { patchDailyAnswer: mutation.mutate };
+  return { editDailyAnswer: mutation.mutate };
 };
