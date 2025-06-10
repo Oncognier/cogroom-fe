@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 
-import { getDaily, getStreakCalendar } from '@/app/daily/_api/dailyApis';
+import { getDaily, getStreakCalendar } from '@/api/dailyApis';
 import Calendar from '@/app/daily/_components/calendar/Calendar';
 import Question from '@/app/daily/_components/question/Question';
 import Streak from '@/app/daily/_components/streak/Streak';
-import { DailyQuestionResponse, StreakCalendarResponse } from '@/app/daily/_types/daily';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
+import { DailyQuestionResponse, StreakCalendarResponse } from '@/types/daily';
 
 import * as S from './styled';
 
