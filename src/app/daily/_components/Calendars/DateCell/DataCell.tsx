@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { DEFAULT_WATERDROP } from '@/constants/image';
 import { formatDayAsDashYYYYMMDD } from '@/utils/formatDay';
 
-import * as S from './Cell.styled';
+import * as S from './DataCell.styled';
 
 interface DateCellProps {
   date: Dayjs;

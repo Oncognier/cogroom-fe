@@ -11,7 +11,7 @@ import { WEEK_DAYS } from '@/constants/common';
 import { getCalendarMonthDates, getCalendarWeekDates } from '@/utils/getCalendar';
 
 import * as S from './Calendar.styled';
-import DateCell from './DateCell/Cell';
+import DateCell from './DateCell/DataCell';
 
 interface CalendarProps {
   streakDateList: string[];
