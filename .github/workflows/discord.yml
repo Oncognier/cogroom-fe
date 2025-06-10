@@ -1,0 +1,87 @@
+name: Deployment Notification to Discord
+
+on:
+  deployment_status:
+
+jobs:
+  notify-discord:
+    name: Notify Discord on Deployment Status
+    runs-on: ubuntu-latest
+    if: |
+      (github.event.deployment_status.state == 'success' || github.event.deployment_status.state == 'failure') &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
+
+    steps:
+      - name: Get branch name
+        id: branch
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/"* ]]; then
+            BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          else
+            BRANCH_NAME="unknown"
+          fi
+          echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          STATUS="${{ github.event.deployment_status.state }}"
+          ENVIRONMENT="${{ github.event.deployment.environment }}"
+          URL="${{ github.event.deployment_status.target_url }}"
+          BRANCH="${{ steps.branch.outputs.name }}"
+          REPO="${{ github.repository }}"
+          COMMIT="${{ github.sha }}"
+
+          # 상태에 따른 이모지 설정
+          if [ "$STATUS" == "success" ]; then
+            EMOJI="✅"
+            COLOR="3066993"  # 초록색
+          else
+            EMOJI="❌"
+            COLOR="15158332"  # 빨간색
+          fi
+
+          # Discord embed 메시지 생성
+          JSON_PAYLOAD=$(cat <<EOF
+          {
+            "embeds": [
+              {
+                "title": "$EMOJI 배포 $STATUS",
+                "color": $COLOR,
+                "fields": [
+                  {
+                    "name": "환경",
+                    "value": "$ENVIRONMENT",
+                    "inline": true
+                  },
+                  {
+                    "name": "브랜치",
+                    "value": "$BRANCH",
+                    "inline": true
+                  },
+                  {
+                    "name": "저장소",
+                    "value": "$REPO",
+                    "inline": true
+                  },
+                  {
+                    "name": "배포 URL",
+                    "value": "$URL"
+                  },
+                  {
+                    "name": "커밋",
+                    "value": "\`${COMMIT:0:7}\`",
+                    "inline": true
+                  }
+                ],
+                "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%S.000Z)"
+              }
+            ]
+          }
+          EOF
+          )
+
+          curl -H "Content-Type: application/json" \
+               -d "$JSON_PAYLOAD" \
+               $DISCORD_WEBHOOK_URL
