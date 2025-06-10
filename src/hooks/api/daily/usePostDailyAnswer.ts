@@ -8,8 +8,7 @@ import { useModalStore } from '@/stores/useModalStore';
 // 답변 제출
 export const usePostDailyAnswerMutation = () => {
   const { open } = useModalStore();
-
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: postDailyAnswer,
     onSuccess: () => {
       open('dailyAnswerPost', { redirectTo: '/daily' });
@@ -19,4 +18,6 @@ export const usePostDailyAnswerMutation = () => {
       alert('답변 제출에 실패했습니다. 잠시 후 다시 시도해주세요.');
     },
   });
+
+  return { postDailyAnswer: mutation.mutate };
 };

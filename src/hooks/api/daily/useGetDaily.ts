@@ -3,13 +3,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { getDaily } from '@/api/dailyApis';
+import { DAILY_QUERY_KEYS } from '@/constants/queryKeys';
 
-// 스트릭, 질문, 답변 조회
-export default function useDailyQuery() {
-  const { data } = useQuery({
-    queryKey: ['daily-question'],
+export default function useGetDailyQuery() {
+  return useQuery({
+    queryKey: [...DAILY_QUERY_KEYS.DAILY],
     queryFn: getDaily,
   });
-
-  return data;
 }

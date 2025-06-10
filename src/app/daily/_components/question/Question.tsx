@@ -20,8 +20,8 @@ export default function Question({ question, answer }: QuestionProps) {
   const [inputValue, setInputValue] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
 
-  const postMutation = usePostDailyAnswerMutation();
-  const patchMutation = usePatchDailyAnswerMutation();
+  const { postDailyAnswer } = usePostDailyAnswerMutation();
+  const { patchDailyAnswer } = usePatchDailyAnswerMutation();
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -34,7 +34,7 @@ export default function Question({ question, answer }: QuestionProps) {
   };
 
   const handleSubmit = () => {
-    postMutation.mutate(
+    postDailyAnswer(
       { answer: inputValue },
       {
         onSuccess: () => {
@@ -45,7 +45,7 @@ export default function Question({ question, answer }: QuestionProps) {
   };
 
   const handleEdit = () => {
-    patchMutation.mutate({ answer: inputValue });
+    patchDailyAnswer({ answer: inputValue });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

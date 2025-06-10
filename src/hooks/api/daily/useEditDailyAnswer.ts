@@ -9,7 +9,7 @@ import { useModalStore } from '@/stores/useModalStore';
 export const usePatchDailyAnswerMutation = () => {
   const { open } = useModalStore();
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: patchDailyAnswer,
     onSuccess: () => {
       open('dailyAnswerEdit', undefined);
@@ -19,4 +19,6 @@ export const usePatchDailyAnswerMutation = () => {
       alert('답변 수정에 실패했습니다. 잠시 후 다시 시도해주세요.');
     },
   });
+
+  return { patchDailyAnswer: mutation.mutate };
 };

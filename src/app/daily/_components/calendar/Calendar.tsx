@@ -7,7 +7,7 @@ import { useState, useMemo } from 'react';
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ChevronUp from '@/assets/icons/chevronup.svg';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import { WEEK_DAYS } from '@/constants/weekDays';
+import { WEEK_DAYS } from '@/constants/common';
 import { getCalendarMonthDates, getCalendarWeekDates } from '@/utils/getCalendar';
 
 import * as S from './Calendar.styled';

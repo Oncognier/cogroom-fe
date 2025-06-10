@@ -1,34 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
-import { getDaily, getStreakCalendar } from '@/api/dailyApis';
 import Calendar from '@/app/daily/_components/calendar/Calendar';
 import Question from '@/app/daily/_components/question/Question';
 import Streak from '@/app/daily/_components/streak/Streak';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
-import { DailyQuestionResponse, StreakCalendarResponse } from '@/types/daily';
+import useGetDailyQuery from '@/hooks/api/daily/useGetDaily';
+import useGetStreakDaysQuery from '@/hooks/api/streak/useGetStreakDays';
 
 import * as S from './styled';
 
 export default function Daily() {
-  const [dailyData, setDailyData] = useState<DailyQuestionResponse | null>(null);
-  const [calendarData, setCalendarData] = useState<StreakCalendarResponse | null>(null);
-
-  const getDailyData = async () => {
-    const data = await getDaily();
-    setDailyData(data);
-  };
-
-  const getCalendarData = async () => {
-    const data = await getStreakCalendar();
-    setCalendarData(data);
-  };
-
-  useEffect(() => {
-    getDailyData();
-    getCalendarData();
-  }, []);
+  const { data: dailyData, isLoading } = useGetDailyQuery();
+  const { data: calendarData } = useGetStreakDaysQuery();
 
   return (
     <S.DailyPageWrapper>
@@ -39,12 +22,16 @@ export default function Daily() {
         ]}
       />
       <S.DailyContentWrapper>
-        <Streak streaksDays={dailyData?.result.streakDays ?? 0} />
-        <Question
-          question={dailyData?.result.question ?? ''}
-          answer={dailyData?.result.answer ?? ''}
-        />
-        <Calendar streakDateList={calendarData?.result.streakDateList ?? []} />
+        {!isLoading && (
+          <>
+            <Streak streaksDays={dailyData?.result.streakDays ?? 0} />
+            <Question
+              question={dailyData?.result.question ?? ''}
+              answer={dailyData?.result.answer ?? ''}
+            />
+            <Calendar streakDateList={calendarData?.result.streakDateList ?? []} />
+          </>
+        )}
       </S.DailyContentWrapper>
     </S.DailyPageWrapper>
   );

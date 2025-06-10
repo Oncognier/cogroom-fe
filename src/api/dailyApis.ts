@@ -3,7 +3,7 @@ import type { AxiosResponse } from 'axios';
 import { axiosInstance } from '@/api/axios/axiosInstance';
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
-import { DailyAnswerRequest, DailyQuestionResponse, StreakCalendarResponse } from '@/types/daily';
+import { DailyAnswerRequest, DailyQuestionResponse } from '@/types/daily';
 
 export const getDaily = async () => {
   const { data } = await axiosInstance.get<DailyQuestionResponse>(END_POINTS_V1.DAILY.QUESTIONS, {
@@ -27,10 +27,5 @@ export const patchDailyAnswer = async ({ answer }: DailyAnswerRequest) => {
     { answer },
     { useAuth: true },
   );
-  return data;
-};
-
-export const getStreakCalendar = async () => {
-  const { data } = await axiosInstance.get<StreakCalendarResponse>(END_POINTS_V1.STREAKS.CALENDAR, { useAuth: true });
   return data;
 };
