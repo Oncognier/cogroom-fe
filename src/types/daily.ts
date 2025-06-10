@@ -12,9 +12,3 @@ export interface DailyQuestionResponse extends ApiResponse {
 export interface DailyAnswerRequest {
   answer: string;
 }
-
-export interface StreakCalendarResponse extends ApiResponse {
-  result: {
-    streakDateList: string[];
-  };
-}
