@@ -1,8 +1,8 @@
 'use client';
 
-import Calendar from '@/app/daily/_components/calendar/Calendar';
-import Question from '@/app/daily/_components/question/Question';
-import Streak from '@/app/daily/_components/streak/Streak';
+import Calendar from '@/app/daily/_components/Calendar/Calendar';
+import Question from '@/app/daily/_components/Question/Question';
+import Streak from '@/app/daily/_components/Streak/Streak';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import useGetDailyQuery from '@/hooks/api/daily/useGetDaily';
 import useGetStreakDaysQuery from '@/hooks/api/streak/useGetStreakDays';
