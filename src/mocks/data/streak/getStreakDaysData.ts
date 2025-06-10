@@ -1,5 +1,5 @@
 // 스트릭 캘린더 조회
-export const streakCalendarData = {
+export const streakDaysData = {
   code: 'SUCCESS',
   message: '요청에 성공했습니다.',
   result: {
