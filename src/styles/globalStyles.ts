@@ -157,6 +157,11 @@ const globalStyles = () => css`
     cursor: pointer;
   }
 
+  input,
+  textarea {
+    font-family: var(--font-pretendard);
+  }
+
   input::placeholder,
   textarea::placeholder {
     font-family: var(--font-pretendard);
