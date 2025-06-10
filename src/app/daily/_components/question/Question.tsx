@@ -3,10 +3,11 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
-import { usePatchDailyAnswerMutation, usePostDailyAnswerMutation } from '@/app/daily/_hooks/getDaily';
 import CheckCircle from '@/assets/icons/checkcircle-fill.svg';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { DEFAULT_STREAK_BACKGROUND } from '@/constants/image';
+import { usePatchDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
+import { usePostDailyAnswerMutation } from '@/hooks/api/daily/usePostDailyAnswer';
 
 import * as S from './Question.styled';
 
