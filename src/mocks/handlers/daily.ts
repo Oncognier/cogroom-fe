@@ -12,7 +12,6 @@ import {
   postDailyAnswerData,
   postDailyAnswerEmptyFieldError,
   postDailyAnswerLengthExceededError,
-  streakCalendarData,
 } from '../data/daily/dailyData';
 
 export const dailyHandlers = [
@@ -67,13 +66,6 @@ export const dailyHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(patchDailyAnswerData), {
-      status: HTTP_STATUS_CODE.OK,
-    });
-  }),
-
-  // 스트릭 캘린더 조회
-  http.get(END_POINTS_V1.STREAKS.CALENDAR, async () => {
-    return new HttpResponse(JSON.stringify(streakCalendarData), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

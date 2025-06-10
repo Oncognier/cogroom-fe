@@ -54,11 +54,3 @@ export const patchDailyAnswerLengthExceededError = {
   message: '답변은 100자 이하여야 합니다.',
 };
 
-// 스트릭 캘린더 조회
-export const streakCalendarData = {
-  code: 'SUCCESS',
-  message: '요청에 성공했습니다.',
-  result: {
-    streakDateList: ['2025-06-06', '2025-06-05', '2025-06-04', '2025-06-03', '2025-05-31', '2025-05-26'],
-  },
-};
