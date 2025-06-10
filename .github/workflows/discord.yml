@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       (github.event.deployment_status.state == 'success' || github.event.deployment_status.state == 'failure') &&
-      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
+      (github.event.deployment.ref == 'refs/heads/develop' || github.event.deployment.ref == 'refs/heads/master')
 
     steps:
       - name: Get branch name
         id: branch
         run: |
-          if [[ "${{ github.ref }}" == "refs/heads/"* ]]; then
+          if [[ "${{ github.event.deployment.ref }}" == "refs/heads/"* ]]; then
             BRANCH_NAME=${GITHUB_REF#refs/heads/}
           else
             BRANCH_NAME="unknown"
