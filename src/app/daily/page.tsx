@@ -1,6 +1,6 @@
 'use client';
 
-import Calendar from '@/app/daily/_components/Calendars/Calendar';
+import Calendar from '@/app/daily/_components/Calendar/Calendar';
 import Question from '@/app/daily/_components/Question/Question';
 import Streak from '@/app/daily/_components/Streak/Streak';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
