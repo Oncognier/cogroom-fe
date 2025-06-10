@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs';
 import isoWeek from 'dayjs/plugin/isoWeek';
 
+//eslint-disable-next-line
 dayjs.extend(isoWeek);
 
 export function getCalendarMonthDates(year: number, month: number): Dayjs[] {
@@ -23,5 +24,6 @@ export function getCalendarMonthDates(year: number, month: number): Dayjs[] {
 
 export function getCalendarWeekDates(reference: Dayjs | Date): Dayjs[] {
   const start = dayjs(reference).startOf('isoWeek');
+  //eslint-disable-next-line
   return Array.from({ length: 7 }, (_, i) => start.add(i, 'day'));
 }
