@@ -3,19 +3,17 @@ import { http, HttpResponse } from 'msw';
 import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
 import { DailyAnswerRequest } from '@/types/daily';
 
-import { dailyDataAnswered, dailyDataNotAnswered } from '../data/daily/getDailyData';
-
-import {
-  submitDailyAnswerData,
-  submitDailyAnswerEmptyFieldError,
-  submitDailyAnswerLengthExceededError,
-} from '../data/daily/submitDailyAnswer';
-
 import {
   editDailyAnswerData,
   editDailyAnswerEmptyFieldError,
   editDailyAnswerLengthExceededError,
 } from '../data/daily/editDailyAnswer';
+import { dailyDataAnswered, dailyDataNotAnswered } from '../data/daily/getDailyData';
+import {
+  submitDailyAnswerData,
+  submitDailyAnswerEmptyFieldError,
+  submitDailyAnswerLengthExceededError,
+} from '../data/daily/submitDailyAnswer';
 
 export const dailyHandlers = [
   // 질문 및 스트릭 정보 조회
