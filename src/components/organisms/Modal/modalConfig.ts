@@ -1,11 +1,15 @@
 import type { ModalMap } from '@/types/modal';
 
+import DailyAnswerEdit from './Daily/Edit/DailyAnswerEdit';
+import DailyAnswerPost, { DailyProps } from './Daily/Post/DailyAnswerPost';
 import Login from './Login/Login';
 import Signup, { SignupProps } from './Signup/Signup';
 
 export type AppModalProps = {
   login: undefined;
   signup: SignupProps;
+  dailyAnswerPost: DailyProps;
+  dailyAnswerEdit: undefined;
 };
 
 export const modalRegistry: ModalMap<AppModalProps> = {
@@ -15,6 +19,14 @@ export const modalRegistry: ModalMap<AppModalProps> = {
   },
   signup: {
     Component: Signup,
+    disableOutsideClick: false,
+  },
+  dailyAnswerPost: {
+    Component: DailyAnswerPost,
+    disableOutsideClick: false,
+  },
+  dailyAnswerEdit: {
+    Component: DailyAnswerEdit,
     disableOutsideClick: false,
   },
 };

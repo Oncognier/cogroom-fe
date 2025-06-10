@@ -20,3 +20,5 @@ export const SIGNUP_STEP = {
 } as const;
 
 export type SignupStep = (typeof SIGNUP_STEP)[keyof typeof SIGNUP_STEP];
+
+export const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;

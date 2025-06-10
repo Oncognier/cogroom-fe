@@ -17,3 +17,8 @@ export const DEFAULT_LOGO_VERTICAL_WHITE =
   'https://d3k85mwe6suqlp.cloudfront.net/default_image/Logo/Logo_Vertical_white.svg' as const;
 export const DEFAULT_LOGO_VERTICAL_BLACK =
   'https://d3k85mwe6suqlp.cloudfront.net/default_image/Logo/Logo_Vertical_black.svg' as const;
+
+// Daily
+export const DEFAULT_STREAK_BACKGROUND =
+  'https://d3k85mwe6suqlp.cloudfront.net/default_image/StreakBackground.png' as const;
+export const DEFAULT_WATERDROP = 'https://d3k85mwe6suqlp.cloudfront.net/default_image/Waterdrop.svg' as const;
