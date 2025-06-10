@@ -2,14 +2,14 @@
 
 import { useMutation } from '@tanstack/react-query';
 
-import { postDailyAnswer } from '@/api/dailyApis';
+import { dailyApi } from '@/api/dailyApis';
 import { useModalStore } from '@/stores/useModalStore';
 
 // 답변 제출
-export const usePostDailyAnswerMutation = () => {
+export const useSubmitDailyAnswerMutation = () => {
   const { open } = useModalStore();
   const mutation = useMutation({
-    mutationFn: postDailyAnswer,
+    mutationFn: dailyApi.submitDailyAnswer,
     onSuccess: () => {
       open('dailyAnswerPost', { redirectTo: '/daily' });
     },
@@ -19,5 +19,5 @@ export const usePostDailyAnswerMutation = () => {
     },
   });
 
-  return { postDailyAnswer: mutation.mutate };
+  return { submitDailyAnswer: mutation.mutate };
 };
