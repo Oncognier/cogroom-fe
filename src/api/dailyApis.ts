@@ -1,9 +1,9 @@
 import type { AxiosResponse } from 'axios';
 
 import { axiosInstance } from '@/api/axios/axiosInstance';
-import { DailyAnswerRequest, DailyQuestionResponse, StreakCalendarResponse } from '@/app/daily/_types/daily';
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
+import { DailyAnswerRequest, DailyQuestionResponse, StreakCalendarResponse } from '@/types/daily';
 
 export const getDaily = async () => {
   const { data } = await axiosInstance.get<DailyQuestionResponse>(END_POINTS_V1.DAILY.QUESTIONS, {
