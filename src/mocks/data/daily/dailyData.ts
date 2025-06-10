@@ -53,4 +53,3 @@ export const patchDailyAnswerLengthExceededError = {
   code: 'ANSWER_LENGTH_EXCEEDED',
   message: '답변은 100자 이하여야 합니다.',
 };
-
