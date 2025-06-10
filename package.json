@@ -39,6 +39,7 @@
     "@storybook/react": "^8.6.12",
     "@storybook/test": "^8.6.12",
     "@svgr/webpack": "^8.1.0",
+    "@tanstack/react-query-devtools": "^5.80.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
