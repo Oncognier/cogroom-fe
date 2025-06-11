@@ -42,13 +42,6 @@ export default function Question({ assignedQuestionId, question, answer }: Quest
     editDailyAnswer({ assignedQuestionId, answer: inputValue });
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      isAnswered ? handleEdit() : handleSubmit();
-    }
-  };
-
   useEffect(() => {
     if (answer) {
       setInputValue(answer);
@@ -86,7 +79,6 @@ export default function Question({ assignedQuestionId, question, answer }: Quest
             onChange={(e) => {
               setInputValue(e.target.value);
             }}
-            onKeyDown={handleKeyDown}
           />
         </S.InputGroup>
         <TextButton
