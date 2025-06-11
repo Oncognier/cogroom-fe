@@ -6,8 +6,11 @@ import { EditUserInfoRequest, UserInfoResponse, UserSummaryResponse } from '@/ty
 
 import { axiosInstance } from './axios/axiosInstance';
 
-const getUserSummary = async () => {
-  const { data } = await axiosInstance.get<UserSummaryResponse>(END_POINTS_V1.MEMBERS.SUMMARY);
+export const getUserSummary = async (accessToken?: string) => {
+  const { data } = await axiosInstance.get(END_POINTS_V1.MEMBERS.SUMMARY, {
+    headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
+    useAuth: !accessToken,
+  });
 
   return data.result;
 };
