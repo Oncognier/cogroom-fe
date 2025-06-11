@@ -1,9 +1,11 @@
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 export const useSignupMutation = () => {
+  const router = useRouter();
   const setToken = useAuthStore((state) => state.setToken);
 
   const mutation = useMutation({
@@ -11,12 +13,13 @@ export const useSignupMutation = () => {
     onSuccess: (response) => {
       const accessToken = response.headers['authorization']?.replace(/^Bearer\s/i, '');
 
-      if (accessToken) {
+      if (!!accessToken) {
         setToken(accessToken);
       }
     },
     onError: () => {
       alert('회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.');
+      router.push('/');
     },
   });
 

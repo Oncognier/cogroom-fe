@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { authApi } from '@/api/authApis';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useModalStore } from '@/stores/useModalStore';
-import { LoginResponse } from '@/types/auth';
 
 export const useLoginMutation = () => {
   const router = useRouter();
@@ -17,7 +16,6 @@ export const useLoginMutation = () => {
       const accessToken = response.headers['authorization'];
 
       if (!!accessToken) {
-        console.log(accessToken);
         setToken(accessToken);
       }
 
@@ -36,6 +34,7 @@ export const useLoginMutation = () => {
     },
     onError: () => {
       alert('로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      router.push('/');
     },
   });
 
