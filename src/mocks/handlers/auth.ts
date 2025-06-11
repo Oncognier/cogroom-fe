@@ -13,6 +13,7 @@ import {
 } from '../data/auth/loginData';
 import { sendEmailError, sendEmailSuccess } from '../data/auth/sendEmailData';
 import { signupError, signupSuccess } from '../data/auth/signupData';
+import { reissueSuccess } from '../data/auth/reissueTokenData';
 
 export const authHandlers = [
   http.post(END_POINTS_V1.AUTH.LOGIN, async ({ request }) => {
@@ -82,6 +83,18 @@ export const authHandlers = [
 
     return new HttpResponse(JSON.stringify(checkEmailVerifiedSuccess), {
       status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.post(END_POINTS_V1.AUTH.REISSUE_TOKEN, async () => {
+    return new HttpResponse(JSON.stringify(reissueSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+      headers: new Headers([
+        ['Authorization', `Bearer ${mockAccessToken}`],
+        ['Access-Control-Expose-Headers', 'Authorization'],
+        ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
+        ['Content-Type', 'application/json'],
+      ]),
     });
   }),
 ];

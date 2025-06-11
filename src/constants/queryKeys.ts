@@ -1,6 +1,9 @@
 const USER_QUERY_KEYS = {
   USER_SUMMARY: 'user_summary',
   USER_INFO: 'user_info',
+const AUTH_QUERY_KEYS = {
+  AUTH_REISSUE: ['auth', 'reissue'],
+} as const;
 } as const;
 
 const DAILY_QUERY_KEYS = {
