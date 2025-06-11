@@ -26,6 +26,7 @@ export default function Daily() {
           <>
             <Streak streaksDays={dailyData?.result.streakDays ?? 0} />
             <Question
+              assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
               question={dailyData?.result.question ?? ''}
               answer={dailyData?.result.answer ?? ''}
             />
