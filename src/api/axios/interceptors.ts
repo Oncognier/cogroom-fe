@@ -4,6 +4,8 @@ import axios from 'axios';
 import { ERROR_CODE, HTTP_STATUS_CODE } from '@/constants/api';
 import { useAuthStore } from '@/stores/useAuthStore';
 
+import { authApi } from '../authApis';
+import { axiosInstance } from './axiosInstance';
 import { HTTPError } from './errors/HTTPError';
 
 export interface ErrorResponseData {
@@ -37,8 +39,25 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
   const { data, status } = error.response;
 
   if (status === HTTP_STATUS_CODE.UNAUTHORIZED && data.code === ERROR_CODE.EXPIRED_TOKEN) {
-    // TODO: refresh token 로직을 여기에 구현
-    // 예: await postNewToken();
+    try {
+      const { accessToken: newAccessToken } = await authApi.reissueToken();
+
+      if (!newAccessToken) throw new Error('토큰 재발급 실패');
+
+      const { setToken } = useAuthStore.getState();
+      setToken(newAccessToken);
+
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+      return axiosInstance(originalRequest);
+    } catch (reissueError) {
+      const { clearToken } = useAuthStore.getState();
+      clearToken();
+      if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
+      throw reissueError;
+    }
   }
 
   if (
