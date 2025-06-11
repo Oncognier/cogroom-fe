@@ -9,14 +9,19 @@ import { LoginResponse } from '@/types/auth';
 export const useLoginMutation = () => {
   const router = useRouter();
   const { open } = useModalStore();
-  const checkAuth = useAuthStore((state) => state.checkAuth);
+  const setToken = useAuthStore((state) => state.setToken);
 
   const mutation = useMutation({
     mutationFn: authApi.login,
-    onSuccess: ({ result }: LoginResponse) => {
-      const { socialUserInfo, needSignup } = result;
+    onSuccess: (response) => {
+      const accessToken = response.headers['authorization'];
 
-      router.push('/');
+      if (!!accessToken) {
+        console.log(accessToken);
+        setToken(accessToken);
+      }
+
+      const { socialUserInfo, needSignup } = response.data.result;
 
       if (needSignup || socialUserInfo) {
         open('signup', {
@@ -26,7 +31,7 @@ export const useLoginMutation = () => {
           nickname: socialUserInfo.nickname ?? '',
         });
       } else {
-        checkAuth();
+        router.push('/');
       }
     },
     onError: () => {
