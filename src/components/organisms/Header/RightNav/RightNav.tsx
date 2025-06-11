@@ -8,16 +8,25 @@ import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { useModalStore } from '@/stores/useModalStore';
 
 import S from './RightNav.styled';
 
-export default function RightNav() {
+type RightNavProps = {
+  userSummary?: {
+    nickname: string;
+    imageUrl: string;
+  };
+};
+
+export default function RightNav({ userSummary: serverUserSummary }: RightNavProps) {
   const { open } = useModalStore();
-  const { data, isLoading } = useGetUserSummary();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const router = useRouter();
+
+  const { data: clientUserSummary } = useGetUserSummary();
+
+  const userSummary = serverUserSummary ?? clientUserSummary;
+  const isLoggedIn = !!userSummary;
 
   return (
     <S.RightNav>
@@ -29,7 +38,7 @@ export default function RightNav() {
         <Search />
       </IconButton>
 
-      {isLoggedIn && !isLoading ? (
+      {isLoggedIn ? (
         <S.NavLogin>
           <IconButton
             size='4rem'
@@ -41,7 +50,7 @@ export default function RightNav() {
           <AvatarPerson
             type='icon'
             size='fillContainer'
-            src={data?.imageUrl}
+            src={userSummary.imageUrl}
             onClick={() => router.push('/mypage')}
           />
         </S.NavLogin>

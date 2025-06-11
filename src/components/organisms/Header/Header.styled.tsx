@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-const Header = styled.header`
+export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -19,16 +19,3 @@ const Header = styled.header`
     padding: 1.3rem;
   }
 `;
-
-const LeftNav = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4rem;
-`;
-
-const S = {
-  Header,
-  LeftNav,
-};
-
-export default S;

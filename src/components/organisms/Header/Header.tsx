@@ -1,33 +1,31 @@
-'use client';
+import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { UserSummary } from '@/types/member';
+import { prefetchAuthAndUser } from '@/utils/api/prefetchAuthAndUser';
 
-import { DEFAULT_LOGO_HORIZONTAL_NORMAL } from '@/constants/image';
-
-import S from './Header.styled';
-import NavList from './NavList/NavList';
+import * as S from './Header.styled';
+import LeftNav from './LeftNav/LeftNav';
 import RightNav from './RightNav/RightNav';
 
-export default function Header() {
-  const pathname = usePathname() || '/';
+export default async function Header() {
+  const queryClient = new QueryClient();
+
+  let userSummary: UserSummary | undefined;
+
+  try {
+    userSummary = await prefetchAuthAndUser(queryClient);
+  } catch (err) {
+    alert(`Auth prefetch failed: ${err}`);
+  }
+
+  const dehydratedState = dehydrate(queryClient);
 
   return (
-    <S.Header>
-      <S.LeftNav>
-        <Link href='/'>
-          <Image
-            src={DEFAULT_LOGO_HORIZONTAL_NORMAL}
-            alt='Logo'
-            width={120}
-            height={23}
-          />
-        </Link>
-        <NavList pathname={pathname} />
-      </S.LeftNav>
-
-      <RightNav />
-    </S.Header>
+    <HydrationBoundary state={dehydratedState}>
+      <S.Header>
+        <LeftNav />
+        <RightNav userSummary={userSummary} />
+      </S.Header>
+    </HydrationBoundary>
   );
 }
