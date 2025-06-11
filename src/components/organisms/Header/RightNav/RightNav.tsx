@@ -9,15 +9,13 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useModalStore } from '@/stores/useModalStore';
+import { UserSummary } from '@/types/member';
 
 import S from './RightNav.styled';
 
-type RightNavProps = {
-  userSummary?: {
-    nickname: string;
-    imageUrl: string;
-  };
-};
+interface RightNavProps {
+  userSummary?: UserSummary;
+}
 
 export default function RightNav({ userSummary: serverUserSummary }: RightNavProps) {
   const { open } = useModalStore();
