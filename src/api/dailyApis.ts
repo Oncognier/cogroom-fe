@@ -12,19 +12,19 @@ const getDaily = async () => {
   return data;
 };
 
-const submitDailyAnswer = async ({ answer }: DailyAnswerRequest) => {
+const submitDailyAnswer = async ({ assignedQuestionId, answer }: DailyAnswerRequest) => {
   const { data } = await axiosInstance.post<DailyAnswerRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.DAILY.ANSWERS,
-    { answer },
+    { assignedQuestionId, answer },
     { useAuth: true },
   );
   return data;
 };
 
-const editDailyAnswer = async ({ answer }: DailyAnswerRequest) => {
+const editDailyAnswer = async ({ assignedQuestionId, answer }: DailyAnswerRequest) => {
   const { data } = await axiosInstance.patch<DailyAnswerRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.DAILY.ANSWERS,
-    { answer },
+    { assignedQuestionId, answer },
     { useAuth: true },
   );
   return data;

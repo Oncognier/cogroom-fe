@@ -12,11 +12,12 @@ import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAn
 import * as S from './Question.styled';
 
 interface QuestionProps {
+  assignedQuestionId: number;
   question: string;
   answer?: string;
 }
 
-export default function Question({ question, answer }: QuestionProps) {
+export default function Question({ assignedQuestionId, question, answer }: QuestionProps) {
   const [inputValue, setInputValue] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
 
@@ -34,11 +35,11 @@ export default function Question({ question, answer }: QuestionProps) {
   };
 
   const handleSubmit = () => {
-    submitDailyAnswer({ answer: inputValue });
+    submitDailyAnswer({ assignedQuestionId, answer: inputValue });
   };
 
   const handleEdit = () => {
-    editDailyAnswer({ answer: inputValue });
+    editDailyAnswer({ assignedQuestionId, answer: inputValue });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
