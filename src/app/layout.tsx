@@ -7,8 +7,6 @@ import { MSWProvider } from '@/lib/msw/MSWProvider';
 import QueryProvider from '@/lib/query/QueryProvider';
 import { pretendard } from '@/styles/font';
 
-import GlobalAuthInitializer from './GlobalAuthInitializer';
-
 // msw 서버 적용
 mockingServer();
 
@@ -22,7 +20,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EmotionRegistry>
           <MSWProvider>
             <QueryProvider>
-              <GlobalAuthInitializer />
               <Header />
               {children}
               <Base modalMap={modalRegistry} />

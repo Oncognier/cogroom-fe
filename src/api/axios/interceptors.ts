@@ -1,10 +1,11 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import axios from 'axios';
 
-import { ACCESS_TOKEN_NAME, ERROR_CODE, HTTP_STATUS_CODE } from '@/constants/api';
+import { ERROR_CODE, HTTP_STATUS_CODE } from '@/constants/api';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { deleteCookie, getCookie, hasCookie } from '@/utils/cookie';
 
+import { authApi } from '../authApis';
+import { axiosInstance } from './axiosInstance';
 import { HTTPError } from './errors/HTTPError';
 
 export interface ErrorResponseData {
@@ -16,15 +17,17 @@ export interface ErrorResponseData {
 export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
   if (!config.useAuth || !config.headers || config.headers.Authorization) return config;
 
-  if (!hasCookie(ACCESS_TOKEN_NAME)) {
-    useAuthStore.getState().logout();
+  const { accessToken, clearToken } = useAuthStore.getState();
+
+  if (!accessToken) {
+    clearToken();
     if (typeof window !== 'undefined') {
       window.location.href = '/';
     }
+    return config;
   }
 
-  config.headers.Authorization = `Bearer ${getCookie(ACCESS_TOKEN_NAME)}`;
-
+  config.headers.Authorization = `Bearer ${accessToken}`;
   return config;
 };
 
@@ -36,7 +39,25 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
   const { data, status } = error.response;
 
   if (status === HTTP_STATUS_CODE.UNAUTHORIZED && data.code === ERROR_CODE.EXPIRED_TOKEN) {
-    // await postNewToken();
+    try {
+      const { accessToken: newAccessToken } = await authApi.reissueToken();
+
+      if (!newAccessToken) throw new Error('토큰 재발급 실패');
+
+      const { setToken } = useAuthStore.getState();
+      setToken(newAccessToken);
+
+      originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+
+      return axiosInstance(originalRequest);
+    } catch (reissueError) {
+      const { clearToken } = useAuthStore.getState();
+      clearToken();
+      if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
+      throw reissueError;
+    }
   }
 
   if (
@@ -44,8 +65,9 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
     (data.code === ERROR_CODE.INVALID_TOKEN || data.code === ERROR_CODE.ALREADY_BLACK_LIST)
   ) {
     delete axios.defaults.headers.common.Authorization;
-    deleteCookie(ACCESS_TOKEN_NAME);
-    useAuthStore.getState().logout();
+
+    const { clearToken } = useAuthStore.getState();
+    clearToken();
 
     if (typeof window !== 'undefined') {
       window.location.href = '/';

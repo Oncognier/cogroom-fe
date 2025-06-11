@@ -1,26 +1,24 @@
 import { ApiResponse } from './api';
 
+export type UserSummary = {
+  nickname: string;
+  imageUrl: string;
+};
+
 export interface UserSummaryResponse extends ApiResponse {
-  result: {
-    nickname: string;
-    imageUrl: string;
-  };
+  result: UserSummary;
 }
 
-export interface UserInfoResponse extends ApiResponse {
-  result: {
-    email: string;
-    nickname: string;
-    imageUrl: string;
-    phoneNumber: string;
-    description: string;
-  };
-}
-
-export interface EditUserInfoRequest {
+export type UserInfo = {
   email: string;
   nickname: string;
   imageUrl?: string;
   phoneNumber?: string;
   description?: string;
+};
+
+export interface UserInfoResponse extends ApiResponse {
+  result: UserInfo;
 }
+
+export interface EditUserInfoRequest extends UserInfo {}

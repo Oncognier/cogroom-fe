@@ -4,7 +4,14 @@ import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
 import { CheckEmailVerifiedRequest, LoginRequest, SendEmailRequest, SignupRequest } from '@/types/auth';
 
 import { checkEmailVerifiedError, checkEmailVerifiedSuccess } from '../data/auth/checkEmailVerifiedData';
-import { loginError, loginSuccess_NewUser, mockAccessToken, mockRefreshToken } from '../data/auth/loginData';
+import {
+  loginError,
+  loginSuccess_ExistingUser,
+  loginSuccess_NewUser,
+  mockAccessToken,
+  mockRefreshToken,
+} from '../data/auth/loginData';
+import { reissueSuccess } from '../data/auth/reissueTokenData';
 import { sendEmailError, sendEmailSuccess } from '../data/auth/sendEmailData';
 import { signupError, signupSuccess } from '../data/auth/signupData';
 
@@ -20,12 +27,16 @@ export const authHandlers = [
 
     return new HttpResponse(JSON.stringify(loginSuccess_NewUser), {
       status: HTTP_STATUS_CODE.OK,
-      headers: new Headers([
-        ['Set-Cookie', `accessToken=${mockAccessToken}; Path=/`],
-        ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
-        ['Content-Type', 'application/json'],
-      ]),
     });
+
+    // return new HttpResponse(JSON.stringify(loginSuccess_ExistingUser), {
+    //   status: HTTP_STATUS_CODE.OK,
+    //   headers: new Headers([
+    //     ['Authorization', `Bearer ${mockAccessToken}`],
+    //     ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
+    //     ['Content-Type', 'application/json'],
+    //   ]),
+    // });
   }),
 
   http.post(END_POINTS_V1.AUTH.SIGNUP, async ({ request }) => {
@@ -40,7 +51,7 @@ export const authHandlers = [
     return new HttpResponse(JSON.stringify(signupSuccess), {
       status: HTTP_STATUS_CODE.OK,
       headers: new Headers([
-        ['Set-Cookie', `accessToken=${mockAccessToken}; Path=/`],
+        ['Authorization', `Bearer ${mockAccessToken}`],
         ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
         ['Content-Type', 'application/json'],
       ]),
@@ -72,6 +83,18 @@ export const authHandlers = [
 
     return new HttpResponse(JSON.stringify(checkEmailVerifiedSuccess), {
       status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.post(END_POINTS_V1.AUTH.REISSUE_TOKEN, async () => {
+    return new HttpResponse(JSON.stringify(reissueSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+      headers: new Headers([
+        ['Authorization', `Bearer ${mockAccessToken}`],
+        ['Access-Control-Expose-Headers', 'Authorization'],
+        ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
+        ['Content-Type', 'application/json'],
+      ]),
     });
   }),
 ];

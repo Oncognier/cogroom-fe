@@ -1,23 +1,21 @@
 import { create } from 'zustand';
 
-import { ACCESS_TOKEN_NAME } from '@/constants/api';
-import { hasCookie } from '@/utils/cookie';
-
 interface AuthState {
+  accessToken: string | null;
   isLoggedIn: boolean;
-  checkAuth: () => void;
-  logout: () => void;
+  setToken: (token: string) => void;
+  clearToken: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
+  accessToken: null,
   isLoggedIn: false,
 
-  checkAuth: () => {
-    const isLoggedIn = hasCookie(ACCESS_TOKEN_NAME);
-    set({ isLoggedIn });
+  setToken: (token) => {
+    set({ accessToken: token, isLoggedIn: true });
   },
 
-  logout: () => {
-    set({ isLoggedIn: false });
+  clearToken: () => {
+    set({ accessToken: null, isLoggedIn: false });
   },
 }));
