@@ -7,7 +7,7 @@ jobs:
   notify-discord:
     name: Notify Discord on Deployment Status
     runs-on: ubuntu-latest
-    if: (github.event.deployment_status.state == 'success' || github.event.deployment_status.state == 'failure') && github.event.deployment.environment == 'production'
+    if: (github.event.deployment_status.state == 'success' || github.event.deployment_status.state == 'failure')
 
     steps:
       - name: Notify Discord
