@@ -7,7 +7,7 @@ import { UserSummary } from '@/types/member';
 
 export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<UserSummary | undefined> {
   await queryClient.prefetchQuery({
-    queryKey: AUTH_QUERY_KEYS.AUTH_REISSUE,
+    queryKey: [...AUTH_QUERY_KEYS.AUTH_REISSUE],
     queryFn: authApi.reissueToken,
   });
 
@@ -16,7 +16,7 @@ export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<Use
 
   if (accessToken) {
     await queryClient.prefetchQuery({
-      queryKey: MEMBER_QUERY_KEYS.MEMBER_SUMMARY,
+      queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY],
       queryFn: () => memberApi.getUserSummary(accessToken),
     });
 

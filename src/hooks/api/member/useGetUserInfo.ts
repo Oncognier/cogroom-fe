@@ -8,7 +8,7 @@ export default function useGetUserInfoMutation() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   return useQuery({
-    queryKey: [MEMBER_QUERY_KEYS.MEMBER_INFO],
+    queryKey: [...MEMBER_QUERY_KEYS.MEMBER_INFO],
     queryFn: memberApi.getUserInfo,
     enabled: isLoggedIn,
   });

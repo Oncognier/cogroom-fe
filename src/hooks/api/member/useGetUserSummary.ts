@@ -8,7 +8,7 @@ export default function useGetUserSummary() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   return useQuery({
-    queryKey: [MEMBER_QUERY_KEYS.MEMBER_SUMMARY],
+    queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY],
     queryFn: () => memberApi.getUserSummary(),
     enabled: isLoggedIn,
   });
