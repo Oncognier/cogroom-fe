@@ -11,6 +11,7 @@ import {
   mockAccessToken,
   mockRefreshToken,
 } from '../data/auth/loginData';
+import { logoutSuccess } from '../data/auth/logoutData';
 import { reissueSuccess } from '../data/auth/reissueTokenData';
 import { sendEmailError, sendEmailSuccess } from '../data/auth/sendEmailData';
 import { signupError, signupSuccess } from '../data/auth/signupData';
@@ -82,6 +83,12 @@ export const authHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(checkEmailVerifiedSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.post(END_POINTS_V1.AUTH.LOGOUT, async () => {
+    return new HttpResponse(JSON.stringify(logoutSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
