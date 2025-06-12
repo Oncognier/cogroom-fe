@@ -6,12 +6,14 @@ import Setting from '@/assets/icons/setting.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+import { useModalStore } from '@/stores/useModalStore';
 
 import S from './Sidebar.styled';
 import SidebarNavItem from './SidebarNavItem/SidebarNavItem';
 
 export default function Sidebar() {
   const { data, isLoading } = useGetUserSummary();
+  const { open } = useModalStore();
   const router = useRouter();
   const pathname = usePathname() || '/';
 
@@ -43,7 +45,7 @@ export default function Sidebar() {
                 interactionVariant='normal'
               />
             ))}
-            <S.Logout>로그아웃</S.Logout>
+            <S.Logout onClick={() => open('logout', undefined)}>로그아웃</S.Logout>
           </S.SidebarNavList>
         </>
       )}
