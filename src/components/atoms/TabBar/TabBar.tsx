@@ -1,6 +1,7 @@
 'use client';
 
-import S, { TabBarStyleProps } from './TabBar.styled';
+import { TabBarStyleProps } from './TabBar.styled';
+import * as S from './TabBar.styled';
 
 interface TabBarProps extends TabBarStyleProps {
   label: string;

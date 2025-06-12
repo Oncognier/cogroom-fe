@@ -52,16 +52,10 @@ const getFillStyle = (fillContainer: boolean | undefined) =>
     flex: 1;
   `;
 
-const TabBar = styled.button<TabBarStyleProps>`
+export const TabBar = styled.button<TabBarStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, state }) => getStateStyles(theme, state)};
   ${({ fillContainer }) => getFillStyle(fillContainer)};
   ${({ theme, interactionVariant }) => getInteraction(interactionVariant, theme.semantic.label.normal)(theme)};
 `;
-
-const S = {
-  TabBar,
-};
-
-export default S;
