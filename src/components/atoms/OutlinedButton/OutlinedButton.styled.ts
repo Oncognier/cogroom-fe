@@ -6,11 +6,12 @@ import styled from '@emotion/styled';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive';
-type OutlinedButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
+type OutlinedButtonSize = 'sm' | 'md' | 'lg';
 
 export interface OutlinedButtonStyleProps {
   color: OutlinedButtonColor;
   size: OutlinedButtonSize;
+  fillContainer?: boolean;
   interactionVariant: InteractionVariant;
 }
 
@@ -51,10 +52,6 @@ const sizeStyles: Record<OutlinedButtonSize, (theme: Theme) => SerializedStyles>
   lg: (theme) => css`
     ${theme.typography.body1.semibold}
   `,
-  fillContainer: (theme) => css`
-    ${theme.typography.body1.semibold};
-    width: 100%;
-  `,
 };
 
 const colorStyles: Record<OutlinedButtonColor, (theme: Theme, disable?: boolean) => SerializedStyles> = {
@@ -82,9 +79,16 @@ const getInteractionColor = (theme: Theme, color: OutlinedButtonColor) => {
   return theme.semantic.interaction.inactive;
 };
 
+const getFillContainerStyle = (fillContainer?: boolean) =>
+  fillContainer &&
+  css`
+    width: 100%;
+  `;
+
 const OutlinedButton = styled.button<OutlinedButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
+  ${({ fillContainer }) => getFillContainerStyle(fillContainer)};
   ${({ theme, color }) => colorStyles[color](theme)};
   ${({ theme, interactionVariant, disabled, color }) =>
     getInteraction(interactionVariant, getInteractionColor(theme, color), disabled)(theme)};
