@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname, useRouter } from 'next/navigation';
 
 import Setting from '@/assets/icons/setting.svg';
@@ -38,6 +40,7 @@ export default function Sidebar() {
                 label={label}
                 href={href}
                 isActive={pathname.startsWith(href)}
+                interactionVariant='normal'
               />
             ))}
             <S.Logout>로그아웃</S.Logout>

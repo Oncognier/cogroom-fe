@@ -7,7 +7,7 @@ import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import useGetDailyQuery from '@/hooks/api/daily/useGetDaily';
 import useGetStreakDaysQuery from '@/hooks/api/streak/useGetStreakDays';
 
-import * as S from './styled';
+import * as S from './page.styled';
 
 export default function Daily() {
   const { data: dailyData, isLoading } = useGetDailyQuery();

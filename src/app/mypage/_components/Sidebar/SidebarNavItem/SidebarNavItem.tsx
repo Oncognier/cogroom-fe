@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 import S, { SidebarNavItemStyleProps } from './SidebarNavItem.styled';
@@ -9,7 +11,10 @@ interface SidebarNavItemProps extends SidebarNavItemStyleProps {
 
 export default function SidebarNavItem({ label, href, isActive }: SidebarNavItemProps) {
   return (
-    <S.SidebarNavItem isActive={isActive}>
+    <S.SidebarNavItem
+      isActive={isActive}
+      interactionVariant='normal'
+    >
       <Link href={href}>{label}</Link>
     </S.SidebarNavItem>
   );

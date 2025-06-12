@@ -10,13 +10,8 @@ const EmailForm = styled.div`
   width: 100%;
 `;
 
-const ButtonWrapper = styled.div`
-  margin: 0.3rem 0;
-`;
-
 const S = {
   EmailForm,
-  ButtonWrapper,
 };
 
 export default S;

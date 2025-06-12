@@ -2,12 +2,14 @@
 
 import styled from '@emotion/styled';
 
+import { getInteraction } from '@/styles/interaction';
+
 const Sidebar = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[40]};
 
-  width: 27.1rem;
+  width: 20rem;
 `;
 
 const Profile = styled.div`
@@ -36,12 +38,19 @@ const SettingIcon = styled.button`
 const SidebarNavList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[24]};
+  gap: ${({ theme }) => theme.spacing[16]};
 `;
 
-const Logout = styled.p`
+const Logout = styled.button`
   ${({ theme }) => theme.typography.body2.semibold};
-  color: ${({ theme }) => theme.semantic.label.normal};
+  color: ${({ theme }) => theme.semantic.label.alternative};
+  ${({ theme }) => getInteraction('normal', theme.semantic.label.alternative)(theme)};
+
+  display: flex;
+  align-items: center;
+
+  height: 3rem;
+  border-radius: ${({ theme }) => theme.radius[4]};
 `;
 
 const S = {
