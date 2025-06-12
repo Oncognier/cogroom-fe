@@ -12,7 +12,7 @@ import {
   mockRefreshToken,
 } from '../data/auth/loginData';
 import { logoutSuccess } from '../data/auth/logoutData';
-import { reissueSuccess } from '../data/auth/reissueTokenData';
+import { reissueError, reissueSuccess } from '../data/auth/reissueTokenData';
 import { sendEmailError, sendEmailSuccess } from '../data/auth/sendEmailData';
 import { signupError, signupSuccess } from '../data/auth/signupData';
 
@@ -94,14 +94,19 @@ export const authHandlers = [
   }),
 
   http.post(END_POINTS_V1.AUTH.REISSUE_TOKEN, async () => {
-    return new HttpResponse(JSON.stringify(reissueSuccess), {
-      status: HTTP_STATUS_CODE.OK,
-      headers: new Headers([
-        ['Authorization', `Bearer ${mockAccessToken}`],
-        ['Access-Control-Expose-Headers', 'Authorization'],
-        ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
-        ['Content-Type', 'application/json'],
-      ]),
+    // 로그아웃 시 사용
+    return new HttpResponse(JSON.stringify(reissueError), {
+      status: HTTP_STATUS_CODE.UNAUTHORIZED,
     });
+
+    // return new HttpResponse(JSON.stringify(reissueSuccess), {
+    //   status: HTTP_STATUS_CODE.OK,
+    //   headers: new Headers([
+    //     ['Authorization', `Bearer ${mockAccessToken}`],
+    //     ['Access-Control-Expose-Headers', 'Authorization'],
+    //     ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/`],
+    //     ['Content-Type', 'application/json'],
+    //   ]),
+    // });
   }),
 ];

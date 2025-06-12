@@ -1,8 +1,10 @@
 const AUTH_QUERY_KEYS = {
+  AUTH: ['auth'],
   AUTH_REISSUE: ['auth', 'reissue'],
 } as const;
 
 const MEMBER_QUERY_KEYS = {
+  MEMBER: ['member'],
   MEMBER_SUMMARY: ['member', 'info', 'summary'],
   MEMBER_INFO: ['member', 'info'],
 } as const;
