@@ -62,17 +62,15 @@ export default function EmailForm() {
         error={errors.email?.message}
         width='34.5rem'
       />
-      <S.ButtonWrapper>
-        <OutlinedButton
-          type='button'
-          size='sm'
-          color='primary'
-          label={getLabel()}
-          onClick={handleClick}
-          interactionVariant='normal'
-          isDisabled={emailState === 'waiting' && isCooldown}
-        />
-      </S.ButtonWrapper>
+      <OutlinedButton
+        type='button'
+        size='md'
+        color='primary'
+        label={getLabel()}
+        onClick={handleClick}
+        interactionVariant='normal'
+        isDisabled={emailState === 'waiting' && isCooldown}
+      />
     </S.EmailForm>
   );
 }

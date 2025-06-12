@@ -97,7 +97,7 @@ export default function Setting() {
 
         <S.ButtonWrapper>
           <OutlinedButton
-            size='sm'
+            size='md'
             color='primary'
             label='저장하기'
             interactionVariant='normal'

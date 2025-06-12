@@ -18,6 +18,7 @@ const SetImage = styled.div`
 const SettingForm = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: ${({ theme }) => theme.spacing[16]};
 `;
 
