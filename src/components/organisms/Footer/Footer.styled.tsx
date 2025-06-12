@@ -9,7 +9,7 @@ export const Footer = styled.footer`
 
   max-width: 1100px;
   margin: 0 auto;
-  padding: 4.5rem 0;
+  padding: 4.5rem 2rem;
 `;
 
 export const LogoWrapper = styled.div`
