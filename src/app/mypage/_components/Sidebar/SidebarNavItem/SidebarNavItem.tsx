@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 import S, { SidebarNavItemStyleProps } from './SidebarNavItem.styled';
