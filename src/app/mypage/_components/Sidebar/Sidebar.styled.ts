@@ -9,7 +9,7 @@ const Sidebar = styled.div`
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[40]};
 
-  width: 27.1rem;
+  width: 20rem;
 `;
 
 const Profile = styled.div`

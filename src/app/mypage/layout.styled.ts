@@ -14,6 +14,7 @@ const MainLayout = styled.div`
 
 const Layout = styled.div`
   display: flex;
+  gap: 6.2rem;
 `;
 
 const Content = styled.div`
