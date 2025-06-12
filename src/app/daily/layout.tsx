@@ -1,4 +1,4 @@
-import * as S from './styled';
+import * as S from './layout.styled';
 
 export default function DailyLayout({ children }: { children: React.ReactNode }) {
   return (
