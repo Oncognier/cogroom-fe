@@ -4,7 +4,7 @@ import MyPageBreadcrumb from './_components/MyPageBreadcrumb/MyPageBreadcrumb';
 import Sidebar from './_components/Sidebar/Sidebar';
 import S from './layout.styled';
 
-const MypageLayout = ({ children }: { children: React.ReactNode }) => {
+const MyPageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <S.MainLayout>
       <MyPageBreadcrumb />
@@ -16,4 +16,4 @@ const MypageLayout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default MypageLayout;
+export default MyPageLayout;
