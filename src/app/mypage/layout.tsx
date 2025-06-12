@@ -2,9 +2,9 @@
 
 import MyPageBreadcrumb from './_components/MyPageBreadcrumb/MyPageBreadcrumb';
 import Sidebar from './_components/Sidebar/Sidebar';
-import S from './layout.styled';
+import * as S from './layout.styled';
 
-const MyPageLayout = ({ children }: { children: React.ReactNode }) => {
+export default function MyPageLayout({ children }: { children: React.ReactNode }) {
   return (
     <S.MainLayout>
       <MyPageBreadcrumb />
@@ -14,6 +14,4 @@ const MyPageLayout = ({ children }: { children: React.ReactNode }) => {
       </S.Layout>
     </S.MainLayout>
   );
-};
-
-export default MyPageLayout;
+}

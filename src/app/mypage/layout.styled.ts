@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-const MainLayout = styled.div`
+export const MainLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5rem;
@@ -12,20 +12,12 @@ const MainLayout = styled.div`
   padding: 3.2rem 2rem;
 `;
 
-const Layout = styled.div`
+export const Layout = styled.div`
   display: flex;
   gap: 6.2rem;
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   display: flex;
   flex: 1;
 `;
-
-const S = {
-  MainLayout,
-  Layout,
-  Content,
-};
-
-export default S;
