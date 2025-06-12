@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 export const useLogoutMutation = () => {
   const { clearToken } = useAuthStore();
