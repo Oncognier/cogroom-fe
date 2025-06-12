@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
@@ -11,11 +10,14 @@ import { useCooldown } from '@/hooks/useCooldown';
 import { validateEmail } from '@/utils/validators/emailValidators';
 
 import S from './EmailForm.styled';
+import { EmailState } from '../../page';
 
-type EmailState = 'idle' | 'editing' | 'waiting' | 'verified';
+interface EmailFormProps {
+  emailState: EmailState;
+  setEmailState: (state: EmailState) => void;
+}
 
-export default function EmailForm() {
-  const [emailState, setEmailState] = useState<EmailState>('idle');
+export default function EmailForm({ emailState, setEmailState }: EmailFormProps) {
   const { value: isCooldown, start: startCooldown } = useCooldown(3000);
 
   const {
@@ -30,7 +32,7 @@ export default function EmailForm() {
   });
 
   const { checkEmailVerified } = useCheckEmailVerifiedMutation(() => {
-    setEmailState('idle');
+    setEmailState('verified');
   });
 
   const handleClick = () => {
@@ -58,7 +60,10 @@ export default function EmailForm() {
         label='이메일'
         required
         disabled={emailState === 'idle'}
-        {...register('email', { required: '이메일은 필수입니다.', validate: validateEmail })}
+        {...register('email', {
+          required: '이메일은 필수입니다.',
+          validate: validateEmail,
+        })}
         error={errors.email?.message}
         width='34.5rem'
       />

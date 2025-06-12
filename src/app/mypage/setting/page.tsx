@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
@@ -13,6 +13,8 @@ import EmailForm from './_components/EmailForm/EmailForm';
 import SettingProfile from './_components/SettingProfile/SettingProfile';
 import S from './page.styled';
 
+export type EmailState = 'idle' | 'editing' | 'waiting' | 'verified';
+
 interface SettingFormFields {
   nickname: string;
   email: string;
@@ -21,17 +23,20 @@ interface SettingFormFields {
   imageUrl?: string;
 }
 
+const getDefaultValues = (data?: SettingFormFields): SettingFormFields => ({
+  nickname: data?.nickname ?? '',
+  email: data?.email ?? '',
+  phoneNumber: data?.phoneNumber ?? '',
+  description: data?.description ?? '',
+  imageUrl: data?.imageUrl,
+});
+
+const isEmailStateValid = (emailState: EmailState) => emailState === 'idle' || emailState === 'verified';
+
 export default function Setting() {
+  const [emailState, setEmailState] = useState<EmailState>('idle');
   const { data, isLoading } = useGetUserInfo();
   const { editUserInfo } = useEditUserInfoMutation();
-
-  const getDefaultValues = (data?: SettingFormFields): SettingFormFields => ({
-    nickname: data?.nickname ?? '',
-    email: data?.email ?? '',
-    phoneNumber: data?.phoneNumber ?? '',
-    description: data?.description ?? '',
-    imageUrl: data?.imageUrl,
-  });
 
   const methods = useForm<SettingFormFields>({
     mode: 'onChange',
@@ -64,9 +69,7 @@ export default function Setting() {
       <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
         <SettingProfile
           imageUrl={data?.imageUrl}
-          onUploadComplete={(url) => {
-            setValue('imageUrl', url, { shouldValidate: true });
-          }}
+          onUploadComplete={(url) => setValue('imageUrl', url, { shouldValidate: true })}
         />
 
         <Input
@@ -78,7 +81,10 @@ export default function Setting() {
           width='34.5rem'
         />
 
-        <EmailForm />
+        <EmailForm
+          emailState={emailState}
+          setEmailState={setEmailState}
+        />
 
         <Input
           inputSize='md'
@@ -102,7 +108,7 @@ export default function Setting() {
             label='저장하기'
             interactionVariant='normal'
             type='submit'
-            isDisabled={!isValid}
+            isDisabled={!isValid || !isEmailStateValid(emailState)}
           />
         </S.ButtonWrapper>
       </S.SettingForm>
