@@ -38,6 +38,7 @@ export default function Sidebar() {
                 label={label}
                 href={href}
                 isActive={pathname.startsWith(href)}
+                interactionVariant='normal'
               />
             ))}
             <S.Logout>로그아웃</S.Logout>
