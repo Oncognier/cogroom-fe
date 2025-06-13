@@ -11,7 +11,13 @@ export default function Footer() {
     <S.Footer>
       <S.FooterWrapper>
         {/* <Image
-        src={DEFAULT_LOGO_HORIZONTAL_NORMAL}
+        src={DEFAULT_LOGO_SYMBOL_GRAY}
+        alt='Logo'
+        width={24}
+        height={24}
+        />
+        <Image
+        src={DEFAULT_LOGO_KOREAN}
         alt='Logo'
         width={120}
         height={23}
@@ -28,6 +34,13 @@ export default function Footer() {
         </S.InfoWrapper> */}
 
         <S.FooterBottom>
+          {/* <S.FooterLinks>
+          <Link href={'/daily'}>이용 약관</Link>
+          <span>|</span>
+          <Link href={'/daily'}>개인정보 처리방침</Link>
+          <span>|</span>
+          <Link href={'/daily'}>고객 지원</Link>
+          </S.FooterLinks> */}
           <S.LogoWrapper>
             <Image
               src={DEFAULT_LOGO_SYMBOL_GRAY}
@@ -43,13 +56,6 @@ export default function Footer() {
             />
           </S.LogoWrapper>
           <SocialLink />
-          {/* <S.FooterLinks>
-          <Link href={'/daily'}>이용 약관</Link>
-          <span>|</span>
-          <Link href={'/daily'}>개인정보 처리방침</Link>
-          <span>|</span>
-          <Link href={'/daily'}>고객 지원</Link>
-          </S.FooterLinks> */}
         </S.FooterBottom>
       </S.FooterWrapper>
     </S.Footer>
