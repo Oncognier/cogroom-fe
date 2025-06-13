@@ -20,6 +20,7 @@ export default function LeftNav() {
           alt='Logo'
           width={120}
           height={23}
+          priority
         />
       </Link>
       <NavList pathname={pathname || '/'} />

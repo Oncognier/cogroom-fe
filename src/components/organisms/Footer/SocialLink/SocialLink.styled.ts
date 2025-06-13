@@ -14,7 +14,7 @@ export const SocialLink = styled.div`
   gap: 2rem;
 `;
 
-export const SocialLinkIcon = styled.div<SocialLinkIconProps>`
+export const SocialLinkIcon = styled.a<SocialLinkIconProps>`
   width: ${({ width }) => width}px;
 
   color: ${({ theme }) => theme.semantic.label.assistive};

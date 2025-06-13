@@ -23,8 +23,10 @@ export default async function Header() {
   return (
     <HydrationBoundary state={dehydratedState}>
       <S.Header>
-        <LeftNav />
-        <RightNav userSummary={userSummary} />
+        <S.Wrapper>
+          <LeftNav />
+          <RightNav userSummary={userSummary} />
+        </S.Wrapper>
       </S.Header>
     </HydrationBoundary>
   );

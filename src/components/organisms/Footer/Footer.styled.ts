@@ -1,8 +1,16 @@
+// TODO: 추후 수정 필요
 'use client';
 
 import styled from '@emotion/styled';
 
 export const Footer = styled.footer`
+  width: 100%;
+
+  border-top: 1px solid ${({ theme }) => theme.semantic.line.normal};
+  background-color: ${({ theme }) => theme.semantic.static.white};
+`;
+
+export const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3.1rem;

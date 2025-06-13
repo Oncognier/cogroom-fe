@@ -1,45 +1,39 @@
 import Instagram from '@/assets/icons/instagram.svg';
 import Threads from '@/assets/icons/threads.svg';
 import Youtube from '@/assets/icons/youtube.svg';
+import { SOCIAL_LINKS } from '@/constants/common';
 
 import * as S from './SocialLink.styled';
 
 export default function SocialLink() {
   return (
     <S.SocialLink>
-      <a
-        href='https://www.youtube.com/@oncognier'
+      <S.SocialLinkIcon
+        href={SOCIAL_LINKS.YOUTUBE}
         target='_blank'
         rel='noopener noreferrer'
+        width={19}
       >
-        <S.SocialLinkIcon width={19}>
-          <Youtube />
-        </S.SocialLinkIcon>
-      </a>
+        <Youtube />
+      </S.SocialLinkIcon>
 
-      <a
-        href='https://www.instagram.com/oncognier/'
+      <S.SocialLinkIcon
+        href={SOCIAL_LINKS.INSTAGRAM}
         target='_blank'
         rel='noopener noreferrer'
+        width={15}
       >
-        <S.SocialLinkIcon width={15}>
-          <Instagram />
-        </S.SocialLinkIcon>
-      </a>
+        <Instagram />
+      </S.SocialLinkIcon>
 
-      <a
-        href='https://www.threads.com/@on.cognier'
+      <S.SocialLinkIcon
+        href={SOCIAL_LINKS.THREADS}
         target='_blank'
         rel='noopener noreferrer'
+        width={15}
       >
-        <S.SocialLinkIcon width={15}>
-          <Threads />
-        </S.SocialLinkIcon>
-      </a>
+        <Threads />
+      </S.SocialLinkIcon>
     </S.SocialLink>
   );
 }
-
-// https://www.instagram.com/on.cognier
-// https://www.youtube.com/@oncognier
-// https://www.threads.com/@on.cognier
