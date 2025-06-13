@@ -1,3 +1,5 @@
+'use client';
+
 import styled from '@emotion/styled';
 
 type ThumbnailRatio = '1_1' | '5_4' | '4_3' | '3_2' | '16_10' | '16_9' | '2_1' | '21_9';
@@ -11,14 +13,13 @@ export interface ThumbnailStyleProps {
 
 const Thumbnail = styled.div<ThumbnailStyleProps>`
   position: relative;
-
-  width: 100%;
+  width: ${({ portrait }) => (portrait ? 'auto' : '100%')};
+  height: ${({ portrait }) => (portrait ? '100%' : 'auto')};
   aspect-ratio: ${({ theme, ratio }) => theme.ratio[ratio]};
-  border: 1px solid ${({ theme }) => theme.semantic.line.normal};
-  border-radius: ${({ theme }) => theme.radius[12]};
   overflow: hidden;
 
-  ${({ portrait }) => portrait && `height: 100%; width: auto;`};
+  border: ${({ border, theme }) => (border ? `1px solid ${theme.semantic.line.normal}` : 'none')};
+  border-radius: ${({ radius, theme }) => (radius ? theme.radius[12] : '0')};
 `;
 
 const S = {
