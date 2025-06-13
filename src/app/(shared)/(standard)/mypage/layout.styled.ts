@@ -2,17 +2,13 @@
 
 import styled from '@emotion/styled';
 
-export const MainLayout = styled.div`
+export const MyPageLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5rem;
-
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 3.2rem 2rem;
 `;
 
-export const Layout = styled.div`
+export const ContentLayout = styled.div`
   display: flex;
   gap: 6.2rem;
 `;

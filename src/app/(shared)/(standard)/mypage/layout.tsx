@@ -13,12 +13,12 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
   if (!isLoggedIn) return <AuthGuard />;
 
   return (
-    <S.MainLayout>
+    <S.MyPageLayout>
       <MyPageBreadcrumb />
-      <S.Layout>
+      <S.ContentLayout>
         <Sidebar />
         <S.Content>{children}</S.Content>
-      </S.Layout>
-    </S.MainLayout>
+      </S.ContentLayout>
+    </S.MyPageLayout>
   );
 }
