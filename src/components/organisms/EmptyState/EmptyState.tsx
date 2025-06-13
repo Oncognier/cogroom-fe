@@ -1,5 +1,3 @@
-'use client';
-
 import * as S from './EmptyState.styled';
 
 interface EmptyStateProps {
