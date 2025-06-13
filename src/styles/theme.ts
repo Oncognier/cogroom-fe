@@ -1,5 +1,5 @@
 import { opacity, palette, semantic, brandColors } from './color';
-import { breakpoints, radius, shadow, spacing } from './foundation';
+import { breakpoints, radius, ratio, shadow, spacing } from './foundation';
 import { typography } from './typography';
 
 export const theme = {
@@ -10,6 +10,7 @@ export const theme = {
   spacing,
   radius,
   breakpoints,
+  ratio,
   shadow,
   brandColors,
 };
