@@ -42,6 +42,14 @@ const checkEmailVerified = async ({ email }: CheckEmailVerifiedRequest) => {
   return data;
 };
 
+const logout = async () => {
+  const { data } = await axiosInstance.post<CheckEmailVerifiedRequest, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.AUTH.LOGOUT,
+  );
+
+  return data;
+};
+
 const reissueToken = async () => {
   const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN, null, {
     useAuth: false,
@@ -57,5 +65,6 @@ export const authApi = {
   signup,
   sendEmail,
   checkEmailVerified,
+  logout,
   reissueToken,
 };

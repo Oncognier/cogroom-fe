@@ -17,6 +17,7 @@ export default function OutlinedButton({
   iconRight,
   color,
   size,
+  fillContainer,
   isDisabled,
   onClick,
   interactionVariant,
@@ -26,6 +27,7 @@ export default function OutlinedButton({
     <S.OutlinedButton
       size={size}
       color={color}
+      fillContainer={fillContainer}
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}

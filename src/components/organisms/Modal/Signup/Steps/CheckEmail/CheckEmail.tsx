@@ -49,10 +49,11 @@ export default function CheckEmail({ email, onConfirm, onChangeEmail }: CheckEma
         />
         <OutlinedButton
           label='다른 이메일 사용하기'
-          size='fillContainer'
+          size='md'
           color='assistive'
           interactionVariant='normal'
           onClick={onChangeEmail}
+          fillContainer
         />
       </S.ButtonWrapper>
     </>
