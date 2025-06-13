@@ -22,3 +22,9 @@ export const SIGNUP_STEP = {
 export type SignupStep = (typeof SIGNUP_STEP)[keyof typeof SIGNUP_STEP];
 
 export const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
+
+export const SOCIAL_LINKS = {
+  YOUTUBE: 'https://www.youtube.com/@oncognier',
+  INSTAGRAM: 'https://www.instagram.com/on.cognier',
+  THREADS: 'https://www.threads.com/@on.cognier',
+} as const;
