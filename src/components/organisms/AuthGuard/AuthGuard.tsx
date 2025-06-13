@@ -1,3 +1,5 @@
+'use client';
+
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useModalStore } from '@/stores/useModalStore';
 
