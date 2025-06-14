@@ -85,7 +85,7 @@ const getFillContainerStyle = (fillContainer?: boolean) =>
     width: 100%;
   `;
 
-const OutlinedButton = styled.button<OutlinedButtonStyleProps>`
+export const OutlinedButton = styled.button<OutlinedButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ fillContainer }) => getFillContainerStyle(fillContainer)};
@@ -94,7 +94,7 @@ const OutlinedButton = styled.button<OutlinedButtonStyleProps>`
     getInteraction(interactionVariant, getInteractionColor(theme, color), disabled)(theme)};
 `;
 
-const Icon = styled.div`
+export const Icon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,10 +104,3 @@ const Icon = styled.div`
     height: 1.13em;
   }
 `;
-
-const S = {
-  OutlinedButton,
-  Icon,
-};
-
-export default S;

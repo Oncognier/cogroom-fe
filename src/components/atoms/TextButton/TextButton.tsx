@@ -1,6 +1,5 @@
-'use client';
-
-import S, { TextButtonStyleProps } from './TextButton.styled';
+import * as S from './TextButton.styled';
+import type { TextButtonStyleProps } from './TextButton.styled';
 
 interface TextButtonProps extends TextButtonStyleProps {
   label: string;

@@ -1,6 +1,5 @@
-'use client';
-
-import S, { SolidButtonStyleProps } from './SolidButton.styled';
+import * as S from './SolidButton.styled';
+import type { SolidButtonStyleProps } from './SolidButton.styled';
 
 interface SolidButtonProps extends SolidButtonStyleProps {
   label: string;
@@ -23,7 +22,7 @@ export default function SolidButton({
   type = 'button',
 }: SolidButtonProps) {
   return (
-    <S.SolidButton
+    <S.StyledSolidButton
       size={size}
       color={color}
       disabled={isDisabled}
@@ -34,6 +33,6 @@ export default function SolidButton({
       <S.Icon>{iconLeft}</S.Icon>
       {label}
       <S.Icon>{iconRight}</S.Icon>
-    </S.SolidButton>
+    </S.StyledSolidButton>
   );
 }

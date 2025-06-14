@@ -16,7 +16,7 @@ const sizeStyles = (size: string) => css`
   height: ${size};
 `;
 
-const ToggleIcon = styled.button<ToggleIconStyleProps>`
+export const ToggleIcon = styled.button<ToggleIconStyleProps>`
   ${({ size }) => sizeStyles(size)};
   ${({ theme, interactionVariant }) => getInteraction(interactionVariant, theme.semantic.label.alternative)(theme)};
 
@@ -28,9 +28,3 @@ const ToggleIcon = styled.button<ToggleIconStyleProps>`
     outline: none;
   }
 `;
-
-const S = {
-  ToggleIcon,
-};
-
-export default S;

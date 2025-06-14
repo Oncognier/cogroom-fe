@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-const Container = styled.div`
+export const Container = styled.div`
   position: relative;
 
   display: flex;
@@ -17,53 +17,41 @@ const Container = styled.div`
   border-radius: ${({ theme }) => theme.radius[8]};
 `;
 
-const TextWrapper = styled.div`
+export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[16]};
 `;
 
-const TitleWrapper = styled.div`
+export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[8]};
 `;
 
-const SubTitle = styled.p`
+export const SubTitle = styled.p`
   ${({ theme }) => theme.typography.body1.medium};
   color: ${({ theme }) => theme.semantic.label.normal};
 
   text-align: center;
 `;
 
-const Title = styled.p`
+export const Title = styled.p`
   ${({ theme }) => theme.typography.title3.bold};
   color: ${({ theme }) => theme.semantic.label.normal};
 
   text-align: center;
 `;
 
-const Description = styled.p`
+export const Description = styled.p`
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
 
   text-align: center;
 `;
 
-const Close = styled.div`
+export const Close = styled.div`
   position: absolute;
   top: 1.6rem;
   right: 1.6rem;
 `;
-
-const S = {
-  Container,
-  TextWrapper,
-  TitleWrapper,
-  SubTitle,
-  Title,
-  Description,
-  Close,
-};
-
-export default S;

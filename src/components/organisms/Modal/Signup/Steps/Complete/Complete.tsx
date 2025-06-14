@@ -6,7 +6,7 @@ import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useSignupMutation } from '@/hooks/api/auth/useSignup';
 import { useModalStore } from '@/stores/useModalStore';
 
-import S from './Complete.styled';
+import * as S from './Complete.styled';
 
 export interface CompleteProps {
   provider: string;

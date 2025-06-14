@@ -1,5 +1,3 @@
-'use client';
-
 import { TabBarStyleProps } from './TabBar.styled';
 import * as S from './TabBar.styled';
 

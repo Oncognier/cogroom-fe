@@ -27,7 +27,7 @@ const sizeStyles: Record<SwitchSize, SerializedStyles> = {
   `,
 };
 
-const Switch = styled.button<SwitchStyleProps>`
+export const Switch = styled.button<SwitchStyleProps>`
   ${({ size }) => sizeStyles[size]};
 
   display: flex;
@@ -47,7 +47,7 @@ const Switch = styled.button<SwitchStyleProps>`
   }
 `;
 
-const Knob = styled.div<{ isActive?: boolean; size: SwitchSize }>`
+export const Knob = styled.div<{ isActive?: boolean; size: SwitchSize }>`
   height: 100%;
   aspect-ratio: 1 / 1;
   background-color: ${({ theme }) => theme.semantic.static.white};
@@ -56,10 +56,3 @@ const Knob = styled.div<{ isActive?: boolean; size: SwitchSize }>`
   transform: ${({ isActive, size }) => (isActive ? `translateX(${knobTranslateX[size]})` : 'translateX(0)')};
   transition: transform 0.2s;
 `;
-
-const S = {
-  Switch,
-  Knob,
-};
-
-export default S;

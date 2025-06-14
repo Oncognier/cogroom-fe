@@ -13,7 +13,7 @@ import { useAuthStore } from '@/stores/useAuthStore';
 import { useModalStore } from '@/stores/useModalStore';
 import { UserSummary } from '@/types/member';
 
-import S from './RightNav.styled';
+import * as S from './RightNav.styled';
 
 interface RightNavProps {
   accessToken?: string;

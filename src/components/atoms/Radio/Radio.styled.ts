@@ -23,13 +23,13 @@ const sizeStyles: Record<RadioSize, SerializedStyles> = {
   `,
 };
 
-const RadioContainer = styled.div`
+export const RadioContainer = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
 `;
 
-const RadioOuter = styled.button<RadioStyleProps>`
+export const RadioOuter = styled.button<RadioStyleProps>`
   ${({ size }) => sizeStyles[size]};
   ${({ theme, interactionVariant, isDisabled }) =>
     getInteraction(interactionVariant, theme.semantic.label.normal, isDisabled)(theme)};
@@ -54,14 +54,14 @@ const RadioOuter = styled.button<RadioStyleProps>`
   }
 `;
 
-const RadioInner = styled.div`
+export const RadioInner = styled.div`
   height: 50%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.semantic.static.white};
 `;
 
-const HiddenRadio = styled.input`
+export const HiddenRadio = styled.input`
   position: absolute;
   width: 1px;
   height: 1px;
@@ -73,12 +73,3 @@ const HiddenRadio = styled.input`
   border: 0;
   white-space: nowrap;
 `;
-
-const S = {
-  RadioContainer,
-  RadioOuter,
-  RadioInner,
-  HiddenRadio,
-};
-
-export default S;

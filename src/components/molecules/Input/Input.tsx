@@ -7,7 +7,8 @@ import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMe
 import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
 
-import S, { InputStyleProps } from './Input.styled';
+import * as S from './Input.styled';
+import type { InputStyleProps } from './Input.styled';
 
 interface InputProps extends InputStyleProps {
   label?: string;

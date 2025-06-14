@@ -1,6 +1,5 @@
-'use client';
-
-import S, { IconButtonStyleProps } from './IconButton.styled';
+import * as S from './IconButton.styled';
+import type { IconButtonStyleProps } from './IconButton.styled';
 
 interface IconButtonProps extends IconButtonStyleProps {
   pushBadge?: boolean;

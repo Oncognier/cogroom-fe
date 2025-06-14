@@ -70,7 +70,7 @@ const variantStyles: Record<IconButtonVariant, (theme: Theme) => SerializedStyle
   `,
 };
 
-const IconButton = styled.button<IconButtonStyleProps>`
+export const IconButton = styled.button<IconButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ size }) => sizeStyles(size)};
   ${({ variant, theme }) => variantStyles[variant](theme)};
@@ -78,12 +78,12 @@ const IconButton = styled.button<IconButtonStyleProps>`
     getInteraction(interactionVariant, theme.semantic.label.alternative, disabled)(theme)};
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   position: relative;
   display: inline-flex;
 `;
 
-const PushBadge = styled.div`
+export const PushBadge = styled.div`
   position: absolute;
   top: 12%;
   right: 12%;
@@ -92,11 +92,3 @@ const PushBadge = styled.div`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.semantic.primary.normal};
 `;
-
-const S = {
-  IconButton,
-  Container,
-  PushBadge,
-};
-
-export default S;

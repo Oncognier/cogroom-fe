@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 import { DEFAULT_LOGO_HORIZONTAL_NORMAL } from '@/constants/image';
 
-import S from './LeftNav.styled';
+import * as S from './LeftNav.styled';
 import NavList from '../NavList/NavList';
 
 export default function LeftNav() {

@@ -2,45 +2,35 @@
 
 import styled from '@emotion/styled';
 
-const TextWrapper = styled.div`
+export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[16]};
 `;
 
-const TitleWrapper = styled.div`
+export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[8]};
 `;
 
-const SubTitle = styled.p`
+export const SubTitle = styled.p`
   ${({ theme }) => theme.typography.body1.medium};
   color: ${({ theme }) => theme.semantic.label.normal};
 
   text-align: center;
 `;
 
-const Title = styled.p`
+export const Title = styled.p`
   ${({ theme }) => theme.typography.title3.bold};
   color: ${({ theme }) => theme.semantic.label.normal};
 
   text-align: center;
 `;
 
-const Description = styled.p`
+export const Description = styled.p`
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
 
   text-align: center;
 `;
-
-const S = {
-  TextWrapper,
-  TitleWrapper,
-  SubTitle,
-  Title,
-  Description,
-};
-
-export default S;

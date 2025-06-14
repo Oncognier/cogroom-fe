@@ -7,7 +7,7 @@ export interface NavItemStyleProps {
   isActive: boolean;
 }
 
-const NavItem = styled.li<NavItemStyleProps>`
+export const NavItem = styled.li<NavItemStyleProps>`
   a {
     ${({ theme }) => theme.typography.body2.regular};
     color: ${({ theme }) => theme.semantic.label.normal};
@@ -21,9 +21,3 @@ const NavItem = styled.li<NavItemStyleProps>`
       `}
   }
 `;
-
-const S = {
-  NavItem,
-};
-
-export default S;

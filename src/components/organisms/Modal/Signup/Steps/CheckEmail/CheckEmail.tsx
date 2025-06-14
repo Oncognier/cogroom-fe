@@ -7,7 +7,7 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 
-import S from './CheckEmail.styled';
+import * as S from './CheckEmail.styled';
 
 export interface CheckEmailProps {
   email: string;

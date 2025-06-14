@@ -7,7 +7,7 @@ import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { KAKAO_AUTH_API_URL } from '@/constants/api';
 import { useModalStore } from '@/stores/useModalStore';
 
-import S from './Login.styled';
+import * as S from './Login.styled';
 
 export default function Login() {
   const { close } = useModalStore();
