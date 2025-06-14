@@ -16,6 +16,8 @@ export const useSignupMutation = () => {
       if (!!accessToken) {
         setToken(accessToken);
       }
+
+      router.push('/');
     },
     onError: () => {
       alert('회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.');
