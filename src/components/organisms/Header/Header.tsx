@@ -1,6 +1,5 @@
 import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import { UserSummary } from '@/types/member';
 import { prefetchAuthAndUser } from '@/utils/api/prefetchAuthAndUser';
 
 import * as S from './Header.styled';
@@ -10,10 +9,13 @@ import RightNav from './RightNav/RightNav';
 export default async function Header() {
   const queryClient = new QueryClient();
 
-  let userSummary: UserSummary | undefined;
+  let accessToken: string | undefined;
+  let userSummary = undefined;
 
   try {
-    userSummary = await prefetchAuthAndUser(queryClient);
+    const result = await prefetchAuthAndUser(queryClient);
+    accessToken = result.accessToken;
+    userSummary = result.userSummary;
   } catch (err) {
     alert(`Auth prefetch failed: ${err}`);
   }
@@ -25,7 +27,10 @@ export default async function Header() {
       <S.Header>
         <S.Wrapper>
           <LeftNav />
-          <RightNav userSummary={userSummary} />
+          <RightNav
+            accessToken={accessToken}
+            userSummary={userSummary}
+          />
         </S.Wrapper>
       </S.Header>
     </HydrationBoundary>
