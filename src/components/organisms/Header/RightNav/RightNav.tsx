@@ -28,7 +28,7 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
   const { data: clientUserSummary } = useGetUserSummary();
 
   const userSummary = serverUserSummary ?? clientUserSummary;
-  const isLoggedIn = !!accessToken && !!userSummary;
+  const isLoggedIn = !!userSummary;
 
   useEffect(() => {
     if (accessToken) {
