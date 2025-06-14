@@ -1,3 +1,6 @@
+import ScriptX from '@/assets/icons/script-x.svg';
+import EmptyState from '@/components/organisms/EmptyState/EmptyState';
+
 export default function Purchase() {
-  return <div>purchase</div>;
+  return <EmptyState icon={<ScriptX />} />;
 }
