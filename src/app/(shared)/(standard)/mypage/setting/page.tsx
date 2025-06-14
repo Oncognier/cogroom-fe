@@ -8,6 +8,8 @@ import Input from '@/components/molecules/Input/Input';
 import Textarea from '@/components/molecules/Textarea/Textarea';
 import { useEditUserInfoMutation } from '@/hooks/api/member/useEditUserInfo';
 import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
+import { formatPhoneNumber } from '@/utils/formatAutoComplete';
+import { validateNickname, validatePhoneNumber } from '@/utils/validators/userValidators';
 
 import EmailForm from './_components/EmailForm/EmailForm';
 import SettingProfile from './_components/SettingProfile/SettingProfile';
@@ -76,7 +78,10 @@ export default function Setting() {
           inputSize='md'
           label='닉네임'
           required
-          {...register('nickname', { required: '닉네임은 필수입니다.' })}
+          {...register('nickname', {
+            required: 'normal: 닉네임은 필수입니다.',
+            validate: validateNickname,
+          })}
           error={errors.nickname?.message}
           width='34.5rem'
         />
@@ -89,7 +94,13 @@ export default function Setting() {
         <Input
           inputSize='md'
           label='전화번호'
-          {...register('phoneNumber')}
+          {...register('phoneNumber', {
+            validate: validatePhoneNumber,
+          })}
+          onBlur={(e) => {
+            const formatted = formatPhoneNumber(e.target.value);
+            setValue('phoneNumber', formatted, { shouldValidate: true });
+          }}
           error={errors.phoneNumber?.message}
           width='34.5rem'
         />

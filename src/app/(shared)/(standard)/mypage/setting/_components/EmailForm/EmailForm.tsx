@@ -7,7 +7,7 @@ import Input from '@/components/molecules/Input/Input';
 import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useEmailVerificationStatus';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
-import { validateEmail } from '@/utils/validators/emailValidators';
+import { validateEmail } from '@/utils/validators/userValidators';
 
 import * as S from './EmailForm.styled';
 import { EmailState } from '../../page';
@@ -61,7 +61,7 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
         required
         disabled={emailState === 'idle'}
         {...register('email', {
-          required: '이메일은 필수입니다.',
+          required: 'normal: 이메일은 필수입니다.',
           validate: validateEmail,
         })}
         error={errors.email?.message}
