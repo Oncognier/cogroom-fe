@@ -8,7 +8,7 @@ import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useModalStore } from '@/stores/useModalStore';
 
-import S from './Sidebar.styled';
+import * as S from './Sidebar.styled';
 import SidebarNavItem from './SidebarNavItem/SidebarNavItem';
 
 export default function Sidebar() {

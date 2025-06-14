@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-const SettingProfile = styled.div`
+export const SettingProfile = styled.div`
   position: relative;
 
   width: 8.3rem;
@@ -10,15 +10,8 @@ const SettingProfile = styled.div`
   margin-bottom: 0.8rem;
 `;
 
-const SetImage = styled.div`
+export const SetImage = styled.div`
   position: absolute;
   bottom: 0;
   right: -1.7rem;
 `;
-
-const S = {
-  SettingProfile,
-  SetImage,
-};
-
-export default S;

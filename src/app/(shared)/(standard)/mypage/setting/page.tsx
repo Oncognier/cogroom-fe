@@ -11,7 +11,7 @@ import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
 
 import EmailForm from './_components/EmailForm/EmailForm';
 import SettingProfile from './_components/SettingProfile/SettingProfile';
-import S from './page.styled';
+import * as S from './page.styled';
 
 export type EmailState = 'idle' | 'editing' | 'waiting' | 'verified';
 

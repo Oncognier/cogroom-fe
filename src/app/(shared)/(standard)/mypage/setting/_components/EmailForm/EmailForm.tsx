@@ -9,7 +9,7 @@ import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
 import { validateEmail } from '@/utils/validators/emailValidators';
 
-import S from './EmailForm.styled';
+import * as S from './EmailForm.styled';
 import { EmailState } from '../../page';
 
 interface EmailFormProps {

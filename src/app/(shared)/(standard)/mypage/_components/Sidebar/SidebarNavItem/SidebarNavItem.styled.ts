@@ -9,7 +9,7 @@ export interface SidebarNavItemStyleProps {
   interactionVariant: InteractionVariant;
 }
 
-const SidebarNavItem = styled.li<SidebarNavItemStyleProps>`
+export const SidebarNavItem = styled.li<SidebarNavItemStyleProps>`
   a {
     ${({ theme }) => theme.typography.body2.semibold};
     color: ${({ theme, isActive }) => (isActive ? theme.semantic.label.normal : theme.semantic.label.alternative)};
@@ -25,9 +25,3 @@ const SidebarNavItem = styled.li<SidebarNavItemStyleProps>`
     text-decoration: none;
   }
 `;
-
-const S = {
-  SidebarNavItem,
-};
-
-export default S;
