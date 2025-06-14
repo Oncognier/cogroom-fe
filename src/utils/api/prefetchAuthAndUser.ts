@@ -11,27 +11,29 @@ interface PrefetchResult {
 }
 
 export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<PrefetchResult> {
-  await queryClient.prefetchQuery({
-    queryKey: [...AUTH_QUERY_KEYS.AUTH_REISSUE],
-    queryFn: authApi.reissueToken,
-  });
-
-  const refreshResult = queryClient.getQueryData<{ accessToken: string }>(AUTH_QUERY_KEYS.AUTH_REISSUE);
-  const accessToken = refreshResult?.accessToken;
-
-  let userSummary: UserSummary | undefined;
-
-  if (accessToken) {
+  try {
     await queryClient.prefetchQuery({
-      queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY],
-      queryFn: () => memberApi.getUserSummary(accessToken),
+      queryKey: [...AUTH_QUERY_KEYS.AUTH_REISSUE],
+      queryFn: authApi.reissueToken,
     });
 
-    userSummary = queryClient.getQueryData<UserSummary>(MEMBER_QUERY_KEYS.MEMBER_SUMMARY);
-  }
+    const refreshResult = queryClient.getQueryData<{ accessToken: string }>(AUTH_QUERY_KEYS.AUTH_REISSUE);
+    const accessToken = refreshResult?.accessToken;
 
-  return {
-    accessToken,
-    userSummary,
-  };
+    let userSummary: UserSummary | undefined;
+
+    if (accessToken) {
+      await queryClient.prefetchQuery({
+        queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY],
+        queryFn: () => memberApi.getUserSummary(accessToken),
+      });
+
+      userSummary = queryClient.getQueryData<UserSummary>(MEMBER_QUERY_KEYS.MEMBER_SUMMARY);
+    }
+
+    return { accessToken, userSummary };
+  } catch (err) {
+    alert(`Auth prefetch failed: ${err}`);
+    return {};
+  }
 }

@@ -9,17 +9,7 @@ import RightNav from './RightNav/RightNav';
 export default async function Header() {
   const queryClient = new QueryClient();
 
-  let accessToken: string | undefined;
-  let userSummary = undefined;
-
-  try {
-    const result = await prefetchAuthAndUser(queryClient);
-    accessToken = result.accessToken;
-    userSummary = result.userSummary;
-  } catch (err) {
-    alert(`Auth prefetch failed: ${err}`);
-  }
-
+  const { accessToken, userSummary } = await prefetchAuthAndUser(queryClient);
   const dehydratedState = dehydrate(queryClient);
 
   return (
