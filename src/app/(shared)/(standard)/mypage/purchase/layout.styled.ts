@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const PurchaseContainer = styled.div`
+export const PurchaseLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4rem;
