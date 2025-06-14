@@ -5,6 +5,8 @@ import { forwardRef, ComponentProps } from 'react';
 import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMessage';
 import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
+import { VALIDATION_TYPE } from '@/constants/validationMessages';
+import { parseErrorMessage } from '@/utils/parseErrorMessage';
 
 import * as S from './Textarea.styled';
 import type { TextareaStyleProps } from './Textarea.styled';
@@ -17,12 +19,15 @@ interface TextareaProps extends ComponentProps<'textarea'>, TextareaStyleProps {
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, required, isDisabled, error, width, ...props }, ref) => {
-    const hasError = !!error;
-    const [errorType, errorContent] = error?.split(':') ?? [];
+    const { type: errorType, message: errorMessage } = parseErrorMessage(error);
+    const hasError = !!errorType;
 
-    const isNormalError = errorType === 'normal';
-    const isStatusError =
-      errorType === 'error' || errorType === 'warning' || errorType === 'success' || errorType === 'disable';
+    const showNormalError = errorType === VALIDATION_TYPE.NORMAL && errorMessage;
+    const showStatusMessage =
+      errorMessage &&
+      errorType &&
+      errorType !== VALIDATION_TYPE.NORMAL &&
+      Object.values(VALIDATION_TYPE).includes(errorType);
 
     return (
       <S.Container>
@@ -42,12 +47,12 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
 
-        {isNormalError && <S.Error>{errorContent}</S.Error>}
+        {showNormalError && <S.Error>{errorMessage}</S.Error>}
 
-        {isStatusError && (
+        {showStatusMessage && (
           <FormStatusMessage
             status={errorType as FormStatusMessageStatus}
-            label={errorContent}
+            label={errorMessage}
           />
         )}
       </S.Container>
