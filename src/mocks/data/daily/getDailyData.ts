@@ -3,7 +3,6 @@ export const dailyDataNotAnswered = {
   code: 'SUCCESS',
   message: '요청에 성공했습니다.',
   result: {
-    streakDays: 10,
     questionId: 4,
     assignedQuestionId: 4,
     question:
@@ -15,7 +14,6 @@ export const dailyDataAnswered = {
   code: 'SUCCESS',
   message: '요청에 성공했습니다.',
   result: {
-    streakDays: 10,
     questionId: 14,
     assignedQuestionId: 14,
     question:
