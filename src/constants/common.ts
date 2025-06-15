@@ -6,7 +6,7 @@ export const HEADER_NAV_ITEMS = [
 
 export const SIDEBAR_NAV_ITEMS = [
   { label: '개인정보 설정', href: '/mypage/setting' },
-  { label: '학습 및 활동 기록', href: '/mypage/history' },
+  { label: '학습 및 활동 기록', href: '/mypage/activity' },
   { label: '구매 기록', href: '/mypage/purchase' },
   { label: '커뮤니티 활동', href: '/mypage/community' },
   { label: '푸시 및 카톡 알림', href: '/mypage/notification' },
