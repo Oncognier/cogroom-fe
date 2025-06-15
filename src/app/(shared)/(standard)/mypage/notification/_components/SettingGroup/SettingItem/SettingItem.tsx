@@ -1,4 +1,5 @@
 import Switch from '@/components/atoms/Switch/Switch';
+
 import * as S from './SettingItem.styled';
 
 interface SettingItemProps {

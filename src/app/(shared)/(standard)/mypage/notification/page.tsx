@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import SettingItem from './_components/SettingGroup/SettingItem/SettingItem';
-import SettingGroup from './_components/SettingGroup/SettingGroup';
 
+import SettingGroup from './_components/SettingGroup/SettingGroup';
+import SettingItem from './_components/SettingGroup/SettingItem/SettingItem';
 import * as S from './page.styled';
 
 export default function Notification() {
