@@ -39,7 +39,7 @@ export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<Pre
 
     return { accessToken, userSummary };
   } catch (err) {
-    alert(`Auth prefetch failed: ${err}`);
+    // alert(`Auth prefetch failed: ${err}`);
     return {};
   }
 }
