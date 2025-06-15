@@ -10,7 +10,6 @@ export default function Notification() {
   const [settings, setSettings] = useState({
     push: true,
     sound: true,
-    kakao: false,
     news: true,
     streak: true,
     marketing: true,
