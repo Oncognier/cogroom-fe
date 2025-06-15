@@ -36,7 +36,6 @@ export const getInteraction =
         position: absolute;
         inset: 0;
         pointer-events: none;
-        border-radius: inherit;
         background-color: ${baseColor};
         opacity: ${theme.opacity[0]};
         z-index: 1;
