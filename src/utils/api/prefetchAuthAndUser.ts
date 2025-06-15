@@ -1,4 +1,5 @@
 import { QueryClient } from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 
 import { authApi } from '@/api/authApis';
 import { memberApi } from '@/api/memberApis';
@@ -12,9 +13,14 @@ interface PrefetchResult {
 
 export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<PrefetchResult> {
   try {
+    const cookieHeader = cookies().toString();
+
     await queryClient.prefetchQuery({
       queryKey: [...AUTH_QUERY_KEYS.AUTH_REISSUE],
-      queryFn: authApi.reissueToken,
+      queryFn: () =>
+        authApi.reissueToken({
+          cookie: cookieHeader,
+        }),
     });
 
     const refreshResult = queryClient.getQueryData<{ accessToken: string }>(AUTH_QUERY_KEYS.AUTH_REISSUE);
@@ -33,7 +39,7 @@ export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<Pre
 
     return { accessToken, userSummary };
   } catch (err) {
-    alert(`Auth prefetch failed: ${err}`);
+    // alert(`Auth prefetch failed: ${err}`);
     return {};
   }
 }

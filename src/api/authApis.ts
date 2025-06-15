@@ -50,13 +50,13 @@ const logout = async () => {
   return data;
 };
 
-const reissueToken = async () => {
+const reissueToken = async ({ cookie }: { cookie?: string } = {}) => {
   const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN, null, {
+    headers: cookie ? { Cookie: cookie } : undefined,
     useAuth: false,
   });
 
   const accessToken = response.headers['authorization'];
-
   return { accessToken };
 };
 
