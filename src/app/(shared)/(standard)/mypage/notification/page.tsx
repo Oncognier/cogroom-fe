@@ -42,6 +42,7 @@ export default function Notification() {
         />
         <SettingItem
           label='스트릭 리마인드 알림'
+          description='시간 설정 10:00PM'
           isActive={settings.streak}
           onChange={() => toggle('streak')}
         />
