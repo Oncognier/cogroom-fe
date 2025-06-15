@@ -4,7 +4,6 @@ import * as S from './Check.styled';
 import type { CheckboxStyleProps } from './Check.styled';
 
 interface CheckboxProps extends CheckboxStyleProps {
-  state: CheckState;
   onToggle: (nextState: CheckState) => void;
 }
 

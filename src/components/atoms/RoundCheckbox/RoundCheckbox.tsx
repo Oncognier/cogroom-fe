@@ -4,7 +4,6 @@ import * as S from './RoundCheckbox.styled';
 import type { RoundCheckboxStyleProps } from './RoundCheckbox.styled';
 
 interface RoundCheckboxProps extends RoundCheckboxStyleProps {
-  state: CheckState;
   onToggle: (nextState: CheckState) => void;
 }
 
