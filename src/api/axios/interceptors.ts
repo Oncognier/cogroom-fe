@@ -15,7 +15,10 @@ export interface ErrorResponseData {
 }
 
 export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
-  if (!config.useAuth || !config.headers || config.headers.Authorization) return config;
+  if (!config.useAuth || !config.headers || config.headers.Authorization) {
+    delete axios.defaults.headers.common.Authorization;
+    return config;
+  }
 
   const { accessToken, clearToken } = useAuthStore.getState();
 
