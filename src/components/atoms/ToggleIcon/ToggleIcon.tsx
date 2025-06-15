@@ -1,6 +1,5 @@
-'use client';
-
-import S, { ToggleIconStyleProps } from './ToggleIcon.styled';
+import * as S from './ToggleIcon.styled';
+import type { ToggleIconStyleProps } from './ToggleIcon.styled';
 
 interface ToggleIconProps extends ToggleIconStyleProps {
   onToggle: (checked: boolean) => void;

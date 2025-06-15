@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 
 import type { ModalMap } from '@/types/modal';
 
-import S from './ModalInstance.styled';
+import * as S from './ModalInstance.styled';
 
 interface ModalInstanceProps<T extends ModalMap<any>, K extends keyof T = keyof T> {
   type: K;

@@ -11,7 +11,7 @@ export interface ThumbnailStyleProps {
   radius?: boolean;
 }
 
-const Thumbnail = styled.div<ThumbnailStyleProps>`
+export const Thumbnail = styled.div<ThumbnailStyleProps>`
   position: relative;
   width: ${({ portrait }) => (portrait ? 'auto' : '100%')};
   height: ${({ portrait }) => (portrait ? '100%' : 'auto')};
@@ -21,9 +21,3 @@ const Thumbnail = styled.div<ThumbnailStyleProps>`
   border: ${({ border, theme }) => (border ? `1px solid ${theme.semantic.line.normal}` : 'none')};
   border-radius: ${({ radius, theme }) => (radius ? theme.radius[12] : '0')};
 `;
-
-const S = {
-  Thumbnail,
-};
-
-export default S;

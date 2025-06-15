@@ -1,8 +1,7 @@
-'use client';
-
 import AlertCircleFill from '@/assets/icons/alertcircle-fill.svg';
 
-import S, { FormStatusMessageStyleProps } from './FormStatusMessage.styled';
+import * as S from './FormStatusMessage.styled';
+import type { FormStatusMessageStyleProps } from './FormStatusMessage.styled';
 
 interface FormStatusMessageProp extends FormStatusMessageStyleProps {
   label: string;

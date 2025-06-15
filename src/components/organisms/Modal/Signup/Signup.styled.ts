@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-const Container = styled.div`
+export const Container = styled.div`
   position: relative;
 
   display: flex;
@@ -17,15 +17,8 @@ const Container = styled.div`
   border-radius: ${({ theme }) => theme.radius[8]};
 `;
 
-const Close = styled.div`
+export const Close = styled.div`
   position: absolute;
   top: 1.6rem;
   right: 1.6rem;
 `;
-
-const S = {
-  Container,
-  Close,
-};
-
-export default S;

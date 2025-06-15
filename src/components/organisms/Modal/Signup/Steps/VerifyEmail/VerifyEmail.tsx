@@ -9,7 +9,7 @@ import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useEmailVerifica
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
 
-import S from './VerifyEmail.styled';
+import * as S from './VerifyEmail.styled';
 
 export interface VerifyEmailProps {
   onConfirm: () => void;

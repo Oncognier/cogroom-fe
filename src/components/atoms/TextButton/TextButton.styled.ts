@@ -79,7 +79,7 @@ const getInteractionColor = (theme: Theme, color: TextButtonColor) => {
   }
 };
 
-const TextButton = styled.button<TextButtonStyleProps>`
+export const TextButton = styled.button<TextButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => colorStyles[color](theme)};
@@ -87,7 +87,7 @@ const TextButton = styled.button<TextButtonStyleProps>`
     getInteraction(interactionVariant, getInteractionColor(theme, color), disabled)(theme)};
 `;
 
-const Icon = styled.div`
+export const Icon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,10 +97,3 @@ const Icon = styled.div`
     height: 1.13em;
   }
 `;
-
-const S = {
-  TextButton,
-  Icon,
-};
-
-export default S;

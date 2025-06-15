@@ -7,7 +7,7 @@ import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 
-import S from './SettingProfile.styled';
+import * as S from './SettingProfile.styled';
 
 interface SettingProfileProps {
   imageUrl?: string;

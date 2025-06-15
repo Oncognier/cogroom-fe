@@ -3,7 +3,7 @@
 import { css, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-interface TextareaStyleProps {
+export interface TextareaStyleProps {
   isError?: boolean;
   width?: string;
 }
@@ -46,27 +46,19 @@ const errorStyle = (theme: Theme) => css`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
 `;
 
-const Textarea = styled.textarea<TextareaStyleProps>`
+export const Textarea = styled.textarea<TextareaStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, isError }) => isError && errorStyle(theme)};
   width: ${({ width }) => width || '100%'};
 `;
 
-const Error = styled.p`
+export const Error = styled.p`
   ${({ theme }) => theme.typography.label2.regular};
   color: ${({ theme }) => theme.semantic.status.destructive};
 `;
-
-const S = {
-  Container,
-  Textarea,
-  Error,
-};
-
-export default S;

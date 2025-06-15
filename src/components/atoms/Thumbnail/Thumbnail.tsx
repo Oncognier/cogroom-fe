@@ -1,10 +1,9 @@
-'use client';
-
 import Image from 'next/image';
 
 import { DEFAULT_THUMBNAIL } from '@/constants/image';
 
-import S, { ThumbnailStyleProps } from './Thumbnail.styled';
+import * as S from './Thumbnail.styled';
+import type { ThumbnailStyleProps } from './Thumbnail.styled';
 
 interface ThumbnailProps extends ThumbnailStyleProps {
   src?: string;

@@ -7,7 +7,7 @@ import Input from '@/components/molecules/Input/Input';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { validateEmail } from '@/utils/validators/emailValidators';
 
-import S from './InputEmail.styled';
+import * as S from './InputEmail.styled';
 
 export interface InputEmailProps {
   email: string;

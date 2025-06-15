@@ -1,6 +1,4 @@
-'use client';
-
-import S from './InputLabel.styled';
+import * as S from './InputLabel.styled';
 
 interface InputLabelProps {
   label: string;

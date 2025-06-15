@@ -28,7 +28,7 @@ const statusStyles: Record<FormStatusMessageStatus, (theme: Theme) => Serialized
   `,
 };
 
-const FormStatusMessage = styled.div<FormStatusMessageStyleProps>`
+export const FormStatusMessage = styled.div<FormStatusMessageStyleProps>`
   ${({ theme, status = 'error' }) => statusStyles[status](theme)};
   ${({ theme }) => theme.typography.label2.regular};
 
@@ -45,9 +45,3 @@ const FormStatusMessage = styled.div<FormStatusMessageStyleProps>`
     height: 1em;
   }
 `;
-
-const S = {
-  FormStatusMessage,
-};
-
-export default S;

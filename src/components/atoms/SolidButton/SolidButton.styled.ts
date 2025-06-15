@@ -72,7 +72,7 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
   `,
 };
 
-const SolidButton = styled.button<SolidButtonStyleProps>`
+export const StyledSolidButton = styled.button<SolidButtonStyleProps>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
@@ -80,7 +80,7 @@ const SolidButton = styled.button<SolidButtonStyleProps>`
     getInteraction(interactionVariant, theme.semantic.label.normal, disabled)(theme)};
 `;
 
-const Icon = styled.div`
+export const Icon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -90,10 +90,3 @@ const Icon = styled.div`
     height: 1.13em;
   }
 `;
-
-const S = {
-  SolidButton,
-  Icon,
-};
-
-export default S;

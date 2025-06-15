@@ -2,14 +2,8 @@
 
 import styled from '@emotion/styled';
 
-const LeftNav = styled.div`
+export const LeftNav = styled.div`
   display: flex;
   align-items: center;
   gap: 4rem;
 `;
-
-const S = {
-  LeftNav,
-};
-
-export default S;

@@ -6,13 +6,13 @@ import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMe
 import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
 
-import S from './Textarea.styled';
+import * as S from './Textarea.styled';
+import type { TextareaStyleProps } from './Textarea.styled';
 
-interface TextareaProps extends ComponentProps<'textarea'> {
+interface TextareaProps extends ComponentProps<'textarea'>, TextareaStyleProps {
   label?: string;
   error?: string;
   isDisabled?: boolean;
-  width?: string;
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(

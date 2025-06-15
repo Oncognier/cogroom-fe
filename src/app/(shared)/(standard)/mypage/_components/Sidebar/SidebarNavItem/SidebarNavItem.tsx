@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 
-import S, { SidebarNavItemStyleProps } from './SidebarNavItem.styled';
+import * as S from './SidebarNavItem.styled';
+import type { SidebarNavItemStyleProps } from './SidebarNavItem.styled';
 
 interface SidebarNavItemProps extends SidebarNavItemStyleProps {
   label: string;

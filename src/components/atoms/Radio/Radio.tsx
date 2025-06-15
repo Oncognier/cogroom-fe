@@ -1,6 +1,5 @@
-'use client';
-
-import S, { RadioStyleProps } from './Radio.styled';
+import * as S from './Radio.styled';
+import type { RadioStyleProps } from './Radio.styled';
 
 interface RadioProps extends RadioStyleProps {
   onToggle: (checked: boolean) => void;

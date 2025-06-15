@@ -72,18 +72,18 @@ const errorStyle = (theme: Theme) => css`
   }
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
 `;
 
-const InputWrapper = styled.div`
+export const InputWrapper = styled.div`
   position: relative;
   display: inline-flex;
 `;
 
-const Input = styled.input<InputStyleProps & { isError?: boolean }>`
+export const Input = styled.input<InputStyleProps & { isError?: boolean }>`
   ${({ theme }) => commonStyles(theme)};
   ${({ theme, inputSize }) => sizeStyles[inputSize](theme)};
   ${({ theme, isError }) => isError && errorStyle(theme)};
@@ -95,7 +95,7 @@ const Input = styled.input<InputStyleProps & { isError?: boolean }>`
   }
 `;
 
-const RemoveButton = styled.button`
+export const RemoveButton = styled.button`
   position: absolute;
   top: 50%;
   right: 1.6rem;
@@ -107,17 +107,7 @@ const RemoveButton = styled.button`
   color: ${({ theme }) => theme.semantic.status.destructive};
 `;
 
-const Error = styled.p`
+export const Error = styled.p`
   ${({ theme }) => theme.typography.label2.regular};
   color: ${({ theme }) => theme.semantic.status.destructive};
 `;
-
-const S = {
-  Container,
-  InputWrapper,
-  Input,
-  RemoveButton,
-  Error,
-};
-
-export default S;

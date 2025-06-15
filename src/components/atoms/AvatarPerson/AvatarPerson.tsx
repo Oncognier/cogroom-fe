@@ -1,10 +1,9 @@
-'use client';
-
 import Image from 'next/image';
 
 import { DEFAULT_AVATAR_IMAGE } from '@/constants/image';
 
-import S, { AvatarPersonStyleProps } from './AvatarPerson.styled';
+import * as S from './AvatarPerson.styled';
+import type { AvatarPersonStyleProps } from './AvatarPerson.styled';
 
 interface AvatarPersonProps extends AvatarPersonStyleProps {
   src?: string;

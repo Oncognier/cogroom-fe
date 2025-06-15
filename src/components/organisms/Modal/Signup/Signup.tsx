@@ -8,7 +8,7 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import { SIGNUP_STEP, SignupStep } from '@/constants/common';
 import { useModalStore } from '@/stores/useModalStore';
 
-import S from './Signup.styled';
+import * as S from './Signup.styled';
 import { CheckEmail, InputEmail, VerifyEmail, Complete } from './Steps';
 
 export interface SignupProps {

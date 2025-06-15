@@ -1,6 +1,5 @@
-'use client';
-
-import S, { SwitchStyleProps } from './Switch.styled';
+import * as S from './Switch.styled';
+import type { SwitchStyleProps } from './Switch.styled';
 
 interface SwitchProps extends SwitchStyleProps {
   onChange: () => void;

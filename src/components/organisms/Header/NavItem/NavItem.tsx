@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
-import S, { NavItemStyleProps } from './NavItem.styled';
+import * as S from './NavItem.styled';
+import type { NavItemStyleProps } from './NavItem.styled';
 
 interface NavItemProps extends NavItemStyleProps {
   label: string;

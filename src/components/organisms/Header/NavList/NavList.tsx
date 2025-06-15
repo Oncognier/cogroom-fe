@@ -1,6 +1,6 @@
 import { HEADER_NAV_ITEMS } from '@/constants/common';
 
-import S from './NavList.styled';
+import * as S from './NavList.styled';
 import NavItem from '../NavItem/NavItem';
 
 interface NavListProps {

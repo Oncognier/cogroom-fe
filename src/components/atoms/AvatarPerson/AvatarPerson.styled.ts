@@ -1,3 +1,5 @@
+'use client';
+
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
@@ -50,7 +52,7 @@ const typeStyles: Record<AvatarPersonType, SerializedStyles> = {
   `,
 };
 
-const AvatarPerson = styled.div<AvatarPersonStyleProps>`
+export const AvatarPerson = styled.div<AvatarPersonStyleProps>`
   position: relative;
 
   display: flex;
@@ -68,9 +70,3 @@ const AvatarPerson = styled.div<AvatarPersonStyleProps>`
     cursor: pointer;
   }
 `;
-
-const S = {
-  AvatarPerson,
-};
-
-export default S;

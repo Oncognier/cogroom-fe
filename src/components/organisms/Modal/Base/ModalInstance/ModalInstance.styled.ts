@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-const ModalOverlay = styled.dialog<{ $zIndex: number }>`
+export const ModalOverlay = styled.dialog<{ $zIndex: number }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,9 +25,3 @@ const ModalOverlay = styled.dialog<{ $zIndex: number }>`
     background-color: ${({ theme }) => theme.semantic.fill.dimmer};
   }
 `;
-
-const S = {
-  ModalOverlay,
-};
-
-export default S;
