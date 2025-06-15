@@ -1,5 +1,5 @@
-import { TabBarStyleProps } from './TabBar.styled';
 import * as S from './TabBar.styled';
+import type { TabBarStyleProps } from './TabBar.styled';
 
 interface TabBarProps extends TabBarStyleProps {
   label: string;
