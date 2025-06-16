@@ -4,6 +4,7 @@ import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
 import { EditUserInfoRequest } from '@/types/member';
 
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
+import { getUserDailySuccess } from '../data/member/getUserDailyData';
 import { getUserInfoSuccess } from '../data/member/getUserInfoData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
 
@@ -16,6 +17,12 @@ export const memberHandlers = [
 
   http.get(END_POINTS_V1.MEMBERS.INFO, async () => {
     return new HttpResponse(JSON.stringify(getUserInfoSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.get(END_POINTS_V1.MEMBERS.DAILY, async () => {
+    return new HttpResponse(JSON.stringify(getUserDailySuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
