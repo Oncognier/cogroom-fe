@@ -4,7 +4,7 @@ import { memberApi } from '@/api/memberApis';
 import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAuthStore } from '@/stores/useAuthStore';
 
-export default function useGetUserSummary() {
+export default function useGetUserSummaryQuery() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   return useQuery({
