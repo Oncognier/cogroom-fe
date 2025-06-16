@@ -26,10 +26,15 @@ const meta = {
     },
     error: {
       control: 'text',
+      description: `'normal:메시지', 'error:메시지' 등의 형식 사용`,
     },
     width: {
       control: 'text',
       description: '텍스트에어리어 너비 (예: "100%", "32rem")',
+    },
+    textareaSize: {
+      control: 'radio',
+      options: ['sm', 'md', 'lg'],
     },
     onChange: { action: 'changed' },
   },
@@ -41,12 +46,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: '소개글',
-    placeholder: 'Placeholder',
+    placeholder: '자기소개를 입력하세요',
     value: '',
     required: true,
     isDisabled: false,
     error: '',
     width: '32rem',
+    textareaSize: 'md',
   },
   render: (args) => {
     const [text, setText] = useState(args.value);
