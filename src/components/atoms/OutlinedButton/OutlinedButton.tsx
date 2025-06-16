@@ -27,14 +27,15 @@ export default function OutlinedButton({
       size={size}
       color={color}
       fillContainer={fillContainer}
+      hasIcon={!!iconLeft || !!iconRight}
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}
       type={type}
     >
-      <S.Icon>{iconLeft}</S.Icon>
+      {iconLeft && <S.Icon>{iconLeft}</S.Icon>}
       {label}
-      <S.Icon>{iconRight}</S.Icon>
+      {iconRight && <S.Icon>{iconRight}</S.Icon>}
     </S.OutlinedButton>
   );
 }
