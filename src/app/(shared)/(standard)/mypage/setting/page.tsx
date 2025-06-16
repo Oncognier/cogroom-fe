@@ -95,6 +95,7 @@ export default function Setting() {
         />
 
         <Textarea
+          textareaSize='md'
           label='자기소개'
           {...register('description')}
           error={errors.description?.message}
