@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation';
+
 export default function Activity() {
-  return <div>Activity</div>;
+  redirect('/mypage/activity/daily');
 }
