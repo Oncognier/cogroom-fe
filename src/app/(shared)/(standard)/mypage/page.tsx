@@ -1,11 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import * as S from './page.styled';
+
 import { REPORT_IMAGE } from '@/constants/image';
-import StreakSummaryCard from './_components/StreakSummaryCard/StreakSummaryCard';
-import ContentRecordToggle from './_components/ContentRecordToggle/ContentRecordToggle';
 import useGetUserDashboardQuery from '@/hooks/api/member/useGetUserDashboard';
+
+import ContentRecordToggle from './_components/ContentRecordToggle/ContentRecordToggle';
+import StreakSummaryCard from './_components/StreakSummaryCard/StreakSummaryCard';
+import * as S from './page.styled';
 
 export default function Dashboard() {
   const { data, isLoading } = useGetUserDashboardQuery();

@@ -1,4 +1,5 @@
 import TextButton from '@/components/atoms/TextButton/TextButton';
+
 import * as S from './StreakSummaryCard.styled';
 
 interface StreakSummaryCardProps {

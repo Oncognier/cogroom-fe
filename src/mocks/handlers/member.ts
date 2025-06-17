@@ -5,9 +5,9 @@ import { EditUserInfoRequest } from '@/types/member';
 
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
 import { getUserDailySuccess } from '../data/member/getUserDailyData';
+import { getUserDashboardSuccess } from '../data/member/getUserDashboardData';
 import { getUserInfoSuccess } from '../data/member/getUserInfoData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
-import { getUserDashboardSuccess } from '../data/member/getUserDashboardData';
 
 export const memberHandlers = [
   http.get(END_POINTS_V1.MEMBERS.SUMMARY, async () => {
