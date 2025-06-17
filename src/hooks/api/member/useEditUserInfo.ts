@@ -9,7 +9,7 @@ export const useEditUserInfoMutation = () => {
   const mutation = useMutation({
     mutationFn: memberApi.editUserInfo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [...MEMBER_QUERY_KEYS.MEMBER_INFO] });
+      queryClient.invalidateQueries({ queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY] });
     },
     onError: () => {
       alert('정보 수정에 실패했습니다. 잠시 후 다시 시도해주세요.');
