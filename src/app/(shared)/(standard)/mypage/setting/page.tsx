@@ -95,10 +95,12 @@ export default function Setting() {
         />
 
         <Textarea
+          textareaSize='md'
           label='자기소개'
           {...register('description')}
           error={errors.description?.message}
           width='34.5rem'
+          minHeight='12.8rem'
         />
 
         <S.ButtonWrapper>

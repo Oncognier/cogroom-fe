@@ -22,3 +22,13 @@ export interface UserInfoResponse extends ApiResponse {
 }
 
 export interface EditUserInfoRequest extends UserInfo {}
+
+export type UserDaily = {
+  question: string;
+  answer: string;
+  assignedDate: string;
+};
+
+export interface UserDailyResponse extends ApiResponse {
+  result: UserDaily[];
+}

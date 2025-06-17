@@ -16,12 +16,15 @@ const meta = {
     },
     size: {
       control: 'radio',
-      options: ['sm', 'md', 'lg', 'fillContainer'],
+      options: ['sm', 'md', 'lg'],
+    },
+    fillContainer: {
+      control: 'boolean',
+      description: '버튼 너비를 100%로 설정',
     },
     isDisabled: {
       control: 'boolean',
       description: '버튼 비활성화 여부',
-      defaultValue: false,
     },
     interactionVariant: {
       control: 'radio',
@@ -29,14 +32,13 @@ const meta = {
     },
     onClick: { action: 'clicked' },
     iconLeft: {
-      table: {
-        disable: true,
-      },
+      table: { disable: true },
     },
     iconRight: {
-      table: {
-        disable: true,
-      },
+      table: { disable: true },
+    },
+    hasIcon: {
+      table: { disable: true },
     },
   },
 } satisfies Meta<typeof OutlinedButton>;
@@ -49,6 +51,7 @@ export const NoIcon: Story = {
     label: 'Label',
     color: 'primary',
     size: 'md',
+    fillContainer: false,
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
@@ -61,6 +64,7 @@ export const LeftIconOnly: Story = {
     iconLeft: <Blank />,
     color: 'primary',
     size: 'md',
+    fillContainer: false,
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
@@ -73,45 +77,35 @@ export const RightIconOnly: Story = {
     iconRight: <Blank />,
     color: 'primary',
     size: 'md',
+    fillContainer: false,
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
   },
 };
 
-export const Primary: Story = {
+export const LeftRightIcon: Story = {
   args: {
     label: 'Label',
     iconLeft: <Blank />,
     iconRight: <Blank />,
     color: 'primary',
     size: 'md',
+    fillContainer: false,
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
   },
 };
 
-export const Secondary: Story = {
+export const FillContainerWithIcons: Story = {
   args: {
-    label: 'Label',
+    label: 'Full Width',
     iconLeft: <Blank />,
     iconRight: <Blank />,
     color: 'secondary',
-    size: 'md',
-    isDisabled: false,
-    interactionVariant: 'normal',
-    onClick: action('clicked'),
-  },
-};
-
-export const Assistive: Story = {
-  args: {
-    label: 'Label',
-    iconLeft: <Blank />,
-    iconRight: <Blank />,
-    color: 'assistive',
-    size: 'md',
+    size: 'lg',
+    fillContainer: true,
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),

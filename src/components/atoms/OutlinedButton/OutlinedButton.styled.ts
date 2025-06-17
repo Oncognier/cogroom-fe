@@ -12,15 +12,17 @@ export interface OutlinedButtonStyleProps {
   color: OutlinedButtonColor;
   size: OutlinedButtonSize;
   fillContainer?: boolean;
+  hasIcon?: boolean;
   interactionVariant: InteractionVariant;
 }
 
-const commonStyles = (theme: Theme) => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, hasIcon?: boolean) => css`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: ${fillContainer && hasIcon ? 'space-between' : 'center'};
   gap: 4px;
 
+  width: ${fillContainer ? '100%' : 'auto'};
   border-radius: ${theme.radius[12]};
   border: 1px solid ${theme.semantic.primary.normal};
   color: ${theme.semantic.primary.normal};
@@ -54,7 +56,7 @@ const sizeStyles: Record<OutlinedButtonSize, (theme: Theme) => SerializedStyles>
   `,
 };
 
-const colorStyles: Record<OutlinedButtonColor, (theme: Theme, disable?: boolean) => SerializedStyles> = {
+const colorStyles: Record<OutlinedButtonColor, (theme: Theme) => SerializedStyles> = {
   primary: (theme) => css`
     border-color: ${theme.semantic.primary.normal};
     color: ${theme.semantic.primary.normal};
@@ -75,20 +77,12 @@ const getInteractionColor = (theme: Theme, color: OutlinedButtonColor) => {
   if (color === 'primary') {
     return theme.semantic.primary.normal;
   }
-
   return theme.semantic.interaction.inactive;
 };
 
-const getFillContainerStyle = (fillContainer?: boolean) =>
-  fillContainer &&
-  css`
-    width: 100%;
-  `;
-
 export const OutlinedButton = styled.button<OutlinedButtonStyleProps>`
-  ${({ theme }) => commonStyles(theme)};
+  ${({ theme, fillContainer, hasIcon }) => commonStyles(theme, fillContainer, hasIcon)};
   ${({ theme, size }) => sizeStyles[size](theme)};
-  ${({ fillContainer }) => getFillContainerStyle(fillContainer)};
   ${({ theme, color }) => colorStyles[color](theme)};
   ${({ theme, interactionVariant, disabled, color }) =>
     getInteraction(interactionVariant, getInteractionColor(theme, color), disabled)(theme)};
