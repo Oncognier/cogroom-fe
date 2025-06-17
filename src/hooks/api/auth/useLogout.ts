@@ -14,8 +14,8 @@ export const useLogoutMutation = () => {
     mutationFn: authApi.logout,
     onSuccess: () => {
       clearToken();
-      queryClient.resetQueries({ queryKey: AUTH_QUERY_KEYS.AUTH, exact: false });
-      queryClient.resetQueries({ queryKey: MEMBER_QUERY_KEYS.MEMBER, exact: false });
+      queryClient.removeQueries({ queryKey: AUTH_QUERY_KEYS.AUTH });
+      queryClient.removeQueries({ queryKey: MEMBER_QUERY_KEYS.MEMBER });
       router.push('/');
     },
     onError: () => {
