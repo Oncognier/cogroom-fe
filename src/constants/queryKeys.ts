@@ -8,6 +8,7 @@ const MEMBER_QUERY_KEYS = {
   MEMBER_INFO: ['member', 'info'],
   MEMBER_SUMMARY: ['member', 'info', 'summary'],
   MEMBER_DAILY: ['member', 'info', 'daily'],
+  MEMBER_DASHBOARD: ['member', 'dashboard'],
 } as const;
 
 const DAILY_QUERY_KEYS = {
