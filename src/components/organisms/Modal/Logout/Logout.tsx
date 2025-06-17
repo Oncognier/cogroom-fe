@@ -12,6 +12,11 @@ export default function Logout() {
   const { close } = useModalStore();
   const { logout } = useLogoutMutation();
 
+  const handleLogout = () => {
+    logout();
+    close();
+  };
+
   return (
     <S.Container>
       <S.Close>
@@ -42,7 +47,7 @@ export default function Logout() {
             label='네, 할게요'
             fillContainer
             interactionVariant='normal'
-            onClick={logout}
+            onClick={handleLogout}
           />
         </S.ButtonWrapper>
       </S.Logout>
