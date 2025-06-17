@@ -246,6 +246,10 @@ export const semantic = {
       normal: palette.blue[95],
       alternative: palette.blue[70],
     },
+    dimmer: {
+      normal: 'rgba(23, 23, 25, 0.4)',
+    }
+
   },
 
   line: {
