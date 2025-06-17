@@ -100,6 +100,7 @@ export default function Setting() {
           {...register('description')}
           error={errors.description?.message}
           width='34.5rem'
+          minHeight='12.8rem'
         />
 
         <S.ButtonWrapper>

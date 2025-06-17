@@ -55,7 +55,9 @@ export default function DailyQuestionCard({
           <Textarea
             textareaSize='md'
             placeholder={answer}
+            minHeight='15.5rem'
             disabled
+            autoResize
           />
         )}
       </S.QuestionAnswerGroup>
