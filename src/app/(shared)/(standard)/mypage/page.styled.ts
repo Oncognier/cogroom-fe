@@ -50,6 +50,8 @@ export const Report = styled.div`
   height: 41.5rem;
   border: 1px solid rgba(190, 194, 197, 0.4);
   border-radius: ${({ theme }) => theme.radius[12]};
+
+  overflow: hidden;
 `;
 
 export const SummarySectionWrapper = styled.div`
