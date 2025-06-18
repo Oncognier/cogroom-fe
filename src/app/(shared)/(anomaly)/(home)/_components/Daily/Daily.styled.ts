@@ -2,17 +2,6 @@
 
 import styled from '@emotion/styled';
 
-export const DailySection = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing[40]};
-
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 12rem 2rem 4rem;
-`;
-
 export const DailyHeader = styled.div`
   display: flex;
   flex-direction: column;

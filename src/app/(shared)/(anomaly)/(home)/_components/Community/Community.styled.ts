@@ -5,16 +5,19 @@ import Image from 'next/image';
 
 export const Wrapper = styled.div`
   position: relative;
-  max-width: 1100px;
+  max-width: 1060px;
   width: 100%;
   height: 24rem;
   margin: 0 auto;
+  padding: 0 2rem;
   overflow: hidden;
 `;
 
 export const CommunityImage = styled(Image)`
   object-fit: cover;
   z-index: -1;
+
+  border-radius: ${({ theme }) => theme.radius[12]};
 `;
 
 export const TextContainer = styled.div`
@@ -31,6 +34,7 @@ export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing[24]};
+  margin-left: 16rem;
 `;
 
 export const TitleWrapper = styled.div`

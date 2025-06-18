@@ -12,6 +12,7 @@ export const HeroWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 2rem;
+  margin-bottom: ${({ theme }) => theme.spacing[40]};
 `;
 
 export const HeroImage = styled(Image)`

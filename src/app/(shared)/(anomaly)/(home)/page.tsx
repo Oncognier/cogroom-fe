@@ -1,23 +1,23 @@
 import Cogpoint from './_components/Cogpoint/Cogpoint';
 import Community from './_components/Community/Community';
-import Contents from './_components/Contents/Contents';
+import Content from './_components/Content/Content';
 import Daily from './_components/Daily/Daily';
 import Hero from './_components/Hero/Hero';
 import * as S from './page.styled';
+import ActionBanner from './_components/ActionBanner/ActionBanner';
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <S.ContentsWrapper>
-        <Cogpoint />
-      </S.ContentsWrapper>
+      <Cogpoint />
       <S.Space />
       <Daily />
       <S.Space />
-      <Contents />
+      <Content />
       <S.Space />
       <Community />
+      <ActionBanner />
     </>
   );
 }
