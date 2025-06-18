@@ -145,3 +145,5 @@ export const QUICK_DATE_SELECT = [
   { label: '최근 30일', value: 30 },
   { label: '최근 90일', value: 90 },
 ];
+
+export const SHARE_DAILY_URL = process.env.NEXT_PUBLIC_SHARE_DAILY_URL || 'https://preview.cogroom.com/daily';
