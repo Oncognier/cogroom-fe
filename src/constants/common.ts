@@ -28,3 +28,5 @@ export const SOCIAL_LINKS = {
   INSTAGRAM: 'https://www.instagram.com/on.cognier',
   THREADS: 'https://www.threads.com/@on.cognier',
 } as const;
+
+export const SHARE_DAILY_URL = process.env.NEXT_PUBLIC_SHARE_DAILY_URL || 'https://preview.cogroom.com/daily';
