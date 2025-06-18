@@ -5,12 +5,19 @@ import { EditUserInfoRequest } from '@/types/member';
 
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
 import { getUserDailySuccess } from '../data/member/getUserDailyData';
+import { getUserDashboardSuccess } from '../data/member/getUserDashboardData';
 import { getUserInfoSuccess } from '../data/member/getUserInfoData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
 
 export const memberHandlers = [
   http.get(END_POINTS_V1.MEMBERS.SUMMARY, async () => {
     return new HttpResponse(JSON.stringify(getUserSummarySuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.get(END_POINTS_V1.MEMBERS.DASHBOARD, async () => {
+    return new HttpResponse(JSON.stringify(getUserDashboardSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

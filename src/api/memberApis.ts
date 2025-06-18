@@ -2,15 +2,27 @@ import { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
-import { EditUserInfoRequest, UserDailyResponse, UserInfoResponse, UserSummaryResponse } from '@/types/member';
+import {
+  EditUserInfoRequest,
+  UserDailyResponse,
+  UserDashboardResponse,
+  UserInfoResponse,
+  UserSummaryResponse,
+} from '@/types/member';
 
 import { axiosInstance } from './axios/axiosInstance';
 
 export const getUserSummary = async (accessToken?: string) => {
-  const { data } = await axiosInstance.get(END_POINTS_V1.MEMBERS.SUMMARY, {
+  const { data } = await axiosInstance.get<UserSummaryResponse>(END_POINTS_V1.MEMBERS.SUMMARY, {
     headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
     useAuth: !accessToken,
   });
+
+  return data.result;
+};
+
+const getUserDashboard = async () => {
+  const { data } = await axiosInstance.get<UserDashboardResponse>(END_POINTS_V1.MEMBERS.DASHBOARD);
 
   return data.result;
 };
@@ -44,6 +56,7 @@ const editUserInfo = async ({ email, nickname, imageUrl, phoneNumber, descriptio
 
 export const memberApi = {
   getUserSummary,
+  getUserDashboard,
   getUserInfo,
   getUserDaily,
   editUserInfo,

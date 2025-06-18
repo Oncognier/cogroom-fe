@@ -32,3 +32,11 @@ export type UserDaily = {
 export interface UserDailyResponse extends ApiResponse {
   result: UserDaily[];
 }
+
+export interface UserDashboardResponse extends ApiResponse {
+  result: {
+    nickname: string;
+    signupDays: number;
+    streakDays: number;
+  };
+}

@@ -1,5 +1,6 @@
 export const DEFAULT_AVATAR_IMAGE = 'https://d3k85mwe6suqlp.cloudfront.net/default_image/Profile.png' as const;
 export const DEFAULT_THUMBNAIL = 'https://d3k85mwe6suqlp.cloudfront.net/default_image/Thumbnail.png' as const;
+export const REPORT_IMAGE = 'https://d3k85mwe6suqlp.cloudfront.net/default_image/Report.png' as const;
 
 // Logo
 export const DEFAULT_LOGO_SYMBOL_NORMAL =
