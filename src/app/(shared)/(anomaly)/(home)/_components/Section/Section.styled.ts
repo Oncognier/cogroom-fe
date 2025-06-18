@@ -18,5 +18,4 @@ export const Subtitle = styled.p`
   ${({ theme }) => theme.typography.body1.regular}
 `;
 
-export const Content = styled.div`
-`;
+export const Content = styled.div``;

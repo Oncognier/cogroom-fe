@@ -248,8 +248,7 @@ export const semantic = {
     },
     dimmer: {
       normal: 'rgba(23, 23, 25, 0.4)',
-    }
-
+    },
   },
 
   line: {

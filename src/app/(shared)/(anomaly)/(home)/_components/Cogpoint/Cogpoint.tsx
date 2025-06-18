@@ -1,6 +1,5 @@
-import Section from '../Section/Section';
-
 import * as S from './Cogpoint.styled';
+import Section from '../Section/Section';
 
 const cards = [
   {
@@ -14,7 +13,8 @@ const cards = [
     ),
     content: (
       <>
-        무의식적으로 해온 생각과 나도 몰랐던 나의<br />
+        무의식적으로 해온 생각과 나도 몰랐던 나의
+        <br />
         마음들을 알아차려요
       </>
     ),
@@ -24,7 +24,8 @@ const cards = [
     subtitle: 'scientific method',
     title: (
       <>
-        6가지 인지과학 분야로<br />
+        6가지 인지과학 분야로
+        <br />
         체계적인 성장을
       </>
     ),
@@ -35,13 +36,15 @@ const cards = [
     subtitle: 'for self growth',
     title: (
       <>
-        나보다 나를 더 잘 아는<br />
+        나보다 나를 더 잘 아는
+        <br />
         자기이해 플랫폼
       </>
     ),
     content: (
       <>
-        무의식적으로 해온 생각과 나도 몰랐던 나의<br />
+        무의식적으로 해온 생각과 나도 몰랐던 나의
+        <br />
         마음들을 알아차려요
       </>
     ),

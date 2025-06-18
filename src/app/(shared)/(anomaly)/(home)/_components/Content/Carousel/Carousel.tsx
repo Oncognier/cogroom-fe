@@ -1,87 +1,9 @@
-// 'use client';
-
-// import React from 'react';
-// import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-
-// import * as S from './Carousel.styled';
-// import CarouselCard from './CarouselCard';
-
-// export default function Carousel() {
-//   const settings = {
-//     dots: true,
-//     infinite: true,
-//     slidesToShow: 3,
-//     slidesToScroll: 1,
-//     speed: 10000,
-//     autoplay: true,
-//     autoplaySpeed: 1000,
-//     cssEase: 'linear',
-//     variableWidth: false,
-//     pauseOnHover: true,
-//     responsive: [
-//       {
-//         breakpoint: 1080,
-//         settings: {
-//           slidesToShow: 2,
-//           slidesToScroll: 1,
-//         },
-//       },
-//       {
-//         breakpoint: 748,
-//         settings: {
-//           slidesToShow: 1,
-//           slidesToScroll: 1,
-//         },
-//       },
-//     ],
-//   };
-
-//   const cards = [
-//     {
-//       src: '/carousel1.png',
-//       alt: 'carousel',
-//     },
-//     {
-//       src: '/carousel2.png',
-//       alt: 'carousel',
-//     },
-//     {
-//       src: '/carousel3.png',
-//       alt: 'carousel',
-//     },
-//     {
-//       src: '/carousel1.png',
-//       alt: 'carousel',
-//     },
-//     {
-//       src: '/carousel2.png',
-//       alt: 'carousel',
-//     },
-//   ];
-
-//   return (
-//     <S.Wrapper>
-//       <Slider {...settings}>
-//         {cards.map((card, index) => (
-//           <CarouselCard
-//             key={`carousel-${index}`}
-//             src={card.src}
-//             alt={card.alt}
-
-//           />
-//         ))}
-//       </Slider>
-//     </S.Wrapper>
-//   );
-// }
 'use client';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Pagination, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import * as S from './Carousel.styled';
 import CarouselCard from './CarouselCard';

@@ -20,14 +20,15 @@ export const Card = styled.div`
   flex-direction: column;
   align-items: center;
 
-
   border-radius: ${({ theme }) => theme.radius[12]};
 
   box-shadow:
     0px 0px 1px rgba(0, 0, 0, 0.08),
     0px 1px 4px rgba(0, 0, 0, 0.08),
     0px 2px 8px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, z-index 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    z-index 0.3s ease;
   position: relative;
   z-index: 1;
 
