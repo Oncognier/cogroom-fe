@@ -41,7 +41,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
 
   const { data, status } = error.response;
 
-  if (status === HTTP_STATUS_CODE.UNAUTHORIZED && data.code === ERROR_CODE.EXPIRED_TOKEN) {
+  if (status === HTTP_STATUS_CODE.UNAUTHORIZED && data.code === ERROR_CODE.TOKEN_EXPIRED_ERROR) {
     try {
       const { accessToken: newAccessToken } = await authApi.reissueToken();
 
@@ -65,7 +65,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
 
   if (
     status === HTTP_STATUS_CODE.UNAUTHORIZED &&
-    (data.code === ERROR_CODE.INVALID_TOKEN || data.code === ERROR_CODE.ALREADY_BLACK_LIST)
+    (data.code === ERROR_CODE.TOKEN_INVALID_ERROR || data.code === ERROR_CODE.ALREADY_BLACK_LIST)
   ) {
     delete axios.defaults.headers.common.Authorization;
 
