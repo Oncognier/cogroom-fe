@@ -28,3 +28,5 @@ export const SOCIAL_LINKS = {
   INSTAGRAM: 'https://www.instagram.com/on.cognier',
   THREADS: 'https://www.threads.com/@on.cognier',
 } as const;
+
+export const DEFAULT_DAILY_QUESTION = '내가 생각하는 ‘나’는 어떤 모습인가요?';
