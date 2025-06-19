@@ -1,6 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 export const Wrapper = styled.div`
   max-width: 1100px;
@@ -21,11 +22,8 @@ export const Card = styled.div`
   align-items: center;
 
   border-radius: ${({ theme }) => theme.radius[12]};
+  ${({ theme }) => theme.shadow.emphasize};
 
-  box-shadow:
-    0px 0px 1px rgba(0, 0, 0, 0.08),
-    0px 1px 4px rgba(0, 0, 0, 0.08),
-    0px 2px 8px rgba(0, 0, 0, 0.12);
   transition:
     transform 0.3s ease,
     z-index 0.3s ease;
@@ -38,9 +36,8 @@ export const Card = styled.div`
   }
 `;
 
-export const Image = styled.img`
-  width: 30rem;
-  height: 17rem;
+export const CardImage = styled(Image)`
+
 `;
 
 export const TextWrapper = styled.div`
