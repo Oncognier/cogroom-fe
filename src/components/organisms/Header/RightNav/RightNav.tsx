@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import Bell from '@/assets/icons/bell.svg';
 import Search from '@/assets/icons/search.svg';
@@ -22,19 +22,24 @@ interface RightNavProps {
 
 export default function RightNav({ accessToken, userSummary: serverUserSummary }: RightNavProps) {
   const { open } = useModalStore();
-  const { setToken } = useAuthStore();
+  const { setToken, isLoggedIn } = useAuthStore();
   const router = useRouter();
 
   const { data: clientUserSummary } = useGetUserSummary();
 
-  const userSummary = serverUserSummary ?? clientUserSummary;
-  const isLoggedIn = !!userSummary;
+  const userSummary = clientUserSummary ?? serverUserSummary;
+
+  const [isAuthenticated, setIsAuthenticated] = useState(!!userSummary);
 
   useEffect(() => {
     if (accessToken) {
       setToken(accessToken);
     }
   }, [accessToken]);
+
+  useEffect(() => {
+    setIsAuthenticated(isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <S.RightNav>
@@ -46,7 +51,7 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
         <Search />
       </IconButton>
 
-      {isLoggedIn ? (
+      {isAuthenticated ? (
         <S.NavLogin>
           <IconButton
             size='4rem'
@@ -58,7 +63,7 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
           <AvatarPerson
             type='icon'
             size='fillContainer'
-            src={userSummary.imageUrl}
+            src={userSummary?.imageUrl}
             onClick={() => router.push('/mypage')}
           />
         </S.NavLogin>

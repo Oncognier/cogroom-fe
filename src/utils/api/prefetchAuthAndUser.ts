@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 
 import { authApi } from '@/api/authApis';
 import { memberApi } from '@/api/memberApis';
+import { REFRESH_TOKEN_COOKIE_NAME } from '@/constants/api';
 import { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
 import { UserSummary } from '@/types/member';
 
@@ -13,13 +14,18 @@ interface PrefetchResult {
 
 export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<PrefetchResult> {
   try {
-    const cookieHeader = cookies().toString();
+    const cookieStore = await cookies();
+    const refreshToken = cookieStore.get(REFRESH_TOKEN_COOKIE_NAME)?.value;
+
+    if (!refreshToken) {
+      return {};
+    }
 
     await queryClient.prefetchQuery({
       queryKey: [...AUTH_QUERY_KEYS.AUTH_REISSUE],
       queryFn: () =>
         authApi.reissueToken({
-          cookie: cookieHeader,
+          cookie: refreshToken,
         }),
     });
 
@@ -39,7 +45,6 @@ export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<Pre
 
     return { accessToken, userSummary };
   } catch (err) {
-    // alert(`Auth prefetch failed: ${err}`);
     return {};
   }
 }
