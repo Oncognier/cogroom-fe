@@ -1,6 +1,7 @@
+import { DEFAULT_DAILY_WATERDROP } from '@/constants/image';
+
 import * as S from './Daily.styled';
 import Section from '../Section/Section';
-import { DEFAULT_DAILY_WATERDROP } from '@/constants/image';
 
 export default function Daily() {
   return (

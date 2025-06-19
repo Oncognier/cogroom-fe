@@ -1,6 +1,7 @@
+import { DEFAULT_COMMUNITY_BANNER } from '@/constants/image';
+
 import * as S from './Community.styled';
 import Section from '../Section/Section';
-import { DEFAULT_COMMUNITY_BANNER } from '@/constants/image';
 
 export default function Community() {
   return (

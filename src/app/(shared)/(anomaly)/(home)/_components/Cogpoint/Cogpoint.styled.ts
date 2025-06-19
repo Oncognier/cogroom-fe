@@ -36,10 +36,6 @@ export const Card = styled.div`
   }
 `;
 
-export const CardImage = styled(Image)`
-
-`;
-
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;

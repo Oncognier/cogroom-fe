@@ -1,6 +1,9 @@
+import Image from 'next/image';
+
+import { DEFAULT_COGPOINT_IMAGE1, DEFAULT_COGPOINT_IMAGE2, DEFAULT_COGPOINT_IMAGE3 } from '@/constants/image';
+
 import * as S from './Cogpoint.styled';
 import Section from '../Section/Section';
-import { DEFAULT_COGPOINT_IMAGE1, DEFAULT_COGPOINT_IMAGE2, DEFAULT_COGPOINT_IMAGE3 } from '@/constants/image';
 
 export default function Cogpoint() {
   return (
@@ -12,7 +15,7 @@ export default function Cogpoint() {
         <S.CardList>
           {cards.map((card, index) => (
             <S.Card key={`cogpoint-${index}`}>
-              <S.CardImage
+              <Image
                 src={card.src}
                 alt=''
                 width={300}
