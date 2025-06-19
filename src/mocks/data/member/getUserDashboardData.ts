@@ -4,6 +4,6 @@ export const getUserDashboardSuccess = {
   result: {
     nickname: '코그룸',
     signupDays: 8,
-    streakDays: 4,
+    dailyStreak: 4,
   },
 };

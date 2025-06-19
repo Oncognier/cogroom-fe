@@ -16,7 +16,7 @@ export default function Daily() {
     <S.DailyContainer>
       {!isLoading && (
         <>
-          <Streak streaksDays={streakData?.result.streakDays ?? 0} />
+          <Streak streaksDays={streakData?.result.dailyStreak ?? 0} />
           <Question
             assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
             question={dailyData?.result.question ?? ''}
