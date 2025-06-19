@@ -106,7 +106,7 @@ export const ERROR_CODE = {
   ALREADY_BLACK_LIST: 'ALREADY_BLACK_LIST',
 };
 
-export const ACCESS_TOKEN_NAME = 'accessToken';
+export const REFRESH_TOKEN_COOKIE_NAME = 'refreshToken';
 
 const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
 
