@@ -1,11 +1,12 @@
 import HeroClient from './Hero.client';
 import * as S from './Hero.styled';
+import { DEFAULT_HERO_WAVY } from '@/constants/image';
 
 export default function Hero() {
   return (
     <S.HeroWrapper>
       <S.HeroImage
-        src='/wavy.gif'
+        src={DEFAULT_HERO_WAVY}
         alt=''
         role='presentation'
         fill

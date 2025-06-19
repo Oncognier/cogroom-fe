@@ -1,5 +1,6 @@
 import * as S from './Cogpoint.styled';
 import Section from '../Section/Section';
+import { DEFAULT_COGPOINT_IMAGE1, DEFAULT_COGPOINT_IMAGE2, DEFAULT_COGPOINT_IMAGE3 } from '@/constants/image';
 
 export default function Cogpoint() {
   return (
@@ -32,7 +33,7 @@ export default function Cogpoint() {
 
 const cards = [
   {
-    src: '/cogpoint1.png',
+    src: DEFAULT_COGPOINT_IMAGE1,
     subtitle: 'for self growth',
     title: (
       <>
@@ -49,7 +50,7 @@ const cards = [
     ),
   },
   {
-    src: '/cogpoint2.png',
+    src: DEFAULT_COGPOINT_IMAGE2,
     subtitle: 'scientific method',
     title: (
       <>
@@ -61,7 +62,7 @@ const cards = [
     content: '단순한 학습이 아닌, 과학적 학문 기반으로',
   },
   {
-    src: '/cogpoint3.png',
+    src: DEFAULT_COGPOINT_IMAGE3,
     subtitle: 'for self growth',
     title: (
       <>

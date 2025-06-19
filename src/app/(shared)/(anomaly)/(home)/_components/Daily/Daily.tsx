@@ -1,5 +1,6 @@
 import * as S from './Daily.styled';
 import Section from '../Section/Section';
+import { DEFAULT_DAILY_WATERDROP } from '@/constants/image';
 
 export default function Daily() {
   return (
@@ -9,7 +10,7 @@ export default function Daily() {
     >
       <S.Wrapper>
         <S.DailyImage
-          src='/waterdrop.png'
+          src={DEFAULT_DAILY_WATERDROP}
           alt='daily'
           fill
         />

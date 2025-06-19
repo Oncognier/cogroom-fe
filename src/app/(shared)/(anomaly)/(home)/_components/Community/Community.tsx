@@ -1,5 +1,6 @@
 import * as S from './Community.styled';
 import Section from '../Section/Section';
+import { DEFAULT_COMMUNITY_BANNER } from '@/constants/image';
 
 export default function Community() {
   return (
@@ -9,7 +10,7 @@ export default function Community() {
     >
       <S.Wrapper>
         <S.CommunityImage
-          src='/community.png'
+          src={DEFAULT_COMMUNITY_BANNER}
           alt='community'
           fill
           quality={100}
