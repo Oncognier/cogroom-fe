@@ -55,7 +55,7 @@ export default function Calendar({ streakDateList }: CalendarProps) {
           size='fillContainer'
           interactionVariant='normal'
           onClick={() => {
-            router.push('/mypage/history');
+            router.push('/mypage/activity');
           }}
         />
       </S.CalendarContentWrapper>

@@ -3,14 +3,14 @@ import TextButton from '@/components/atoms/TextButton/TextButton';
 import * as S from './StreakSummaryCard.styled';
 
 interface StreakSummaryCardProps {
-  streakDays?: number;
+  dailyStreak?: number;
 }
-export default function StreakSummaryCard({ streakDays }: StreakSummaryCardProps) {
+export default function StreakSummaryCard({ dailyStreak }: StreakSummaryCardProps) {
   return (
     <S.StreakSummaryCard>
       <S.TextWrapper>
         <S.MainText>데일리 스트릭 </S.MainText>
-        <S.StreakDayText>{streakDays}일째</S.StreakDayText>
+        <S.StreakDayText>{dailyStreak}일째</S.StreakDayText>
       </S.TextWrapper>
 
       <TextButton

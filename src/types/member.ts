@@ -37,6 +37,6 @@ export interface UserDashboardResponse extends ApiResponse {
   result: {
     nickname: string;
     signupDays: number;
-    streakDays: number;
+    dailyStreak: number;
   };
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { DEFAULT_DAILY_QUESTION } from '@/constants/common';
 import useGetDailyQuery from '@/hooks/api/daily/useGetDaily';
 import useGetStreakDaysQuery from '@/hooks/api/streak/useGetStreakDays';
 
@@ -16,10 +17,10 @@ export default function Daily() {
     <S.DailyContainer>
       {!isLoading && (
         <>
-          <Streak streaksDays={streakData?.result.streakDays ?? 0} />
+          <Streak streaksDays={streakData?.result.dailyStreak ?? 0} />
           <Question
             assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
-            question={dailyData?.result.question ?? ''}
+            question={dailyData?.result.question ?? DEFAULT_DAILY_QUESTION}
             answer={dailyData?.result.answer ?? ''}
           />
           <Calendar streakDateList={streakData?.result.streakDateList ?? []} />
