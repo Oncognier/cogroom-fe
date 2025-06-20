@@ -6,45 +6,39 @@ export const regex = {
   nickname: /^[가-힣a-zA-Z0-9]+$/,
 };
 
-export const validateEmail = (v: string) => {
+export const validateEmail = (v: string): true | string => {
   if (!regex.email.test(v)) {
-    const { type, message } = VALIDATION_MESSAGE.EMAIL.INVALID;
-    return `${type}: ${message}`;
+    return VALIDATION_MESSAGE.EMAIL_PATTERN_ERROR;
   }
   return true;
 };
 
-export const validatePhoneNumber = (v: string | undefined) => {
+export const validatePhoneNumber = (v: string | undefined): true | string => {
   if (!v || v.trim() === '') return true;
 
   if (!regex.phone.test(v)) {
-    const { type, message } = VALIDATION_MESSAGE.PHONE.INVALID_CHARACTERS;
-    return `${type}: ${message}`;
+    return VALIDATION_MESSAGE.PHONENUMBER_INVALID_CHARACTERS_ERROR;
   }
 
   const digits = v.replace(/[^0-9]/g, '');
   if (digits.length > 11) {
-    const { type, message } = VALIDATION_MESSAGE.PHONE.TOO_LONG;
-    return `${type}: ${message}`;
+    return VALIDATION_MESSAGE.PHONENUMBER_TOO_LONG_ERROR;
   }
 
   return true;
 };
 
-export const validateNickname = (v: string) => {
+export const validateNickname = (v: string): true | string => {
   if (!regex.nickname.test(v)) {
-    const { type, message } = VALIDATION_MESSAGE.NICKNAME.INVALID_CHARACTERS;
-    return `${type}: ${message}`;
+    return VALIDATION_MESSAGE.NICKNAME_INVALID_CHARACTERS_ERROR;
   }
 
   if (/^\d+$/.test(v)) {
-    const { type, message } = VALIDATION_MESSAGE.NICKNAME.ONLY_NUMBERS;
-    return `${type}: ${message}`;
+    return VALIDATION_MESSAGE.NICKNAME_ONLY_NUMBERS_ERROR;
   }
 
   if (v.length > 10) {
-    const { type, message } = VALIDATION_MESSAGE.NICKNAME.TOO_LONG;
-    return `${type}: ${message}`;
+    return VALIDATION_MESSAGE.NICKNAME_TOO_LONG_ERROR;
   }
 
   return true;
