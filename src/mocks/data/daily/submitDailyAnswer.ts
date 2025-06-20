@@ -1,15 +1,15 @@
 // 답변 제출
-export const submitDailyAnswerData = {
+export const submitDailyAnswerSuccess = {
   code: 'SUCCESS',
   message: '요청에 성공했습니다.',
 };
 
-export const submitDailyAnswerEmptyFieldError = {
+export const submitDailyAnswerError_EmptyField = {
   code: 'EMTPY_FILED',
   message: '요청 값이 비어있습니다.',
 };
 
-export const submitDailyAnswerLengthExceededError = {
+export const submitDailyAnswerError_LengthExceeded = {
   code: 'ANSWER_LENGTH_EXCEEDED',
   message: '답변은 100자 이하여야 합니다.',
 };

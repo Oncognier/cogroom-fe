@@ -10,8 +10,3 @@ export const getUserInfoSuccess = {
     description: '',
   },
 };
-
-export const getUserInfoError = {
-  code: '1001',
-  message: '사용자 정보 조회(Info)에 실패했습니다.',
-};

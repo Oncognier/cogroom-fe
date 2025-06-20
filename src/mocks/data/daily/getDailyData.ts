@@ -1,5 +1,5 @@
 // 질문 및 스트릭 정보 조회 (답변 전 dailyDataNotAnswered, 답변 후 dailyDataAnswered)
-export const dailyDataNotAnswered = {
+export const getDailySuccess_NotAnswered = {
   code: 'SUCCESS',
   message: '요청에 성공했습니다.',
   result: {
@@ -10,7 +10,7 @@ export const dailyDataNotAnswered = {
   },
 };
 
-export const dailyDataAnswered = {
+export const getDailySuccess_Answered = {
   code: 'SUCCESS',
   message: '요청에 성공했습니다.',
   result: {
