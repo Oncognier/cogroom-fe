@@ -3,11 +3,7 @@
 import { forwardRef } from 'react';
 
 import XCircle from '@/assets/icons/xcircle-fill.svg';
-import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMessage';
-import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
-import { VALIDATION_TYPE } from '@/constants/validationMessages';
-import { parseErrorMessage } from '@/utils/parseErrorMessage';
 
 import * as S from './Input.styled';
 import type { InputStyleProps } from './Input.styled';
@@ -21,15 +17,7 @@ interface InputProps extends InputStyleProps {
 
 const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
   ({ label, inputSize, required, isDisabled, error, onClear, width, ...props }, ref) => {
-    const { type: errorType, message: errorMessage } = parseErrorMessage(error);
-    const hasError = !!errorType;
-
-    const showNormalError = errorType === VALIDATION_TYPE.NORMAL && errorMessage;
-    const showStatusMessage =
-      errorMessage &&
-      errorType &&
-      errorType !== VALIDATION_TYPE.NORMAL &&
-      Object.values(VALIDATION_TYPE).includes(errorType);
+    const hasError = !!error;
 
     return (
       <S.Container>
@@ -62,14 +50,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttribute
           )}
         </S.InputWrapper>
 
-        {showNormalError && <S.Error>{errorMessage}</S.Error>}
-
-        {showStatusMessage && (
-          <FormStatusMessage
-            status={errorType as FormStatusMessageStatus}
-            label={errorMessage}
-          />
-        )}
+        {hasError && <S.Error>{error}</S.Error>}
       </S.Container>
     );
   },

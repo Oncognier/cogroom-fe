@@ -2,11 +2,7 @@
 
 import { forwardRef, useEffect, useRef, ComponentProps } from 'react';
 
-import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMessage';
-import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
-import { VALIDATION_TYPE } from '@/constants/validationMessages';
-import { parseErrorMessage } from '@/utils/parseErrorMessage';
 
 import * as S from './Textarea.styled';
 import type { TextareaStyleProps } from './Textarea.styled';
@@ -19,23 +15,14 @@ interface TextareaProps extends ComponentProps<'textarea'>, TextareaStyleProps {
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, textareaSize, required, isDisabled, error, width, minHeight, autoResize, ...props }, ref) => {
-    const { type: errorType, message: errorMessage } = parseErrorMessage(error);
-    const hasError = !!errorType;
-
-    const showNormalError = errorType === VALIDATION_TYPE.NORMAL && errorMessage;
-    const showStatusMessage =
-      errorMessage &&
-      errorType &&
-      errorType !== VALIDATION_TYPE.NORMAL &&
-      Object.values(VALIDATION_TYPE).includes(errorType);
-
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const hasError = !!error;
 
     useEffect(() => {
       if (autoResize && textareaRef.current) {
         const el = textareaRef.current;
-        el.style.height = 'auto'; // reset height
-        el.style.height = `${el.scrollHeight}px`; // set new height
+        el.style.height = 'auto';
+        el.style.height = `${el.scrollHeight}px`;
       }
     }, [props.value, autoResize]);
 
@@ -64,14 +51,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
 
-        {showNormalError && <S.Error>{errorMessage}</S.Error>}
-
-        {showStatusMessage && (
-          <FormStatusMessage
-            status={errorType as FormStatusMessageStatus}
-            label={errorMessage}
-          />
-        )}
+        {hasError && <S.Error>{error}</S.Error>}
       </S.Container>
     );
   },
