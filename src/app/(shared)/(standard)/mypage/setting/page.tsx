@@ -18,7 +18,7 @@ import * as S from './page.styled';
 
 export type EmailState = 'idle' | 'editing' | 'waiting';
 
-interface SettingFormFields {
+export interface SettingFormFields {
   nickname: string;
   email: string;
   phoneNumber?: string;
@@ -39,7 +39,6 @@ const isEmailStateValid = (emailState: EmailState) => emailState === 'idle';
 export default function Setting() {
   const [emailState, setEmailState] = useState<EmailState>('idle');
   const { data, isLoading } = useGetUserInfo();
-  const { editUserInfo } = useEditUserInfoMutation();
 
   const methods = useForm<SettingFormFields>({
     mode: 'onChange',
@@ -52,8 +51,11 @@ export default function Setting() {
     handleSubmit,
     setValue,
     reset,
+    setError,
     formState: { errors, isValid },
   } = methods;
+
+  const { editUserInfo } = useEditUserInfoMutation(setError);
 
   useEffect(() => {
     if (data && !isLoading) {
