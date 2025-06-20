@@ -6,6 +6,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
 import Textarea from '@/components/molecules/Textarea/Textarea';
+import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useEditUserInfoMutation } from '@/hooks/api/member/useEditUserInfo';
 import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
 import { formatPhoneNumber } from '@/utils/formatAutoComplete';
@@ -15,7 +16,7 @@ import EmailForm from './_components/EmailForm/EmailForm';
 import SettingProfile from './_components/SettingProfile/SettingProfile';
 import * as S from './page.styled';
 
-export type EmailState = 'idle' | 'editing' | 'waiting' | 'verified';
+export type EmailState = 'idle' | 'editing' | 'waiting';
 
 interface SettingFormFields {
   nickname: string;
@@ -28,12 +29,12 @@ interface SettingFormFields {
 const getDefaultValues = (data?: SettingFormFields): SettingFormFields => ({
   nickname: data?.nickname ?? '',
   email: data?.email ?? '',
-  phoneNumber: data?.phoneNumber ?? '',
-  description: data?.description ?? '',
+  phoneNumber: data?.phoneNumber,
+  description: data?.description,
   imageUrl: data?.imageUrl,
 });
 
-const isEmailStateValid = (emailState: EmailState) => emailState === 'idle' || emailState === 'verified';
+const isEmailStateValid = (emailState: EmailState) => emailState === 'idle';
 
 export default function Setting() {
   const [emailState, setEmailState] = useState<EmailState>('idle');
@@ -79,7 +80,7 @@ export default function Setting() {
           label='닉네임'
           required
           {...register('nickname', {
-            required: 'normal: 닉네임은 필수입니다.',
+            required: VALIDATION_MESSAGE.NICKNAME_EMPTY_FILED_ERROR,
             validate: validateNickname,
           })}
           error={errors.nickname?.message}
@@ -87,6 +88,7 @@ export default function Setting() {
         />
 
         <EmailForm
+          email={data?.email ?? ''}
           emailState={emailState}
           setEmailState={setEmailState}
         />
