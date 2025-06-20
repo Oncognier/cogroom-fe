@@ -14,12 +14,11 @@ import * as S from './EmailForm.styled';
 import { EmailState } from '../../page';
 
 interface EmailFormProps {
-  email: string;
   emailState: EmailState;
   setEmailState: (state: EmailState) => void;
 }
 
-export default function EmailForm({ email, emailState, setEmailState }: EmailFormProps) {
+export default function EmailForm({ emailState, setEmailState }: EmailFormProps) {
   const { value: isCooldown, start: startCooldown } = useCooldown(3000);
 
   const {

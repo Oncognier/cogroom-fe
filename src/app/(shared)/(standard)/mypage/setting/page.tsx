@@ -90,7 +90,6 @@ export default function Setting() {
         />
 
         <EmailForm
-          email={data?.email ?? ''}
           emailState={emailState}
           setEmailState={setEmailState}
         />
