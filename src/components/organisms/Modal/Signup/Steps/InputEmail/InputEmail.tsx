@@ -8,6 +8,7 @@ import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { validateEmail } from '@/utils/validators/userValidators';
 
 import * as S from './InputEmail.styled';
+import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 
 export interface InputEmailProps {
   email: string;
@@ -19,9 +20,11 @@ export default function InputEmail({ email, onConfirm }: InputEmailProps) {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors, isValid },
   } = useFormContext<{ email: string }>();
-  const { sendEmail } = useSendEmailMutation(onConfirm);
+
+  const { sendEmail } = useSendEmailMutation(onConfirm, setError);
 
   const onSubmit = ({ email }: { email: string }) => {
     sendEmail({ email });
@@ -40,7 +43,7 @@ export default function InputEmail({ email, onConfirm }: InputEmailProps) {
           inputSize='md'
           placeholder={email}
           {...register('email', {
-            required: 'normal: 이메일은 필수입니다.',
+            required: VALIDATION_MESSAGE.EMAIL_EMPTY_FILED_ERROR,
             validate: validateEmail,
           })}
           error={errors.email?.message}

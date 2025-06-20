@@ -33,7 +33,7 @@ export default function EmailForm({ email, emailState, setEmailState }: EmailFor
   const { sendEmail } = useSendEmailMutation(() => {
     setEmailState('waiting');
     startCooldown();
-  });
+  }, setError);
 
   const { checkEmailVerified } = useCheckEmailVerifiedMutation(
     () => setEmailState('idle'),
