@@ -4,7 +4,8 @@ import { useFormContext } from 'react-hook-form';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
-import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useEmailVerificationStatus';
+import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
+import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useCheckEmailVerified';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
 import { validateEmail } from '@/utils/validators/userValidators';
@@ -13,16 +14,19 @@ import * as S from './EmailForm.styled';
 import { EmailState } from '../../page';
 
 interface EmailFormProps {
+  email: string;
   emailState: EmailState;
   setEmailState: (state: EmailState) => void;
 }
 
-export default function EmailForm({ emailState, setEmailState }: EmailFormProps) {
+export default function EmailForm({ email, emailState, setEmailState }: EmailFormProps) {
   const { value: isCooldown, start: startCooldown } = useCooldown(3000);
 
   const {
     register,
     getValues,
+    trigger,
+    setError,
     formState: { errors },
   } = useFormContext<{ email: string }>();
 
@@ -31,16 +35,19 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
     startCooldown();
   });
 
-  const { checkEmailVerified } = useCheckEmailVerifiedMutation(() => {
-    setEmailState('verified');
-  });
+  const { checkEmailVerified } = useCheckEmailVerifiedMutation(
+    () => setEmailState('idle'),
+    () => setError('email', { message: VALIDATION_MESSAGE.EMAIL_NOT_VERIFIED_ERROR }),
+  );
 
-  const handleClick = () => {
+  const handleClick = async () => {
     const email = getValues('email');
 
-    if (emailState === 'idle') {
-      setEmailState('editing');
-    } else if (emailState === 'editing') {
+    if (emailState === 'idle') return setEmailState('editing');
+
+    if (!(await trigger('email'))) return;
+
+    if (emailState === 'editing') {
       sendEmail({ email });
     } else if (emailState === 'waiting' && !isCooldown) {
       checkEmailVerified({ email });
@@ -49,7 +56,7 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
 
   const getLabel = () => {
     if (emailState === 'editing') return '인증하기';
-    if (emailState === 'waiting') return '인증 완료';
+    if (emailState === 'waiting') return '인증완료';
     return '변경하기';
   };
 
@@ -61,7 +68,7 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
         required
         disabled={emailState === 'idle'}
         {...register('email', {
-          required: 'normal: 이메일은 필수입니다.',
+          required: VALIDATION_MESSAGE.EMAIL_EMPTY_FILED_ERROR,
           validate: validateEmail,
         })}
         error={errors.email?.message}
