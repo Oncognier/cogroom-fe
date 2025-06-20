@@ -1,9 +1,9 @@
-import { UseFormSetError } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UseFormSetError } from 'react-hook-form';
 
 import { memberApi } from '@/api/memberApis';
-import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
 import { SettingFormFields } from '@/app/(shared)/(standard)/mypage/setting/page';
+import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
 import { setValidationError } from '@/utils/validators/setValidationError';
 
 export const useEditUserInfoMutation = (setError?: UseFormSetError<SettingFormFields>) => {

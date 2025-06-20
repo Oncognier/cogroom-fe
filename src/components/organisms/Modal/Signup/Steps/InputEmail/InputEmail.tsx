@@ -4,11 +4,11 @@ import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Input from '@/components/molecules/Input/Input';
+import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { validateEmail } from '@/utils/validators/userValidators';
 
 import * as S from './InputEmail.styled';
-import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 
 export interface InputEmailProps {
   email: string;
