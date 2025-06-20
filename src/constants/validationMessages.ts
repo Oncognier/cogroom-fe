@@ -30,4 +30,4 @@ export const VALIDATION_FIELD_MAP: Partial<Record<ValidationErrorKey, string>> =
   NICKNAME_TOO_LONG_ERROR: 'nickname',
   NICKNAME_DUPLICATE_ERROR: 'nickname',
   NICKNAME_EMPTY_FILED_ERROR: 'nickname',
-};
+} as const;
