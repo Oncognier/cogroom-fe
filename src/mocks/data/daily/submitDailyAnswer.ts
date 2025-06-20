@@ -5,11 +5,11 @@ export const submitDailyAnswerSuccess = {
 };
 
 export const submitDailyAnswerError_EmptyField = {
-  code: 'EMTPY_FILED',
+  code: 'EMPTY_FILED_ERROR',
   message: '요청 값이 비어있습니다.',
 };
 
 export const submitDailyAnswerError_LengthExceeded = {
-  code: 'ANSWER_LENGTH_EXCEEDED',
+  code: 'ANSWER_LENGTH_EXCEEDED_ERROR',
   message: '답변은 100자 이하여야 합니다.',
 };
