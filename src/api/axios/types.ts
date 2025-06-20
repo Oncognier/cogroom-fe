@@ -1,4 +1,4 @@
 export interface ErrorResponseData {
-  code?: number;
+  code: string;
   message: string;
 }

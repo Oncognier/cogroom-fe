@@ -1,23 +1,27 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
-import { checkAndSetToken, handleAPIError, handleTokenError } from '@/api/axios/interceptors';
+import { cookiesInterceptor, checkAndSetToken } from './requestInterceptors';
+import { handleTokenError, handleAPIError } from './responseInterceptors';
+import { ErrorResponseData } from './types';
 
 export const axiosInstance = axios.create({
-  // 기본 URL 설정
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
-
-  // 요청 제한 시간: 10초
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
   timeout: 10000,
-
-  // 쿠키 설정
   withCredentials: true,
-
-  // 로그인 여부
   useAuth: true,
 });
 
-axiosInstance.interceptors.request.use(checkAndSetToken, handleAPIError);
+axiosInstance.interceptors.request.use(cookiesInterceptor);
+axiosInstance.interceptors.request.use(checkAndSetToken);
 
-axiosInstance.interceptors.response.use((response) => response, handleTokenError);
-
-axiosInstance.interceptors.response.use((response) => response, handleAPIError);
+axiosInstance.interceptors.response.use(
+  (res) => res,
+  async (error) => {
+    try {
+      return await handleTokenError(error);
+    } catch (error) {
+      handleAPIError(error as AxiosError<ErrorResponseData>);
+      throw error;
+    }
+  },
+);
