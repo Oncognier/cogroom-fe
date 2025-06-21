@@ -3,15 +3,24 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
+  position: fixed;
+  bottom: 3.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+
   max-width: 1100px;
+  width: 100%;
   margin: 0 auto;
   padding: ${({ theme }) => theme.spacing[40]} 2rem 0;
+
+  z-index: 99;
 `;
 
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: ${({ theme }) => theme.spacing[4]};
 
   padding: 0 7rem;
   width: 100%;
