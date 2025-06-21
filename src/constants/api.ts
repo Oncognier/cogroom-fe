@@ -52,7 +52,7 @@ export const END_POINTS_V1 = {
     NOTICES: BASE_PATH_V1.NOTICES,
   },
   FILE: {
-    PRESIGNED_URL: `${BASE_PATH_V1.FILE}/presigned-url/upload`,
+    PRESIGNED_URL: `${BASE_PATH_V1.FILE}/preSigned-url/upload`,
   },
   STREAKS: {
     CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
