@@ -11,7 +11,7 @@ import * as S from './SettingProfile.styled';
 
 interface SettingProfileProps {
   imageUrl?: string;
-  onUploadComplete: (url: string) => void;
+  onUploadComplete: (urls: string[]) => void;
 }
 
 export default function SettingProfile({ imageUrl, onUploadComplete }: SettingProfileProps) {
@@ -29,7 +29,7 @@ export default function SettingProfile({ imageUrl, onUploadComplete }: SettingPr
     const file = e.target.files?.[0];
     if (!file) return;
 
-    uploadToS3({ file });
+    uploadToS3({ files: [file] });
   };
 
   return (

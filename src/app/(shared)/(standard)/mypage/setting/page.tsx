@@ -69,7 +69,10 @@ export default function Setting() {
       <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
         <SettingProfile
           imageUrl={data?.imageUrl}
-          onUploadComplete={(url) => setValue('imageUrl', url, { shouldValidate: true })}
+          onUploadComplete={(urls) => {
+            const url = urls[0];
+            setValue('imageUrl', url, { shouldValidate: true });
+          }}
         />
 
         <Input

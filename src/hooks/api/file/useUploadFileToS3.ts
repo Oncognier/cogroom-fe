@@ -3,22 +3,32 @@ import { useMutation } from '@tanstack/react-query';
 import { fileApi } from '@/api/fileApis';
 
 interface UseUploadFileToS3Props {
-  onSuccess?: (uploadedUrl: string) => void;
+  onSuccess?: (accessUrls: string[]) => void;
 }
 
 export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props = {}) => {
   const mutation = useMutation({
-    mutationFn: async ({ file }: { file: File }) => {
-      const { name: fileName, type: fileType } = file;
+    mutationFn: async ({ files }: { files: File[] }) => {
+      const fileSet = files.reduce<Record<string, string>>((acc, file) => {
+        acc[file.name] = file.type;
+        return acc;
+      }, {});
 
-      const presignedUrl = await fileApi.getPresignedUrl({ fileName, fileType });
+      const presignedItems = await fileApi.getPresignedUrl({ fileSet });
 
-      const uploadedUrl = await fileApi.uploadToS3({ presignedUrl, file });
+      await Promise.all(
+        presignedItems.map((item, index) =>
+          fileApi.uploadToS3({
+            presignedUrl: item.presignedUrl,
+            file: files[index],
+          }),
+        ),
+      );
 
-      return uploadedUrl;
+      return presignedItems.map((item) => item.accessUrl);
     },
-    onSuccess: (uploadedUrl) => {
-      onSuccess?.(uploadedUrl);
+    onSuccess: (accessUrls) => {
+      onSuccess?.(accessUrls);
     },
     onError: () => {
       alert('파일 업로드에 실패했습니다. 다시 시도해주세요.');

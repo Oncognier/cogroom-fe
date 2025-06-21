@@ -15,12 +15,12 @@ export const fileHandlers = [
       });
     }
 
-    return new HttpResponse(JSON.stringify(getPresignedUrlSuccess(fileName)), {
+    return new HttpResponse(JSON.stringify(getPresignedUrlSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
-  http.put('https://mock-bucket.s3.amazonaws.com/:fileName', async () => {
+  http.put('https://s3...', async () => {
     return new HttpResponse(null, {
       status: HTTP_STATUS_CODE.OK,
     });

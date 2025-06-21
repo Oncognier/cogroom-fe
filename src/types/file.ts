@@ -1,12 +1,16 @@
 import { ApiResponse } from './api';
 
 export interface GetPresignedUrlRequest {
-  fileName: string;
-  fileType: string;
+  fileSet: Record<string, string>; // { [fileName]: contentType }
 }
 
-export interface GetPresignedUrlResponse extends ApiResponse {
-  result: string;
+export interface PresignedUrlItem {
+  presignedUrl: string;
+  accessUrl: string;
+}
+
+export interface PresignedUrlResponse extends ApiResponse {
+  result: PresignedUrlItem[];
 }
 
 export interface UploadToS3Request {
