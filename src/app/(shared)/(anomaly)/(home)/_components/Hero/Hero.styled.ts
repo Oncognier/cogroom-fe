@@ -52,26 +52,28 @@ export const Title = styled.p`
 
 export const ButtonWrapper = styled.button`
   position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 1.1rem 2.3rem;
 
+  padding: 1.1rem 2.3rem;
   border-radius: ${({ theme }) => theme.radius[12]};
   border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
   background-color: ${({ theme }) => theme.semantic.static.white};
   color: ${({ theme }) => theme.semantic.label.normal};
-  transition: padding 0.3s ease;
-
   ${({ theme }) => theme.typography.body2.semibold};
 
-  &:hover {
-    padding-right: 36px;
-  }
+  transition: all 0.3s ease;
 
-  &:hover .icon {
-    opacity: 1;
+  &:hover {
+    padding-right: 3.6rem;
+
+    & > div {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   &:focus {
@@ -88,13 +90,13 @@ export const ButtonWrapper = styled.button`
 
 export const Icon = styled.div`
   position: absolute;
-  right: 10%;
+  right: 1.6rem;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
+  transform: translateX(5px);
   transition: all 0.3s ease;
-
   & > svg {
     width: 1.2em;
     height: 1.2em;
