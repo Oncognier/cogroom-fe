@@ -1,7 +1,7 @@
 import { DEFAULT_HERO_WAVY } from '@/constants/image';
 
-import HeroButton from './HeroButton';
 import * as S from './Hero.styled';
+import HeroButton from './HeroButton';
 
 export default function Hero() {
   return (
