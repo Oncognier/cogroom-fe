@@ -1,28 +1,47 @@
-import type { CheckState } from '@/types/check';
-
 import * as S from './Check.styled';
 import type { CheckboxStyleProps } from './Check.styled';
+import Check from '@/assets/icons/check-bold.svg';
 
 interface CheckboxProps extends CheckboxStyleProps {
-  onToggle: (nextState: CheckState) => void;
+  onToggle: (checked: boolean) => void;
+  required?: boolean;
+  name?: string;
 }
 
-export default function Checkbox({ size, disabled, state, interactionVariant, onToggle }: CheckboxProps) {
+export default function Checkbox({
+  size,
+  isDisabled,
+  isChecked,
+  onToggle,
+  required = false,
+  name,
+  interactionVariant,
+}: CheckboxProps) {
   const handleClick = () => {
-    if (disabled) return;
-    const nextState: CheckState = state === 'checked' ? 'unchecked' : 'checked';
-    onToggle(nextState);
+    if (!isDisabled) {
+      onToggle(!isChecked);
+    }
   };
 
   return (
     <S.CheckboxWrapper
       size={size}
-      disabled={disabled}
+      isDisabled={isDisabled}
+      isChecked={isChecked}
       interactionVariant={interactionVariant}
-      state={state}
       onClick={handleClick}
     >
-      <S.CheckIcon size={size} />
+      <S.HiddenCheckbox
+        type='checkbox'
+        checked={isChecked}
+        required={required}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToggle(e.target.checked)}
+        disabled={isDisabled}
+        name={name}
+      />
+      <S.Icon size={size}>
+        <Check />
+      </S.Icon>
     </S.CheckboxWrapper>
   );
 }

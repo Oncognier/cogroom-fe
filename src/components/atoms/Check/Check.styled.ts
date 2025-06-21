@@ -3,15 +3,15 @@
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import Check from '@/assets/icons/check-bold.svg';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
-import type { CheckState, CheckSize } from '@/types/check';
+
+type CheckSize = 'sm' | 'md';
 
 export interface CheckboxStyleProps {
   size: CheckSize;
-  disabled?: boolean;
+  isDisabled?: boolean;
+  isChecked?: boolean;
   interactionVariant: InteractionVariant;
-  state: CheckState;
 }
 
 const sizeStyles: Record<CheckSize, SerializedStyles> = {
@@ -35,24 +35,30 @@ export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
   ${({ size }) => sizeStyles[size]};
   border-radius: 100rem;
 
-  ${({ theme, interactionVariant, disabled }) =>
-    getInteraction(interactionVariant, theme.semantic.label.normal, disabled)(theme)};
+  ${({ theme, interactionVariant, isDisabled }) =>
+    getInteraction(interactionVariant, theme.semantic.label.normal, isDisabled)(theme)};
 
-  color: ${({ theme, state }) =>
-    state === 'checked' ? theme.semantic.primary.normal : theme.semantic.label.assistive};
-  &:hover {
-    cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  }
+  color: ${({ theme, isChecked }) => (isChecked ? theme.semantic.primary.normal : theme.semantic.label.assistive)};
+  opacity: ${({ isDisabled }) => (isDisabled ? 0.4 : 1)};
+
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
 
   &:focus {
     outline: none;
   }
+`;
 
-  &:disabled {
-    cursor: default;
-    opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
-    pointer-events: none;
-  }
+export const HiddenCheckbox = styled.input`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
 `;
 
 const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
@@ -66,6 +72,6 @@ const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
   `,
 };
 
-export const CheckIcon = styled(Check)<CheckboxStyleProps>`
-  ${({ size }) => iconSizeStyles[size as keyof typeof iconSizeStyles]};
+export const Icon = styled.div<Pick<CheckboxStyleProps, 'size'>>`
+  ${({ size }) => iconSizeStyles[size]};
 `;

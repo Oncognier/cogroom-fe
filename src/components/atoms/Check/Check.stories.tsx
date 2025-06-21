@@ -1,8 +1,6 @@
-import { action } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { useEffect, useState } from 'react';
-
-import type { CheckState } from '@/types/check';
 
 import Check from './Check';
 
@@ -15,18 +13,24 @@ const meta = {
       control: 'radio',
       options: ['sm', 'md'],
     },
-    disabled: {
+    isDisabled: {
       control: 'boolean',
       description: '체크박스 비활성화 여부',
-      defaultValue: false,
     },
-    state: {
-      control: 'radio',
-      options: ['checked', 'unchecked'],
+    isChecked: {
+      control: 'boolean',
     },
     interactionVariant: {
       control: 'radio',
       options: ['normal', 'light', 'strong'],
+    },
+    name: {
+      control: 'text',
+      defaultValue: 'check-default',
+    },
+    required: {
+      control: 'boolean',
+      defaultValue: false,
     },
     onToggle: { action: 'toggled' },
   },
@@ -38,27 +42,29 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: 'md',
-    state: 'unchecked',
-    disabled: false,
+    isChecked: false,
+    isDisabled: false,
     interactionVariant: 'normal',
+    required: false,
     onToggle: action('toggled'),
+    name: 'check-default',
   },
   render: (args) => {
-    const [checked, setChecked] = useState<CheckState>(args.state);
+    const [checked, setChecked] = useState(args.isChecked);
 
     useEffect(() => {
-      setChecked(args.state);
-    }, [args.state]);
+      setChecked(args.isChecked);
+    }, [args.isChecked]);
 
-    const handleToggle = (next: CheckState) => {
-      setChecked(next);
-      action('toggled')(next);
+    const handleToggle = (value: boolean) => {
+      action('toggled')(value);
+      setChecked(value);
     };
 
     return (
       <Check
         {...args}
-        state={checked}
+        isChecked={checked}
         onToggle={handleToggle}
       />
     );
