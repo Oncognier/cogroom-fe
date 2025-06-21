@@ -1,20 +1,21 @@
 'use client';
 
-import { css, SerializedStyles } from '@emotion/react';
+import { css, Theme, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
-
-import Check from '@/assets/icons/check-bold.svg';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
-import type { CheckState, CheckSize } from '@/types/check';
+
+type CheckboxSize = 'sm' | 'md';
+type CheckboxVariant = 'default' | 'round';
 
 export interface CheckboxStyleProps {
-  size: CheckSize;
-  disabled?: boolean;
+  variant?: CheckboxVariant;
+  size: CheckboxSize;
+  isDisabled?: boolean;
+  isChecked?: boolean;
   interactionVariant: InteractionVariant;
-  state: CheckState;
 }
 
-const sizeStyles: Record<CheckSize, SerializedStyles> = {
+const sizeStyles: Record<CheckboxSize, SerializedStyles> = {
   md: css`
     width: 1.8rem;
     height: 1.8rem;
@@ -34,31 +35,36 @@ export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
 
   ${({ size }) => sizeStyles[size]};
 
-  border-radius: 0.3rem;
-  border: ${({ theme, state }) =>
-    state === 'unchecked' ? `0.15rem solid ${theme.semantic.line.normal}` : 'transparent'};
+  border-radius: ${({ variant }) => (variant === 'round' ? '100rem' : '0.3rem')};
+  border: ${({ theme, isChecked }) => (isChecked ? 'transparent' : `0.15rem solid ${theme.semantic.line.normal}`)};
 
-  background-color: ${({ theme, state }) => (state === 'checked' ? theme.semantic.primary.normal : 'transparent')};
+  background-color: ${({ theme, isChecked }) => (isChecked ? theme.semantic.primary.normal : 'transparent')};
 
-  ${({ theme, interactionVariant, disabled }) =>
-    getInteraction(interactionVariant, theme.semantic.label.normal, disabled)(theme)};
+  ${({ theme, interactionVariant, isDisabled }) =>
+    getInteraction(interactionVariant, theme.semantic.label.normal, isDisabled)(theme)};
 
-  &:hover {
-    cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  }
+  opacity: ${({ isDisabled }) => (isDisabled ? 0.4 : 1)};
+  cursor: ${({ isDisabled }) => (isDisabled ? 'default' : 'pointer')};
 
   &:focus {
     outline: none;
   }
-
-  &:disabled {
-    cursor: default;
-    opacity: ${({ disabled }) => (disabled ? 0.4 : 1)};
-    pointer-events: none;
-  }
 `;
 
-const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
+export const HiddenCheckbox = styled.input`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+`;
+
+const iconSizeStyles: Record<CheckboxSize, SerializedStyles> = {
   md: css`
     width: 1.5rem;
     height: 1.5rem;
@@ -69,7 +75,7 @@ const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
   `,
 };
 
-export const CheckIcon = styled(Check)<CheckboxStyleProps>`
-  ${({ size }) => iconSizeStyles[size as keyof typeof iconSizeStyles]};
+export const Icon = styled.div<CheckboxStyleProps>`
+  ${({ size }) => iconSizeStyles[size]};
   color: ${({ theme }) => theme.semantic.static.white};
 `;
