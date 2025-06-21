@@ -1,7 +1,6 @@
 'use client';
 
 import styled from '@emotion/styled';
-import Image from 'next/image';
 
 export const Wrapper = styled.div`
   max-width: 1100px;
@@ -28,7 +27,6 @@ export const Card = styled.div`
     transform 0.3s ease,
     z-index 0.3s ease;
   position: relative;
-  z-index: 1;
 
   &:hover {
     transform: scale(1.07);
