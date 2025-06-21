@@ -25,6 +25,10 @@ export interface CheckEmailVerifiedRequest {
   email: string;
 }
 
+export interface CheckEmailVerifiedResponse extends ApiResponse {
+  result: boolean;
+}
+
 export interface SignupRequest {
   provider: string;
   providerId: string;

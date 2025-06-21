@@ -1,24 +1,21 @@
 import { useMutation } from '@tanstack/react-query';
-import { useFormContext } from 'react-hook-form';
+import { UseFormSetError } from 'react-hook-form';
 
 import { authApi } from '@/api/authApis';
-import { HTTPError } from '@/api/axios/errors/HTTPError';
+import { setValidationError } from '@/utils/validators/setValidationError';
 
-export const useSendEmailMutation = (onSuccess?: () => void) => {
-  const { setError } = useFormContext<{ email: string }>();
+interface FormFields {
+  email: string;
+}
 
+export const useSendEmailMutation = (onSuccess?: () => void, setError?: UseFormSetError<FormFields>) => {
   const mutation = useMutation({
     mutationFn: authApi.sendEmail,
     onSuccess: () => {
       onSuccess?.();
     },
     onError: (error) => {
-      if (error instanceof HTTPError) {
-        setError('email', {
-          type: 'server',
-          message: 'error:' + error.message,
-        });
-      }
+      setValidationError(error, setError);
     },
   });
 

@@ -3,7 +3,14 @@ import type { AxiosResponse } from 'axios';
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 
-import { LoginRequest, LoginResponse, SendEmailRequest, CheckEmailVerifiedRequest, SignupRequest } from '../types/auth';
+import {
+  LoginRequest,
+  LoginResponse,
+  SendEmailRequest,
+  CheckEmailVerifiedRequest,
+  SignupRequest,
+  CheckEmailVerifiedResponse,
+} from '../types/auth';
 import { axiosInstance } from './axios/axiosInstance';
 
 const login = async ({ code, provider }: LoginRequest) => {
@@ -33,13 +40,13 @@ const sendEmail = async ({ email }: SendEmailRequest) => {
 };
 
 const checkEmailVerified = async ({ email }: CheckEmailVerifiedRequest) => {
-  const { data } = await axiosInstance.post<CheckEmailVerifiedRequest, AxiosResponse<ApiResponse>>(
+  const { data } = await axiosInstance.post<CheckEmailVerifiedRequest, AxiosResponse<CheckEmailVerifiedResponse>>(
     END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFIED,
     { email },
     { useAuth: false },
   );
 
-  return data;
+  return data.result;
 };
 
 const logout = async () => {

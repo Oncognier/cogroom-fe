@@ -2,8 +2,6 @@
 
 import { forwardRef, useEffect, useRef, ComponentProps } from 'react';
 
-import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMessage';
-import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
 
 import * as S from './Textarea.styled';
@@ -17,20 +15,14 @@ interface TextareaProps extends ComponentProps<'textarea'>, TextareaStyleProps {
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, textareaSize, required, isDisabled, error, width, minHeight, autoResize, ...props }, ref) => {
-    const hasError = !!error;
-    const [errorType, errorContent] = error?.split(':') ?? [];
-
-    const isNormalError = errorType === 'normal';
-    const isStatusError =
-      errorType === 'error' || errorType === 'warning' || errorType === 'success' || errorType === 'disable';
-
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+    const hasError = !!error;
 
     useEffect(() => {
       if (autoResize && textareaRef.current) {
         const el = textareaRef.current;
-        el.style.height = 'auto'; // reset height
-        el.style.height = `${el.scrollHeight}px`; // set new height
+        el.style.height = 'auto';
+        el.style.height = `${el.scrollHeight}px`;
       }
     }, [props.value, autoResize]);
 
@@ -59,14 +51,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           {...props}
         />
 
-        {isNormalError && <S.Error>{errorContent}</S.Error>}
-
-        {isStatusError && (
-          <FormStatusMessage
-            status={errorType as FormStatusMessageStatus}
-            label={errorContent}
-          />
-        )}
+        {hasError && <S.Error>{error}</S.Error>}
       </S.Container>
     );
   },
