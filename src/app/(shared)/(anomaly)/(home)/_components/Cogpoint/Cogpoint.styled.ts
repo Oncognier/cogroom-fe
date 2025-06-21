@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
 export const CardList = styled.section`
   display: flex;
   justify-content: center;
+
   gap: ${({ theme }) => theme.spacing[16]};
 `;
 
@@ -20,6 +21,7 @@ export const Card = styled.div`
   flex-direction: column;
   align-items: center;
 
+  width: 30rem;
   border-radius: ${({ theme }) => theme.radius[12]};
   ${({ theme }) => theme.shadow.emphasize};
 
@@ -30,7 +32,6 @@ export const Card = styled.div`
 
   &:hover {
     transform: scale(1.07);
-    z-index: 10;
   }
 `;
 
@@ -57,9 +58,13 @@ export const Subtitle = styled.p`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.headline2.semibold}
   color: ${({ theme }) => theme.semantic.static.black};
+
+  white-space: pre-line;
 `;
 
 export const Content = styled.p`
   ${({ theme }) => theme.typography.label1.regular}
   color: ${({ theme }) => theme.semantic.label.alternative};
+
+  white-space: pre-line;
 `;

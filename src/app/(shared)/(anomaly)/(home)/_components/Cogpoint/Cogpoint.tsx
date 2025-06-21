@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { DEFAULT_COGPOINT_IMAGE1, DEFAULT_COGPOINT_IMAGE2, DEFAULT_COGPOINT_IMAGE3 } from '@/constants/image';
+import { COGPOINT_CARDS } from '@/constants/common';
 
 import * as S from './Cogpoint.styled';
 import Section from '../Section/Section';
@@ -13,7 +13,7 @@ export default function Cogpoint() {
     >
       <S.Wrapper>
         <S.CardList>
-          {cards.map((card, index) => (
+          {COGPOINT_CARDS.map((card, index) => (
             <S.Card key={`cogpoint-${index}`}>
               <Image
                 src={card.src}
@@ -33,53 +33,3 @@ export default function Cogpoint() {
     </Section>
   );
 }
-
-const cards = [
-  {
-    src: DEFAULT_COGPOINT_IMAGE1,
-    subtitle: 'for self growth',
-    title: (
-      <>
-        나보다 나를 더 잘 아는 <br />
-        자기이해 플랫폼
-      </>
-    ),
-    content: (
-      <>
-        무의식적으로 해온 생각과 나도 몰랐던 나의
-        <br />
-        마음들을 알아차려요
-      </>
-    ),
-  },
-  {
-    src: DEFAULT_COGPOINT_IMAGE2,
-    subtitle: 'scientific method',
-    title: (
-      <>
-        6가지 인지과학 분야로
-        <br />
-        체계적인 성장을
-      </>
-    ),
-    content: '단순한 학습이 아닌, 과학적 학문 기반으로',
-  },
-  {
-    src: DEFAULT_COGPOINT_IMAGE3,
-    subtitle: 'for self growth',
-    title: (
-      <>
-        나보다 나를 더 잘 아는
-        <br />
-        자기이해 플랫폼
-      </>
-    ),
-    content: (
-      <>
-        무의식적으로 해온 생각과 나도 몰랐던 나의
-        <br />
-        마음들을 알아차려요
-      </>
-    ),
-  },
-];

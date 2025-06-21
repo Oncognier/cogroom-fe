@@ -1,3 +1,5 @@
+import { DEFAULT_COGPOINT_IMAGE1, DEFAULT_COGPOINT_IMAGE2, DEFAULT_COGPOINT_IMAGE3 } from '@/constants/image';
+
 export const HEADER_NAV_ITEMS = [
   { label: '데일리', href: '/daily' },
   { label: '콘텐츠', href: '/content' },
@@ -30,3 +32,24 @@ export const SOCIAL_LINKS = {
 } as const;
 
 export const DEFAULT_DAILY_QUESTION = '내가 생각하는 ‘나’는 어떤 모습인가요?';
+
+export const COGPOINT_CARDS = [
+  {
+    src: DEFAULT_COGPOINT_IMAGE1,
+    subtitle: 'for self growth',
+    title: '나보다 나를 더 잘 아는\n자기이해 플랫폼',
+    content: '무의식적으로 해온 생각과 나도 몰랐던\n나의 마음들을 알아차려요',
+  },
+  {
+    src: DEFAULT_COGPOINT_IMAGE2,
+    subtitle: 'scientific method',
+    title: '6가지 인지과학 분야로\n체계적인 성장을',
+    content: '단순한 학습이 아닌, 과학적 학문 기반으로',
+  },
+  {
+    src: DEFAULT_COGPOINT_IMAGE3,
+    subtitle: 'for self growth',
+    title: '나보다 나를 더 잘 아는\n자기이해 플랫폼',
+    content: '무의식적으로 해온 생각과 나도 몰랐던 나의\n마음들을 알아차려요',
+  },
+];
