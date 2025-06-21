@@ -17,13 +17,13 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 8.5rem;
 
-  background-color: ${({ theme }) => theme.semantic.background.normal.alternative};
+  background-color: ${({ theme }) => theme.semantic.primary.normal};
   border-radius: ${({ theme }) => theme.radius[20]};
 `;
 
 export const TextWrapper = styled.div`
   ${({ theme }) => theme.typography.body1.semibold}
-  color: ${({ theme }) => theme.semantic.primary.normal};
+  color: ${({ theme }) => theme.semantic.static.white};
 `;
 
 export const ButtonWrapper = styled.button`
