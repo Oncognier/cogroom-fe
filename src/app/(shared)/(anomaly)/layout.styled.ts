@@ -2,6 +2,6 @@
 
 import styled from '@emotion/styled';
 
-export const AnomalyLayout = styled.div`
-  padding-bottom: 23.2rem;
+export const AnomalyLayout = styled.main`
+  padding-bottom: 12rem;
 `;

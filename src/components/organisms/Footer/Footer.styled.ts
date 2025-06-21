@@ -8,6 +8,7 @@ export const Footer = styled.footer`
 
   border-top: 1px solid ${({ theme }) => theme.semantic.line.normal};
   background-color: ${({ theme }) => theme.semantic.static.white};
+  padding-bottom: 16rem;
 `;
 
 export const FooterWrapper = styled.div`
