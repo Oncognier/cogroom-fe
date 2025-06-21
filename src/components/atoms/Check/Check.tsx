@@ -34,10 +34,10 @@ export default function Checkbox({
       <S.HiddenCheckbox
         type='checkbox'
         checked={isChecked}
-        required={required}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToggle(e.target.checked)}
         disabled={isDisabled}
         name={name}
+        required={required}
       />
       <S.Icon size={size}>
         <Check />
