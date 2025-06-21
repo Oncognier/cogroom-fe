@@ -1,7 +1,6 @@
-// 질문 및 스트릭 정보 조회 (답변 전 dailyDataNotAnswered, 답변 후 dailyDataAnswered)
-export const dailyDataNotAnswered = {
+export const getDailySuccess_NotAnswered = {
   code: 'SUCCESS',
-  message: '요청에 성공했습니다.',
+  message: '데일리 질문 조회(답변 전)에 성공했습니다.',
   result: {
     questionId: 4,
     assignedQuestionId: 4,
@@ -10,9 +9,9 @@ export const dailyDataNotAnswered = {
   },
 };
 
-export const dailyDataAnswered = {
+export const getDailySuccess_Answered = {
   code: 'SUCCESS',
-  message: '요청에 성공했습니다.',
+  message: '데일리 질문 조회(답변 후)에 성공했습니다.',
   result: {
     questionId: 14,
     assignedQuestionId: 14,

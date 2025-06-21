@@ -1,5 +1,5 @@
 export const getUserInfoSuccess = {
-  code: '1000',
+  code: 'SUCCESS',
   message: '사용자 정보 조회(Info)에 성공했습니다.',
   result: {
     email: 'cogroom@gmail.com',
@@ -9,9 +9,4 @@ export const getUserInfoSuccess = {
     phoneNumber: '010-4112-2133',
     description: '',
   },
-};
-
-export const getUserInfoError = {
-  code: '1001',
-  message: '사용자 정보 조회(Info)에 실패했습니다.',
 };

@@ -2,7 +2,7 @@ export const mockAccessToken = 'cogroomAccessToken';
 export const mockRefreshToken = 'cogroomRefreshToken';
 
 export const loginSuccess_NewUser = {
-  code: '1000',
+  code: 'SUCCESS',
   message: '로그인에 성공했습니다.',
   result: {
     socialUserInfo: {
@@ -16,7 +16,7 @@ export const loginSuccess_NewUser = {
 };
 
 export const loginSuccess_ExistingUser = {
-  code: '1000',
+  code: 'SUCCESS',
   message: '로그인에 성공했습니다.',
   result: {
     needSignup: false,
@@ -24,6 +24,6 @@ export const loginSuccess_ExistingUser = {
 };
 
 export const loginError = {
-  code: '1001',
+  code: 'EMPTY_FILED_ERROR',
   message: '로그인에 실패했습니다.',
 };
