@@ -1,7 +1,6 @@
-// 답변 수정
 export const editDailyAnswerSuccess = {
   code: 'SUCCESS',
-  message: '요청에 성공했습니다.',
+  message: '데일리 답변 수정에 성공했습니다.',
 };
 
 export const editDailyAnswerError_EmptyField = {

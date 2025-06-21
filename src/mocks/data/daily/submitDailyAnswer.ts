@@ -1,7 +1,6 @@
-// 답변 제출
 export const submitDailyAnswerSuccess = {
   code: 'SUCCESS',
-  message: '요청에 성공했습니다.',
+  message: '데일리 답변 제출에 성공했습니다.',
 };
 
 export const submitDailyAnswerError_EmptyField = {
