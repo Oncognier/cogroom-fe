@@ -2,8 +2,6 @@
 
 import styled from '@emotion/styled';
 
-export const Container = styled.div``;
-
 export const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,10 +12,10 @@ export const Header = styled.div`
 
 export const Title = styled.h2`
   ${({ theme }) => theme.typography.title2.bold}
+  color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
 export const Subtitle = styled.p`
   ${({ theme }) => theme.typography.body1.regular}
+  color: ${({ theme }) => theme.semantic.label.normal};
 `;
-
-export const Content = styled.div``;

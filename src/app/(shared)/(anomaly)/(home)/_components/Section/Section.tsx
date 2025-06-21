@@ -10,12 +10,12 @@ interface SectionProps {
 
 export default function Section({ title, subtitle, children }: SectionProps) {
   return (
-    <S.Container>
+    <>
       <S.Header>
         <S.Title>{title}</S.Title>
         <S.Subtitle>{subtitle}</S.Subtitle>
       </S.Header>
       {children}
-    </S.Container>
+    </>
   );
 }
