@@ -1,7 +1,8 @@
 'use client';
 
-import { css, Theme, SerializedStyles } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
+
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type CheckboxSize = 'sm' | 'md';

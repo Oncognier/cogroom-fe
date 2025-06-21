@@ -1,6 +1,7 @@
+import Check from '@/assets/icons/check-bold.svg';
+
 import * as S from './Checkbox.styled';
 import type { CheckboxStyleProps } from './Checkbox.styled';
-import Check from '@/assets/icons/check-bold.svg';
 
 interface CheckboxProps extends CheckboxStyleProps {
   onToggle: (checked: boolean) => void;
