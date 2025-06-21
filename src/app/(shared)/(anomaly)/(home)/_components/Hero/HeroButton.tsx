@@ -8,7 +8,7 @@ import { useModalStore } from '@/stores/useModalStore';
 
 import * as S from './Hero.styled';
 
-export default function HeroClient() {
+export default function HeroButton() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const { open } = useModalStore();
   const router = useRouter();

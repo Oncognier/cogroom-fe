@@ -1,6 +1,6 @@
 import { DEFAULT_HERO_WAVY } from '@/constants/image';
 
-import HeroClient from './Hero.client';
+import HeroButton from './HeroButton';
 import * as S from './Hero.styled';
 
 export default function Hero() {
@@ -19,7 +19,7 @@ export default function Hero() {
           <S.Title>모든이의 내적 성장을 돕습니다</S.Title>
         </S.TitleWrapper>
         <S.SubTitle>모두가 생각하고 성장하는 공간, 코그룸</S.SubTitle>
-        <HeroClient />
+        <HeroButton />
       </S.TextWrapper>
     </S.HeroWrapper>
   );
