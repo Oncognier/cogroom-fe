@@ -9,6 +9,7 @@ import Textarea from '@/components/molecules/Textarea/Textarea';
 import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useEditUserInfoMutation } from '@/hooks/api/member/useEditUserInfo';
 import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
+import { SettingFormFields } from '@/types/form';
 import { formatPhoneNumber } from '@/utils/formatAutoComplete';
 import { validateNickname, validatePhoneNumber } from '@/utils/validators/userValidators';
 
@@ -17,14 +18,6 @@ import SettingProfile from './_components/SettingProfile/SettingProfile';
 import * as S from './page.styled';
 
 export type EmailState = 'idle' | 'editing' | 'waiting';
-
-export interface SettingFormFields {
-  nickname: string;
-  email: string;
-  phoneNumber?: string;
-  description?: string;
-  imageUrl?: string;
-}
 
 const getDefaultValues = (data?: SettingFormFields): SettingFormFields => ({
   nickname: data?.nickname ?? '',
