@@ -17,8 +17,8 @@ const DAILY_QUERY_KEYS = {
 } as const;
 
 const STREAK_QUERY_KEYS = {
-  STREAK_DAYS: ['streak', 'days'],
   STREAK_CALENDAR: ['streak', 'calendar'],
+  STREAK_DAYS: ['streak', 'days'],
 } as const;
 
 const ADMIN_QUERY_KEYS = {
