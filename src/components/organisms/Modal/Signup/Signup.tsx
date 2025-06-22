@@ -7,6 +7,7 @@ import X from '@/assets/icons/x.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import { SIGNUP_STEP, SignupStep } from '@/constants/common';
 import { useModalStore } from '@/stores/useModalStore';
+import { SignupFormFields } from '@/types/form';
 
 import * as S from './Signup.styled';
 import { CheckEmail, InputEmail, VerifyEmail, Complete } from './Steps';
@@ -16,10 +17,6 @@ export interface SignupProps {
   providerId: string;
   email: string;
   nickname: string;
-}
-
-interface SignupFormFields {
-  email: string;
 }
 
 export default function Signup({ provider, providerId, email, nickname }: SignupProps) {

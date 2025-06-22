@@ -9,3 +9,7 @@ export const EmailForm = styled.div`
 
   width: 100%;
 `;
+
+export const ButtonWrapper = styled.div<{ isError?: boolean }>`
+  ${({ isError }) => isError && 'margin-bottom: 25px;'}
+`;

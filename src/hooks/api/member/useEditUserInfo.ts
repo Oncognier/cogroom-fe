@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { UseFormSetError } from 'react-hook-form';
 
 import { memberApi } from '@/api/memberApis';
 import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
+import { SettingFormFields } from '@/types/form';
+import { setValidationError } from '@/utils/validators/setValidationError';
 
-export const useEditUserInfoMutation = () => {
+export const useEditUserInfoMutation = (setError?: UseFormSetError<SettingFormFields>) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -11,8 +14,8 @@ export const useEditUserInfoMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY] });
     },
-    onError: () => {
-      alert('정보 수정에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    onError: (error) => {
+      setValidationError<SettingFormFields>(error, setError);
     },
   });
 

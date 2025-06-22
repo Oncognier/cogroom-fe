@@ -6,37 +6,32 @@ import { useForm, FormProvider } from 'react-hook-form';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
 import Textarea from '@/components/molecules/Textarea/Textarea';
+import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useEditUserInfoMutation } from '@/hooks/api/member/useEditUserInfo';
 import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
+import { SettingFormFields } from '@/types/form';
+import { formatPhoneNumber } from '@/utils/formatAutoComplete';
+import { validateNickname, validatePhoneNumber } from '@/utils/validators/userValidators';
 
 import EmailForm from './_components/EmailForm/EmailForm';
 import SettingProfile from './_components/SettingProfile/SettingProfile';
 import * as S from './page.styled';
 
-export type EmailState = 'idle' | 'editing' | 'waiting' | 'verified';
-
-interface SettingFormFields {
-  nickname: string;
-  email: string;
-  phoneNumber?: string;
-  description?: string;
-  imageUrl?: string;
-}
+export type EmailState = 'idle' | 'editing' | 'waiting';
 
 const getDefaultValues = (data?: SettingFormFields): SettingFormFields => ({
   nickname: data?.nickname ?? '',
   email: data?.email ?? '',
-  phoneNumber: data?.phoneNumber ?? '',
-  description: data?.description ?? '',
+  phoneNumber: data?.phoneNumber,
+  description: data?.description,
   imageUrl: data?.imageUrl,
 });
 
-const isEmailStateValid = (emailState: EmailState) => emailState === 'idle' || emailState === 'verified';
+const isEmailStateValid = (emailState: EmailState) => emailState === 'idle';
 
 export default function Setting() {
   const [emailState, setEmailState] = useState<EmailState>('idle');
   const { data, isLoading } = useGetUserInfo();
-  const { editUserInfo } = useEditUserInfoMutation();
 
   const methods = useForm<SettingFormFields>({
     mode: 'onChange',
@@ -49,8 +44,11 @@ export default function Setting() {
     handleSubmit,
     setValue,
     reset,
+    setError,
     formState: { errors, isValid },
   } = methods;
+
+  const { editUserInfo } = useEditUserInfoMutation(setError);
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -79,7 +77,10 @@ export default function Setting() {
           inputSize='md'
           label='닉네임'
           required
-          {...register('nickname', { required: '닉네임은 필수입니다.' })}
+          {...register('nickname', {
+            required: VALIDATION_MESSAGE.NICKNAME_EMPTY_FILED_ERROR,
+            validate: validateNickname,
+          })}
           error={errors.nickname?.message}
           width='34.5rem'
         />
@@ -92,7 +93,13 @@ export default function Setting() {
         <Input
           inputSize='md'
           label='전화번호'
-          {...register('phoneNumber')}
+          {...register('phoneNumber', {
+            validate: validatePhoneNumber,
+          })}
+          onBlur={(e) => {
+            const formatted = formatPhoneNumber(e.target.value);
+            setValue('phoneNumber', formatted, { shouldValidate: true });
+          }}
           error={errors.phoneNumber?.message}
           width='34.5rem'
         />

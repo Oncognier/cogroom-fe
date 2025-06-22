@@ -3,8 +3,6 @@
 import { forwardRef } from 'react';
 
 import XCircle from '@/assets/icons/xcircle-fill.svg';
-import FormStatusMessage from '@/components/atoms/FormStatusMessage/FormStatusMessage';
-import { FormStatusMessageStatus } from '@/components/atoms/FormStatusMessage/FormStatusMessage.styled';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
 
 import * as S from './Input.styled';
@@ -20,12 +18,6 @@ interface InputProps extends InputStyleProps {
 const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
   ({ label, inputSize, required, isDisabled, error, onClear, width, ...props }, ref) => {
     const hasError = !!error;
-
-    const [errorType, errorContent] = error?.split(':') ?? [];
-
-    const isNormalError = errorType === 'normal';
-    const isStatusError =
-      errorType === 'error' || errorType === 'warning' || errorType === 'success' || errorType === 'disable';
 
     return (
       <S.Container>
@@ -58,14 +50,7 @@ const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttribute
           )}
         </S.InputWrapper>
 
-        {isNormalError && <S.Error>{errorContent}</S.Error>}
-
-        {isStatusError && (
-          <FormStatusMessage
-            status={errorType as FormStatusMessageStatus}
-            label={errorContent}
-          />
-        )}
+        {hasError && <S.Error>{error}</S.Error>}
       </S.Container>
     );
   },
