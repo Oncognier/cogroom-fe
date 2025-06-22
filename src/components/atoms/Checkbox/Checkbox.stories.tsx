@@ -45,7 +45,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: 'md',
-    round : false,
+    round: false,
     isChecked: false,
     isDisabled: false,
     interactionVariant: 'normal',

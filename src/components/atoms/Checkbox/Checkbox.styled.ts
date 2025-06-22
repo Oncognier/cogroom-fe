@@ -8,7 +8,7 @@ import { getInteraction, InteractionVariant } from '@/styles/interaction';
 type CheckboxSize = 'sm' | 'md';
 
 export interface CheckboxStyleProps {
-  round?: boolean
+  round?: boolean;
   size: CheckboxSize;
   isDisabled?: boolean;
   isChecked?: boolean;
