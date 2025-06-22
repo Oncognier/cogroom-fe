@@ -1,8 +1,13 @@
 import { ApiResponse } from '@/types/api';
 
-export interface StreakDateListResponse extends ApiResponse {
+export interface StreakCalendarResponse extends ApiResponse {
   result: {
-    dailyStreak: number;
     streakDateList: string[];
+  };
+}
+
+export interface StreakDaysResponse extends ApiResponse {
+  result: {
+    streakDays: number;
   };
 }
