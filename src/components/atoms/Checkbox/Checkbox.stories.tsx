@@ -13,9 +13,8 @@ const meta = {
       control: 'radio',
       options: ['sm', 'md'],
     },
-    variant: {
-      control: 'radio',
-      options: ['default', 'round'],
+    round: {
+      control: 'boolean',
     },
     isDisabled: {
       control: 'boolean',
@@ -46,7 +45,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     size: 'md',
-    variant: 'default',
+    round : false,
     isChecked: false,
     isDisabled: false,
     interactionVariant: 'normal',
@@ -79,7 +78,7 @@ export const Default: Story = {
 export const Round: Story = {
   args: {
     size: 'md',
-    variant: 'round',
+    round: true,
     isChecked: false,
     isDisabled: false,
     interactionVariant: 'normal',

@@ -6,10 +6,9 @@ import styled from '@emotion/styled';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type CheckboxSize = 'sm' | 'md';
-type CheckboxVariant = 'default' | 'round';
 
 export interface CheckboxStyleProps {
-  variant?: CheckboxVariant;
+  round?: boolean
   size: CheckboxSize;
   isDisabled?: boolean;
   isChecked?: boolean;
@@ -36,7 +35,7 @@ export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
 
   ${({ size }) => sizeStyles[size]};
 
-  border-radius: ${({ variant }) => (variant === 'round' ? '100rem' : '0.3rem')};
+  border-radius: ${({ round }) => (round ? '50%' : '0.3rem')};
   border: ${({ theme, isChecked }) => (isChecked ? 'transparent' : `0.15rem solid ${theme.semantic.line.normal}`)};
 
   background-color: ${({ theme, isChecked }) => (isChecked ? theme.semantic.primary.normal : 'transparent')};

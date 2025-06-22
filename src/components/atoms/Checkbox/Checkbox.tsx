@@ -17,7 +17,7 @@ export default function Checkbox({
   onToggle,
   required = false,
   name,
-  variant = 'default',
+  round,
 }: CheckboxProps) {
   const handleClick = () => {
     if (!isDisabled) {
@@ -32,7 +32,7 @@ export default function Checkbox({
       isChecked={isChecked}
       interactionVariant={interactionVariant}
       onClick={handleClick}
-      variant={variant}
+      round={round}
     >
       <S.HiddenCheckbox
         type='checkbox'
