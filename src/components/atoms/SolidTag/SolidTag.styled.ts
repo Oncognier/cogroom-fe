@@ -40,7 +40,7 @@ const colorStyles: Record<SolidTagColor, (theme: Theme) => SerializedStyles> = {
   `,
 };
 
-export const Container = styled.span<SolidTagStyleProps>`
+export const SolidTag = styled.span<SolidTagStyleProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;

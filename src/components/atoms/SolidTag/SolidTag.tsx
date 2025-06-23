@@ -8,5 +8,5 @@ interface SolidTagProps extends SolidTagStyleProps {
 }
 
 export default function SolidTag({ label, color }: SolidTagProps) {
-  return <S.Container color={color}>{label}</S.Container>;
+  return <S.SolidTag color={color}>{label}</S.SolidTag>;
 }

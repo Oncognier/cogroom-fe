@@ -40,7 +40,7 @@ const colorStyles: Record<OutlinedTagColor, (theme: Theme) => SerializedStyles> 
   `,
 };
 
-export const Container = styled.span<OutlinedTagStyleProps>`
+export const OutlinedTag = styled.span<OutlinedTagStyleProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;

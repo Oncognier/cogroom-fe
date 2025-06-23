@@ -8,5 +8,5 @@ interface OutlinedTagProps extends OutlinedTagStyleProps {
 }
 
 export default function OutlinedTag({ label, color }: OutlinedTagProps) {
-  return <S.Container color={color}>{label}</S.Container>;
+  return <S.OutlinedTag color={color}>{label}</S.OutlinedTag>;
 }
