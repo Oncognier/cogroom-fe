@@ -7,6 +7,7 @@ import ChevronRightDouble from '@/assets/icons/chevronrightdouble.svg';
 
 import * as S from './NumberPagination.styled';
 import { getPaginationRange } from '@/utils/pagination';
+import { PAGINATION_VISIBLE_RANGE } from '@/constants/common';
 
 export interface NumberPaginationProps {
   currentPage: number;
@@ -21,24 +22,22 @@ export default function NumberPagination({
   onPageChange,
   size = 'md',
 }: NumberPaginationProps) {
-  const visibleRange = 5;
-
   const { currentGroup, pageNumbers, hasPrevGroup, hasNextGroup } = getPaginationRange(
     currentPage,
     totalPages,
-    visibleRange,
+    PAGINATION_VISIBLE_RANGE,
   );
 
   const goToPrevGroup = () => {
-    const prevStart = Math.max((currentGroup - 1) * visibleRange + 1, 1);
+    const prevStart = Math.max((currentGroup - 1) * PAGINATION_VISIBLE_RANGE + 1, 1);
     onPageChange(prevStart);
   };
 
   const goToNextGroup = () => {
-    let nextStart = (currentGroup + 1) * visibleRange + 1;
+    let nextStart = (currentGroup + 1) * PAGINATION_VISIBLE_RANGE + 1;
 
     if (nextStart > totalPages) {
-      nextStart = Math.max(totalPages - visibleRange + 1, 1);
+      nextStart = Math.max(totalPages - PAGINATION_VISIBLE_RANGE + 1, 1);
     }
 
     onPageChange(nextStart);
