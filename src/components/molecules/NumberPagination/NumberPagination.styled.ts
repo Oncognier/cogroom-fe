@@ -1,8 +1,9 @@
 'use client';
 
-import { getInteraction } from '@/styles/interaction';
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+
+import { getInteraction } from '@/styles/interaction';
 
 export type PageButtonSize = 'sm' | 'md';
 

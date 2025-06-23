@@ -4,10 +4,10 @@ import ChevronLeft from '@/assets/icons/chevronleft.svg';
 import ChevronLeftDouble from '@/assets/icons/chevronleftdouble.svg';
 import ChevronRight from '@/assets/icons/chevronright.svg';
 import ChevronRightDouble from '@/assets/icons/chevronrightdouble.svg';
+import { PAGINATION_VISIBLE_RANGE } from '@/constants/common';
+import { getPaginationRange } from '@/utils/pagination';
 
 import * as S from './NumberPagination.styled';
-import { getPaginationRange } from '@/utils/pagination';
-import { PAGINATION_VISIBLE_RANGE } from '@/constants/common';
 
 export interface NumberPaginationProps {
   currentPage: number;
