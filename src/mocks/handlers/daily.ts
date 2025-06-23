@@ -14,12 +14,20 @@ import {
   submitDailyAnswerError_EmptyField,
   submitDailyAnswerError_LengthExceeded,
 } from '../data/daily/submitDailyAnswer';
+import { getDailyHasAnswered_NotAnswered, getDailyHasAnswered_Answered } from '../data/daily/getDailyHasAnswered';
 
 export const dailyHandlers = [
   // 질문 및 스트릭 정보 조회
   http.get(END_POINTS_V1.DAILY.QUESTIONS, async () => {
     // 답변 후 dailyDataAnswered, 답변 전 dailyDataNotAnswered
     return new HttpResponse(JSON.stringify(getDailySuccess_NotAnswered), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 답변 여부 조회 (답변 전)
+  http.get(END_POINTS_V1.DAILY.HAS_ANSWERED, async () => {
+    return new HttpResponse(JSON.stringify(getDailyHasAnswered_Answered), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
