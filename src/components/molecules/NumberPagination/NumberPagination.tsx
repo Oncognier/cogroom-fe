@@ -8,20 +8,15 @@ import { PAGINATION_VISIBLE_RANGE } from '@/constants/common';
 import { getPaginationRange } from '@/utils/pagination';
 
 import * as S from './NumberPagination.styled';
+import type { NumberPaginationStyleProps } from './NumberPagination.styled';
 
-export interface NumberPaginationProps {
+export interface NumberPaginationProps extends NumberPaginationStyleProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-  size?: 'sm' | 'md';
 }
 
-export default function NumberPagination({
-  currentPage,
-  totalPages,
-  onPageChange,
-  size = 'md',
-}: NumberPaginationProps) {
+export default function NumberPagination({ currentPage, totalPages, onPageChange, size }: NumberPaginationProps) {
   const { currentGroup, pageNumbers, hasPrevGroup, hasNextGroup } = getPaginationRange(
     currentPage,
     totalPages,

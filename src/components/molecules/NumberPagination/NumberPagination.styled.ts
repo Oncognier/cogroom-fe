@@ -5,14 +5,14 @@ import styled from '@emotion/styled';
 
 import { getInteraction } from '@/styles/interaction';
 
-export type PageButtonSize = 'sm' | 'md';
+export type NumberPaginationSize = 'sm' | 'md';
 
-export interface PageButtonStyleProps {
-  size: PageButtonSize;
+export interface NumberPaginationStyleProps {
+  size: NumberPaginationSize;
   isActive?: boolean;
 }
 
-const pageButtonSizeStyles: Record<PageButtonSize, (theme: Theme) => SerializedStyles> = {
+const pageButtonSizeStyles: Record<NumberPaginationSize, (theme: Theme) => SerializedStyles> = {
   sm: (theme) => css`
     ${theme.typography.label2.medium};
     padding: 0 0.6rem;
@@ -23,7 +23,7 @@ const pageButtonSizeStyles: Record<PageButtonSize, (theme: Theme) => SerializedS
   `,
 };
 
-const iconButtonSizeStyles: Record<PageButtonSize, SerializedStyles> = {
+const iconButtonSizeStyles: Record<NumberPaginationSize, SerializedStyles> = {
   sm: css`
     width: 2rem;
     height: 2rem;
@@ -42,7 +42,7 @@ export const Container = styled.div`
   gap: 0.4rem;
 `;
 
-export const IconButton = styled.button<PageButtonStyleProps>`
+export const IconButton = styled.button<NumberPaginationStyleProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,10 +52,6 @@ export const IconButton = styled.button<PageButtonStyleProps>`
   ${({ size }) => iconButtonSizeStyles[size]};
   color: ${({ theme }) => theme.semantic.label.assistive};
   ${({ theme, disabled }) => getInteraction('normal', theme.semantic.label.alternative, disabled)(theme)};
-
-  &:hover {
-    cursor: pointer;
-  }
 
   &:focus {
     outline: none;
@@ -67,7 +63,7 @@ export const IconButton = styled.button<PageButtonStyleProps>`
   }
 `;
 
-export const PageButton = styled.button<PageButtonStyleProps>`
+export const PageButton = styled.button<NumberPaginationStyleProps>`
   ${({ theme, size }) => pageButtonSizeStyles[size](theme)};
   color: ${({ theme, isActive }) => (isActive ? theme.semantic.primary.normal : theme.semantic.label.normal)};
 `;
