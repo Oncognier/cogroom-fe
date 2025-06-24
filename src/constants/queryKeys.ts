@@ -19,4 +19,9 @@ const STREAK_QUERY_KEYS = {
   STREAK_DAYS: 'streak_days',
 } as const;
 
-export { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS, DAILY_QUERY_KEYS, STREAK_QUERY_KEYS };
+const ADMIN_QUERY_KEYS = {
+  ADMIN: ['admin'],
+  ADMIN_MEMBER_LIST: ['admin', 'member_list'],
+} as const;
+
+export { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS, DAILY_QUERY_KEYS, STREAK_QUERY_KEYS, ADMIN_QUERY_KEYS };
