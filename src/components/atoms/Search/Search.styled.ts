@@ -15,9 +15,19 @@ export interface SearchStyleProps {
 const sizeStyles: Record<SearchSize, (theme: Theme) => SerializedStyles> = {
   sm: (theme) => css`
     ${theme.typography.label2.semibold};
+
+    &::placeholder {
+      ${theme.typography.label2.semibold};
+      color: ${theme.semantic.label.assistive};
+    }
   `,
   nm: (theme) => css`
     ${theme.typography.label1.semibold};
+
+    &::placeholder {
+      ${theme.typography.label1.semibold};
+      color: ${theme.semantic.label.assistive};
+    }
   `,
 };
 
@@ -37,9 +47,7 @@ export const Search = styled.input<SearchStyleProps>`
   border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
   border-radius: 1.2rem;
 
-  &::placeholder {
-    color: ${({ theme }) => theme.semantic.label.assistive};
-  }
+  ${({ theme, interactionVariant }) => getInteraction(interactionVariant, theme.semantic.interaction.inactive)(theme)};
 
   &:focus {
     outline: none;
