@@ -1,8 +1,11 @@
 import { ApiResponse } from './api';
 
+export type MemberRole = 'USER' | 'ADMIN' | 'CONTENT_PROVIDER';
+
 export type UserSummary = {
   nickname: string;
   imageUrl: string;
+  memberRole: MemberRole;
 };
 
 export interface UserSummaryResponse extends ApiResponse {
