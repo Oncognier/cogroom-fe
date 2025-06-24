@@ -40,6 +40,7 @@ export const SearchContainer = styled.div`
 export const Search = styled.input<SearchStyleProps>`
   ${({ inputSize, theme }) => sizeStyles[inputSize](theme)};
 
+  width: 100%;
   padding: 1.4rem 1.6rem 1.4rem 4.2rem;
 
   color: ${({ theme }) => theme.semantic.label.normal};
