@@ -55,3 +55,23 @@ export const COGPOINT_CARDS = [
 ];
 
 export const PAGINATION_VISIBLE_RANGE = 5;
+
+export const USER_ROLE_META = {
+  USER: {
+    label: '일반회원',
+    tagType: 'solid' as const,
+    color: 'gray' as const,
+  },
+  ADMIN: {
+    label: '관리자',
+    tagType: 'solid' as const,
+    color: 'blue' as const,
+  },
+  CONTENT_PROVIDER: {
+    label: '콘텐츠제공자',
+    tagType: 'outlined' as const,
+    color: 'blue' as const,
+  },
+};
+
+export type UserRole = keyof typeof USER_ROLE_META;
