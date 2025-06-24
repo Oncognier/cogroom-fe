@@ -53,3 +53,5 @@ export const COGPOINT_CARDS = [
     content: '무의식적으로 해온 생각과 나도 몰랐던 나의\n마음들을 알아차려요',
   },
 ];
+
+export const PAGINATION_VISIBLE_RANGE = 5;
