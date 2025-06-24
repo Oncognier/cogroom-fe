@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import { getInteraction } from '@/styles/interaction';
 
-export type NumberPaginationSize = 'sm' | 'md';
+export type NumberPaginationSize = 'sm' | 'nm';
 
 export interface NumberPaginationStyleProps {
   size: NumberPaginationSize;
@@ -17,7 +17,7 @@ const pageButtonSizeStyles: Record<NumberPaginationSize, (theme: Theme) => Seria
     ${theme.typography.label2.medium};
     padding: 0 0.6rem;
   `,
-  md: (theme) => css`
+  nm: (theme) => css`
     ${theme.typography.body2.medium};
     padding: 0 0.8rem;
   `,
@@ -29,7 +29,7 @@ const iconButtonSizeStyles: Record<NumberPaginationSize, SerializedStyles> = {
     height: 2rem;
     padding: 0.4rem;
   `,
-  md: css`
+  nm: css`
     width: 2.67rem;
     height: 2.67rem;
     padding: 0.5rem;

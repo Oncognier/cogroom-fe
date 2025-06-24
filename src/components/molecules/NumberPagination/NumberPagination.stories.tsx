@@ -19,7 +19,7 @@ const meta = {
     },
     size: {
       control: { type: 'radio' },
-      options: ['sm', 'md'],
+      options: ['sm', 'nm'],
     },
     onPageChange: { action: 'page changed' },
   },
@@ -31,7 +31,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    size: 'md',
+    size: 'nm',
     totalPages: 10,
     currentPage: 1,
     onPageChange: action('onPageChange'),
