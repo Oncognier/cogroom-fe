@@ -1,15 +1,15 @@
-import Check from '@/assets/icons/check-bold.svg';
+import CheckIcon from '@/assets/icons/check-bold.svg';
 
 import * as S from './Check.styled';
-import type { CheckboxStyleProps } from './Check.styled';
+import type { CheckStyleProps } from './Check.styled';
 
-interface CheckboxProps extends CheckboxStyleProps {
+interface CheckProps extends CheckStyleProps {
   onToggle: (checked: boolean) => void;
   required?: boolean;
   name?: string;
 }
 
-export default function Checkbox({
+export default function Check({
   size,
   isDisabled,
   isChecked,
@@ -17,7 +17,7 @@ export default function Checkbox({
   required = false,
   name,
   interactionVariant,
-}: CheckboxProps) {
+}: CheckProps) {
   const handleClick = () => {
     if (!isDisabled) {
       onToggle(!isChecked);
@@ -25,14 +25,14 @@ export default function Checkbox({
   };
 
   return (
-    <S.CheckboxWrapper
+    <S.Check
       size={size}
       isDisabled={isDisabled}
       isChecked={isChecked}
       interactionVariant={interactionVariant}
       onClick={handleClick}
     >
-      <S.HiddenCheckbox
+      <S.HiddenCheck
         type='checkbox'
         checked={isChecked}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToggle(e.target.checked)}
@@ -41,8 +41,8 @@ export default function Checkbox({
         required={required}
       />
       <S.Icon size={size}>
-        <Check />
+        <CheckIcon />
       </S.Icon>
-    </S.CheckboxWrapper>
+    </S.Check>
   );
 }

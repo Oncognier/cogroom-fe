@@ -7,7 +7,7 @@ import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type CheckSize = 'sm' | 'md';
 
-export interface CheckboxStyleProps {
+export interface CheckStyleProps {
   size: CheckSize;
   isDisabled?: boolean;
   isChecked?: boolean;
@@ -25,7 +25,7 @@ const sizeStyles: Record<CheckSize, SerializedStyles> = {
   `,
 };
 
-export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
+export const Check = styled.button<CheckStyleProps>`
   position: relative;
 
   display: flex;
@@ -48,7 +48,7 @@ export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
   }
 `;
 
-export const HiddenCheckbox = styled.input`
+export const HiddenCheck = styled.input`
   position: absolute;
   width: 1px;
   height: 1px;
@@ -72,6 +72,6 @@ const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
   `,
 };
 
-export const Icon = styled.div<Pick<CheckboxStyleProps, 'size'>>`
+export const Icon = styled.div<Pick<CheckStyleProps, 'size'>>`
   ${({ size }) => iconSizeStyles[size]};
 `;
