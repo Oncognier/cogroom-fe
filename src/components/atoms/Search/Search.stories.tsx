@@ -1,10 +1,9 @@
-import { action } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Search from './Search';
 
 const meta = {
-  title: 'Components/Search',
+  title: 'components/atoms/Search',
   component: Search,
   tags: ['autodocs'],
   argTypes: {
