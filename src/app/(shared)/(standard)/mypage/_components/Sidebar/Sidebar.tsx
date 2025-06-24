@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import Setting from '@/assets/icons/setting.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useModalStore } from '@/stores/useModalStore';
@@ -33,6 +34,16 @@ export default function Sidebar() {
                 <Setting />
               </S.SettingIcon>
             </S.NameWrapper>
+
+            {(data?.memberRole === 'ADMIN' || data?.memberRole === 'CONTENT_PROVIDER') && (
+              <OutlinedButton
+                size='sm'
+                label='관리자모드'
+                color='assistive'
+                interactionVariant='normal'
+                onClick={() => router.push('/admin')}
+              />
+            )}
           </S.Profile>
 
           <S.SidebarNavList>
