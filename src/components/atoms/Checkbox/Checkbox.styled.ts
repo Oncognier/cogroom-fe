@@ -26,7 +26,7 @@ const sizeStyles: Record<CheckboxSize, SerializedStyles> = {
   `,
 };
 
-export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
+export const Checkbox = styled.button<CheckboxStyleProps>`
   position: relative;
 
   display: flex;

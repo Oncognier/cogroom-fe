@@ -26,7 +26,7 @@ export default function Checkbox({
   };
 
   return (
-    <S.CheckboxWrapper
+    <S.Checkbox
       size={size}
       isDisabled={isDisabled}
       isChecked={isChecked}
@@ -50,6 +50,6 @@ export default function Checkbox({
           <Check />
         </S.Icon>
       )}
-    </S.CheckboxWrapper>
+    </S.Checkbox>
   );
 }
