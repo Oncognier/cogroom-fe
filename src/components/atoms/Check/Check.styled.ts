@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
-type CheckSize = 'sm' | 'md';
+type CheckSize = 'nm' | 'sm';
 
 export interface CheckStyleProps {
   size: CheckSize;
@@ -15,7 +15,7 @@ export interface CheckStyleProps {
 }
 
 const sizeStyles: Record<CheckSize, SerializedStyles> = {
-  md: css`
+  nm: css`
     width: 3.2rem;
     height: 3.2rem;
   `,
@@ -62,7 +62,7 @@ export const HiddenCheck = styled.input`
 `;
 
 const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
-  md: css`
+  nm: css`
     width: 2.4rem;
     height: 2.4rem;
   `,
