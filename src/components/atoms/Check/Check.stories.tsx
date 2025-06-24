@@ -11,7 +11,7 @@ const meta = {
   argTypes: {
     size: {
       control: 'radio',
-      options: ['sm', 'md'],
+      options: ['nm', 'sm'],
     },
     isDisabled: {
       control: 'boolean',
@@ -41,7 +41,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    size: 'md',
+    size: 'nm',
     isChecked: false,
     isDisabled: false,
     interactionVariant: 'normal',

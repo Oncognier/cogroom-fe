@@ -5,9 +5,9 @@ import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
-type CheckSize = 'sm' | 'md';
+type CheckSize = 'nm' | 'sm';
 
-export interface CheckboxStyleProps {
+export interface CheckStyleProps {
   size: CheckSize;
   isDisabled?: boolean;
   isChecked?: boolean;
@@ -15,7 +15,7 @@ export interface CheckboxStyleProps {
 }
 
 const sizeStyles: Record<CheckSize, SerializedStyles> = {
-  md: css`
+  nm: css`
     width: 3.2rem;
     height: 3.2rem;
   `,
@@ -25,7 +25,7 @@ const sizeStyles: Record<CheckSize, SerializedStyles> = {
   `,
 };
 
-export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
+export const Check = styled.button<CheckStyleProps>`
   position: relative;
 
   display: flex;
@@ -48,7 +48,7 @@ export const CheckboxWrapper = styled.button<CheckboxStyleProps>`
   }
 `;
 
-export const HiddenCheckbox = styled.input`
+export const HiddenCheck = styled.input`
   position: absolute;
   width: 1px;
   height: 1px;
@@ -62,7 +62,7 @@ export const HiddenCheckbox = styled.input`
 `;
 
 const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
-  md: css`
+  nm: css`
     width: 2.4rem;
     height: 2.4rem;
   `,
@@ -72,6 +72,6 @@ const iconSizeStyles: Record<CheckSize, SerializedStyles> = {
   `,
 };
 
-export const Icon = styled.div<Pick<CheckboxStyleProps, 'size'>>`
+export const Icon = styled.div<Pick<CheckStyleProps, 'size'>>`
   ${({ size }) => iconSizeStyles[size]};
 `;
