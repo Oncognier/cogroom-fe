@@ -1,5 +1,3 @@
-'use client';
-
 import { useRouter } from 'next/navigation';
 
 import DotsVertical from '@/assets/icons/dots-vertical.svg';
@@ -8,26 +6,25 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedTag from '@/components/atoms/OutlinedTag/OutlinedTag';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
-import { USER_ROLE_META, UserRole } from '@/constants/common';
+import { USER_ROLE_META } from '@/constants/common';
+import { Member } from '@/types/admin';
 
 import * as S from './UserListRow.styled';
 
 interface UserListRowProps {
-  id: number;
-  name: string;
-  email: string;
-  role: UserRole;
-  joinedAt: string;
+  member: Member;
   checked: boolean;
   onCheckToggle: (checked: boolean) => void;
 }
 
-export default function UserListRow({ id, name, email, role, joinedAt, checked, onCheckToggle }: UserListRowProps) {
+export default function UserListRow({ member, checked, onCheckToggle }: UserListRowProps) {
   const router = useRouter();
-  const roleMeta = USER_ROLE_META[role];
+
+  const { memberId, nickname, email, memberRole, createdAt } = member;
+  const roleMeta = USER_ROLE_META[memberRole];
 
   const handleClickRow = () => {
-    router.push(`/admin/users/${id}/daily`);
+    router.push(`/admin/users/${memberId}/daily`);
   };
 
   return (
@@ -49,8 +46,7 @@ export default function UserListRow({ id, name, email, role, joinedAt, checked, 
 
       <S.UserInfoWrapper>
         <S.UserNameWithRole>
-          <S.UserName>{name}</S.UserName>
-
+          <S.UserName>{nickname}</S.UserName>
           {roleMeta.tagType === 'solid' ? (
             <SolidTag
               color={roleMeta.color}
@@ -63,11 +59,10 @@ export default function UserListRow({ id, name, email, role, joinedAt, checked, 
             />
           )}
         </S.UserNameWithRole>
-
         <S.Email>{email}</S.Email>
       </S.UserInfoWrapper>
 
-      <S.JoinedAt>{joinedAt}</S.JoinedAt>
+      <S.JoinedAt>{createdAt}</S.JoinedAt>
 
       <IconButton
         size='3rem'
