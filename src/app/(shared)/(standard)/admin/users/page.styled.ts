@@ -19,10 +19,7 @@ export const FilterHeader = styled.div`
   padding: 0.8rem 0;
 `;
 
-export const Filter = styled.div`
-  display: flex;
-  gap: 1.2rem;
-
+export const SearchWrapper = styled.div`
   width: 20.3rem;
 `;
 

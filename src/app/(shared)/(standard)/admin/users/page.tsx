@@ -14,10 +14,11 @@ import * as S from './page.styled';
 
 export default function Users() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [keyword, setKeyword] = useState('');
+  const [inputKeyword, setInputKeyword] = useState('');
+  const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
-  const { data, isLoading } = useGetMemberList({ page: currentPage, keyword });
+  const { data, isLoading } = useGetMemberList({ page: currentPage, keyword: searchKeyword });
   const { deleteMember } = useDeleteMemberMutation();
 
   const members = useMemo(() => data?.data ?? [], [data]);
@@ -40,8 +41,8 @@ export default function Users() {
     setSelectedIds([]);
   };
 
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const handleSearch = () => {
+    setSearchKeyword(inputKeyword);
     setCurrentPage(1);
     setSelectedIds([]);
   };
@@ -51,15 +52,22 @@ export default function Users() {
       <S.FilterHeader>
         <S.TotalMemberCount>전체 회원 ({totalCount.toLocaleString()})</S.TotalMemberCount>
 
-        <S.Filter>
+        <S.SearchWrapper>
           <Search
-            inputSize='nm'
+            inputSize='sm'
             placeholder='회원정보 검색'
             interactionVariant='normal'
-            value={keyword}
-            onChange={handleKeywordChange}
+            value={inputKeyword}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputKeyword(e.target.value)}
           />
-        </S.Filter>
+        </S.SearchWrapper>
+        <OutlinedButton
+          size='sm'
+          color='primary'
+          label='검색하기'
+          interactionVariant='normal'
+          onClick={handleSearch}
+        />
       </S.FilterHeader>
 
       <S.TableWrapper>
