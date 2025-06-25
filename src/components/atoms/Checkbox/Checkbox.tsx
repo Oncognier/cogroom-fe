@@ -8,6 +8,7 @@ interface CheckboxProps extends CheckboxStyleProps {
   required?: boolean;
   name?: string;
   tabIndex?: number;
+  stopPropagation?: boolean;
 }
 
 export default function Checkbox({
@@ -20,8 +21,13 @@ export default function Checkbox({
   name,
   round,
   tabIndex,
+  stopPropagation = false,
 }: CheckboxProps) {
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (stopPropagation) {
+      e.stopPropagation();
+    }
+
     if (!isDisabled) {
       onToggle(!isChecked);
     }

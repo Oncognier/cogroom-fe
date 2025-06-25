@@ -60,7 +60,8 @@ export const END_POINTS_V1 = {
 
   ADMIN: {
     MEMBERS: {
-      MEMBERS: BASE_PATH_V1.ADMIN,
+      LIST: `${BASE_PATH_V1.ADMIN}/members`,
+      DELETE: `${BASE_PATH_V1.ADMIN}/members`,
       MEMBER: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}`,
       DAILY: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}/daily`,
       CONTENTS: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}/contents`,
