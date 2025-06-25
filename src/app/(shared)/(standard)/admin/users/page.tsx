@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
+import { useDeleteMemberMutation } from '@/hooks/api/admin/useDeleteMember';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
 
 import UserListRow from './_components/UserListRow/UserListRow';
@@ -17,6 +18,7 @@ export default function Users() {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const { data, isLoading } = useGetMemberList({ page: currentPage, keyword });
+  const { deleteMember } = useDeleteMemberMutation();
 
   const members = useMemo(() => data?.data ?? [], [data]);
   const totalPages = data?.totalPages ?? 1;
@@ -67,6 +69,7 @@ export default function Users() {
             color='primary'
             label='선택항목 삭제'
             interactionVariant='normal'
+            onClick={() => deleteMember({ memberIdList: selectedIds })}
           />
         )}
 

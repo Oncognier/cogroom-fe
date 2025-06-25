@@ -21,3 +21,7 @@ export interface Member {
 export interface MemberListResponse extends ApiResponse {
   result: PaginationResult<Member>;
 }
+
+export interface DeleteMemberRequest {
+  memberIdList: number[];
+}
