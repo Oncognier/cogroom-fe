@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 
+import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
@@ -17,7 +18,7 @@ export default function Users() {
 
   const { data, isLoading } = useGetMemberList({ page: currentPage, keyword });
 
-  const members = data?.data ?? [];
+  const members = useMemo(() => data?.data ?? [], [data]);
   const totalPages = data?.totalPages ?? 1;
   const totalCount = data?.totalElements ?? 0;
 
@@ -59,28 +60,39 @@ export default function Users() {
         </S.Filter>
       </S.FilterHeader>
 
-      <S.UserTable>
-        <UserTableHeader
-          checked={isAllSelected}
-          onCheckToggle={handleToggleAll}
-        />
-
-        {isLoading ? (
-          <div>로딩 중...</div>
-        ) : (
-          members.map((member) => (
-            <UserListRow
-              key={member.memberId}
-              name={member.nickname}
-              email={member.email}
-              role={member.memberRole}
-              joinedAt={member.createdAt}
-              checked={selectedIds.includes(member.memberId)}
-              onCheckToggle={(checked) => handleToggleOne(member.memberId, checked)}
-            />
-          ))
+      <S.TableWrapper>
+        {selectedIds.length > 0 && (
+          <OutlinedButton
+            size='sm'
+            color='primary'
+            label='선택항목 삭제'
+            interactionVariant='normal'
+          />
         )}
-      </S.UserTable>
+
+        <S.UserTable>
+          <UserTableHeader
+            checked={isAllSelected}
+            onCheckToggle={handleToggleAll}
+          />
+
+          {isLoading ? (
+            <div>로딩 중...</div>
+          ) : (
+            members.map((member) => (
+              <UserListRow
+                key={member.memberId}
+                name={member.nickname}
+                email={member.email}
+                role={member.memberRole}
+                joinedAt={member.createdAt}
+                checked={selectedIds.includes(member.memberId)}
+                onCheckToggle={(checked) => handleToggleOne(member.memberId, checked)}
+              />
+            ))
+          )}
+        </S.UserTable>
+      </S.TableWrapper>
 
       <S.PaginationButton>
         <NumberPagination

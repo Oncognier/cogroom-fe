@@ -11,7 +11,7 @@ export default function UserTableHeader({ checked, onCheckToggle }: Props) {
   return (
     <S.UserTableHeader>
       <Checkbox
-        size='md'
+        size='nm'
         isChecked={checked}
         onToggle={onCheckToggle}
         interactionVariant='normal'

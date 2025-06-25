@@ -33,9 +33,20 @@ export const TotalMemberCount = styled.p`
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
+export const TableWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+
+  width: 100%;
+`;
+
 export const UserTable = styled.div`
   display: flex;
   flex-direction: column;
+
+  width: 100%;
 `;
 
 export const UserTableHeader = styled.div`

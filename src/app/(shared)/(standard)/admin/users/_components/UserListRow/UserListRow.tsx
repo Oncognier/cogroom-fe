@@ -23,7 +23,7 @@ export default function UserListRow({ name, email, role, joinedAt, checked, onCh
   return (
     <S.UserListRow>
       <Checkbox
-        size='md'
+        size='nm'
         isChecked={checked}
         onToggle={onCheckToggle}
         interactionVariant='normal'
