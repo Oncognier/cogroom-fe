@@ -6,6 +6,7 @@ interface IconButtonProps extends IconButtonStyleProps {
   pushBadge?: boolean;
   isDisabled?: boolean;
   onClick?: () => void;
+  stopPropagation?: boolean;
   children: React.ReactNode;
 }
 
@@ -17,8 +18,16 @@ export default function IconButton({
   interactionVariant,
   pushBadge,
   onClick,
+  stopPropagation = false,
   children,
 }: IconButtonProps) {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (stopPropagation) {
+      e.stopPropagation();
+    }
+    onClick?.();
+  };
+
   return (
     <S.Container>
       <S.IconButton
@@ -27,7 +36,7 @@ export default function IconButton({
         variant={variant}
         disabled={isDisabled}
         interactionVariant={interactionVariant}
-        onClick={onClick}
+        onClick={handleClick}
       >
         {children}
       </S.IconButton>

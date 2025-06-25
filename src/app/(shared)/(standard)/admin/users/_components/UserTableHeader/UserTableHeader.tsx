@@ -2,12 +2,12 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 
 import * as S from './UserTableHeader.styled';
 
-interface Props {
+interface UserTableHeaderProps {
   checked: boolean;
   onCheckToggle: (checked: boolean) => void;
 }
 
-export default function UserTableHeader({ checked, onCheckToggle }: Props) {
+export default function UserTableHeader({ checked, onCheckToggle }: UserTableHeaderProps) {
   return (
     <S.UserTableHeader>
       <Checkbox

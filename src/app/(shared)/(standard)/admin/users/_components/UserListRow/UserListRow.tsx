@@ -1,3 +1,7 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+
 import DotsVertical from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
@@ -8,7 +12,8 @@ import { USER_ROLE_META, UserRole } from '@/constants/common';
 
 import * as S from './UserListRow.styled';
 
-interface Props {
+interface UserListRowProps {
+  id: number;
   name: string;
   email: string;
   role: UserRole;
@@ -17,16 +22,22 @@ interface Props {
   onCheckToggle: (checked: boolean) => void;
 }
 
-export default function UserListRow({ name, email, role, joinedAt, checked, onCheckToggle }: Props) {
+export default function UserListRow({ id, name, email, role, joinedAt, checked, onCheckToggle }: UserListRowProps) {
+  const router = useRouter();
   const roleMeta = USER_ROLE_META[role];
 
+  const handleClickRow = () => {
+    router.push(`/admin/users/${id}/daily`);
+  };
+
   return (
-    <S.UserListRow>
+    <S.UserListRow onClick={handleClickRow}>
       <Checkbox
         size='nm'
         isChecked={checked}
         onToggle={onCheckToggle}
         interactionVariant='normal'
+        stopPropagation
       />
 
       <S.AvatarWrapper>
@@ -62,6 +73,7 @@ export default function UserListRow({ name, email, role, joinedAt, checked, onCh
         size='3rem'
         variant='normal'
         interactionVariant='normal'
+        stopPropagation
       >
         <DotsVertical />
       </IconButton>

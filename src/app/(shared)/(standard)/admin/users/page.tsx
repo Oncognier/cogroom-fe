@@ -93,6 +93,7 @@ export default function Users() {
             members.map((member) => (
               <UserListRow
                 key={member.memberId}
+                id={member.memberId}
                 name={member.nickname}
                 email={member.email}
                 role={member.memberRole}

@@ -9,6 +9,8 @@ export const UserListRow = styled.div`
 
   width: 100%;
   padding: 2.4rem 3.2rem;
+
+  cursor: pointer;
 `;
 
 export const AvatarWrapper = styled.div`
