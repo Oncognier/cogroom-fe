@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Select } from './Select';
 
 const meta = {
-  title: 'Components/Select',
+  title: 'components/molecules/Select',
   component: Select,
   tags: ['autodocs'],
   argTypes: {
