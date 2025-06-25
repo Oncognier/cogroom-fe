@@ -1,5 +1,15 @@
-import { redirect } from 'next/navigation';
+'use client';
 
-export default function MemberDetail({ params }: { params: { memberId: string } }) {
-  redirect(`/admin/users/${params.memberId}/daily`);
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+export default function MemberDetail() {
+  const { memberId } = useParams<{ memberId: string }>();
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace(`/admin/users/${memberId}/daily`);
+  }, [memberId, router]);
+
+  return null;
 }
