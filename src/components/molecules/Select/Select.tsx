@@ -1,13 +1,15 @@
 'use client';
 
 import React from 'react';
-import * as S from './Select.styled';
-import { DropdownList } from '../DropdownList/DropdownList';
-import { useDropdown } from '@/hooks/useDropdown';
+
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
-import { SelectTagList } from './SelectTagList/SelectTagList';
+import { useDropdown } from '@/hooks/useDropdown';
 import { SelectOption } from '@/types/common';
+
+import * as S from './Select.styled';
+import { DropdownList } from '../DropdownList/DropdownList';
+import { SelectTagList } from './SelectTagList/SelectTagList';
 
 interface SelectProps {
   options: SelectOption[];

@@ -1,9 +1,11 @@
 'use client';
 
 import React from 'react';
+
+import { SelectOption } from '@/types/common';
+
 import { SelectTag } from './SelectTag/SelectTag';
 import * as S from './SelectTagList.styled';
-import { SelectOption } from '@/types/common';
 
 interface SelectTagListProps {
   options: SelectOption[];

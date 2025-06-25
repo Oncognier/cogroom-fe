@@ -2,8 +2,9 @@
 
 import React from 'react';
 
-import * as S from './SelectTag.styled';
 import X from '@/assets/icons/x.svg';
+
+import * as S from './SelectTag.styled';
 
 interface SelectTagProps {
   label: string;
