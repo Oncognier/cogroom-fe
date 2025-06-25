@@ -20,11 +20,8 @@ export default function Checkbox({
   required = false,
   name,
   round,
-<<<<<<< HEAD
   tabIndex,
-=======
   stopPropagation = false,
->>>>>>> af06c25 (feat: UserListRow 클릭 이벤트 추가)
 }: CheckboxProps) {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (stopPropagation) {
