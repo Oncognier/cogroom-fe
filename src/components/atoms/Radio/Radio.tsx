@@ -5,6 +5,7 @@ interface RadioProps extends RadioStyleProps {
   onToggle: (checked: boolean) => void;
   required?: boolean;
   name?: string;
+  tabIndex?: number;
 }
 
 export default function Radio({
@@ -15,6 +16,7 @@ export default function Radio({
   required = false,
   name,
   interactionVariant,
+  tabIndex,
 }: RadioProps) {
   const handleClick = () => {
     if (!isDisabled) {
@@ -36,6 +38,7 @@ export default function Radio({
         size={size}
         isDisabled={isDisabled}
         isChecked={isChecked}
+        tabIndex={tabIndex}
         interactionVariant={interactionVariant}
       >
         <S.RadioInner />
