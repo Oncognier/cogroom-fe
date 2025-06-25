@@ -7,6 +7,7 @@ interface CheckboxProps extends CheckboxStyleProps {
   onToggle: (checked: boolean) => void;
   required?: boolean;
   name?: string;
+  tabIndex?: number;
 }
 
 export default function Checkbox({
@@ -18,6 +19,7 @@ export default function Checkbox({
   required = false,
   name,
   round,
+  tabIndex,
 }: CheckboxProps) {
   const handleClick = () => {
     if (!isDisabled) {
@@ -33,6 +35,7 @@ export default function Checkbox({
       interactionVariant={interactionVariant}
       onClick={handleClick}
       round={round}
+      tabIndex={tabIndex}
     >
       <S.HiddenCheckbox
         type='checkbox'

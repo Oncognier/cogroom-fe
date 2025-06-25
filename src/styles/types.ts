@@ -23,7 +23,7 @@ export type Typography = {
   caption2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
 };
 
-type ShadowLevel = 'emphasize' | 'strong' | 'heavy';
+type ShadowLevel = 'normal' | 'emphasize' | 'strong' | 'heavy';
 
 export type Shadow = {
   [key in ShadowLevel]: SerializedStyles;
