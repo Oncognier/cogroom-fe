@@ -37,7 +37,7 @@ export default function TabBarList({ items, size = 'sm', fillContainer = false, 
           label={item.label}
           onChange={() => handleTabClick(item.href)}
           size={size}
-          state={pathname === item.href}
+          state={pathname.startsWith(item.href)}
           fillContainer={fillContainer}
           interactionVariant={interactionVariant}
         />
