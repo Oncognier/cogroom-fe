@@ -46,4 +46,3 @@ export function formatDateRangeLabel(selectedStartDate?: Dayjs | null, selectedE
     return '';
   }
 }
-

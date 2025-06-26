@@ -86,11 +86,10 @@ export const DateItem = styled.div<Pick<DatePickerStyleProps, 'isSelected'>>`
   text-align: center;
   border-radius: 0.8rem;
 
-  cursor: pointer; 
+  cursor: pointer;
 
   background-color: ${({ theme, isSelected }) => (isSelected ? theme.semantic.primary.normal : 'transparent')};
   color: ${({ theme, isSelected }) => (isSelected ? theme.semantic.static.white : theme.semantic.label.normal)};
-
 
   ${({ theme }) => theme.typography.label1.regular}
 `;

@@ -26,7 +26,6 @@ export const InputContainer = styled.div<SelectDateStyleProps>`
   padding: 1.1rem 1.5rem;
   border-radius: 1.2rem;
 
-
   border: 1px solid ${({ theme, isOpen }) => (isOpen ? theme.semantic.primary.normal : theme.semantic.label.assistive)};
 
   cursor: pointer;
