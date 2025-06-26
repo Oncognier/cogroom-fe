@@ -10,11 +10,12 @@ import { SelectOption } from '@/types/common';
 import * as S from './Select.styled';
 import { DropdownList } from '../DropdownList/DropdownList';
 import { SelectTagList } from './SelectTagList/SelectTagList';
+import type { SelectStyleProps } from './Select.styled';
 
-interface SelectProps {
+interface SelectProps extends SelectStyleProps {
   options: SelectOption[];
-  value: string[];
-  onChange: (value: string[]) => void;
+  value: Array<string | number>;
+  onChange: (value: Array<string | number>) => void;
   isMulti?: boolean;
   placeholder?: string;
   groupName?: string;
@@ -24,6 +25,7 @@ interface SelectProps {
 }
 
 export function Select({
+  inputSize,
   options,
   value,
   onChange,
@@ -38,12 +40,12 @@ export function Select({
 
   const selectedLabels = options.filter((opt) => value.includes(opt.value)).map((opt) => opt.label);
 
-  const handleSelect = (next: string[]) => {
+  const handleSelect = (next: Array<string | number>) => {
     onChange(next);
     if (!isMulti) toggle();
   };
 
-  const handleRemove = (val: string) => {
+  const handleRemove = (val: string | number) => {
     onChange(value.filter((v) => v !== val));
   };
 
@@ -74,12 +76,15 @@ export function Select({
             />
           )}
 
-          <S.TriggerInput
-            type='text'
-            readOnly
-            value={isMulti ? '' : selectedLabels[0] || ''}
-            placeholder={value.length === 0 ? placeholder : ''}
-          />
+          {isMulti && value.length > 0 ? null : (
+            <S.TriggerInput
+              type='text'
+              inputSize={inputSize}
+              value={isMulti ? '' : selectedLabels[0]?.toString() || ''}
+              placeholder={value.length === 0 ? placeholder : ''}
+              readOnly
+            />
+          )}
 
           <S.IconWrapper
             isOpen={isOpen}
