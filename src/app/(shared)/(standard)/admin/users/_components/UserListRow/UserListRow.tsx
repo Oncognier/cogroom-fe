@@ -20,7 +20,7 @@ interface UserListRowProps {
 export default function UserListRow({ member, checked, onCheckToggle }: UserListRowProps) {
   const router = useRouter();
 
-  const { memberId, nickname, email, memberRole, createdAt } = member;
+  const { memberId, nickname, email, imageUrl, memberRole, createdAt } = member;
   const roleMeta = USER_ROLE_META[memberRole];
 
   const handleClickRow = () => {
@@ -41,6 +41,7 @@ export default function UserListRow({ member, checked, onCheckToggle }: UserList
         <AvatarPerson
           type='image'
           size='md'
+          src={imageUrl}
         />
       </S.AvatarWrapper>
 
