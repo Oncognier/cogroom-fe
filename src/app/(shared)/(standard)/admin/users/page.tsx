@@ -13,7 +13,7 @@ import UserTableHeader from './_components/UserTableHeader/UserTableHeader';
 import * as S from './page.styled';
 
 export default function Users() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [inputKeyword, setInputKeyword] = useState('');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
@@ -43,7 +43,7 @@ export default function Users() {
 
   const handleSearch = () => {
     setSearchKeyword(inputKeyword);
-    setCurrentPage(1);
+    setCurrentPage(0);
     setSelectedIds([]);
   };
 
@@ -105,7 +105,7 @@ export default function Users() {
       <S.PaginationButton>
         <NumberPagination
           size='nm'
-          currentPage={currentPage}
+          currentPage={currentPage + 1}
           totalPages={totalPages}
           onPageChange={handlePageChange}
         />
