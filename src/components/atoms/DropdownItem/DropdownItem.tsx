@@ -7,11 +7,11 @@ import * as S from './DropdownItem.styled';
 
 interface DropdownItemProps {
   label: string;
-  value: string;
+  value: string | number;
   isChecked: boolean;
   isMulti: boolean;
   groupName?: string;
-  onToggle: (value: string, checked: boolean) => void;
+  onToggle: (value: string | number, checked: boolean) => void;
 }
 
 export function DropdownItem({ label, value, isChecked, isMulti, groupName, onToggle }: DropdownItemProps) {
@@ -21,8 +21,14 @@ export function DropdownItem({ label, value, isChecked, isMulti, groupName, onTo
 
   return (
     <S.DropdownItem
-      type='button'
+      tabIndex={0}
       onClick={handleClick}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleClick();
+        }
+      }}
       aria-pressed={isChecked}
       data-checked={isChecked}
     >
@@ -33,7 +39,7 @@ export function DropdownItem({ label, value, isChecked, isMulti, groupName, onTo
           isChecked={isChecked}
           interactionVariant='strong'
           onToggle={() => {}}
-          name={value}
+          name={String(value)}
           tabIndex={-1}
         />
       ) : (

@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const DropdownItem = styled.button`
+export const DropdownItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;

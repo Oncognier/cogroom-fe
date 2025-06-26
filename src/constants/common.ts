@@ -1,4 +1,5 @@
 import { DEFAULT_COGPOINT_IMAGE1, DEFAULT_COGPOINT_IMAGE2, DEFAULT_COGPOINT_IMAGE3 } from '@/constants/image';
+import { SelectOption } from '@/types/common';
 
 export const HEADER_NAV_ITEMS = [
   { label: '데일리', href: '/daily' },
@@ -13,6 +14,21 @@ export const SIDEBAR_NAV_ITEMS = [
   { label: '커뮤니티 활동', href: '/mypage/community' },
   { label: '푸시 및 카톡 알림', href: '/mypage/notification' },
 ] as const;
+
+export const LEVEL_SELECT_OPTIONS: SelectOption[] = [
+  { label: '기초', value: 'BASIC' },
+  { label: '기본', value: 'NORMAL' },
+  { label: '심화', value: 'ADVANCED' },
+];
+
+export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
+  { label: '심리학', value: 1 },
+  { label: '뇌과학', value: 2 },
+  { label: '철학', value: 3 },
+  { label: '인류학', value: 4 },
+  { label: '언어학', value: 5 },
+  { label: '컴퓨터공학', value: 6 },
+];
 
 export const SIGNUP_STEP = {
   CHECK_ORIGINAL_EMAIL: 'CHECK_ORIGINAL_EMAIL',

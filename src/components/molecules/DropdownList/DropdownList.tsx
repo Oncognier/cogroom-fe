@@ -1,17 +1,18 @@
 import { DropdownItem } from '@/components/atoms/DropdownItem/DropdownItem';
+import { SelectOption } from '@/types/common';
 
 import * as S from './DropdownList.styled';
 
 interface DropdownListProps {
-  options: { label: string; value: string }[];
-  selectedValues: string[];
+  options: SelectOption[];
+  selectedValues: Array<string | number>;
   isMulti: boolean;
   groupName?: string;
-  onSelect: (value: string[]) => void;
+  onSelect: (value: Array<string | number>) => void;
 }
 
 export function DropdownList({ options, selectedValues, isMulti, groupName, onSelect }: DropdownListProps) {
-  const handleToggle = (value: string, checked: boolean) => {
+  const handleToggle = (value: string | number, checked: boolean) => {
     if (isMulti) {
       const next = checked ? [...selectedValues, value] : selectedValues.filter((v) => v !== value);
       onSelect(next);
@@ -24,7 +25,7 @@ export function DropdownList({ options, selectedValues, isMulti, groupName, onSe
     <S.DropdownList>
       {options.map((option) => (
         <DropdownItem
-          key={option.value}
+          key={String(option.value)}
           label={option.label}
           value={option.value}
           isChecked={selectedValues.includes(option.value)}
