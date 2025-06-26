@@ -4,9 +4,9 @@ import isoWeek from 'dayjs/plugin/isoWeek';
 //eslint-disable-next-line
 dayjs.extend(isoWeek);
 
-export function getCalendarMonthDates(year: number, month: number): Dayjs[] {
-  const firstDay = dayjs(`${year}-${String(month).padStart(2, '0')}-01`);
-  const lastDay = firstDay.endOf('month');
+export function getCalendarMonthDates(baseDate: Dayjs): Dayjs[] {
+  const firstDay = baseDate.startOf('month');
+  const lastDay = baseDate.endOf('month');
 
   const start = firstDay.startOf('isoWeek');
   const end = lastDay.endOf('isoWeek');

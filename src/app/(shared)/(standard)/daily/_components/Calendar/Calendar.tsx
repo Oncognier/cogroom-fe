@@ -22,7 +22,7 @@ export default function Calendar({ streakDateList }: CalendarProps) {
   const [isMonthly, setIsMonthly] = useState(false);
   const today = dayjs();
 
-  const monthDates = useMemo(() => getCalendarMonthDates(today.year(), today.month() + 1), [today]);
+  const monthDates = useMemo(() => getCalendarMonthDates(today), [today]);
   const weekDates = useMemo(() => getCalendarWeekDates(today), [today]);
   const dates = isMonthly ? monthDates : weekDates;
 
