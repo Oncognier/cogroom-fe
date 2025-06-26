@@ -134,3 +134,9 @@ export const LEVEL_META = {
 } as const;
 
 export type Level = keyof typeof LEVEL_META;
+
+export const QUICK_DATE_SELECT = [
+  { label: '최근 7일', value: 7 },
+  { label: '최근 30일', value: 30 },
+  { label: '최근 90일', value: 90 },
+];
