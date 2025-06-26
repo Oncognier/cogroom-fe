@@ -1,7 +1,7 @@
 'use client';
 
-import styled from '@emotion/styled';
 import { css, SerializedStyles, Theme } from '@emotion/react';
+import styled from '@emotion/styled';
 
 export type SelectSize = 'sm' | 'md' | 'lg';
 

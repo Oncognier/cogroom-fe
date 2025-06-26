@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { adminApi } from '@/api/adminApi';
 
 export const useCreateDailyQuestionsMutation = () => {

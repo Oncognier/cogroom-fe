@@ -1,7 +1,8 @@
 'use client';
 
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useRouter } from 'next/navigation';
+
+import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 
 export default function Contents() {
   const router = useRouter();

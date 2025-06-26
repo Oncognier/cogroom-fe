@@ -8,9 +8,9 @@ import { useDropdown } from '@/hooks/useDropdown';
 import { SelectOption } from '@/types/common';
 
 import * as S from './Select.styled';
+import type { SelectStyleProps } from './Select.styled';
 import { DropdownList } from '../DropdownList/DropdownList';
 import { SelectTagList } from './SelectTagList/SelectTagList';
-import type { SelectStyleProps } from './Select.styled';
 
 interface SelectProps extends SelectStyleProps {
   options: SelectOption[];
