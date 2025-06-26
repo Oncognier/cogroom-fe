@@ -16,6 +16,7 @@ export default function SolidButton({
   iconRight,
   size,
   color,
+  fillContainer,
   isDisabled,
   onClick,
   interactionVariant,
@@ -28,6 +29,7 @@ export default function SolidButton({
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}
+      fillContainer={fillContainer}
       type={type}
     >
       <S.Icon>{iconLeft}</S.Icon>

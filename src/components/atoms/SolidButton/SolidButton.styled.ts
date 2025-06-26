@@ -9,20 +9,23 @@ import { getInteraction, InteractionVariant } from '@/styles/interaction';
 type BrandColors = keyof typeof brandColors;
 
 type SolidButtonColor = 'primary' | BrandColors;
-type SolidButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
+type SolidButtonSize = 'sm' | 'md' | 'lg';
 
 export interface SolidButtonStyleProps {
   color?: SolidButtonColor;
   size: SolidButtonSize;
   interactionVariant: InteractionVariant;
+  fillContainer?: boolean;
+  hasIcon?: boolean;
 }
 
-const commonStyles = (theme: Theme) => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, hasIcon?: boolean) => css`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: ${fillContainer && hasIcon ? 'space-between' : 'center'};
   gap: 4px;
 
+  width: ${fillContainer ? '100%' : 'auto'};
   border: none;
   border-radius: ${theme.radius[12]};
   background-color: ${theme.semantic.primary.normal};
@@ -55,10 +58,6 @@ const sizeStyles: Record<SolidButtonSize, (theme: Theme) => SerializedStyles> = 
   lg: (theme) => css`
     ${theme.typography.body1.semibold}
   `,
-  fillContainer: (theme) => css`
-    ${theme.typography.body1.semibold};
-    width: 100%;
-  `,
 };
 
 const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> = {
@@ -73,7 +72,7 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
 };
 
 export const StyledSolidButton = styled.button<SolidButtonStyleProps>`
-  ${({ theme }) => commonStyles(theme)};
+  ${({ theme, fillContainer, hasIcon }) => commonStyles(theme, fillContainer, hasIcon)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>

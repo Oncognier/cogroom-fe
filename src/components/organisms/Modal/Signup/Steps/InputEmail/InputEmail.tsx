@@ -51,11 +51,12 @@ export default function InputEmail({ email, onConfirm }: InputEmailProps) {
         />
         <SolidButton
           label='이 이메일로 시작하기'
-          size='fillContainer'
+          size='md'
           color='primary'
           interactionVariant='normal'
           type='submit'
           isDisabled={!isValid}
+          fillContainer
         />
       </S.EmailForm>
     </>
