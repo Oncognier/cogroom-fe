@@ -14,6 +14,7 @@ type SolidButtonSize = 'sm' | 'md' | 'lg';
 export interface SolidButtonStyleProps {
   color?: SolidButtonColor;
   size: SolidButtonSize;
+  fillContainer?: boolean;
   interactionVariant: InteractionVariant;
   fillContainer?: boolean;
   hasIcon?: boolean;

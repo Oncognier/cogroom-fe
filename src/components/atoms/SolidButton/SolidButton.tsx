@@ -26,6 +26,7 @@ export default function SolidButton({
     <S.StyledSolidButton
       size={size}
       color={color}
+      fillContainer={fillContainer}
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}
