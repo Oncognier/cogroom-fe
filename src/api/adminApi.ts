@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
-import { DeleteMemberRequest, MemberListRequest, MemberListResponse } from '@/types/admin';
+import { CreateDailyQuestionsRequest, DeleteMemberRequest, MemberListRequest, MemberListResponse } from '@/types/admin';
 import { ApiResponse } from '@/types/api';
 
 import { axiosInstance } from './axios/axiosInstance';
@@ -25,7 +25,17 @@ const deleteMember = async ({ memberIdList }: DeleteMemberRequest) => {
   return data;
 };
 
+const createDailyQuestions = async (request: CreateDailyQuestionsRequest) => {
+  const { data } = await axiosInstance.post<CreateDailyQuestionsRequest, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.ADMIN.DAILY.QUESTIONS_CREATE,
+    request,
+  );
+
+  return data;
+};
+
 export const adminApi = {
   getMemberList,
   deleteMember,
+  createDailyQuestions,
 };

@@ -25,3 +25,9 @@ export interface MemberListResponse extends ApiResponse {
 export interface DeleteMemberRequest {
   memberIdList: number[];
 }
+
+export interface CreateDailyQuestionsRequest {
+  level: string;
+  categoryList: number[];
+  questionList: { question: string }[];
+}
