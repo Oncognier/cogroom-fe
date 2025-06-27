@@ -28,7 +28,7 @@ const OPTIONS = [
 
 export const SingleSelect: Story = {
   render: (args) => {
-    const [value, setValue] = useState<string[]>([]);
+    const [value, setValue] = useState<(string | number)[]>([]);
 
     return (
       <Select
@@ -53,7 +53,7 @@ export const SingleSelect: Story = {
 
 export const MultiSelect: Story = {
   render: (args) => {
-    const [value, setValue] = useState<string[]>([]);
+    const [value, setValue] = useState<(string | number)[]>([]);
 
     return (
       <Select
