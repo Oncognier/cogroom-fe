@@ -20,7 +20,7 @@ export function SelectTagList({ options, value, onRemove }: SelectTagListProps) 
         const item = options.find((opt) => opt.value === val);
         return (
           <SelectTag
-            key={String(val)}
+            key={`${item?.label || 'unknown'}-${val}`}
             label={item?.label || String(val)}
             onRemove={() => onRemove(val)}
           />

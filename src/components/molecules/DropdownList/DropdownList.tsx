@@ -25,7 +25,7 @@ export function DropdownList({ options, selectedValues, isMulti, groupName, onSe
     <S.DropdownList>
       {options.map((option) => (
         <DropdownItem
-          key={String(option.value)}
+          key={`${option.label}-${option.value}`}
           label={option.label}
           value={option.value}
           isChecked={selectedValues.includes(option.value)}
