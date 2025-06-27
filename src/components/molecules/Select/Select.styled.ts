@@ -1,11 +1,27 @@
 'use client';
 
+import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
+
+export type SelectSize = 'sm' | 'md' | 'lg';
 
 export interface SelectStyleProps {
   isError?: boolean;
   isOpen?: boolean;
+  inputSize?: SelectSize;
 }
+
+const sizeStyles: Record<SelectSize, (theme: Theme) => SerializedStyles> = {
+  sm: (theme) => css`
+    ${theme.typography.label2.regular}
+  `,
+  md: (theme) => css`
+    ${theme.typography.label1.regular}
+  `,
+  lg: (theme) => css`
+    ${theme.typography.body1.regular}
+  `,
+};
 
 export const Wrapper = styled.div`
   display: flex;
@@ -21,13 +37,11 @@ export const DropdownContainer = styled.div`
 
 export const InputContainer = styled.div<SelectStyleProps>`
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
 
   width: 100%;
-  padding: 1.1rem 1.5rem;
+  padding: 1.1rem 3.4rem 1.1rem 1.5rem;
   border-radius: 1.2rem;
-
   border: 1px solid
     ${({ theme, isError, isOpen }) =>
       isError
@@ -39,19 +53,17 @@ export const InputContainer = styled.div<SelectStyleProps>`
   cursor: pointer;
 `;
 
-export const TriggerInput = styled.input`
+export const TriggerInput = styled.input<SelectStyleProps>`
   flex: 1;
-
   border: none;
   background: transparent;
 
-  ${({ theme }) => theme.typography.body1.regular};
+  ${({ theme, inputSize = 'md' }) => sizeStyles[inputSize](theme)};
   color: ${({ theme }) => theme.semantic.label.normal};
-
   cursor: pointer;
 
   &::placeholder {
-    ${({ theme }) => theme.typography.body1.regular};
+    ${({ theme, inputSize = 'md' }) => sizeStyles[inputSize](theme)};
     color: ${({ theme }) => theme.semantic.label.assistive};
   }
 
@@ -66,7 +78,7 @@ export const IconWrapper = styled.div<SelectStyleProps>`
 
   position: absolute;
   top: 50%;
-  right: 1.58rem;
+  right: 1.6rem;
   transform: translateY(-50%);
   z-index: 1;
 

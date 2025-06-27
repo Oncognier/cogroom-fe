@@ -35,6 +35,7 @@ export default function Checkbox({
 
   return (
     <S.Checkbox
+      type='button'
       size={size}
       isDisabled={isDisabled}
       isChecked={isChecked}

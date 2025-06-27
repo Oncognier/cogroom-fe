@@ -41,10 +41,11 @@ export default function Complete({ provider, providerId, nickname }: CompletePro
 
       <SolidButton
         label='코그룸 살펴보기'
-        size='fillContainer'
+        size='md'
         color='primary'
         interactionVariant='normal'
         onClick={handleSignup}
+        fillContainer
       />
     </>
   );

@@ -52,11 +52,12 @@ export default function Calendar({ streakDateList }: CalendarProps) {
         </S.CalendarWrapper>
         <SolidButton
           label='리포트 보러가기'
-          size='fillContainer'
+          size='md'
           interactionVariant='normal'
           onClick={() => {
             router.push('/mypage/activity');
           }}
+          fillContainer
         />
       </S.CalendarContentWrapper>
     </S.CalendarCard>

@@ -44,11 +44,12 @@ export default function Login() {
 
       <SolidButton
         label='카카오로 시작하기'
-        size='fillContainer'
+        size='md'
         color='kakao'
         interactionVariant='normal'
         iconLeft={<Kakao />}
         onClick={handleClick}
+        fillContainer
       />
     </S.Container>
   );

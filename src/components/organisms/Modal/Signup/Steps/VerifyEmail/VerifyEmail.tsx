@@ -53,11 +53,12 @@ export default function VerifyEmail({ onConfirm }: VerifyEmailProps) {
       <S.ButtonWrapper>
         <SolidButton
           label='인증 완료하기'
-          size='fillContainer'
+          size='md'
           color='primary'
           interactionVariant='normal'
           onClick={handleComplete}
           isDisabled={isConfirmDisabled}
+          fillContainer
         />
         <TextButton
           label='메일 재전송'

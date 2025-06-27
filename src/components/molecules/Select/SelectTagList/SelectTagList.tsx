@@ -9,8 +9,8 @@ import * as S from './SelectTagList.styled';
 
 interface SelectTagListProps {
   options: SelectOption[];
-  value: string[];
-  onRemove: (val: string) => void;
+  value: Array<string | number>;
+  onRemove: (val: string | number) => void;
 }
 
 export function SelectTagList({ options, value, onRemove }: SelectTagListProps) {
@@ -20,8 +20,8 @@ export function SelectTagList({ options, value, onRemove }: SelectTagListProps) 
         const item = options.find((opt) => opt.value === val);
         return (
           <SelectTag
-            key={val}
-            label={item?.label || val}
+            key={`${item?.label || 'unknown'}-${val}`}
+            label={item?.label || String(val)}
             onRemove={() => onRemove(val)}
           />
         );
