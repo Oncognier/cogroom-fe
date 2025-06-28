@@ -18,7 +18,7 @@ import DailyListRow from '../../../_components/DailyListRow/DailyListRow';
 
 export default function MemberDaily() {
   const params = useParams();
-  const memberId = Number(params?.memberId);
+  const memberId = String(params?.memberId);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);

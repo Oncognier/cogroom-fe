@@ -8,11 +8,11 @@ export default function useGetMemberDailyQuestions({
   memberId,
   params,
 }: {
-  memberId: number;
+  memberId: string;
   params: MemberDailyQuestionsRequest;
 }) {
   return useQuery({
     queryKey: [...ADMIN_QUERY_KEYS.ADMIN_MEMBER_LIST, memberId, params],
-    queryFn: () => adminApi.getMemberDailyQuestions({ memberId: String(memberId), params }),
+    queryFn: () => adminApi.getMemberDailyQuestions({ memberId, params }),
   });
 }
