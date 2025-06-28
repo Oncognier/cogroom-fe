@@ -91,3 +91,32 @@ export const USER_ROLE_META = {
 };
 
 export type UserRole = keyof typeof USER_ROLE_META;
+
+export const CATEGORY_META = {
+  심리학: {
+    label: '심리학',
+    color: 'orange' as const,
+  },
+  뇌과학: {
+    label: '뇌과학',
+    color: 'blue' as const,
+  },
+  철학: {
+    label: '철학',
+    color: 'green' as const,
+  },
+  인류학: {
+    label: '인류학',
+    color: 'violet' as const,
+  },
+  언어학: {
+    label: '언어학',
+    color: 'pink' as const,
+  },
+  컴퓨터공학: {
+    label: '컴퓨터공학',
+    color: 'cyan' as const,
+  },
+};
+
+export type Category = keyof typeof CATEGORY_META;
