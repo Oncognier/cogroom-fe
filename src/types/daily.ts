@@ -13,3 +13,14 @@ export interface DailyAnswerRequest {
   assignedQuestionId: number;
   answer: string;
 }
+
+export interface DailyContent {
+  assignedQuestionId?: number;
+  questionId?: number;
+  nickname?: string;
+  imageUrl?: string;
+  question: string;
+  level: string;
+  categories: string[];
+  answeredAt?: string;
+}
