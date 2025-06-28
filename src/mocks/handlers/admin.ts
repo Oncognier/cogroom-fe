@@ -5,11 +5,29 @@ import { CreateDailyQuestionsRequest, DeleteMemberRequest } from '@/types/admin'
 
 import { createDailyQuestionsError, createDailyQuestionsSuccess } from '../data/admin/createDailyQuestionsData';
 import { deleteMemberError, deleteMemberSuccess } from '../data/admin/deleteMemberData';
+import {
+  getMemberDailyQuestionsError,
+  getMemberDailyQuestionsSuccess,
+} from '../data/admin/getMemberDailyQuestionsData';
 import { getMemberListSuccess } from '../data/admin/getMemberListData';
 
 export const adminHandlers = [
   http.get(END_POINTS_V1.ADMIN.MEMBERS.LIST, async () => {
     return new HttpResponse(JSON.stringify(getMemberListSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.get(END_POINTS_V1.ADMIN.MEMBERS.DAILY(':memberId'), async ({ params }) => {
+    const { memberId } = params;
+
+    if (!memberId) {
+      return new HttpResponse(JSON.stringify(getMemberDailyQuestionsError), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getMemberDailyQuestionsSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
