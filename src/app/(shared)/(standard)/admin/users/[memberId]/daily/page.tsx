@@ -10,16 +10,11 @@ import NumberPagination from '@/components/molecules/NumberPagination/NumberPagi
 import { Select } from '@/components/molecules/Select/Select';
 import { CATEGORY_SELECT_OPTIONS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetMemberDailyQuestions from '@/hooks/api/admin/useGetMemberDailyQuestions';
+import { MemberDailyFormFields } from '@/types/form';
 
 import DailyTableHeader from './_components/DailyTableHeader/DailyTableHeader';
 import * as S from './page.styled';
 import DailyListRow from '../../../_components/DailyListRow/DailyListRow';
-
-type FormValues = {
-  keyword: string;
-  category: number[];
-  level: string[];
-};
 
 export default function MemberDaily() {
   const params = useParams();
@@ -27,13 +22,13 @@ export default function MemberDaily() {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [filterValues, setFilterValues] = useState<FormValues>({
+  const [filterValues, setFilterValues] = useState<MemberDailyFormFields>({
     keyword: '',
     category: [],
     level: [],
   });
 
-  const { control, handleSubmit } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<MemberDailyFormFields>({
     defaultValues: {
       keyword: '',
       category: [],
@@ -66,7 +61,7 @@ export default function MemberDaily() {
     setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
   };
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: MemberDailyFormFields) => {
     setFilterValues(data);
     setCurrentPage(0);
     setSelectedIds([]);
