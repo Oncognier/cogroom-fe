@@ -19,9 +19,9 @@ interface CalendarProps {
 
 export default function Calendar({ streakDateList }: CalendarProps) {
   const router = useRouter();
-  const [isMonthly, setIsMonthly] = useState(false);
   const today = dayjs();
 
+  const [isMonthly, setIsMonthly] = useState(false);
   const monthDates = useMemo(() => getCalendarMonthDates(today), [today]);
   const weekDates = useMemo(() => getCalendarWeekDates(today), [today]);
   const dates = isMonthly ? monthDates : weekDates;

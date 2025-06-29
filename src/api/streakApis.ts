@@ -13,7 +13,6 @@ const getStreakDays = async () => {
   return data;
 };
 
-
 export const streakApi = {
   getStreakCalendar,
   getStreakDays,

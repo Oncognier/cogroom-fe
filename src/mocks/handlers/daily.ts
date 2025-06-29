@@ -9,12 +9,12 @@ import {
   editDailyAnswerError_LengthExceeded,
 } from '../data/daily/editDailyAnswer';
 import { getDailySuccess_NotAnswered, getDailySuccess_Answered } from '../data/daily/getDailyData';
+import { getDailyHasAnswered_NotAnswered, getDailyHasAnswered_Answered } from '../data/daily/getDailyHasAnswered';
 import {
   submitDailyAnswerSuccess,
   submitDailyAnswerError_EmptyField,
   submitDailyAnswerError_LengthExceeded,
 } from '../data/daily/submitDailyAnswer';
-import { getDailyHasAnswered_NotAnswered, getDailyHasAnswered_Answered } from '../data/daily/getDailyHasAnswered';
 
 export const dailyHandlers = [
   // 질문 및 스트릭 정보 조회
@@ -25,9 +25,9 @@ export const dailyHandlers = [
     });
   }),
 
-  // 답변 여부 조회 (답변 전)
+  // 첫 답변 여부 조회 (답변 전)
   http.get(END_POINTS_V1.DAILY.HAS_ANSWERED, async () => {
-    return new HttpResponse(JSON.stringify(getDailyHasAnswered_Answered), {
+    return new HttpResponse(JSON.stringify(getDailyHasAnswered_NotAnswered), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
