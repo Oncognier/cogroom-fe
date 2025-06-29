@@ -123,4 +123,3 @@ export const FillContainerWithIcons: Story = {
     align: 'space-between',
   },
 };
-

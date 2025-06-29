@@ -49,7 +49,6 @@ export default function DailyQuestionCard({
           iconRight={isOpen ? <ChevronUp /> : <ChevronDown />}
           interactionVariant='normal'
           fillContainer
-          
           onClick={toggleOpen}
         />
         {isOpen && (
