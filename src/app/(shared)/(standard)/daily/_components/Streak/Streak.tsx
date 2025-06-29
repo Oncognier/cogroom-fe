@@ -7,10 +7,10 @@ import { formatDayAsSlashYYMMDD } from '@/utils/formatDay';
 import * as S from './Streak.styled';
 
 interface StreakProps {
-  streaksDays: number;
+  dailyStreak: number;
 }
 
-export default function Streak({ streaksDays }: StreakProps) {
+export default function Streak({ dailyStreak }: StreakProps) {
   const today = dayjs();
 
   return (
@@ -23,11 +23,11 @@ export default function Streak({ streaksDays }: StreakProps) {
             width={11}
             height={14}
           />
-          <p>{streaksDays}</p>
+          <p>{dailyStreak}</p>
         </S.CountWrapper>
         <S.MessageWrapper>
           <S.MessageContinue>연속</S.MessageContinue>
-          <S.MessageDate>{streaksDays}일째</S.MessageDate>
+          <S.MessageDate>{dailyStreak}일째</S.MessageDate>
           <S.Message>꾸준히 하고 계시네요, 앞으로도 저희와 함께 해요!</S.Message>
         </S.MessageWrapper>
 

@@ -8,6 +8,6 @@ export interface StreakCalendarResponse extends ApiResponse {
 
 export interface StreakDaysResponse extends ApiResponse {
   result: {
-    streakDays: number;
+    dailyStreak: number;
   };
 }
