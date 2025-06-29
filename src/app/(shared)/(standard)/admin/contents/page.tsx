@@ -168,7 +168,7 @@ export default function Contents() {
           size='nm'
           currentPage={currentPage + 1}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
         />
       </S.PaginationWrapper>
     </S.ContentsContainer>
