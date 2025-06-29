@@ -28,7 +28,10 @@ export default function Daily() {
             answer={dailyData?.result.answer ?? ''}
             hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
           />
-          <Calendar streakDateList={streakCalendarData?.result.streakDateList ?? []} />
+          <Calendar
+            streakDateList={streakCalendarData?.result.streakDateList ?? []}
+            hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
+          />
         </>
       )}
     </S.DailyContainer>
