@@ -22,6 +22,27 @@ export interface MemberListResponse extends ApiResponse {
   result: PaginationResult<Member>;
 }
 
+export interface MemberDailyQuestionsRequest {
+  page?: number;
+  level?: string[];
+  category?: number[];
+  keyword?: string;
+}
+
+export interface MemberDailyQuestion {
+  assignedQuestionId: number;
+  nickname: string;
+  imageUrl: string;
+  question: string;
+  level: string;
+  categories: string[];
+  answeredAt: string;
+}
+
+export interface MemberDailyQuestionsResponse extends ApiResponse {
+  result: PaginationResult<MemberDailyQuestion>;
+}
+
 export interface DeleteMemberRequest {
   memberIdList: number[];
 }

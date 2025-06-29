@@ -17,3 +17,9 @@ export interface DailyCreateFormFields {
   question2?: string;
   question3?: string;
 }
+
+export interface MemberDailyFormFields {
+  keyword: string;
+  category: number[];
+  level: string[];
+}

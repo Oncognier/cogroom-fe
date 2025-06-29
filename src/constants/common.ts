@@ -120,3 +120,17 @@ export const CATEGORY_META = {
 };
 
 export type Category = keyof typeof CATEGORY_META;
+
+export const LEVEL_META = {
+  BASIC: {
+    label: '기초',
+  },
+  NORMAL: {
+    label: '기본',
+  },
+  ADVANCED: {
+    label: '심화',
+  },
+} as const;
+
+export type Level = keyof typeof LEVEL_META;
