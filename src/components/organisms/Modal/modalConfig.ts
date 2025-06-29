@@ -1,8 +1,8 @@
 import type { ModalMap } from '@/types/modal';
 
 import DailyAnswerEdit from './Daily/Edit/DailyAnswerEdit';
-import DailyAnswerPost, { DailyProps } from './Daily/Post/DailyAnswerPost';
 import DailyFirstAnswer from './Daily/FirstAnswer/DailyFirstAnswer';
+import DailyAnswerPost, { DailyProps } from './Daily/Post/DailyAnswerPost';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Signup, { SignupProps } from './Signup/Signup';
