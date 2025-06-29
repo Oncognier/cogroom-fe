@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import qs from 'qs';
 
 import { cookiesInterceptor, checkAndSetToken } from './requestInterceptors';
 import { handleTokenError, handleAPIError } from './responseInterceptors';
@@ -9,6 +10,7 @@ export const axiosInstance = axios.create({
   timeout: 10000,
   withCredentials: true,
   useAuth: true,
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
 });
 
 axiosInstance.interceptors.request.use(cookiesInterceptor);
