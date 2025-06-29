@@ -161,7 +161,7 @@ export default function MemberDaily() {
           size='nm'
           currentPage={currentPage + 1}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
         />
       </S.PaginationWrapper>
     </S.DailyContainer>

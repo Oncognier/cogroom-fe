@@ -5,6 +5,7 @@ import { CreateDailyQuestionsRequest, DeleteMemberRequest } from '@/types/admin'
 
 import { createDailyQuestionsError, createDailyQuestionsSuccess } from '../data/admin/createDailyQuestionsData';
 import { deleteMemberError, deleteMemberSuccess } from '../data/admin/deleteMemberData';
+import { getDailyQuestionsSuccess } from '../data/admin/getDailyQuestionsData';
 import {
   getMemberDailyQuestionsError,
   getMemberDailyQuestionsSuccess,
@@ -28,6 +29,12 @@ export const adminHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(getMemberDailyQuestionsSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.get(END_POINTS_V1.ADMIN.DAILY.QUESTIONS, async () => {
+    return new HttpResponse(JSON.stringify(getDailyQuestionsSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

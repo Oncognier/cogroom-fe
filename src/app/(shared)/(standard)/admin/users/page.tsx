@@ -107,7 +107,7 @@ export default function Users() {
           size='nm'
           currentPage={currentPage + 1}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
         />
       </S.PaginationButton>
     </S.UsersContainer>

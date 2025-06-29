@@ -3,11 +3,12 @@ import { AxiosResponse } from 'axios';
 import { END_POINTS_V1 } from '@/constants/api';
 import {
   CreateDailyQuestionsRequest,
-  MemberDailyQuestionsRequest,
+  DailyQuestionsRequest,
   DeleteMemberRequest,
   MemberListRequest,
   MemberListResponse,
   MemberDailyQuestionsResponse,
+  DailyQuestionsResponse,
 } from '@/types/admin';
 import { ApiResponse } from '@/types/api';
 
@@ -21,14 +22,16 @@ const getMemberList = async (params: MemberListRequest) => {
   return data.result;
 };
 
-const getMemberDailyQuestions = async ({
-  memberId,
-  params,
-}: {
-  memberId: string;
-  params: MemberDailyQuestionsRequest;
-}) => {
+const getMemberDailyQuestions = async ({ memberId, params }: { memberId: string; params: DailyQuestionsRequest }) => {
   const { data } = await axiosInstance.get<MemberDailyQuestionsResponse>(END_POINTS_V1.ADMIN.MEMBERS.DAILY(memberId), {
+    params,
+  });
+
+  return data.result;
+};
+
+const getDailyQuestions = async (params: DailyQuestionsRequest) => {
+  const { data } = await axiosInstance.get<DailyQuestionsResponse>(END_POINTS_V1.ADMIN.DAILY.QUESTIONS, {
     params,
   });
 
@@ -58,6 +61,7 @@ const createDailyQuestions = async (request: CreateDailyQuestionsRequest) => {
 export const adminApi = {
   getMemberList,
   getMemberDailyQuestions,
+  getDailyQuestions,
   deleteMember,
   createDailyQuestions,
 };
