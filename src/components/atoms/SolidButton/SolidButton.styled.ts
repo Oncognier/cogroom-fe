@@ -14,7 +14,6 @@ type SolidButtonSize = 'sm' | 'md' | 'lg';
 export interface SolidButtonStyleProps {
   color?: SolidButtonColor;
   size: SolidButtonSize;
-  fillContainer?: boolean;
   interactionVariant: InteractionVariant;
   fillContainer?: boolean;
   hasIcon?: boolean;
@@ -73,7 +72,7 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
 };
 
 export const StyledSolidButton = styled.button<SolidButtonStyleProps>`
-  ${({ theme, fillContainer, hasIcon }) => commonStyles(theme, fillContainer, hasIcon)};
+  ${({ theme }) => commonStyles(theme)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>
