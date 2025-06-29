@@ -19,10 +19,7 @@ export const DatePicker = styled.div`
 
   border-radius: 1.6rem;
   background-color: ${({ theme }) => theme.semantic.static.white};
-  box-shadow:
-    0px 0px 1px rgba(0, 0, 0, 0.08),
-    0px 0px 1px rgba(0, 0, 0, 0.08),
-    0px 1px 2px rgba(0, 0, 0, 0.12);
+  box-shadow: ${({ theme }) => theme.shadow.normal};
 `;
 
 export const Heading = styled.div`

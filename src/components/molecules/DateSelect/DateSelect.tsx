@@ -34,7 +34,7 @@ export default function DateSelect({
   };
 
   return (
-    <S.DateSelectWrapper>
+    <S.DateSelect>
       <S.Wrapper>
         <S.DateSelectorWrapper>
           <DateSelector
@@ -84,32 +84,28 @@ export default function DateSelect({
         />
       </S.Wrapper>
 
-      <S.DatePickerPopupWrapper>
+      <S.PopupWrapper>
         {isStartOpen && (
-          <S.DatePickerPopup>
+          <S.Popup>
             <DatePicker
               isOpen={isStartOpen}
               selectedDate={selectedStartDate}
               onClose={() => setIsStartOpen(false)}
-              onSelect={(date) => {
-                onStartDateChange(date);
-              }}
+              onSelect={(date) => onStartDateChange(date)}
             />
-          </S.DatePickerPopup>
+          </S.Popup>
         )}
         {isEndOpen && (
-          <S.DatePickerPopup>
+          <S.Popup>
             <DatePicker
               isOpen={isEndOpen}
               selectedDate={selectedEndDate}
               onClose={() => setIsEndOpen(false)}
-              onSelect={(date) => {
-                onEndDateChange(date);
-              }}
+              onSelect={(date) => onEndDateChange(date)}
             />
-          </S.DatePickerPopup>
+          </S.Popup>
         )}
-      </S.DatePickerPopupWrapper>
-    </S.DateSelectWrapper>
+      </S.PopupWrapper>
+    </S.DateSelect>
   );
 }

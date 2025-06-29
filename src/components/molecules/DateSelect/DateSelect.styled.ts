@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const DateSelectWrapper = styled.div`
+export const DateSelect = styled.div`
   position: relative;
   display: flex;
 `;
@@ -58,12 +58,12 @@ export const QuickDateSelectItem = styled.button`
   color: ${({ theme }) => theme.semantic.label.neutral};
 `;
 
-export const DatePickerPopupWrapper = styled.div`
+export const PopupWrapper = styled.div`
   position: relative;
   display: flex;
 `;
 
-export const DatePickerPopup = styled.div`
+export const Popup = styled.div`
   position: absolute;
   top: 0;
   left: 100%;
