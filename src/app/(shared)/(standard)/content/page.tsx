@@ -20,10 +20,6 @@ export default function Content() {
           alt='content banner'
           fill
         />
-        {/* <S.BannerTitleWrapper>
-          <S.BannerSubTitle>인지과학 기반의 심층 지식 콘텐츠로</S.BannerSubTitle>
-          <S.BannerTitle>더욱 성장하러 가기</S.BannerTitle>
-        </S.BannerTitleWrapper> */}
       </S.BannerWrapper>
     </S.ContentContainer>
   );

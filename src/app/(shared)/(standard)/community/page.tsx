@@ -20,11 +20,6 @@ export default function Community() {
           alt='community banner'
           fill
         />
-        {/* <S.BannerTitleWrapper>
-          <S.BannerTitle>서로 안아주기</S.BannerTitle>
-          <S.BannerTitle>더욱 알아가기</S.BannerTitle>
-          <S.BannerTitle>진짜 대화하기</S.BannerTitle>
-        </S.BannerTitleWrapper> */}
       </S.BannerWrapper>
     </S.ContentContainer>
   );
