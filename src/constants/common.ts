@@ -28,6 +28,7 @@ export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
   { label: '인류학', value: 4 },
   { label: '언어학', value: 5 },
   { label: '컴퓨터공학', value: 6 },
+  { label: '기타', value: 7 },
 ];
 
 export const SIGNUP_STEP = {
@@ -116,6 +117,10 @@ export const CATEGORY_META = {
   컴퓨터공학: {
     label: '컴퓨터공학',
     color: 'cyan' as const,
+  },
+  기타: {
+    label: '기타',
+    color: 'gray' as const,
   },
 };
 
