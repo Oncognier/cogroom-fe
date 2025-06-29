@@ -16,13 +16,13 @@ export interface SolidButtonStyleProps {
   size: SolidButtonSize;
   interactionVariant: InteractionVariant;
   fillContainer?: boolean;
-  hasIcon?: boolean;
+  align?: 'center' | 'space-between';
 }
 
-const commonStyles = (theme: Theme, fillContainer?: boolean, hasIcon?: boolean) => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, align?: 'center' | 'space-between') => css`
   display: flex;
   align-items: center;
-  justify-content: ${fillContainer && hasIcon ? 'space-between' : 'center'};
+  justify-content: ${align};
   gap: 4px;
 
   width: ${fillContainer ? '100%' : 'auto'};
@@ -72,7 +72,7 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
 };
 
 export const StyledSolidButton = styled.button<SolidButtonStyleProps>`
-  ${({ theme, fillContainer, hasIcon }) => commonStyles(theme, fillContainer, hasIcon)};
+  ${({ theme, fillContainer, align }) => commonStyles(theme, fillContainer, align)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>
