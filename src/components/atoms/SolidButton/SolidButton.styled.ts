@@ -72,7 +72,7 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
 };
 
 export const StyledSolidButton = styled.button<SolidButtonStyleProps>`
-  ${({ theme }) => commonStyles(theme)};
+  ${({ theme, fillContainer, hasIcon }) => commonStyles(theme, fillContainer, hasIcon)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>
