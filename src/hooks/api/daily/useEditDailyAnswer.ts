@@ -3,16 +3,13 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { dailyApi } from '@/api/dailyApis';
-import { useModalStore } from '@/stores/useModalStore';
 
 // 답변 수정
 export const useEditDailyAnswerMutation = () => {
-  const { open } = useModalStore();
-
   const mutation = useMutation({
     mutationFn: dailyApi.editDailyAnswer,
     onSuccess: () => {
-      open('dailyAnswerEdit', undefined);
+      alert('수정되었습니다.');
     },
     onError: () => {
       // FIXME: 모달로 변경

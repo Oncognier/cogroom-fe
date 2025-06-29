@@ -26,7 +26,6 @@ export default function Question({ assignedQuestionId, question, answer }: Quest
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
-  const { editDailyAnswer } = useEditDailyAnswerMutation();
   const { open } = useModalStore();
   const { isLoggedIn } = useAuthStore();
 
@@ -47,7 +46,7 @@ export default function Question({ assignedQuestionId, question, answer }: Quest
   };
 
   const handleEdit = () => {
-    editDailyAnswer({ assignedQuestionId, answer: inputValue });
+    open('dailyAnswerEdit', { assignedQuestionId, answer: inputValue, redirectTo: '/daily' });
   };
 
   useEffect(() => {

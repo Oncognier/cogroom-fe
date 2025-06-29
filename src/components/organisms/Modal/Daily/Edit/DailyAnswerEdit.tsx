@@ -1,18 +1,32 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import X from '@/assets/icons/x.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
 import { useModalStore } from '@/stores/useModalStore';
 
 import * as S from './DailyAnswerEdit.styled';
 
-export default function DailyAnswerEdit() {
+export interface DailyAnswerEditProps {
+  assignedQuestionId: number;
+  answer: string;
+  redirectTo?: string;
+}
+
+export default function DailyAnswerEdit({ assignedQuestionId, answer, redirectTo }: DailyAnswerEditProps) {
+  const router = useRouter();
   const { close } = useModalStore();
+  const { editDailyAnswer } = useEditDailyAnswerMutation();
 
   const handleClick = () => {
+    editDailyAnswer({ assignedQuestionId, answer });
     close();
-    alert('수정되었습니다.');
+    if (redirectTo) {
+      router.push(redirectTo);
+    }
   };
 
   return (
@@ -22,7 +36,7 @@ export default function DailyAnswerEdit() {
           size='4rem'
           variant='normal'
           interactionVariant='normal'
-          onClick={handleClick}
+          onClick={close}
         >
           <X />
         </IconButton>
