@@ -4,18 +4,16 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { dailyApi } from '@/api/dailyApis';
 import { DAILY_QUERY_KEYS } from '@/constants/queryKeys';
-import { useModalStore } from '@/stores/useModalStore';
 
 // 답변 수정
 export const useEditDailyAnswerMutation = () => {
   const queryClient = useQueryClient();
-  const { open } = useModalStore();
 
   const mutation = useMutation({
     mutationFn: dailyApi.editDailyAnswer,
     onSuccess: () => {
-      open('dailyAnswerEdit', { redirectTo: '/daily' });
-      queryClient.invalidateQueries({ queryKey: [...DAILY_QUERY_KEYS.DAILY] });
+      alert('답변 수정이 완료되었습니다.');
+      queryClient.invalidateQueries({ queryKey: [...DAILY_QUERY_KEYS.DAILY_QUESTION_ANSWER] });
     },
     onError: () => {
       // FIXME: 모달로 변경
