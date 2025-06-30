@@ -4,11 +4,16 @@ export const submitDailyAnswerSuccess = {
 };
 
 export const submitDailyAnswerError_EmptyField = {
-  code: 'EMPTY_FILED_ERROR',
-  message: '요청 값이 비어있습니다.',
+  code: 'ANSWER_NOTBLANK_ERROR',
+  message: '한 글자라도 적어주세요',
 };
 
 export const submitDailyAnswerError_LengthExceeded = {
-  code: 'ANSWER_LENGTH_EXCEEDED_ERROR',
-  message: '답변은 100자 이하여야 합니다.',
+  code: 'ANSWER_SIZE_ERROR',
+  message: '내용을 조금만 줄여볼까요?',
+};
+
+export const submitDailyAnswerError_TimeExpired = {
+  code: 'ANSWER_TIME_EXPIRED',
+  message: '앗.. 자정이 지나 수정할 수 없어요',
 };
