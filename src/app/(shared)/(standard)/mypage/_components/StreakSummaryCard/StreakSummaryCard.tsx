@@ -1,11 +1,16 @@
+'use client';
+
 import TextButton from '@/components/atoms/TextButton/TextButton';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './StreakSummaryCard.styled';
 
 interface StreakSummaryCardProps {
-  dailyStreak?: number;
+  dailyStreak: number;
 }
 export default function StreakSummaryCard({ dailyStreak }: StreakSummaryCardProps) {
+  const { open } = useAppModalStore();
+
   return (
     <S.StreakSummaryCard>
       <S.TextWrapper>
@@ -18,6 +23,7 @@ export default function StreakSummaryCard({ dailyStreak }: StreakSummaryCardProp
         color='assistive'
         label='공유하기'
         interactionVariant='normal'
+        onClick={() => open('dailyShare', { dailyStreak })}
       />
     </S.StreakSummaryCard>
   );
