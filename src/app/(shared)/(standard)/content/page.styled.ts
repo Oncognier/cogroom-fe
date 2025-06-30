@@ -22,6 +22,5 @@ export const BannerWrapper = styled.div`
 
   img {
     object-fit: contain;
-    z-index: -1;
   }
 `;
