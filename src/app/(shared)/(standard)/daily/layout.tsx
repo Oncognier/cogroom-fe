@@ -1,16 +1,20 @@
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
-import { REPORT_IMAGE } from '@/constants/image';
+import { STREAK_SHARE_IMAGE_URLS } from '@/constants/image';
 
 import * as S from './layout.styled';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata() {
+  const randomImage = STREAK_SHARE_IMAGE_URLS[Math.floor(Math.random() * STREAK_SHARE_IMAGE_URLS.length)];
+
   return {
     title: '🔥 나의 데일리 스트릭',
     description: '오늘도 코그룸과 함께 성장 중!',
     openGraph: {
       title: '🔥 나의 데일리 스트릭',
       description: '오늘도 코그룸과 함께 성장 중!',
-      images: [REPORT_IMAGE],
+      images: [randomImage],
       url: 'https://cogroom.com/daily',
     },
   };
