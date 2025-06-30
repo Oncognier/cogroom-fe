@@ -7,19 +7,20 @@ import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive';
 type OutlinedButtonSize = 'sm' | 'md' | 'lg';
+type OutlinedButtonAlign = 'center' | 'space-between';
 
 export interface OutlinedButtonStyleProps {
   color: OutlinedButtonColor;
   size: OutlinedButtonSize;
   fillContainer?: boolean;
-  hasIcon?: boolean;
   interactionVariant: InteractionVariant;
+  align?: OutlinedButtonAlign;
 }
 
-const commonStyles = (theme: Theme, fillContainer?: boolean, hasIcon?: boolean) => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, align?: OutlinedButtonAlign) => css`
   display: flex;
   align-items: center;
-  justify-content: ${fillContainer && hasIcon ? 'space-between' : 'center'};
+  justify-content: ${align};
   gap: 4px;
 
   width: ${fillContainer ? '100%' : 'auto'};
@@ -81,7 +82,7 @@ const getInteractionColor = (theme: Theme, color: OutlinedButtonColor) => {
 };
 
 export const OutlinedButton = styled.button<OutlinedButtonStyleProps>`
-  ${({ theme, fillContainer, hasIcon }) => commonStyles(theme, fillContainer, hasIcon)};
+  ${({ theme, fillContainer, align }) => commonStyles(theme, fillContainer, align)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => colorStyles[color](theme)};
   ${({ theme, interactionVariant, disabled, color }) =>

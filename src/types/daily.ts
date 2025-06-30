@@ -24,3 +24,9 @@ export interface DailyContent {
   categories: string[];
   answeredAt?: string;
 }
+
+export interface DailyHasAnsweredResponse extends ApiResponse {
+  result: {
+    hasAnswered: boolean;
+  };
+}

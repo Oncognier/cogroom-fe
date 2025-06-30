@@ -17,11 +17,13 @@ interface QuestionProps {
   assignedQuestionId: number;
   question: string;
   answer?: string;
+  hasAnswered: boolean;
 }
 
-export default function Question({ assignedQuestionId, question, answer }: QuestionProps) {
-  const [inputValue, setInputValue] = useState('');
-  const [isAnswered, setIsAnswered] = useState(false);
+export default function Question({ assignedQuestionId, question, answer, hasAnswered }: QuestionProps) {
+  const [inputValue, setInputValue] = useState(answer ?? '');
+  const [isAnswered, setIsAnswered] = useState<boolean>(answer ? true : false);
+  const isFirstAnswer = useRef<boolean>(hasAnswered);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -43,11 +45,20 @@ export default function Question({ assignedQuestionId, question, answer }: Quest
       open('login', undefined);
       return;
     }
+
     submitDailyAnswer({ assignedQuestionId, answer: inputValue });
   };
 
   const handleEdit = () => {
     editDailyAnswer({ assignedQuestionId, answer: inputValue });
+  };
+
+  const handleFocus = () => {
+    if (!isFirstAnswer.current && isLoggedIn) {
+      open('dailyFirstAnswer', undefined);
+      isFirstAnswer.current = true;
+      return;
+    }
   };
 
   useEffect(() => {
@@ -87,6 +98,7 @@ export default function Question({ assignedQuestionId, question, answer }: Quest
             onChange={(e) => {
               setInputValue(e.target.value);
             }}
+            onFocus={handleFocus}
           />
         </S.InputGroup>
         <TextButton

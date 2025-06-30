@@ -38,6 +38,10 @@ const meta = {
         disable: true,
       },
     },
+    align: {
+      control: 'radio',
+      options: ['center', 'space-between'],
+    },
   },
 } satisfies Meta<typeof SolidButton>;
 
@@ -51,6 +55,7 @@ export const NoIcon: Story = {
     isDisabled: false,
     interactionVariant: 'strong',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -62,6 +67,7 @@ export const LeftIconOnly: Story = {
     isDisabled: false,
     interactionVariant: 'strong',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -73,6 +79,7 @@ export const RightIconOnly: Story = {
     isDisabled: false,
     interactionVariant: 'strong',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -85,6 +92,7 @@ export const Primary: Story = {
     isDisabled: false,
     interactionVariant: 'strong',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -98,5 +106,20 @@ export const Kakao: Story = {
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
+    align: 'center',
+  },
+};
+
+export const FillContainerWithIcons: Story = {
+  args: {
+    label: 'Full Width',
+    iconLeft: <Blank />,
+    iconRight: <Blank />,
+    size: 'lg',
+    fillContainer: true,
+    isDisabled: false,
+    interactionVariant: 'normal',
+    onClick: action('clicked'),
+    align: 'space-between',
   },
 };

@@ -12,11 +12,15 @@ const MEMBER_QUERY_KEYS = {
 } as const;
 
 const DAILY_QUERY_KEYS = {
-  DAILY: ['streak', 'question', 'answer'],
+  DAILY: ['daily'],
+  DAILY_QUESTION_ANSWER: ['daily', 'question', 'answer'],
+  DAILY_HAS_ANSWERED: ['daily', 'hasAnswered'],
 } as const;
 
 const STREAK_QUERY_KEYS = {
-  STREAK_DAYS: 'streak_days',
+  STREAK: ['streak'],
+  STREAK_CALENDAR: ['streak', 'calendar'],
+  STREAK_DAYS: ['streak', 'days'],
 } as const;
 
 const ADMIN_QUERY_KEYS = {

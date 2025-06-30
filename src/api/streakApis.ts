@@ -1,13 +1,19 @@
 import { END_POINTS_V1 } from '@/constants/api';
-import { StreakDateListResponse } from '@/types/streak';
+import { StreakCalendarResponse, StreakDaysResponse } from '@/types/streak';
 
 import { axiosInstance } from './axios/axiosInstance';
 
-const getStreakDateList = async () => {
-  const { data } = await axiosInstance.get<StreakDateListResponse>(END_POINTS_V1.STREAKS.CALENDAR, { useAuth: true });
+const getStreakCalendar = async () => {
+  const { data } = await axiosInstance.get<StreakCalendarResponse>(END_POINTS_V1.STREAKS.CALENDAR, { useAuth: true });
+  return data;
+};
+
+const getStreakDays = async () => {
+  const { data } = await axiosInstance.get<StreakDaysResponse>(END_POINTS_V1.STREAKS.DAILY_STREAK, { useAuth: true });
   return data;
 };
 
 export const streakApi = {
-  getStreakDateList,
+  getStreakCalendar,
+  getStreakDays,
 };
