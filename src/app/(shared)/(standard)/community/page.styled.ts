@@ -22,5 +22,22 @@ export const BannerWrapper = styled.div`
 
   img {
     object-fit: contain;
+    z-index: -1;
   }
+`;
+
+export const BannerTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  width: 100%;
+  height: 100%;
+`;
+
+export const BannerTitle = styled.p`
+  ${({ theme }) => theme.typography.title1.bold}
+  color: ${({ theme }) => theme.semantic.label.normal};
 `;
