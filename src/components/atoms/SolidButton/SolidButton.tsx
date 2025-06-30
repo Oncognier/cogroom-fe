@@ -21,7 +21,7 @@ export default function SolidButton({
   onClick,
   interactionVariant,
   type = 'button',
-  align = 'space-between',
+  align = 'center',
 }: SolidButtonProps) {
   return (
     <S.StyledSolidButton

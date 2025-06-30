@@ -82,7 +82,6 @@ export default function Calendar({ streakDateList, hasAnswered }: CalendarProps)
             interactionVariant='normal'
             onClick={handleGoToReport}
             fillContainer
-            align='center'
             iconRight={<ArrowRight />}
           />
         )}
