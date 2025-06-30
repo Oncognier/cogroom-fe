@@ -41,6 +41,7 @@ export const END_POINTS_V1 = {
     ANSWERS: `${BASE_PATH_V1.DAILY}/answers`,
     ANSWERS_EDIT: (answerId: string) => `${BASE_PATH_V1.DAILY}/answers/${answerId}`,
     CALENDAR: `${BASE_PATH_V1.DAILY}/calendar`,
+    HAS_ANSWERED: `${BASE_PATH_V1.DAILY}/has-answered`,
   },
   CONTENTS: {
     CONTENTS: BASE_PATH_V1.CONTENTS,
@@ -56,6 +57,7 @@ export const END_POINTS_V1 = {
   },
   STREAKS: {
     CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
+    DAILY_STREAK: `${BASE_PATH_V1.STREAKS}/daily-streak`,
   },
 
   ADMIN: {

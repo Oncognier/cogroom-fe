@@ -49,6 +49,7 @@ export default function Login() {
         interactionVariant='normal'
         iconLeft={<Kakao />}
         onClick={handleClick}
+        align='center'
         fillContainer
       />
     </S.Container>

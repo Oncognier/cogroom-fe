@@ -21,6 +21,7 @@ export default function SolidButton({
   onClick,
   interactionVariant,
   type = 'button',
+  align = 'space-between',
 }: SolidButtonProps) {
   return (
     <S.StyledSolidButton
@@ -31,10 +32,11 @@ export default function SolidButton({
       interactionVariant={interactionVariant}
       fillContainer={fillContainer}
       type={type}
+      align={align}
     >
-      <S.Icon>{iconLeft}</S.Icon>
+      {iconLeft && <S.Icon>{iconLeft}</S.Icon>}
       {label}
-      <S.Icon>{iconRight}</S.Icon>
+      {iconRight && <S.Icon>{iconRight}</S.Icon>}
     </S.StyledSolidButton>
   );
 }

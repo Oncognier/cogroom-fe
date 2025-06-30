@@ -1,6 +1,7 @@
 import type { ModalMap } from '@/types/modal';
 
 import DailyAnswerEdit from './Daily/Edit/DailyAnswerEdit';
+import DailyFirstAnswer from './Daily/FirstAnswer/DailyFirstAnswer';
 import DailyAnswerPost, { DailyProps } from './Daily/Post/DailyAnswerPost';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
@@ -11,7 +12,8 @@ export type AppModalProps = {
   signup: SignupProps;
   logout: undefined;
   dailyAnswerPost: DailyProps;
-  dailyAnswerEdit: undefined;
+  dailyAnswerEdit: DailyProps;
+  dailyFirstAnswer: undefined;
 };
 
 export const modalRegistry: ModalMap<AppModalProps> = {
@@ -33,6 +35,10 @@ export const modalRegistry: ModalMap<AppModalProps> = {
   },
   dailyAnswerEdit: {
     Component: DailyAnswerEdit,
+    disableOutsideClick: false,
+  },
+  dailyFirstAnswer: {
+    Component: DailyFirstAnswer,
     disableOutsideClick: false,
   },
 };

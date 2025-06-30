@@ -9,6 +9,7 @@ import {
   editDailyAnswerError_LengthExceeded,
 } from '../data/daily/editDailyAnswer';
 import { getDailySuccess_NotAnswered, getDailySuccess_Answered } from '../data/daily/getDailyData';
+import { getDailyHasAnswered_NotAnswered, getDailyHasAnswered_Answered } from '../data/daily/getDailyHasAnswered';
 import {
   submitDailyAnswerSuccess,
   submitDailyAnswerError_EmptyField,
@@ -20,6 +21,13 @@ export const dailyHandlers = [
   http.get(END_POINTS_V1.DAILY.QUESTIONS, async () => {
     // 답변 후 dailyDataAnswered, 답변 전 dailyDataNotAnswered
     return new HttpResponse(JSON.stringify(getDailySuccess_NotAnswered), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 첫 답변 여부 조회 (답변 전)
+  http.get(END_POINTS_V1.DAILY.HAS_ANSWERED, async () => {
+    return new HttpResponse(JSON.stringify(getDailyHasAnswered_NotAnswered), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

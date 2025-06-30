@@ -21,17 +21,18 @@ export default function OutlinedButton({
   onClick,
   interactionVariant,
   type = 'button',
+  align = 'space-between',
 }: OutlinedButtonProps) {
   return (
     <S.OutlinedButton
       size={size}
       color={color}
       fillContainer={fillContainer}
-      hasIcon={!!iconLeft || !!iconRight}
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}
       type={type}
+      align={align}
     >
       {iconLeft && <S.Icon>{iconLeft}</S.Icon>}
       {label}

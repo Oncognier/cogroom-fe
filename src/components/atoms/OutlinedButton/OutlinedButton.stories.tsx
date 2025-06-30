@@ -37,8 +37,9 @@ const meta = {
     iconRight: {
       table: { disable: true },
     },
-    hasIcon: {
-      table: { disable: true },
+    align: {
+      control: 'radio',
+      options: ['center', 'space-between'],
     },
   },
 } satisfies Meta<typeof OutlinedButton>;
@@ -55,6 +56,7 @@ export const NoIcon: Story = {
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -68,6 +70,7 @@ export const LeftIconOnly: Story = {
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -81,6 +84,7 @@ export const RightIconOnly: Story = {
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -95,6 +99,7 @@ export const LeftRightIcon: Story = {
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
+    align: 'center',
   },
 };
 
@@ -109,5 +114,6 @@ export const FillContainerWithIcons: Story = {
     isDisabled: false,
     interactionVariant: 'normal',
     onClick: action('clicked'),
+    align: 'space-between',
   },
 };

@@ -3,10 +3,17 @@ import type { AxiosResponse } from 'axios';
 import { axiosInstance } from '@/api/axios/axiosInstance';
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
-import { DailyAnswerRequest, DailyQuestionResponse } from '@/types/daily';
+import { DailyAnswerRequest, DailyHasAnsweredResponse, DailyQuestionResponse } from '@/types/daily';
 
 const getDaily = async () => {
   const { data } = await axiosInstance.get<DailyQuestionResponse>(END_POINTS_V1.DAILY.QUESTIONS, {
+    useAuth: true,
+  });
+  return data;
+};
+
+const getDailyHasAnswered = async () => {
+  const { data } = await axiosInstance.get<DailyHasAnsweredResponse>(END_POINTS_V1.DAILY.HAS_ANSWERED, {
     useAuth: true,
   });
   return data;
@@ -34,4 +41,5 @@ export const dailyApi = {
   getDaily,
   submitDailyAnswer,
   editDailyAnswer,
+  getDailyHasAnswered,
 };
