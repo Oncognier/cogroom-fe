@@ -1,16 +1,12 @@
 'use client';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './DailyFirstAnswer.styled';
 
 export default function DailyFirstAnswer() {
-  const { close } = useModalStore();
-
-  const handleClick = () => {
-    close();
-  };
+  const { close } = useAppModalStore();
 
   return (
     <S.Container>
@@ -23,7 +19,7 @@ export default function DailyFirstAnswer() {
         size='sm'
         color='assistive'
         interactionVariant='normal'
-        onClick={handleClick}
+        onClick={close}
         type='submit'
       />
     </S.Container>
