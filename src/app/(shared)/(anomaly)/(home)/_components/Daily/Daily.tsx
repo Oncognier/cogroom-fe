@@ -29,7 +29,8 @@ export default function Daily() {
             </S.RightSide>
             <S.CenterSide>
               <S.Question>
-                감정이 없는 하루, 감정을 주체할 수 없는 하루<br />둘 중 하나를 골라 살아야 한다면?
+                감정이 없는 하루, 감정을 주체할 수 없는 하루
+                <br />둘 중 하나를 골라 살아야 한다면?
               </S.Question>
             </S.CenterSide>
           </S.QuestionsWrapper>
