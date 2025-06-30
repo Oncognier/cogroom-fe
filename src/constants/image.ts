@@ -33,7 +33,7 @@ export const DEFAULT_STREAK_BACKGROUND = 'https://cdn.cogroom.com/default_image/
 export const DEFAULT_WATERDROP = 'https://cdn.cogroom.com/default_image/Waterdrop.svg' as const;
 
 // Contents
-export const DEFAULT_CONTENT_BANNER = 'https://cdn.cogroom.com/default_image/Content_MainBanner.png' as const;
+export const DEFAULT_CONTENT_MAIN_BANNER = 'https://cdn.cogroom.com/default_image/Content_Main_Banner.png' as const;
 
 // Community
-export const DEFAULT_COMMUNITY_MAIN_BANNER = 'https://cdn.cogroom.com/default_image/Community_MainBanner.png' as const;
+export const DEFAULT_COMMUNITY_MAIN_BANNER = 'https://cdn.cogroom.com/default_image/Community_Main_Banner.png' as const;
