@@ -1,5 +1,7 @@
 import type { ModalMap } from '@/types/modal';
 
+import Alert, { AlertProps } from './Alert/Alert';
+import DailyShare, { DailyShareProps } from './Daily/DailyShare/DailyShare';
 import DailyAnswerEdit, { DailyAnswerEditProps } from './Daily/Edit/DailyAnswerEdit';
 import DailyFirstAnswer from './Daily/FirstAnswer/DailyFirstAnswer';
 import DailyAnswerPost, { DailyAnswerPostProps } from './Daily/Post/DailyAnswerPost';
@@ -15,10 +17,12 @@ export type AppModalProps = {
   dailyAnswerPost: DailyAnswerPostProps;
   dailyAnswerEdit: DailyAnswerEditProps;
   dailyFirstAnswer: undefined;
+  dailyShare: DailyShareProps;
 };
 
 export type AlertModalProps = {
   error: ErrorProps;
+  alert: AlertProps;
 };
 
 export const AppModalRegistry = {
@@ -28,8 +32,10 @@ export const AppModalRegistry = {
   dailyAnswerPost: { Component: DailyAnswerPost, disableOutsideClick: false },
   dailyAnswerEdit: { Component: DailyAnswerEdit, disableOutsideClick: false },
   dailyFirstAnswer: { Component: DailyFirstAnswer, disableOutsideClick: false },
+  dailyShare: { Component: DailyShare, disableOutsideClick: false },
 } satisfies ModalMap<AppModalProps>;
 
 export const AlertModalRegistry = {
   error: { Component: Error, disableOutsideClick: false },
+  alert: { Component: Alert, disableOutsideClick: false },
 } satisfies ModalMap<AlertModalProps>;

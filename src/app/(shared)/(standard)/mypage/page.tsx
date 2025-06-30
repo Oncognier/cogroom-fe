@@ -36,7 +36,7 @@ export default function Dashboard() {
       </S.Report>
 
       <S.SummarySectionWrapper>
-        <StreakSummaryCard dailyStreak={data?.dailyStreak} />
+        <StreakSummaryCard dailyStreak={data?.dailyStreak || 0} />
         <ContentRecordToggle />
       </S.SummarySectionWrapper>
     </S.DashboardContainer>

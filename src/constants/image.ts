@@ -37,3 +37,9 @@ export const DEFAULT_CONTENT_MAIN_BANNER = 'https://cdn.cogroom.com/default_imag
 
 // Community
 export const DEFAULT_COMMUNITY_MAIN_BANNER = 'https://cdn.cogroom.com/default_image/Community_Main_Banner.png' as const;
+
+export const STREAK_SHARE_IMAGE_URLS = [
+  'https://cdn.cogroom.com/default_image/StreakShare01.png',
+  'https://cdn.cogroom.com/default_image/StreakShare02.png',
+  'https://cdn.cogroom.com/default_image/StreakShare03.png',
+];

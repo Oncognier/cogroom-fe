@@ -6,6 +6,7 @@ import Base from '@/components/organisms/Modal/Base/Base';
 import { AlertModalRegistry, AppModalRegistry } from '@/components/organisms/Modal/modalConfig';
 import AppModal from '@/components/organisms/Modal/templates/AppModal/AppModal';
 import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
+import AlertModal from '@/components/organisms/Modal/templates/AlertModal/AlertModal';
 
 export default function ModalProvider() {
   const appModalStore = useAppModalStore();
@@ -21,7 +22,7 @@ export default function ModalProvider() {
       <Base
         modalMap={AlertModalRegistry}
         useModalStore={() => alertModalStore}
-        wrapper={AppModal}
+        wrapper={AlertModal}
       />
       <div id='modal-root' />
     </>
