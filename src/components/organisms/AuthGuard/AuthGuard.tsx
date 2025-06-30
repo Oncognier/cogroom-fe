@@ -1,12 +1,12 @@
 'use client';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './AuthGuard.styled';
 
 export default function AuthGuard() {
-  const { open } = useModalStore();
+  const { open } = useAppModalStore();
 
   return (
     <S.AuthGuard>
@@ -20,7 +20,7 @@ export default function AuthGuard() {
         color='primary'
         label='회원가입 / 로그인 하기'
         interactionVariant='normal'
-        onClick={() => open('login', undefined)}
+        onClick={() => open('login')}
       />
     </S.AuthGuard>
   );

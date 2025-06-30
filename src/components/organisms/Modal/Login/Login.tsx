@@ -1,16 +1,14 @@
 'use client';
 
 import Kakao from '@/assets/icons/kakao.svg';
-import X from '@/assets/icons/x.svg';
-import IconButton from '@/components/atoms/IconButton/IconButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { KAKAO_AUTH_API_URL } from '@/constants/api';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './Login.styled';
 
 export default function Login() {
-  const { close } = useModalStore();
+  const { close } = useAppModalStore();
 
   const handleClick = () => {
     window.location.href = KAKAO_AUTH_API_URL;
@@ -18,18 +16,7 @@ export default function Login() {
   };
 
   return (
-    <S.Container>
-      <S.Close>
-        <IconButton
-          size='4rem'
-          variant='normal'
-          interactionVariant='normal'
-          onClick={close}
-        >
-          <X />
-        </IconButton>
-      </S.Close>
-
+    <>
       <S.TextWrapper>
         <S.TitleWrapper>
           <S.SubTitle>모든이의 내적성장을 돕습니다</S.SubTitle>
@@ -52,6 +39,6 @@ export default function Login() {
         align='center'
         fillContainer
       />
-    </S.Container>
+    </>
   );
 }

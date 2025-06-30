@@ -4,13 +4,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { dailyApi } from '@/api/dailyApis';
 import { DAILY_QUERY_KEYS, STREAK_QUERY_KEYS } from '@/constants/queryKeys';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 // 답변 제출
 export const useSubmitDailyAnswerMutation = () => {
   const queryClient = useQueryClient();
 
-  const { open } = useModalStore();
+  const { open } = useAppModalStore();
 
   const mutation = useMutation({
     mutationFn: dailyApi.submitDailyAnswer,

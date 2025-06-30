@@ -4,20 +4,20 @@ import { useRouter } from 'next/navigation';
 
 import ArrowRight from '@/assets/icons/arrowright.svg';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './Hero.styled';
 
 export default function HeroButton() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const { open } = useModalStore();
+  const { open } = useAppModalStore();
   const router = useRouter();
 
   const handleClick = () => {
     if (isLoggedIn) {
       router.push('/daily');
     } else {
-      open('login', undefined);
+      open('login');
     }
   };
 

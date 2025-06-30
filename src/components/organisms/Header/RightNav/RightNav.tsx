@@ -10,7 +10,7 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 import { UserSummary } from '@/types/member';
 
 import * as S from './RightNav.styled';
@@ -21,7 +21,7 @@ interface RightNavProps {
 }
 
 export default function RightNav({ accessToken, userSummary: serverUserSummary }: RightNavProps) {
-  const { open } = useModalStore();
+  const { open } = useAppModalStore();
   const { setToken, isLoggedIn } = useAuthStore();
   const router = useRouter();
 
@@ -73,7 +73,7 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
           size='sm'
           color='primary'
           interactionVariant='normal'
-          onClick={() => open('login', undefined)}
+          onClick={() => open('login')}
         />
       )}
     </S.RightNav>

@@ -2,11 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 
-import X from '@/assets/icons/x.svg';
-import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './DailyAnswerEdit.styled';
 
@@ -18,7 +16,7 @@ export interface DailyAnswerEditProps {
 
 export default function DailyAnswerEdit({ assignedQuestionId, answer, redirectTo }: DailyAnswerEditProps) {
   const router = useRouter();
-  const { close } = useModalStore();
+  const { close } = useAppModalStore();
   const { editDailyAnswer } = useEditDailyAnswerMutation();
 
   const handleClick = () => {
@@ -30,18 +28,7 @@ export default function DailyAnswerEdit({ assignedQuestionId, answer, redirectTo
   };
 
   return (
-    <S.Container>
-      <S.Close>
-        <IconButton
-          size='4rem'
-          variant='normal'
-          interactionVariant='normal'
-          onClick={close}
-        >
-          <X />
-        </IconButton>
-      </S.Close>
-
+    <>
       <S.TextWrapper>
         <S.Title>답변을 수정하시겠어요?</S.Title>
       </S.TextWrapper>
@@ -54,6 +41,6 @@ export default function DailyAnswerEdit({ assignedQuestionId, answer, redirectTo
         onClick={handleClick}
         type='submit'
       />
-    </S.Container>
+    </>
   );
 }
