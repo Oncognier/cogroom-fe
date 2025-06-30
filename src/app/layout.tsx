@@ -1,10 +1,10 @@
-import Base from '@/components/organisms/Modal/Base/Base';
-import { modalRegistry } from '@/components/organisms/Modal/modalConfig';
 import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
 import { mockingServer } from '@/lib/msw/mockingServer';
 import { MSWProvider } from '@/lib/msw/MSWProvider';
 import QueryProvider from '@/lib/query/QueryProvider';
 import { pretendard } from '@/styles/font';
+
+import ModalProvider from './ModalProvider';
 
 // msw 서버 적용
 mockingServer();
@@ -20,8 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MSWProvider>
             <QueryProvider>
               {children}
-              <Base modalMap={modalRegistry} />
-              <div id='modal-root' />
+              <ModalProvider />
             </QueryProvider>
           </MSWProvider>
         </EmotionRegistry>

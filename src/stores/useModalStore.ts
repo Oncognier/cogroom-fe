@@ -1,5 +1,6 @@
-import { AppModalProps } from '@/components/organisms/Modal/modalConfig';
+import { AlertModalProps, AppModalProps } from '@/components/organisms/Modal/modalConfig';
 
 import { createModalStore } from './createModalStore';
 
-export const useModalStore = createModalStore<AppModalProps>();
+export const useAppModalStore = createModalStore<AppModalProps>();
+export const useAlertModalStore = createModalStore<AlertModalProps>();
