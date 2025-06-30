@@ -7,3 +7,10 @@ export const DailyContainer = styled.div`
   flex-direction: column;
   gap: 2.4rem;
 `;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+`;
