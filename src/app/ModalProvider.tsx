@@ -4,9 +4,9 @@ import React from 'react';
 
 import Base from '@/components/organisms/Modal/Base/Base';
 import { AlertModalRegistry, AppModalRegistry } from '@/components/organisms/Modal/modalConfig';
+import AlertModal from '@/components/organisms/Modal/templates/AlertModal/AlertModal';
 import AppModal from '@/components/organisms/Modal/templates/AppModal/AppModal';
 import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
-import AlertModal from '@/components/organisms/Modal/templates/AlertModal/AlertModal';
 
 export default function ModalProvider() {
   const appModalStore = useAppModalStore();
