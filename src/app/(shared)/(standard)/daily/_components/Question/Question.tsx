@@ -53,7 +53,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
 
   const handleFocus = () => {
     if (!isFirstAnswer.current && isLoggedIn) {
-      open('dailyFirstAnswer', undefined);
+      open('dailyFirstAnswer');
       isFirstAnswer.current = true;
       return;
     }
