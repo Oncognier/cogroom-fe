@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useSignupMutation } from '@/hooks/api/auth/useSignup';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './Complete.styled';
 
@@ -16,7 +16,7 @@ export interface CompleteProps {
 
 export default function Complete({ provider, providerId, nickname }: CompleteProps) {
   const { signup } = useSignupMutation();
-  const { close } = useModalStore();
+  const { close } = useAppModalStore();
   const { getValues } = useFormContext<{ email: string }>();
   const email = getValues('email');
 

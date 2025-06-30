@@ -3,11 +3,11 @@ import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 export const useLoginMutation = () => {
   const router = useRouter();
-  const { open } = useModalStore();
+  const { open } = useAppModalStore();
   const setToken = useAuthStore((state) => state.setToken);
 
   const mutation = useMutation({

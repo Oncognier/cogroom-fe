@@ -8,7 +8,7 @@ import TextButton from '@/components/atoms/TextButton/TextButton';
 import { DEFAULT_STREAK_BACKGROUND } from '@/constants/image';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './Question.styled';
 
@@ -27,7 +27,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
-  const { open } = useModalStore();
+  const { open } = useAppModalStore();
   const { isLoggedIn } = useAuthStore();
 
   const handleInput = () => {
@@ -40,7 +40,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
 
   const handleSubmit = () => {
     if (!isLoggedIn) {
-      open('login', undefined);
+      open('login');
       return;
     }
 
@@ -53,7 +53,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
 
   const handleFocus = () => {
     if (!isFirstAnswer.current && isLoggedIn) {
-      open('dailyFirstAnswer', undefined);
+      open('dailyFirstAnswer');
       isFirstAnswer.current = true;
       return;
     }

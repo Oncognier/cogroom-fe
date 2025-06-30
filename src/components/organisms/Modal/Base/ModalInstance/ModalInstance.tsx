@@ -1,27 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef } from 'react';
+'use client';
 
-import type { ModalMap } from '@/types/modal';
+import React, { useEffect, useRef } from 'react';
+
+import { useZIndexStore } from '@/stores/useZIndexStore';
+import type { ModalMap, ComponentPropsOf, ModalWrapperProps } from '@/types/modal';
 
 import * as S from './ModalInstance.styled';
 
 interface ModalInstanceProps<T extends ModalMap<any>, K extends keyof T = keyof T> {
   type: K;
-  props: Parameters<T[K]['Component']>[0];
+  props: ComponentPropsOf<T[K]['Component']>;
   onClose: () => void;
-  zIndex: number;
   modalMap: T;
+  wrapper: React.ComponentType<ModalWrapperProps>;
 }
 
 export default function ModalInstance<T extends ModalMap<any>, K extends keyof T>({
   type,
   props,
   onClose,
-  zIndex,
   modalMap,
+  wrapper: Wrapper,
 }: ModalInstanceProps<T, K>) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const config = modalMap[type];
+  const getNextZ = useZIndexStore((s) => s.getNext);
+  const zIndex = useRef(getNextZ());
+
+  const { Component, disableOutsideClick } = modalMap[type];
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -30,22 +36,19 @@ export default function ModalInstance<T extends ModalMap<any>, K extends keyof T
     return () => dialog.close();
   }, []);
 
-  if (!config) return null;
-  const { Component, disableOutsideClick } = config;
-
-  const handleOutsideClick = (e: React.MouseEvent<HTMLDialogElement>) => {
-    if (!disableOutsideClick && e.target === dialogRef.current) {
-      onClose();
-    }
+  const onBackdrop = (e: React.MouseEvent<HTMLDialogElement>) => {
+    if (!disableOutsideClick && e.target === dialogRef.current) onClose();
   };
 
   return (
     <S.ModalOverlay
       ref={dialogRef}
-      onClick={handleOutsideClick}
-      $zIndex={zIndex}
+      onClick={onBackdrop}
+      $zIndex={zIndex.current}
     >
-      <Component {...props} />
+      <Wrapper onClose={onClose}>
+        <Component {...(props ?? {})} />
+      </Wrapper>
     </S.ModalOverlay>
   );
 }

@@ -2,10 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 
-import X from '@/assets/icons/x.svg';
-import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './DailyAnswerPost.styled';
 
@@ -14,7 +12,7 @@ export interface DailyAnswerPostProps {
 }
 
 export default function DailyAnswerPost({ redirectTo }: DailyAnswerPostProps) {
-  const { close } = useModalStore();
+  const { close } = useAppModalStore();
   const router = useRouter();
 
   const handleClick = () => {
@@ -25,18 +23,7 @@ export default function DailyAnswerPost({ redirectTo }: DailyAnswerPostProps) {
   };
 
   return (
-    <S.Container>
-      <S.Close>
-        <IconButton
-          size='4rem'
-          variant='normal'
-          interactionVariant='normal'
-          onClick={handleClick}
-        >
-          <X />
-        </IconButton>
-      </S.Close>
-
+    <>
       <S.TextWrapper>
         <S.TitleWrapper>
           <S.SubTitle>오늘의 데일리 완료</S.SubTitle>
@@ -56,6 +43,6 @@ export default function DailyAnswerPost({ redirectTo }: DailyAnswerPostProps) {
         onClick={handleClick}
         type='submit'
       />
-    </S.Container>
+    </>
   );
 }

@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { ERROR_CODE } from '@/constants/api';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -21,7 +21,7 @@ function makeQueryClient() {
               error.code === ERROR_CODE.TOKEN_INVALID_ERROR ||
               error.code === ERROR_CODE.ALREADY_BLACK_LIST)
           ) {
-            useModalStore.getState().open('login', undefined);
+            useAppModalStore.getState().open('login');
           }
         },
       },

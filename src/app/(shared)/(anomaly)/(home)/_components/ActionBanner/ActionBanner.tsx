@@ -1,16 +1,16 @@
 'use client';
 
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './ActionBanner.styled';
 
 export default function ActionBanner() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-  const { open } = useModalStore();
+  const { open } = useAppModalStore();
 
   const handleClick = () => {
-    open('login', undefined);
+    open('login');
   };
 
   return (
