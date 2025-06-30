@@ -9,11 +9,11 @@ import { useModalStore } from '@/stores/useModalStore';
 
 import * as S from './DailyAnswerPost.styled';
 
-export interface DailyProps {
+export interface DailyAnswerPostProps {
   redirectTo?: string;
 }
 
-export default function DailyAnswerPost({ redirectTo }: DailyProps) {
+export default function DailyAnswerPost({ redirectTo }: DailyAnswerPostProps) {
   const { close } = useModalStore();
   const router = useRouter();
 

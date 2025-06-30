@@ -1,8 +1,8 @@
 import type { ModalMap } from '@/types/modal';
 
-import DailyAnswerEdit from './Daily/Edit/DailyAnswerEdit';
+import DailyAnswerEdit, { DailyAnswerEditProps } from './Daily/Edit/DailyAnswerEdit';
 import DailyFirstAnswer from './Daily/FirstAnswer/DailyFirstAnswer';
-import DailyAnswerPost, { DailyProps } from './Daily/Post/DailyAnswerPost';
+import DailyAnswerPost, { DailyAnswerPostProps } from './Daily/Post/DailyAnswerPost';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Signup, { SignupProps } from './Signup/Signup';
@@ -11,8 +11,8 @@ export type AppModalProps = {
   login: undefined;
   signup: SignupProps;
   logout: undefined;
-  dailyAnswerPost: DailyProps;
-  dailyAnswerEdit: DailyProps;
+  dailyAnswerPost: DailyAnswerPostProps;
+  dailyAnswerEdit: DailyAnswerEditProps;
   dailyFirstAnswer: undefined;
 };
 

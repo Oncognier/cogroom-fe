@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react';
 import CheckCircle from '@/assets/icons/checkcircle-fill.svg';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { DEFAULT_STREAK_BACKGROUND } from '@/constants/image';
-import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useModalStore } from '@/stores/useModalStore';
@@ -28,7 +27,6 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
-  const { editDailyAnswer } = useEditDailyAnswerMutation();
   const { open } = useModalStore();
   const { isLoggedIn } = useAuthStore();
 
@@ -50,7 +48,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   };
 
   const handleEdit = () => {
-    editDailyAnswer({ assignedQuestionId, answer: inputValue });
+    open('dailyAnswerEdit', { assignedQuestionId, answer: inputValue, redirectTo: '/daily' });
   };
 
   const handleFocus = () => {
