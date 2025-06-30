@@ -21,7 +21,7 @@ export default function OutlinedButton({
   onClick,
   interactionVariant,
   type = 'button',
-  align = 'space-between',
+  align = 'center',
 }: OutlinedButtonProps) {
   return (
     <S.OutlinedButton
