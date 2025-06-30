@@ -10,16 +10,17 @@ type BrandColors = keyof typeof brandColors;
 
 type SolidButtonColor = 'primary' | BrandColors;
 type SolidButtonSize = 'sm' | 'md' | 'lg';
+type SolidButtonAlign = 'center' | 'space-between';
 
 export interface SolidButtonStyleProps {
   color?: SolidButtonColor;
   size: SolidButtonSize;
   interactionVariant: InteractionVariant;
   fillContainer?: boolean;
-  align?: 'center' | 'space-between';
+  align?: SolidButtonAlign;
 }
 
-const commonStyles = (theme: Theme, fillContainer?: boolean, align?: 'center' | 'space-between') => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButtonAlign) => css`
   display: flex;
   align-items: center;
   justify-content: ${align};

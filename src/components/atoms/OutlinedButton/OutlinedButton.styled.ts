@@ -7,16 +7,17 @@ import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive';
 type OutlinedButtonSize = 'sm' | 'md' | 'lg';
+type OutlinedButtonAlign = 'center' | 'space-between';
 
 export interface OutlinedButtonStyleProps {
   color: OutlinedButtonColor;
   size: OutlinedButtonSize;
   fillContainer?: boolean;
   interactionVariant: InteractionVariant;
-  align?: 'center' | 'space-between';
+  align?: OutlinedButtonAlign;
 }
 
-const commonStyles = (theme: Theme, fillContainer?: boolean, align?: 'center' | 'space-between') => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, align?: OutlinedButtonAlign) => css`
   display: flex;
   align-items: center;
   justify-content: ${align};
