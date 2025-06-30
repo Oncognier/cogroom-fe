@@ -10,6 +10,23 @@ export interface ErrorProps {
 }
 
 export default function Error({ message }: ErrorProps) {
+  const { close } = useAlertModalStore();
+
   return (
+    <S.Error>
+      <S.TextWrapper>
+        <S.Title>{message}</S.Title>
+        <S.Description>다시 시도해주세요</S.Description>
+      </S.TextWrapper>
+
+      <OutlinedButton
+        label='확인'
+        size='sm'
+        color='assistive'
+        interactionVariant='normal'
+        onClick={close}
+        fillContainer
+      />
+    </S.Error>
   );
 }
