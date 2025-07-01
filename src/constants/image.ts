@@ -29,7 +29,7 @@ export const DEFAULT_DAILY_WATERDROP = 'https://cdn.cogroom.com/default_image/Da
 export const DEFAULT_COMMUNITY_BANNER = 'https://cdn.cogroom.com/default_image/Community_Banner.png' as const;
 
 // Daily
-export const DEFAULT_STREAK_BACKGROUND = 'https://cdn.cogroom.com/default_image/StreakBackground.png' as const;
+export const DEFAULT_QUESTION_BACKGROUND = 'https://cdn.cogroom.com/default_image/Daily_Question_Background.png' as const;
 export const DEFAULT_WATERDROP = 'https://cdn.cogroom.com/default_image/Waterdrop.svg' as const;
 
 // Contents
