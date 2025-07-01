@@ -5,12 +5,13 @@ import type { OutlinedTagStyleProps } from './OutlinedTag.styled';
 
 interface OutlinedTagProps extends OutlinedTagStyleProps {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   stopPropagation?: boolean;
 }
 
 export default function OutlinedTag({ label, color, onClick, stopPropagation = false }: OutlinedTagProps) {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!onClick) return;
     if (stopPropagation) e.stopPropagation();
     onClick();
   };
@@ -18,7 +19,7 @@ export default function OutlinedTag({ label, color, onClick, stopPropagation = f
   return (
     <S.OutlinedTag
       color={color}
-      onClick={handleClick}
+      onClick={onClick ? handleClick : undefined}
     >
       {label}
     </S.OutlinedTag>

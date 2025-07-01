@@ -5,12 +5,13 @@ import type { SolidTagStyleProps } from './SolidTag.styled';
 
 interface SolidTagProps extends SolidTagStyleProps {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   stopPropagation?: boolean;
 }
 
 export default function SolidTag({ label, color, onClick, stopPropagation = false }: SolidTagProps) {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!onClick) return;
     if (stopPropagation) e.stopPropagation();
     onClick();
   };
@@ -18,7 +19,7 @@ export default function SolidTag({ label, color, onClick, stopPropagation = fals
   return (
     <S.SolidTag
       color={color}
-      onClick={handleClick}
+      onClick={onClick ? handleClick : undefined}
     >
       {label}
     </S.SolidTag>
