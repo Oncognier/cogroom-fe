@@ -28,7 +28,7 @@ export default function Streak({ dailyStreak }: StreakProps) {
         <S.MessageWrapper>
           <S.MessageContinue>연속</S.MessageContinue>
           <S.MessageDate>{dailyStreak}일째</S.MessageDate>
-          <S.Message>꾸준히 하고 계시네요, 앞으로도 저희와 함께 해요!</S.Message>
+          <S.Message>코그룸에서 나만의 바다를 만들어보세요</S.Message>
         </S.MessageWrapper>
 
         <S.DateText>{formatDayAsSlashYYMMDD(today)}</S.DateText>
