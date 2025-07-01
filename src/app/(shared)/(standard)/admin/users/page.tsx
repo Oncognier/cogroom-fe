@@ -1,10 +1,12 @@
 'use client';
 
+import { Dayjs } from 'dayjs';
 import { useMemo, useState } from 'react';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
+import SelectDate from '@/components/molecules/SelectDate/SelectDate';
 import { useDeleteMemberMutation } from '@/hooks/api/admin/useDeleteMember';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
 
@@ -14,35 +16,36 @@ import * as S from './page.styled';
 
 export default function Users() {
   const [currentPage, setCurrentPage] = useState(0);
-  const [inputKeyword, setInputKeyword] = useState('');
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
-  const { data, isLoading } = useGetMemberList({ page: currentPage, keyword: searchKeyword });
+  const [draftKeyword, setDraftKeyword] = useState('');
+  const [draftStartDate, setDraftStartDate] = useState<Dayjs | null>(null);
+  const [draftEndDate, setDraftEndDate] = useState<Dayjs | null>(null);
+
+  const [keyword, setKeyword] = useState('');
+  const [startDate, setStartDate] = useState<Dayjs | null>(null);
+  const [endDate, setEndDate] = useState<Dayjs | null>(null);
+
+  const { data, isLoading } = useGetMemberList({
+    page: currentPage,
+    keyword,
+    startDate: startDate?.format('YYYY-MM-DD'),
+    endDate: endDate?.format('YYYY-MM-DD'),
+  });
+
   const { deleteMember } = useDeleteMemberMutation();
 
   const members = useMemo(() => data?.data ?? [], [data]);
   const totalPages = data?.totalPages ?? 1;
   const totalCount = data?.totalElements ?? 0;
 
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const currentPageMemberIds = useMemo(() => members.map((m) => m.memberId), [members]);
   const isAllSelected = currentPageMemberIds.length > 0 && currentPageMemberIds.every((id) => selectedIds.includes(id));
 
-  const handleToggleAll = (checked: boolean) => {
-    setSelectedIds(checked ? currentPageMemberIds : []);
-  };
-
-  const handleToggleOne = (memberId: number, checked: boolean) => {
-    setSelectedIds((prev) => (checked ? [...prev, memberId] : prev.filter((id) => id !== memberId)));
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    setSelectedIds([]);
-  };
-
   const handleSearch = () => {
-    setSearchKeyword(inputKeyword);
+    setKeyword(draftKeyword);
+    setStartDate(draftStartDate);
+    setEndDate(draftEndDate);
     setCurrentPage(0);
     setSelectedIds([]);
   };
@@ -52,15 +55,23 @@ export default function Users() {
       <S.FilterHeader>
         <S.TotalMemberCount>전체 회원 ({totalCount.toLocaleString()})</S.TotalMemberCount>
 
+        <SelectDate
+          selectedStartDate={draftStartDate}
+          selectedEndDate={draftEndDate}
+          onStartDateChange={setDraftStartDate}
+          onEndDateChange={setDraftEndDate}
+        />
+
         <S.SearchWrapper>
           <Search
             inputSize='sm'
             placeholder='회원정보 검색'
             interactionVariant='normal'
-            value={inputKeyword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputKeyword(e.target.value)}
+            value={draftKeyword}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDraftKeyword(e.target.value)}
           />
         </S.SearchWrapper>
+
         <OutlinedButton
           size='sm'
           color='primary'
@@ -84,7 +95,7 @@ export default function Users() {
         <S.UserTable>
           <UserTableHeader
             checked={isAllSelected}
-            onCheckToggle={handleToggleAll}
+            onCheckToggle={(checked) => setSelectedIds(checked ? currentPageMemberIds : [])}
           />
 
           {isLoading ? (
@@ -95,7 +106,11 @@ export default function Users() {
                 key={member.memberId}
                 member={member}
                 checked={selectedIds.includes(member.memberId)}
-                onCheckToggle={(checked) => handleToggleOne(member.memberId, checked)}
+                onCheckToggle={(ck) =>
+                  setSelectedIds((prev) =>
+                    ck ? [...prev, member.memberId] : prev.filter((id) => id !== member.memberId),
+                  )
+                }
               />
             ))
           )}
@@ -107,7 +122,10 @@ export default function Users() {
           size='nm'
           currentPage={currentPage + 1}
           totalPages={totalPages}
-          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
+          onPageChange={(uiPage) => {
+            setCurrentPage(uiPage - 1);
+            setSelectedIds([]);
+          }}
         />
       </S.PaginationButton>
     </S.UsersContainer>
