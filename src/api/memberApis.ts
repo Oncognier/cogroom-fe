@@ -3,6 +3,8 @@ import { AxiosResponse } from 'axios';
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 import {
+  CheckNicknameRequest,
+  CheckNicknameResponse,
   EditUserInfoRequest,
   UserDailyResponse,
   UserDashboardResponse,
@@ -54,10 +56,20 @@ const editUserInfo = async ({ email, nickname, imageUrl, phoneNumber, descriptio
   return data;
 };
 
+const checkNickname = async ({ nickname }: CheckNicknameRequest) => {
+  const { data } = await axiosInstance.post<CheckNicknameRequest, AxiosResponse<CheckNicknameResponse>>(
+    END_POINTS_V1.MEMBERS.CHECK_NICKNAME,
+    { nickname },
+  );
+
+  return data.result;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
   getUserInfo,
   getUserDaily,
   editUserInfo,
+  checkNickname,
 };

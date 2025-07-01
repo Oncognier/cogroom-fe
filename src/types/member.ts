@@ -43,3 +43,11 @@ export interface UserDashboardResponse extends ApiResponse {
     dailyStreak: number;
   };
 }
+
+export interface CheckNicknameRequest {
+  nickname: string;
+}
+
+export interface CheckNicknameResponse extends ApiResponse {
+  result: boolean;
+}

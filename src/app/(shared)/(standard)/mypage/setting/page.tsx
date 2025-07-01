@@ -6,14 +6,15 @@ import { useForm, FormProvider } from 'react-hook-form';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
 import Textarea from '@/components/molecules/Textarea/Textarea';
-import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useEditUserInfoMutation } from '@/hooks/api/member/useEditUserInfo';
 import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { SettingFormFields } from '@/types/form';
 import { formatPhoneNumber } from '@/utils/formatAutoComplete';
-import { validateNickname, validatePhoneNumber } from '@/utils/validators/userValidators';
+import { validatePhoneNumber } from '@/utils/validators/userValidators';
 
 import EmailForm from './_components/EmailForm/EmailForm';
+import NicknameForm from './_components/NicknameForm/NicknameForm';
 import SettingProfile from './_components/SettingProfile/SettingProfile';
 import * as S from './page.styled';
 
@@ -31,6 +32,9 @@ const isEmailStateValid = (emailState: EmailState) => emailState === 'idle';
 
 export default function Setting() {
   const [emailState, setEmailState] = useState<EmailState>('idle');
+  const [isNicknameChecked, setIsNicknameChecked] = useState(true);
+
+  const { open } = useAlertModalStore();
   const { data, isLoading } = useGetUserInfo();
 
   const methods = useForm<SettingFormFields>({
@@ -45,7 +49,7 @@ export default function Setting() {
     setValue,
     reset,
     setError,
-    formState: { errors, isValid },
+    formState: { errors, isValid, dirtyFields },
   } = methods;
 
   const { editUserInfo } = useEditUserInfoMutation(setError);
@@ -57,6 +61,11 @@ export default function Setting() {
   }, [data, isLoading, reset]);
 
   const onSubmit = (formData: SettingFormFields) => {
+    if (dirtyFields.nickname && !isNicknameChecked) {
+      open('alert', { message: '닉네임 중복 확인을 완료해주세요.' });
+      return;
+    }
+
     editUserInfo(formData);
   };
 
@@ -65,25 +74,9 @@ export default function Setting() {
   return (
     <FormProvider {...methods}>
       <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
-        <SettingProfile
-          imageUrl={data?.imageUrl}
-          onUploadComplete={(urls) => {
-            const url = urls[0];
-            setValue('imageUrl', url, { shouldValidate: true });
-          }}
-        />
+        <SettingProfile />
 
-        <Input
-          inputSize='md'
-          label='닉네임'
-          required
-          {...register('nickname', {
-            required: VALIDATION_MESSAGE.NICKNAME_EMPTY_FILED_ERROR,
-            validate: validateNickname,
-          })}
-          error={errors.nickname?.message}
-          width='34.5rem'
-        />
+        <NicknameForm onCheck={setIsNicknameChecked} />
 
         <EmailForm
           emailState={emailState}

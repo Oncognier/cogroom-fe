@@ -19,7 +19,7 @@ export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props 
       await Promise.all(
         presignedItems.map((item, index) =>
           fileApi.uploadToS3({
-            presignedUrl: item.presignedUrl,
+            preSignedUrl: item.preSignedUrl,
             file: files[index],
           }),
         ),
