@@ -21,8 +21,6 @@ export const BreadcrumbItem = styled.li`
   a {
     ${({ theme }) => theme.typography.label2.semibold}
     color: ${({ theme }) => theme.semantic.label.alternative};
-    outline: none;
-    text-decoration: none;
   }
 `;
 

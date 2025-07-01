@@ -21,7 +21,5 @@ export const SidebarNavItem = styled.li<SidebarNavItemStyleProps>`
 
     height: 3rem;
     border-radius: ${({ theme }) => theme.radius[4]};
-    outline: none;
-    text-decoration: none;
   }
 `;
