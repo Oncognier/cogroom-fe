@@ -28,6 +28,8 @@ export interface DailyQuestionsRequest {
   level?: string[];
   category?: number[];
   keyword?: string;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface MemberDailyQuestion {

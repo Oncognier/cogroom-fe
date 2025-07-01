@@ -20,11 +20,11 @@ export const FilterHeader = styled.form`
 `;
 
 export const SearchWrapper = styled.div`
-  width: 20.3rem;
+  width: 18rem;
 `;
 
 export const SelectWrapper = styled.div`
-  width: 20.3rem;
+  width: 18rem;
 `;
 
 export const Title = styled.p`

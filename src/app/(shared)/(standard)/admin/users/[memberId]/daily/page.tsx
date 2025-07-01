@@ -8,6 +8,7 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import { Select } from '@/components/molecules/Select/Select';
+import SelectDate from '@/components/molecules/SelectDate/SelectDate';
 import { CATEGORY_SELECT_OPTIONS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetMemberDailyQuestions from '@/hooks/api/admin/useGetMemberDailyQuestions';
 import { MemberDailyFormFields } from '@/types/form';
@@ -17,23 +18,21 @@ import * as S from './page.styled';
 import DailyListRow from '../../../_components/DailyListRow/DailyListRow';
 
 export default function MemberDaily() {
-  const params = useParams();
-  const memberId = String(params?.memberId);
+  const memberId = String(useParams()?.memberId);
 
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+
   const [filterValues, setFilterValues] = useState<MemberDailyFormFields>({
     keyword: '',
     category: [],
     level: [],
+    startDate: null,
+    endDate: null,
   });
 
   const { control, handleSubmit } = useForm<MemberDailyFormFields>({
-    defaultValues: {
-      keyword: '',
-      category: [],
-      level: [],
-    },
+    defaultValues: filterValues,
   });
 
   const { data, isLoading } = useGetMemberDailyQuestions({
@@ -43,6 +42,8 @@ export default function MemberDaily() {
       keyword: filterValues.keyword,
       category: filterValues.category,
       level: filterValues.level,
+      startDate: filterValues.startDate?.format('YYYY-MM-DD'),
+      endDate: filterValues.endDate?.format('YYYY-MM-DD'),
     },
   });
 
@@ -53,22 +54,9 @@ export default function MemberDaily() {
   const isAllSelected =
     currentPageContentIds.length > 0 && currentPageContentIds.every((id) => selectedIds.includes(id));
 
-  const handleToggleAll = (checked: boolean) => {
-    setSelectedIds(checked ? currentPageContentIds : []);
-  };
-
-  const handleToggleOne = (id: number, checked: boolean) => {
-    setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
-  };
-
   const onSubmit = (data: MemberDailyFormFields) => {
     setFilterValues(data);
     setCurrentPage(0);
-    setSelectedIds([]);
-  };
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
     setSelectedIds([]);
   };
 
@@ -112,6 +100,25 @@ export default function MemberDaily() {
         />
 
         <Controller
+          name='startDate'
+          control={control}
+          render={({ field: startField }) => (
+            <Controller
+              name='endDate'
+              control={control}
+              render={({ field: endField }) => (
+                <SelectDate
+                  selectedStartDate={startField.value}
+                  selectedEndDate={endField.value}
+                  onStartDateChange={startField.onChange}
+                  onEndDateChange={endField.onChange}
+                />
+              )}
+            />
+          )}
+        />
+
+        <Controller
           name='keyword'
           control={control}
           render={({ field }) => (
@@ -128,29 +135,33 @@ export default function MemberDaily() {
         />
 
         <OutlinedButton
+          type='submit'
           size='sm'
           color='primary'
           label='검색하기'
           interactionVariant='normal'
-          type='submit'
         />
       </S.FilterHeader>
 
       <S.MemberDailyTable>
         <DailyTableHeader
           checked={isAllSelected}
-          onCheckToggle={handleToggleAll}
+          onCheckToggle={(ck) => setSelectedIds(ck ? currentPageContentIds : [])}
         />
 
         {isLoading ? (
           <div>로딩 중...</div>
         ) : (
-          contents.map((daily) => (
+          contents.map((d) => (
             <DailyListRow
-              key={daily.assignedQuestionId}
-              daily={daily}
-              checked={selectedIds.includes(daily.assignedQuestionId)}
-              onCheckToggle={(checked) => handleToggleOne(daily.assignedQuestionId, checked)}
+              key={d.assignedQuestionId}
+              daily={d}
+              checked={selectedIds.includes(d.assignedQuestionId)}
+              onCheckToggle={(ck) =>
+                setSelectedIds((prev) =>
+                  ck ? [...prev, d.assignedQuestionId] : prev.filter((id) => id !== d.assignedQuestionId),
+                )
+              }
             />
           ))
         )}
@@ -161,7 +172,10 @@ export default function MemberDaily() {
           size='nm'
           currentPage={currentPage + 1}
           totalPages={totalPages}
-          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
+          onPageChange={(uiPage) => {
+            setCurrentPage(uiPage - 1);
+            setSelectedIds([]);
+          }}
         />
       </S.PaginationWrapper>
     </S.DailyContainer>
