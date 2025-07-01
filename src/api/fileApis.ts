@@ -11,14 +11,13 @@ const getPresignedUrl = async ({ fileSet }: GetPresignedUrlRequest) => {
   return data.result;
 };
 
-const uploadToS3 = async ({ presignedUrl, file }: UploadToS3Request) => {
-  await axios.put(presignedUrl, file, {
+const uploadToS3 = async ({ preSignedUrl, file }: UploadToS3Request) => {
+  console.log(preSignedUrl);
+  await axios.put(preSignedUrl, file, {
     headers: {
       'Content-Type': file.type,
     },
   });
-
-  return presignedUrl.split('?')[0];
 };
 
 export const fileApi = {

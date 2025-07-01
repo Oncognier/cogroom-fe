@@ -1,33 +1,37 @@
 'use client';
 
-import { ChangeEvent, useRef } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
-import SettingIcon from '@/assets/icons/setting.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
-import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
+import SettingIcon from '@/assets/icons/setting.svg';
+import { SettingFormFields } from '@/types/form';
 
 import * as S from './SettingProfile.styled';
+import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 
-interface SettingProfileProps {
-  imageUrl?: string;
-  onUploadComplete: (urls: string[]) => void;
-}
-
-export default function SettingProfile({ imageUrl, onUploadComplete }: SettingProfileProps) {
+export default function SettingProfile() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { setValue, watch } = useFormContext<SettingFormFields>();
 
-  const { uploadToS3, isPending } = useUploadFileToS3Mutation({
-    onSuccess: onUploadComplete,
+  const imageUrl = watch('imageUrl');
+  const [preview, setPreview] = useState<string | undefined>(imageUrl);
+
+  const { mutate: uploadToS3, isPending } = useUploadFileToS3Mutation({
+    onSuccess: ([url]) => {
+      setValue('imageUrl', url, { shouldValidate: true });
+      setPreview(url);
+    },
   });
 
-  const handleClick = () => {
-    inputRef.current?.click();
-  };
+  const handleClick = () => inputRef.current?.click();
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    setPreview(URL.createObjectURL(file));
 
     uploadToS3({ files: [file] });
   };
@@ -37,8 +41,9 @@ export default function SettingProfile({ imageUrl, onUploadComplete }: SettingPr
       <AvatarPerson
         type='icon'
         size='fillContainer'
-        src={imageUrl}
+        src={preview}
       />
+
       <S.SetImage>
         <IconButton
           size='3.6rem'
@@ -49,13 +54,14 @@ export default function SettingProfile({ imageUrl, onUploadComplete }: SettingPr
         >
           <SettingIcon />
         </IconButton>
+
         <input
+          ref={inputRef}
           type='file'
           accept='image/*'
-          ref={inputRef}
-          onChange={handleFileChange}
-          disabled={isPending}
           style={{ display: 'none' }}
+          onChange={handleChange}
+          disabled={isPending}
         />
       </S.SetImage>
     </S.SettingProfile>

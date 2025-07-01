@@ -5,7 +5,7 @@ export interface GetPresignedUrlRequest {
 }
 
 export interface PresignedUrlItem {
-  presignedUrl: string;
+  preSignedUrl: string;
   accessUrl: string;
 }
 
@@ -14,6 +14,6 @@ export interface PresignedUrlResponse extends ApiResponse {
 }
 
 export interface UploadToS3Request {
-  presignedUrl: string;
+  preSignedUrl: string;
   file: File;
 }

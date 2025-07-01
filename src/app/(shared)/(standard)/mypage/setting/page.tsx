@@ -74,13 +74,7 @@ export default function Setting() {
   return (
     <FormProvider {...methods}>
       <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
-        <SettingProfile
-          imageUrl={data?.imageUrl}
-          onUploadComplete={(urls) => {
-            const url = urls[0];
-            setValue('imageUrl', url, { shouldValidate: true });
-          }}
-        />
+        <SettingProfile />
 
         <NicknameForm onCheck={setIsNicknameChecked} />
 
