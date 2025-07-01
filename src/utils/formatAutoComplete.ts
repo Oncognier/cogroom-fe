@@ -11,6 +11,10 @@ export const formatPhoneNumber = (value: string): string => {
     return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
   }
 
-  // 예: 010-1234-5678 또는 그 이상
-  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+  if (digits.length > 10) {
+    // 예: 010-1234-5678 또는 그 이상
+    return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
+  }
+
+  return value;
 };
