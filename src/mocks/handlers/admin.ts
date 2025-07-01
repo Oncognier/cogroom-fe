@@ -1,8 +1,9 @@
 import { http, HttpResponse } from 'msw';
 
 import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
-import { CreateDailyQuestionsRequest, DeleteMemberRequest } from '@/types/admin';
+import { ChangeMemberRoleRequest, CreateDailyQuestionsRequest, DeleteMemberRequest } from '@/types/admin';
 
+import { changeMemberRoleSuccess } from '../data/admin/changeMemberRoleData';
 import { createDailyQuestionsError, createDailyQuestionsSuccess } from '../data/admin/createDailyQuestionsData';
 import { deleteMemberError, deleteMemberSuccess } from '../data/admin/deleteMemberData';
 import { getDailyQuestionsSuccess } from '../data/admin/getDailyQuestionsData';
@@ -35,6 +36,12 @@ export const adminHandlers = [
 
   http.get(END_POINTS_V1.ADMIN.DAILY.QUESTIONS, async () => {
     return new HttpResponse(JSON.stringify(getDailyQuestionsSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.patch(END_POINTS_V1.ADMIN.MEMBERS.CHANGE_ROLE(':memberId'), async () => {
+    return new HttpResponse(JSON.stringify(changeMemberRoleSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

@@ -9,6 +9,7 @@ import {
   MemberListResponse,
   MemberDailyQuestionsResponse,
   DailyQuestionsResponse,
+  ChangeMemberRoleRequest,
 } from '@/types/admin';
 import { ApiResponse } from '@/types/api';
 
@@ -38,6 +39,18 @@ const getDailyQuestions = async (params: DailyQuestionsRequest) => {
   return data.result;
 };
 
+export const changeMemberRole = async ({ memberId, role }: ChangeMemberRoleRequest) => {
+  const { data } = await axiosInstance.patch<ApiResponse>(
+    END_POINTS_V1.ADMIN.MEMBERS.CHANGE_ROLE(memberId),
+    {},
+    {
+      params: { role },
+    },
+  );
+
+  return data;
+};
+
 const deleteMember = async ({ memberIdList }: DeleteMemberRequest) => {
   const { data } = await axiosInstance.delete<DeleteMemberRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.ADMIN.MEMBERS.DELETE,
@@ -62,6 +75,7 @@ export const adminApi = {
   getMemberList,
   getMemberDailyQuestions,
   getDailyQuestions,
+  changeMemberRole,
   deleteMember,
   createDailyQuestions,
 };
