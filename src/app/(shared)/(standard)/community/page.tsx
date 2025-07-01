@@ -14,19 +14,24 @@ export default function Community() {
           { name: '커뮤니티', href: '/community' },
         ]}
       />
-      <S.BannerWrapper>
-        <Image
-          src={DEFAULT_COMMUNITY_MAIN_BANNER}
-          alt='community banner'
-          fill
-          quality={100}
-        />
-        <S.BannerTitleWrapper>
-          <S.BannerTitle>서로 안아주기</S.BannerTitle>
-          <S.BannerTitle>더욱 알아가기</S.BannerTitle>
-          <S.BannerTitle>진짜 대화하기</S.BannerTitle>
-        </S.BannerTitleWrapper>
-      </S.BannerWrapper>
+      <a
+        href='https://oncognier.com/community'
+        target='_blank'
+      >
+        <S.BannerWrapper>
+          <Image
+            src={DEFAULT_COMMUNITY_MAIN_BANNER}
+            alt='community banner'
+            fill
+            quality={100}
+          />
+          <S.BannerTitleWrapper>
+            <S.BannerTitle>서로 안아주기</S.BannerTitle>
+            <S.BannerTitle>더욱 알아가기</S.BannerTitle>
+            <S.BannerTitle>진짜 대화하기</S.BannerTitle>
+          </S.BannerTitleWrapper>
+        </S.BannerWrapper>
+      </a>
     </S.ContentContainer>
   );
 }
