@@ -2,13 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 
-import * as S from './not-found.styled';
+import * as S from './error.styled';
 
-export default function NotFound() {
+export default function Error() {
   const router = useRouter();
 
   return (
-    <S.NotFoundContainer>
+    <S.ErrorContainer>
       <S.BackgroundVideo
         autoPlay
         muted
@@ -31,18 +31,17 @@ export default function NotFound() {
 
       <S.Content>
         <S.TitleWrapper>
-          <S.ErrorCode>404</S.ErrorCode>
-          <S.Title>잠수중... 없는 페이지에요</S.Title>
+          <S.ErrorCode>500</S.ErrorCode>
+          <S.Title>서버가 숨 고르는 중이에요</S.Title>
         </S.TitleWrapper>
         <S.Description>
-          코그룸을 돌아다니다 길을 잃었나요? 걱정 마세요 <br />
-          잠시 푸른 바다를 보며 숨을 골라도 좋고, 뒤로가기를 눌러 이전 페이지로 돌아가거나 오른쪽 아래 글씨를 통해
-          홈으로 갈 수 있습니다 <br />
-          잘못된 길은 없습니다, 물 속에서는 내가 헤엄치는 방향이 곧 나의 길. 당신만의 코그룸을 만드세요
+          코그룸의 바닷속 어딘가에서 문제가 생긴 것 같아요. <br />
+          일시적인 오류일 수 있어요. 잠시 후 다시 시도하거나, 오른쪽 아래 글씨를 눌러 홈으로 돌아가 주세요. <br />
+          바다는 넓고, 우린 곧 길을 다시 찾을 거예요. 코그룸은 언제나 당신을 기다리고 있어요.
         </S.Description>
       </S.Content>
 
       <S.Home onClick={() => router.push('/')}>홈으로 가기</S.Home>
-    </S.NotFoundContainer>
+    </S.ErrorContainer>
   );
 }
