@@ -147,3 +147,12 @@ export const QUICK_DATE_SELECT = [
 ];
 
 export const SHARE_DAILY_URL = process.env.NEXT_PUBLIC_SHARE_DAILY_URL || 'https://preview.cogroom.com/daily';
+
+export const ROLE_LABELS = {
+  ADMIN: '관리자',
+  USER: '일반회원',
+  CONTENT_PROVIDER: '콘텐츠 제공자',
+} as const;
+
+export type RoleKey = keyof typeof ROLE_LABELS;
+export const ROLE_OPTIONS: RoleKey[] = ['ADMIN', 'USER', 'CONTENT_PROVIDER'];

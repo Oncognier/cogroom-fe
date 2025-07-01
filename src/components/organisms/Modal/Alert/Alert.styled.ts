@@ -13,4 +13,5 @@ export const Title = styled.p`
   color: ${({ theme }) => theme.semantic.label.normal};
 
   text-align: center;
+  white-space: pre-line;
 `;
