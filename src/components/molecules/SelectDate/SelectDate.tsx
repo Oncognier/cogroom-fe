@@ -1,6 +1,7 @@
 'use client';
 
 import { Dayjs } from 'dayjs';
+import { useEffect, useState } from 'react';
 
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ChevronUp from '@/assets/icons/chevronup.svg';
@@ -22,6 +23,21 @@ export default function SelectDate({
   onEndDateChange: (date: Dayjs | null) => void;
 }) {
   const { isOpen, toggle } = useDropdown();
+  const [draftStart, setDraftStart] = useState<Dayjs | null>(selectedStartDate);
+  const [draftEnd, setDraftEnd] = useState<Dayjs | null>(selectedEndDate);
+
+  useEffect(() => {
+    if (isOpen) {
+      setDraftStart(selectedStartDate);
+      setDraftEnd(selectedEndDate);
+    }
+  }, [isOpen]);
+
+  const handleApply = () => {
+    onStartDateChange(draftStart);
+    onEndDateChange(draftEnd);
+    toggle();
+  };
 
   return (
     <S.SelectDateWrapper>
@@ -30,23 +46,21 @@ export default function SelectDate({
         onClick={toggle}
       >
         <S.TriggerInput
-          type='text'
           readOnly
           value={formatDateRangeLabel(selectedStartDate, selectedEndDate)}
-          placeholder={'날짜 선택'}
+          placeholder='날짜 선택'
         />
-
         <S.IconWrapper isOpen={isOpen}>{isOpen ? <ChevronUp /> : <ChevronDown />}</S.IconWrapper>
       </S.InputContainer>
 
       {isOpen && (
         <S.DatePopup>
           <DateSelect
-            selectedStartDate={selectedStartDate}
-            selectedEndDate={selectedEndDate}
-            onStartDateChange={onStartDateChange}
-            onEndDateChange={onEndDateChange}
-            toggle={toggle}
+            selectedStartDate={draftStart}
+            selectedEndDate={draftEnd}
+            onStartDateChange={setDraftStart}
+            onEndDateChange={setDraftEnd}
+            onApply={handleApply}
           />
         </S.DatePopup>
       )}

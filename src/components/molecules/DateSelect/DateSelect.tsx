@@ -15,13 +15,13 @@ export default function DateSelect({
   selectedEndDate,
   onStartDateChange,
   onEndDateChange,
-  toggle,
+  onApply,
 }: {
   selectedStartDate: Dayjs | null;
   selectedEndDate: Dayjs | null;
   onStartDateChange: (date: Dayjs | null) => void;
   onEndDateChange: (date: Dayjs | null) => void;
-  toggle: () => void;
+  onApply: () => void;
 }) {
   const today = dayjs();
   const [isStartOpen, setIsStartOpen] = useState(false);
@@ -41,9 +41,7 @@ export default function DateSelect({
             label='시작일'
             selectedDate={selectedStartDate}
             onClick={() => {
-              if (!!isEndOpen) {
-                setIsEndOpen(false);
-              }
+              if (isEndOpen) setIsEndOpen(false);
               setIsStartOpen(!isStartOpen);
             }}
           />
@@ -51,14 +49,14 @@ export default function DateSelect({
             label='종료일'
             selectedDate={selectedEndDate}
             onClick={() => {
-              if (!!isStartOpen) {
-                setIsStartOpen(false);
-              }
+              if (isStartOpen) setIsStartOpen(false);
               setIsEndOpen(!isEndOpen);
             }}
           />
         </S.DateSelectorWrapper>
+
         <S.Line />
+
         <S.QuickDateSelect>
           <S.QuickDateSelectLabel>빠른 선택</S.QuickDateSelectLabel>
           {QUICK_DATE_SELECT.map((item) => (
@@ -70,17 +68,14 @@ export default function DateSelect({
             </S.QuickDateSelectItem>
           ))}
         </S.QuickDateSelect>
+
         <SolidButton
           label='적용'
           size='sm'
           color='primary'
           interactionVariant='normal'
           fillContainer
-          onClick={() => {
-            onStartDateChange(selectedStartDate);
-            onEndDateChange(selectedEndDate);
-            toggle();
-          }}
+          onClick={onApply}
         />
       </S.Wrapper>
 
@@ -91,7 +86,7 @@ export default function DateSelect({
               isOpen={isStartOpen}
               selectedDate={selectedStartDate}
               onClose={() => setIsStartOpen(false)}
-              onSelect={(date) => onStartDateChange(date)}
+              onSelect={onStartDateChange}
             />
           </S.Popup>
         )}
@@ -101,7 +96,7 @@ export default function DateSelect({
               isOpen={isEndOpen}
               selectedDate={selectedEndDate}
               onClose={() => setIsEndOpen(false)}
-              onSelect={(date) => onEndDateChange(date)}
+              onSelect={onEndDateChange}
             />
           </S.Popup>
         )}
