@@ -7,6 +7,7 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedTag from '@/components/atoms/OutlinedTag/OutlinedTag';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import { USER_ROLE_META } from '@/constants/common';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { Member } from '@/types/admin';
 
 import * as S from './UserListRow.styled';
@@ -19,7 +20,7 @@ interface UserListRowProps {
 
 export default function UserListRow({ member, checked, onCheckToggle }: UserListRowProps) {
   const router = useRouter();
-
+  const { open } = useAlertModalStore();
   const { memberId, nickname, email, imageUrl, memberRole, createdAt } = member;
   const roleMeta = USER_ROLE_META[memberRole];
 
@@ -52,11 +53,15 @@ export default function UserListRow({ member, checked, onCheckToggle }: UserList
             <SolidTag
               color={roleMeta.color}
               label={roleMeta.label}
+              onClick={() => open('changeRole', { memberId, nickname, currentRole: memberRole })}
+              stopPropagation
             />
           ) : (
             <OutlinedTag
               color={roleMeta.color}
               label={roleMeta.label}
+              onClick={() => open('changeRole', { memberId, nickname, currentRole: memberRole })}
+              stopPropagation
             />
           )}
         </S.UserNameWithRole>
