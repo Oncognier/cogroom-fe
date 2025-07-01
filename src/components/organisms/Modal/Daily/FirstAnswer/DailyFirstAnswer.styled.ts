@@ -11,8 +11,6 @@ export const Container = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.spacing[32]};
 
-  width: 40.7rem;
-  height: 25rem;
   padding: ${({ theme }) => theme.spacing[12]} ${({ theme }) => theme.spacing[24]};
   background-color: ${({ theme }) => theme.semantic.background.normal.normal};
   border-radius: ${({ theme }) => theme.radius[8]};
