@@ -1,7 +1,5 @@
 'use client';
 
-import X from '@/assets/icons/x.svg';
-import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { useLogoutMutation } from '@/hooks/api/auth/useLogout';
 import { useAppModalStore } from '@/stores/useModalStore';
@@ -24,18 +22,18 @@ export default function Logout() {
         <OutlinedButton
           size='lg'
           color='assistive'
-          label='더 있을래요'
-          fillContainer
-          interactionVariant='normal'
-          onClick={close}
-        />
-        <OutlinedButton
-          size='lg'
-          color='primary'
           label='네, 할게요'
           fillContainer
           interactionVariant='normal'
           onClick={handleLogout}
+        />
+        <OutlinedButton
+          size='lg'
+          color='primary'
+          label='더 있을래요'
+          fillContainer
+          interactionVariant='normal'
+          onClick={close}
         />
       </S.ButtonWrapper>
     </S.Logout>
