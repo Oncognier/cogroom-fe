@@ -6,6 +6,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
 import Textarea from '@/components/molecules/Textarea/Textarea';
+import Loading from '@/components/organisms/Loading/Loading';
 import { useEditUserInfoMutation } from '@/hooks/api/member/useEditUserInfo';
 import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
 import { useAlertModalStore } from '@/stores/useModalStore';
@@ -69,7 +70,7 @@ export default function Setting() {
     editUserInfo(formData);
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <FormProvider {...methods}>

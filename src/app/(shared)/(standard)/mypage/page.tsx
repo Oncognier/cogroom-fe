@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 
+import Loading from '@/components/organisms/Loading/Loading';
 import { REPORT_IMAGE } from '@/constants/image';
 import useGetUserDashboardQuery from '@/hooks/api/member/useGetUserDashboard';
 
@@ -12,7 +13,7 @@ import * as S from './page.styled';
 export default function Dashboard() {
   const { data, isLoading } = useGetUserDashboardQuery();
 
-  if (isLoading) return <div> Loading...</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <S.DashboardContainer>
