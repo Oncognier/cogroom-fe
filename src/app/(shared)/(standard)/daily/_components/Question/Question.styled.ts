@@ -1,9 +1,9 @@
 'use client';
 
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
+import styled from '@emotion/styled';
+
 import { getInteraction } from '@/styles/interaction';
 import { theme } from '@/styles/theme';
-import styled from '@emotion/styled';
 
 export const QuestionCard = styled.div`
   position: relative;
@@ -108,7 +108,6 @@ export const CountValue = styled.div<{ isHundredOver?: boolean }>`
   ${({ isHundredOver }) => isHundredOver && `color: ${theme.semantic.status.destructive}`};
 `;
 
-
 export const Button = styled.button`
   position: relative;
 
@@ -125,7 +124,6 @@ export const Button = styled.button`
   ${({ theme }) => theme.typography.body2.semibold};
 
   ${getInteraction('normal', theme.semantic.label.alternative, false)(theme)};
-
 
   &:focus {
     outline: none;
