@@ -27,18 +27,20 @@ export default function Daily() {
   if (isLoading) return <Loading />;
 
   return (
-    <S.DailyContainer>
-      <Streak dailyStreak={streakDaysData?.result.dailyStreak ?? 0} />
-      <Question
-        assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
-        question={dailyData?.result.question ?? DEFAULT_DAILY_QUESTION}
-        answer={dailyData?.result.answer ?? ''}
-        hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
-      />
-      <Calendar
-        streakDateList={streakCalendarData?.result.streakDateList ?? []}
-        hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
-      />
+    <>
+      <S.DailyContainer>
+        <Streak dailyStreak={streakDaysData?.result.dailyStreak ?? 0} />
+        <Question
+          assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
+          question={dailyData?.result.question ?? DEFAULT_DAILY_QUESTION}
+          answer={dailyData?.result.answer ?? ''}
+          hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
+        />
+        <Calendar
+          streakDateList={streakCalendarData?.result.streakDateList ?? []}
+          hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
+        />
+      </S.DailyContainer>
       <S.ButtonWrapper>
         <OutlinedButton
           label='공유하기'
@@ -49,6 +51,6 @@ export default function Daily() {
           onClick={() => open('dailyShare', { dailyStreak: streakDaysData?.result.dailyStreak ?? 0 })}
         />
       </S.ButtonWrapper>
-    </S.DailyContainer>
+    </>
   );
 }
