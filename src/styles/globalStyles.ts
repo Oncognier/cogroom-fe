@@ -23,7 +23,10 @@ const globalStyles = () => css`
   p,
   blockquote,
   pre,
-  a,
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
   abbr,
   acronym,
   address,
