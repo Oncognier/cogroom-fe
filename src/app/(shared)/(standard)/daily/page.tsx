@@ -2,6 +2,7 @@
 
 import Upload from '@/assets/icons/upload.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import Loading from '@/components/organisms/Loading/Loading';
 import { DEFAULT_DAILY_QUESTION } from '@/constants/common';
 import useGetDailyQuery from '@/hooks/api/daily/useGetDaily';
 import useGetDailyHasAnsweredQuery from '@/hooks/api/daily/useGetDailyHasAnswered';
@@ -16,29 +17,29 @@ import * as S from './page.styled';
 
 export default function Daily() {
   const { open } = useAppModalStore();
-  const { data: dailyData, isLoading } = useGetDailyQuery();
-  const { data: streakCalendarData } = useGetStreakCalendarQuery();
-  const { data: streakDaysData } = useGetStreakDaysQuery();
-  const { data: hasAnsweredData } = useGetDailyHasAnsweredQuery();
+  const { data: dailyData, isLoading: isDailyLoading } = useGetDailyQuery();
+  const { data: streakCalendarData, isLoading: isCalendarLoading } = useGetStreakCalendarQuery();
+  const { data: streakDaysData, isLoading: isDaysLoading } = useGetStreakDaysQuery();
+  const { data: hasAnsweredData, isLoading: isAnsweredLoading } = useGetDailyHasAnsweredQuery();
+
+  const isLoading = isDailyLoading || isCalendarLoading || isDaysLoading || isAnsweredLoading;
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
       <S.DailyContainer>
-        {!isLoading && (
-          <>
-            <Streak dailyStreak={streakDaysData?.result.dailyStreak ?? 0} />
-            <Question
-              assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
-              question={dailyData?.result.question ?? DEFAULT_DAILY_QUESTION}
-              answer={dailyData?.result.answer ?? ''}
-              hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
-            />
-            <Calendar
-              streakDateList={streakCalendarData?.result.streakDateList ?? []}
-              hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
-            />
-          </>
-        )}
+        <Streak dailyStreak={streakDaysData?.result.dailyStreak ?? 0} />
+        <Question
+          assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
+          question={dailyData?.result.question ?? DEFAULT_DAILY_QUESTION}
+          answer={dailyData?.result.answer ?? ''}
+          hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
+        />
+        <Calendar
+          streakDateList={streakCalendarData?.result.streakDateList ?? []}
+          hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
+        />
       </S.DailyContainer>
       <S.ButtonWrapper>
         <OutlinedButton

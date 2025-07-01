@@ -43,3 +43,5 @@ export const STREAK_SHARE_IMAGE_URLS = [
   'https://cdn.cogroom.com/default_image/StreakShare02.png',
   'https://cdn.cogroom.com/default_image/StreakShare03.png',
 ];
+// Loading
+export const DEFAULT_LOADING = 'https://cdn.cogroom.com/default_image/Loading.png' as const;
