@@ -25,6 +25,7 @@ const globalStyles = () => css`
   pre,
   a {
     text-decoration: none;
+    outline: none;
     color: inherit;
   }
   abbr,
