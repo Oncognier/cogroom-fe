@@ -22,8 +22,8 @@ export default function Dashboard() {
           <S.Highlight>{data?.signupDays}일째</S.Highlight>
           <S.StreakMessage>함께 했어요</S.StreakMessage>
         </S.StreakWrapper>
-        <S.GreetingMessage>안녕, {data?.nickname} 코그니어</S.GreetingMessage>
-        <S.ChronotypeMessage>올빼미형은 주로 밤에 활기찬 성향을 가지고 있어요</S.ChronotypeMessage>
+        <S.GreetingMessage>안녕하세요, {data?.nickname}님</S.GreetingMessage>
+        <S.ChronotypeMessage>생각하는 방, 코그룸에서 한 방울씩 성장하는 나를 만나봐요</S.ChronotypeMessage>
       </S.TextWrapper>
 
       <S.Report>
