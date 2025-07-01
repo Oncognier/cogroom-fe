@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
+import { UseFormSetError } from 'react-hook-form';
 
 import { memberApi } from '@/api/memberApis';
 import { setValidationError } from '@/utils/validators/setValidationError';
-import { UseFormSetError } from 'react-hook-form';
 
 export const useCheckNicknameMutation = (
   setError?: UseFormSetError<{ nickname: string }>,

@@ -16,7 +16,6 @@ export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props 
 
       const presignedItems = await fileApi.getPresignedUrl({ fileSet });
 
-      console.log(presignedItems);
       await Promise.all(
         presignedItems.map((item, index) =>
           fileApi.uploadToS3({

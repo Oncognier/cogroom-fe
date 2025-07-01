@@ -3,13 +3,13 @@
 import { ChangeEvent, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import SettingIcon from '@/assets/icons/setting.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
-import SettingIcon from '@/assets/icons/setting.svg';
+import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 import { SettingFormFields } from '@/types/form';
 
 import * as S from './SettingProfile.styled';
-import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 
 export default function SettingProfile() {
   const inputRef = useRef<HTMLInputElement>(null);

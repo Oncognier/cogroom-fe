@@ -8,15 +8,15 @@ import Input from '@/components/molecules/Input/Input';
 import Textarea from '@/components/molecules/Textarea/Textarea';
 import { useEditUserInfoMutation } from '@/hooks/api/member/useEditUserInfo';
 import useGetUserInfo from '@/hooks/api/member/useGetUserInfo';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { SettingFormFields } from '@/types/form';
 import { formatPhoneNumber } from '@/utils/formatAutoComplete';
 import { validatePhoneNumber } from '@/utils/validators/userValidators';
 
 import EmailForm from './_components/EmailForm/EmailForm';
+import NicknameForm from './_components/NicknameForm/NicknameForm';
 import SettingProfile from './_components/SettingProfile/SettingProfile';
 import * as S from './page.styled';
-import NicknameForm from './_components/NicknameForm/NicknameForm';
-import { useAlertModalStore } from '@/stores/useModalStore';
 
 export type EmailState = 'idle' | 'editing' | 'waiting';
 

@@ -12,7 +12,6 @@ const getPresignedUrl = async ({ fileSet }: GetPresignedUrlRequest) => {
 };
 
 const uploadToS3 = async ({ preSignedUrl, file }: UploadToS3Request) => {
-  console.log(preSignedUrl);
   await axios.put(preSignedUrl, file, {
     headers: {
       'Content-Type': file.type,

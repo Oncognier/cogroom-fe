@@ -3,12 +3,12 @@ import { http, HttpResponse } from 'msw';
 import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
 import { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
+import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
 import { getUserDailySuccess } from '../data/member/getUserDailyData';
 import { getUserDashboardSuccess } from '../data/member/getUserDashboardData';
 import { getUserInfoSuccess } from '../data/member/getUserInfoData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
-import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
 
 export const memberHandlers = [
   http.get(END_POINTS_V1.MEMBERS.SUMMARY, async () => {
