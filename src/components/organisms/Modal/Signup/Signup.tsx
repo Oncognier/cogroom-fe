@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { SIGNUP_STEP, SignupStep } from '@/constants/common';
+import { useSignupMutation } from '@/hooks/api/auth/useSignup';
 import { SignupFormFields } from '@/types/form';
 
 import { CheckEmail, InputEmail, VerifyEmail, Complete } from './Steps';
@@ -23,6 +24,12 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
     reValidateMode: 'onBlur',
   });
 
+  const { signup } = useSignupMutation(() => setStep(SIGNUP_STEP.COMPLETE));
+
+  const handleVerifiedAndSignup = () => {
+    signup({ provider, providerId, email: methods.getValues('email'), nickname });
+  };
+
   return (
     <FormProvider {...methods}>
       {step === SIGNUP_STEP.CHECK_ORIGINAL_EMAIL && (
@@ -40,15 +47,9 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
         />
       )}
 
-      {step === SIGNUP_STEP.VERIFY_EMAIL && <VerifyEmail onConfirm={() => setStep(SIGNUP_STEP.COMPLETE)} />}
+      {step === SIGNUP_STEP.VERIFY_EMAIL && <VerifyEmail onConfirm={handleVerifiedAndSignup} />}
 
-      {step === SIGNUP_STEP.COMPLETE && (
-        <Complete
-          provider={provider}
-          providerId={providerId}
-          nickname={nickname}
-        />
-      )}
+      {step === SIGNUP_STEP.COMPLETE && <Complete />}
     </FormProvider>
   );
 }

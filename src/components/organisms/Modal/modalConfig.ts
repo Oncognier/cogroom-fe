@@ -29,7 +29,7 @@ export type AlertModalProps = {
 
 export const AppModalRegistry = {
   login: { Component: Login, disableOutsideClick: false },
-  signup: { Component: Signup, disableOutsideClick: false },
+  signup: { Component: Signup, disableOutsideClick: true },
   logout: { Component: Logout, disableOutsideClick: false },
   dailyAnswerPost: { Component: DailyAnswerPost, disableOutsideClick: false },
   dailyAnswerEdit: { Component: DailyAnswerEdit, disableOutsideClick: false },
