@@ -12,7 +12,6 @@ export const NavItem = styled.li<NavItemStyleProps>`
     ${({ theme }) => theme.typography.body2.regular};
     color: ${({ theme }) => theme.semantic.label.normal};
 
-
     ${({ theme, isActive }) =>
       isActive &&
       css`
