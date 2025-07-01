@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { adminApi } from '@/api/adminApi';
-import { useAlertModalStore } from '@/stores/useModalStore';
 import { ADMIN_QUERY_KEYS } from '@/constants/queryKeys';
+import { useAlertModalStore } from '@/stores/useModalStore';
 
 interface ChangeMemberRoleParams {
   nickname: string;
