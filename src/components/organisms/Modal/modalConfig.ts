@@ -1,6 +1,7 @@
 import type { ModalMap } from '@/types/modal';
 
 import Alert, { AlertProps } from './Alert/Alert';
+import ChangeRole, { ChangeRoleProps } from './ChangeRole/ChangeRole';
 import DailyShare, { DailyShareProps } from './Daily/DailyShare/DailyShare';
 import DailyAnswerEdit, { DailyAnswerEditProps } from './Daily/Edit/DailyAnswerEdit';
 import DailyFirstAnswer from './Daily/FirstAnswer/DailyFirstAnswer';
@@ -23,6 +24,7 @@ export type AppModalProps = {
 export type AlertModalProps = {
   error: ErrorProps;
   alert: AlertProps;
+  changeRole: ChangeRoleProps;
 };
 
 export const AppModalRegistry = {
@@ -38,4 +40,5 @@ export const AppModalRegistry = {
 export const AlertModalRegistry = {
   error: { Component: Error, disableOutsideClick: false },
   alert: { Component: Alert, disableOutsideClick: false },
+  changeRole: { Component: ChangeRole, disableOutsideClick: false },
 } satisfies ModalMap<AlertModalProps>;
