@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { getInteraction } from '@/styles/interaction';
+
 export const QuestionCard = styled.div`
   position: relative;
   aspect-ratio: 1060 / 522;
@@ -71,7 +73,7 @@ export const Form = styled.div`
 
   max-width: 52rem;
   width: 100%;
-  padding: ${({ theme }) => theme.spacing[16]} ${({ theme }) => theme.spacing[32]};
+  padding: 0.6rem 0.8rem 0.6rem 3.2rem;
 
   ${({ theme }) => theme.typography.body1.regular}
   border-radius: ${({ theme }) => theme.radius[40]};
@@ -111,4 +113,51 @@ export const AnswerStamp = styled.div`
   height: 2rem;
 
   color: ${({ theme }) => theme.semantic.primary.normal};
+`;
+
+export const SubmitGroup = styled.div`
+  display: flex;
+  align-items: center;
+
+  gap: ${({ theme }) => theme.spacing[8]};
+`;
+
+export const CountValue = styled.div<{ isHundredOver?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[4]};
+  padding: 0.4rem 1.2rem;
+
+  ${({ theme }) => theme.typography.label2.regular}
+  color: ${({ theme, isHundredOver }) =>
+    isHundredOver ? theme.semantic.status.destructive : theme.semantic.primary.normal};
+`;
+
+export const Button = styled.button`
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  width: 9.4rem;
+  height: 4.2rem;
+  border-radius: 999px;
+
+  background-color: ${({ theme }) => theme.semantic.primary.normal};
+  color: ${({ theme }) => theme.semantic.static.white};
+  ${({ theme }) => getInteraction('normal', theme.semantic.label.normal, false)(theme)};
+  ${({ theme }) => theme.typography.label2.semibold}
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.semantic.interaction.disable};
+    color: ${({ theme }) => theme.semantic.label.assistive};
+    cursor: default;
+    pointer-events: none;
+  }
 `;

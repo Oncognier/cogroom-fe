@@ -55,7 +55,7 @@ export const MessageDate = styled.p`
 `;
 
 export const Message = styled.p`
-  ${theme.typography.label1.semibold}
+  ${theme.typography.label1.regular}
   color: ${theme.semantic.label.normal};
 `;
 
