@@ -8,7 +8,7 @@ import TextButton from '@/components/atoms/TextButton/TextButton';
 import { DEFAULT_STREAK_BACKGROUND } from '@/constants/image';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useAppModalStore } from '@/stores/useModalStore';
+import { useAppModalStore, useAlertModalStore } from '@/stores/useModalStore';
 
 import * as S from './Question.styled';
 
@@ -28,6 +28,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
 
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
   const { open } = useAppModalStore();
+  const { open: openAlertModal } = useAlertModalStore();
   const { isLoggedIn } = useAuthStore();
 
   const handleInput = () => {
@@ -48,12 +49,14 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   };
 
   const handleEdit = () => {
-    open('dailyAnswerEdit', { assignedQuestionId, answer: inputValue, redirectTo: '/daily' });
+    openAlertModal('dailyAnswerEdit', { assignedQuestionId, answer: inputValue, redirectTo: '/daily' });
   };
 
   const handleFocus = () => {
     if (!isFirstAnswer.current && isLoggedIn) {
-      open('dailyFirstAnswer');
+      openAlertModal('alert', {
+        message: '작성한 답변은 오늘 자정까지만 바꿀 수 있어요',
+      });
       isFirstAnswer.current = true;
       return;
     }

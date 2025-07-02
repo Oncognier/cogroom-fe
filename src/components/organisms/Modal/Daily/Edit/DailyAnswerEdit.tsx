@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
-import { useAppModalStore } from '@/stores/useModalStore';
+import { useAlertModalStore } from '@/stores/useModalStore';
 
 import * as S from './DailyAnswerEdit.styled';
 
@@ -16,7 +16,7 @@ export interface DailyAnswerEditProps {
 
 export default function DailyAnswerEdit({ assignedQuestionId, answer, redirectTo }: DailyAnswerEditProps) {
   const router = useRouter();
-  const { close } = useAppModalStore();
+  const { close } = useAlertModalStore();
   const { editDailyAnswer } = useEditDailyAnswerMutation();
 
   const handleClick = () => {
@@ -28,7 +28,7 @@ export default function DailyAnswerEdit({ assignedQuestionId, answer, redirectTo
   };
 
   return (
-    <>
+    <S.DailyAnswerEdit>
       <S.TextWrapper>
         <S.Title>답변을 수정하시겠어요?</S.Title>
       </S.TextWrapper>
@@ -41,6 +41,6 @@ export default function DailyAnswerEdit({ assignedQuestionId, answer, redirectTo
         onClick={handleClick}
         type='submit'
       />
-    </>
+    </S.DailyAnswerEdit>
   );
 }
