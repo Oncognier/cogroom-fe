@@ -75,7 +75,7 @@ export default function Setting() {
   return (
     <FormProvider {...methods}>
       <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
-        <SettingProfile />
+        <SettingProfile initialImageUrl={data?.imageUrl} />
 
         <NicknameForm onCheck={setIsNicknameChecked} />
 

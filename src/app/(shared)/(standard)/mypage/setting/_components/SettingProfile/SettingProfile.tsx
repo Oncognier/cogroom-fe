@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import SettingIcon from '@/assets/icons/setting.svg';
@@ -11,12 +11,21 @@ import { SettingFormFields } from '@/types/form';
 
 import * as S from './SettingProfile.styled';
 
-export default function SettingProfile() {
+interface SettingProfileProps {
+  initialImageUrl?: string;
+}
+
+export default function SettingProfile({ initialImageUrl }: SettingProfileProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { setValue, watch } = useFormContext<SettingFormFields>();
 
   const imageUrl = watch('imageUrl');
-  const [preview, setPreview] = useState<string | undefined>(imageUrl);
+
+  const [preview, setPreview] = useState<string | undefined>(initialImageUrl);
+
+  useEffect(() => {
+    if (imageUrl) setPreview(imageUrl);
+  }, [imageUrl]);
 
   const { mutate: uploadToS3, isPending } = useUploadFileToS3Mutation({
     onSuccess: ([url]) => {
@@ -32,7 +41,6 @@ export default function SettingProfile() {
     if (!file) return;
 
     setPreview(URL.createObjectURL(file));
-
     uploadToS3({ files: [file] });
   };
 
