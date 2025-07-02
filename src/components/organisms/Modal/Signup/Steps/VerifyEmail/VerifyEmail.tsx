@@ -13,9 +13,10 @@ import * as S from './VerifyEmail.styled';
 
 export interface VerifyEmailProps {
   onConfirm: () => void;
+  onChangeEmail: () => void;
 }
 
-export default function VerifyEmail({ onConfirm }: VerifyEmailProps) {
+export default function VerifyEmail({ onConfirm, onChangeEmail }: VerifyEmailProps) {
   const { getValues } = useFormContext<{ email: string }>();
 
   const { sendEmail } = useSendEmailMutation();
@@ -67,6 +68,13 @@ export default function VerifyEmail({ onConfirm }: VerifyEmailProps) {
           interactionVariant='normal'
           onClick={handleResend}
           isDisabled={isResendDisabled}
+        />
+        <TextButton
+          label='다른 이메일 사용'
+          size='sm'
+          color='assistive'
+          interactionVariant='normal'
+          onClick={onChangeEmail}
         />
       </S.ButtonWrapper>
     </>
