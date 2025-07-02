@@ -1,7 +1,8 @@
 'use client';
 
-import { getInteraction } from '@/styles/interaction';
 import styled from '@emotion/styled';
+
+import { getInteraction } from '@/styles/interaction';
 
 export const QuestionCard = styled.div`
   position: relative;
