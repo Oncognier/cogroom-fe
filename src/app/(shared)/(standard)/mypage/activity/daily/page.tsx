@@ -1,5 +1,7 @@
 'use client';
 
+import ScriptX from '@/assets/icons/script-x.svg';
+import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import useGetUserDailyQuery from '@/hooks/api/member/useGetUserDaily';
 
@@ -10,7 +12,7 @@ export default function Daily() {
   const { data, isLoading } = useGetUserDailyQuery();
 
   if (isLoading) return <Loading />;
-  if (!data?.length) return <div>데일리 질문이 없습니다.</div>;
+  if (!data?.length) return <EmptyState icon={<ScriptX />} />;
 
   return (
     <S.DailyContainer>

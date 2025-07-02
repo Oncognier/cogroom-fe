@@ -13,9 +13,10 @@ import * as S from './VerifyEmail.styled';
 
 export interface VerifyEmailProps {
   onConfirm: () => void;
+  onChangeEmail: () => void;
 }
 
-export default function VerifyEmail({ onConfirm }: VerifyEmailProps) {
+export default function VerifyEmail({ onConfirm, onChangeEmail }: VerifyEmailProps) {
   const { getValues } = useFormContext<{ email: string }>();
 
   const { sendEmail } = useSendEmailMutation();
@@ -41,8 +42,8 @@ export default function VerifyEmail({ onConfirm }: VerifyEmailProps) {
     <>
       <S.TextWrapper>
         <S.TitleWrapper>
-          <S.SubTitle>메일함을 확인해주세요</S.SubTitle>
-          <S.Title>인증 메일이 발송됐어요</S.Title>
+          <S.SubTitle>인증 메일이 발송됐어요</S.SubTitle>
+          <S.Title>10분 내 인증을 완료해주세요</S.Title>
         </S.TitleWrapper>
         <S.Description>
           이메일 내 인증 링크 클릭 후<br />
@@ -67,6 +68,13 @@ export default function VerifyEmail({ onConfirm }: VerifyEmailProps) {
           interactionVariant='normal'
           onClick={handleResend}
           isDisabled={isResendDisabled}
+        />
+        <TextButton
+          label='다른 이메일 사용'
+          size='sm'
+          color='assistive'
+          interactionVariant='normal'
+          onClick={onChangeEmail}
         />
       </S.ButtonWrapper>
     </>

@@ -3,10 +3,13 @@
 import { Dayjs } from 'dayjs';
 import { useMemo, useState } from 'react';
 
+import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import SelectDate from '@/components/molecules/SelectDate/SelectDate';
+import EmptyState from '@/components/organisms/EmptyState/EmptyState';
+import Loading from '@/components/organisms/Loading/Loading';
 import { useDeleteMemberMutation } from '@/hooks/api/admin/useDeleteMember';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
 
@@ -99,7 +102,9 @@ export default function Users() {
           />
 
           {isLoading ? (
-            <div>로딩 중...</div>
+            <Loading />
+          ) : members.length === 0 ? (
+            <EmptyState icon={<ScriptX />} />
           ) : (
             members.map((member) => (
               <UserListRow

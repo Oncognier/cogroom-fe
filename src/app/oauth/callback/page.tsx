@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
+import Loading from '@/components/organisms/Loading/Loading';
 import { useLoginMutation } from '@/hooks/api/auth/useLogin';
 
 export default function OAuthCallback() {
@@ -15,5 +16,5 @@ export default function OAuthCallback() {
     login({ provider: 'KAKAO', code });
   }, [code, login]);
 
-  return <div>Loading...</div>;
+  return <Loading />;
 }
