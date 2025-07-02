@@ -42,8 +42,8 @@ export default function VerifyEmail({ onConfirm, onChangeEmail }: VerifyEmailPro
     <>
       <S.TextWrapper>
         <S.TitleWrapper>
-          <S.SubTitle>메일함을 확인해주세요</S.SubTitle>
-          <S.Title>인증 메일이 발송됐어요</S.Title>
+          <S.SubTitle>인증 메일이 발송됐어요</S.SubTitle>
+          <S.Title>10분 내 인증을 완료해주세요</S.Title>
         </S.TitleWrapper>
         <S.Description>
           이메일 내 인증 링크 클릭 후<br />
