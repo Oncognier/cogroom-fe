@@ -8,6 +8,7 @@ import Search from '@/assets/icons/search.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import { ROLE_LABELS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
@@ -30,6 +31,8 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
   const userSummary = clientUserSummary ?? serverUserSummary;
 
   const [isAuthenticated, setIsAuthenticated] = useState(!!userSummary);
+
+  const userRoleLabel = userSummary?.memberRole && ROLE_LABELS[userSummary.memberRole];
 
   useEffect(() => {
     if (accessToken) {
@@ -60,12 +63,28 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
           >
             <Bell />
           </IconButton>
-          <AvatarPerson
-            type='icon'
-            size='fillContainer'
-            src={userSummary?.imageUrl}
-            onClick={() => router.push('/mypage')}
-          />
+          {userRoleLabel ? (
+            <S.UserWrapper
+              memberRole={userSummary?.memberRole}
+              onClick={() => router.push('/mypage')}
+            >
+              <S.UserIconWrapper>
+                <AvatarPerson
+                  type='icon'
+                  size='fillContainer'
+                  src={userSummary?.imageUrl}
+                />
+              </S.UserIconWrapper>
+              {userRoleLabel}
+            </S.UserWrapper>
+          ) : (
+            <AvatarPerson
+              type='icon'
+              size='fillContainer'
+              src={userSummary?.imageUrl}
+              onClick={() => router.push('/mypage')}
+            />
+          )}
         </S.NavLogin>
       ) : (
         <OutlinedButton
