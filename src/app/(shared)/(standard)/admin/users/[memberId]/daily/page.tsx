@@ -4,11 +4,14 @@ import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
+import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import { Select } from '@/components/molecules/Select/Select';
 import SelectDate from '@/components/molecules/SelectDate/SelectDate';
+import EmptyState from '@/components/organisms/EmptyState/EmptyState';
+import Loading from '@/components/organisms/Loading/Loading';
 import { CATEGORY_SELECT_OPTIONS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetMemberDailyQuestions from '@/hooks/api/admin/useGetMemberDailyQuestions';
 import { MemberDailyFormFields } from '@/types/form';
@@ -150,7 +153,9 @@ export default function MemberDaily() {
         />
 
         {isLoading ? (
-          <div>로딩 중...</div>
+          <Loading />
+        ) : contents.length === 0 ? (
+          <EmptyState icon={<ScriptX />} />
         ) : (
           contents.map((d) => (
             <DailyListRow
