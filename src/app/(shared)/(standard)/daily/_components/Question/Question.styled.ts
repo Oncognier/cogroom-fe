@@ -144,11 +144,11 @@ export const Button = styled.button`
   width: 9.4rem;
   height: 4.2rem;
   border-radius: 999px;
+
   background-color: ${({ theme }) => theme.semantic.primary.normal};
   color: ${({ theme }) => theme.semantic.static.white};
-  ${({ theme }) => theme.typography.body2.semibold};
-
-  ${({ theme }) => getInteraction('normal', theme.semantic.label.alternative, false)(theme)};
+  ${({ theme }) => getInteraction('normal', theme.semantic.label.normal, false)(theme)};
+  ${({ theme }) => theme.typography.label2.semibold}
 
   &:focus {
     outline: none;
