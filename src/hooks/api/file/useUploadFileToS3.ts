@@ -1,12 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 
 import { fileApi } from '@/api/fileApis';
+import { useAlertModalStore } from '@/stores/useModalStore';
 
 interface UseUploadFileToS3Props {
   onSuccess?: (accessUrls: string[]) => void;
 }
 
 export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props = {}) => {
+  const { open } = useAlertModalStore();
+
   const mutation = useMutation({
     mutationFn: async ({ files }: { files: File[] }) => {
       const fileSet = files.reduce<Record<string, string>>((acc, file) => {
@@ -31,7 +34,7 @@ export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props 
       onSuccess?.(accessUrls);
     },
     onError: () => {
-      alert('파일 업로드에 실패했습니다. 다시 시도해주세요.');
+      open('error', { message: '파일 업로드에 실패했습니다.' });
     },
   });
 
