@@ -48,8 +48,6 @@ export const FooterLinks = styled.div`
   gap: ${({ theme }) => theme.spacing[8]};
 
   a {
-    outline: none;
-    text-decoration: none;
     ${({ theme }) => theme.typography.label2.semibold};
     color: ${({ theme }) => theme.semantic.label.assistive};
   }

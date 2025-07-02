@@ -10,10 +10,6 @@ export const CarouselCard = styled.div`
 
   width: 340px;
   cursor: pointer;
-
-  a {
-    text-decoration: none;
-  }
 `;
 
 export const TextContainer = styled.div`
