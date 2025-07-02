@@ -17,7 +17,7 @@ export const NavLogin = styled.div`
 export const UserWrapper = styled.div<{ memberRole?: string }>`
   display: flex;
   align-items: center;
-  gap: 0.7rem;
+  gap: 0.8rem;
   height: 4.2rem;
 
   padding: 0.4rem 1.2rem 0.4rem 0.8rem;
@@ -37,6 +37,5 @@ export const UserIconWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  width: 2.6rem;
   height: 2.6rem;
 `;
