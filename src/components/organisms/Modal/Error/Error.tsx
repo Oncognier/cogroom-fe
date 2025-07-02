@@ -16,7 +16,7 @@ export default function Error({ message }: ErrorProps) {
     <S.Error>
       <S.TextWrapper>
         <S.Title>{message}</S.Title>
-        <S.Description>다시 시도해주세요</S.Description>
+        <S.Description>잠시 뒤에 다시 시도해주세요.</S.Description>
       </S.TextWrapper>
 
       <OutlinedButton
