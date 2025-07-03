@@ -34,7 +34,7 @@ export const END_POINTS_V1 = {
     DASHBOARD: `${BASE_PATH_V1.MEMBERS}/me/dashboard`,
     DAILY: `${BASE_PATH_V1.MEMBERS}/me/daily`,
     ORDERS: `${BASE_PATH_V1.MEMBERS}/orders`,
-    SIGNOUT: `${BASE_PATH_V1.MEMBERS}/me`,
+    WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
   },
 
   DAILY: {

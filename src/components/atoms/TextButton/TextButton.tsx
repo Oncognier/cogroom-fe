@@ -18,6 +18,8 @@ export default function TextButton({
   isDisabled,
   onClick,
   interactionVariant,
+  fillContainer,
+  align = 'center',
 }: TextButtonProps) {
   return (
     <S.TextButton
@@ -26,10 +28,12 @@ export default function TextButton({
       disabled={isDisabled}
       onClick={onClick}
       interactionVariant={interactionVariant}
+      fillContainer={fillContainer}
+      align={align}
     >
-      <S.Icon>{iconLeft}</S.Icon>
+      {iconLeft && <S.Icon>{iconLeft}</S.Icon>}
       {label}
-      <S.Icon>{iconRight}</S.Icon>
+      {iconRight && <S.Icon>{iconRight}</S.Icon>}
     </S.TextButton>
   );
 }

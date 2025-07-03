@@ -27,3 +27,7 @@ export interface MemberDailyFormFields {
   startDate: Dayjs | null;
   endDate: Dayjs | null;
 }
+
+export interface WithdrawFormFields {
+  reason: string;
+}

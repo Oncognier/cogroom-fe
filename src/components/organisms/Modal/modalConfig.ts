@@ -9,6 +9,7 @@ import Error, { ErrorProps } from './Error/Error';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Signup, { SignupProps } from './Signup/Signup';
+import Withdraw from './Withdraw/Withdraw';
 
 export type AppModalProps = {
   login: undefined;
@@ -16,6 +17,7 @@ export type AppModalProps = {
   logout: undefined;
   dailyAnswerPost: DailyAnswerPostProps;
   dailyShare: DailyShareProps;
+  withdraw: undefined;
 };
 
 export type AlertModalProps = {
@@ -31,6 +33,7 @@ export const AppModalRegistry = {
   logout: { Component: Logout, disableOutsideClick: false },
   dailyAnswerPost: { Component: DailyAnswerPost, disableOutsideClick: false },
   dailyShare: { Component: DailyShare, disableOutsideClick: false },
+  withdraw: { Component: Withdraw, disableOutsideClick: false },
 } satisfies ModalMap<AppModalProps>;
 
 export const AlertModalRegistry = {
