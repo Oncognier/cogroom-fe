@@ -11,6 +11,7 @@ export interface TextareaStyleProps {
   width?: string;
   minHeight?: string;
   autoResize?: boolean;
+  isResizable?: boolean;
 }
 
 const commonStyles = (theme: Theme) => css`
@@ -76,6 +77,7 @@ export const Textarea = styled.textarea<TextareaStyleProps>`
   width: ${({ width }) => width || '100%'};
   ${({ minHeight }) => minHeight && `min-height: ${minHeight};`}
   ${({ autoResize }) => autoResize && 'overflow-y: hidden;'}
+  resize: ${({ isResizable }) => (isResizable ? 'vertical' : 'none')}; // ✅ 이 부분이 핵심
 `;
 
 export const Error = styled.p`
