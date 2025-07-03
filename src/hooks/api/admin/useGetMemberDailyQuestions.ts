@@ -12,7 +12,7 @@ export default function useGetMemberDailyQuestions({
   params: DailyQuestionsRequest;
 }) {
   return useQuery({
-    queryKey: [...ADMIN_QUERY_KEYS.ADMIN_MEMBER_LIST, memberId, params],
+    queryKey: [...ADMIN_QUERY_KEYS.ADMIN_MEMBER_DAILY, memberId, params],
     queryFn: () => adminApi.getMemberDailyQuestions({ memberId, params }),
   });
 }
