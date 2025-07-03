@@ -21,6 +21,7 @@ export default function InputReason({ onConfirm }: InputReasonProps) {
       <Textarea
         textareaSize='lg'
         minHeight='15.5rem'
+        placeholder='답변을 입력해주세요'
         {...register('reason', { required: true })}
       />
 
