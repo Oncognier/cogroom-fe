@@ -6,7 +6,7 @@ import { DailyQuestionsRequest } from '@/types/admin';
 
 export default function useGetDailyQuestions(params: DailyQuestionsRequest) {
   return useQuery({
-    queryKey: [...ADMIN_QUERY_KEYS.ADMIN_MEMBER_LIST, params],
+    queryKey: [...ADMIN_QUERY_KEYS.ADMIN_DAILY_LIST, params],
     queryFn: () => adminApi.getDailyQuestions(params),
   });
 }

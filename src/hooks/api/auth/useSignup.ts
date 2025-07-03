@@ -16,7 +16,7 @@ export const useSignupMutation = (onSuccess?: () => void) => {
       const accessToken = response.headers['authorization']?.replace(/^Bearer\s/i, '');
       if (accessToken) setToken(accessToken);
       onSuccess?.();
-      router.push('/');
+      router.push('/daily');
     },
     onError: () => {
       open('error', { message: '회원가입에 실패했습니다.' });

@@ -14,7 +14,7 @@ interface TextareaProps extends ComponentProps<'textarea'>, TextareaStyleProps {
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ label, textareaSize, required, isDisabled, error, width, minHeight, autoResize, ...props }, ref) => {
+  ({ label, textareaSize, required, isDisabled, error, width, minHeight, autoResize, isResizable, ...props }, ref) => {
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
     const hasError = !!error;
 
@@ -48,6 +48,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           width={width}
           minHeight={minHeight}
           autoResize={autoResize}
+          isResizable={isResizable}
           {...props}
         />
 

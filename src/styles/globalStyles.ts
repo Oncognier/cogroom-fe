@@ -159,6 +159,8 @@ const globalStyles = () => css`
     padding: 0;
     overflow: visible;
     cursor: pointer;
+
+    font-family: var(--font-pretendard);
   }
 
   input,
