@@ -25,7 +25,7 @@ export default function ConfirmWithdraw({ onConfirm }: ConfirmWithdrawProps) {
 
       <S.ButtonWrapper>
         <OutlinedButton
-          size='lg'
+          size='sm'
           color='assistive'
           label='탈퇴할래요'
           fillContainer
@@ -33,7 +33,7 @@ export default function ConfirmWithdraw({ onConfirm }: ConfirmWithdrawProps) {
           onClick={onConfirm}
         />
         <OutlinedButton
-          size='lg'
+          size='sm'
           color='primary'
           label='더 있을래요'
           fillContainer

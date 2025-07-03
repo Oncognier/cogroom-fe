@@ -22,7 +22,7 @@ export default function SupportContact({ onStartWithdraw }: SupportContactProps)
         <S.Email>oncognier@gmail.com</S.Email>
         <OutlinedButton
           label='확인'
-          size='lg'
+          size='md'
           color='primary'
           interactionVariant='normal'
           onClick={close}

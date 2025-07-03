@@ -20,7 +20,7 @@ export default function Logout() {
       <S.Mesage>로그아웃 할까요?</S.Mesage>
       <S.ButtonWrapper>
         <OutlinedButton
-          size='lg'
+          size='sm'
           color='assistive'
           label='네, 할게요'
           fillContainer
@@ -28,7 +28,7 @@ export default function Logout() {
           onClick={handleLogout}
         />
         <OutlinedButton
-          size='lg'
+          size='sm'
           color='primary'
           label='더 있을래요'
           fillContainer

@@ -27,7 +27,7 @@ export default function InputReason({ onConfirm }: InputReasonProps) {
 
       <OutlinedButton
         type='submit'
-        size='lg'
+        size='md'
         color='primary'
         label='제출하기'
         fillContainer
