@@ -3,11 +3,13 @@ import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { useAppModalStore } from '@/stores/useModalStore';
+import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
 
 export const useLoginMutation = () => {
   const router = useRouter();
-  const { open } = useAppModalStore();
+  const { open: openApp } = useAppModalStore();
+  const { open: openAlert } = useAlertModalStore();
+
   const setToken = useAuthStore((state) => state.setToken);
 
   const mutation = useMutation({
@@ -22,7 +24,7 @@ export const useLoginMutation = () => {
       const { socialUserInfo, needSignup } = response.data.result;
 
       if (needSignup || socialUserInfo) {
-        open('signup', {
+        openApp('signup', {
           provider: socialUserInfo.provider ?? '',
           providerId: socialUserInfo.providerId ?? '',
           email: socialUserInfo.email ?? '',
@@ -33,7 +35,7 @@ export const useLoginMutation = () => {
       router.push('/');
     },
     onError: () => {
-      alert('로그인 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      openAlert('error', { message: '로그인 중 오류가 발생했습니다.' });
       router.push('/');
     },
   });

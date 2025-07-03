@@ -30,7 +30,7 @@ export default function DailyShare({ dailyStreak }: DailyShareProps) {
         open('alert', { message: '링크가 복사되었어요!' });
       })
       .catch(() => {
-        open('alert', { message: '복사에 실패했어요. 다시 시도해주세요.' });
+        open('error', { message: '복사에 실패했습니다.' });
       });
 
     close();

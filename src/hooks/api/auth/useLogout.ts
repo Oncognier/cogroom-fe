@@ -3,9 +3,11 @@ import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { useAlertModalStore } from '@/stores/useModalStore';
 
 export const useLogoutMutation = () => {
   const { clearToken } = useAuthStore();
+  const { open } = useAlertModalStore();
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -17,7 +19,7 @@ export const useLogoutMutation = () => {
       router.push('/');
     },
     onError: () => {
-      alert('로그아웃에 실패했습니다.');
+      open('error', { message: '로그아웃에 실패했습니다.' });
     },
   });
 
