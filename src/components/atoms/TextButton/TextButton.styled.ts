@@ -6,20 +6,24 @@ import styled from '@emotion/styled';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 type TextButtonColor = 'primary' | 'assistive';
-type TextButtonSize = 'sm' | 'md' | 'lg' | 'fillContainer';
+type TextButtonSize = 'sm' | 'md' | 'lg';
+type TextButtonAlign = 'center' | 'space-between';
 
 export interface TextButtonStyleProps {
   color: TextButtonColor;
   size: TextButtonSize;
   interactionVariant: InteractionVariant;
+  fillContainer?: boolean;
+  align?: TextButtonAlign;
 }
 
-const commonStyles = (theme: Theme) => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, align?: TextButtonAlign) => css`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: ${align};
   gap: 4px;
 
+  width: ${fillContainer ? '100%' : 'auto'};
   border: none;
   border-radius: ${theme.radius[4]};
   background-color: transparent;
@@ -64,23 +68,16 @@ const sizeStyles: Record<TextButtonSize, (theme: Theme) => SerializedStyles> = {
   lg: (theme) => css`
     ${theme.typography.body1.semibold};
   `,
-  fillContainer: (theme) => css`
-    ${theme.typography.body1.semibold};
-    width: 100%;
-  `,
 };
 
 const getInteractionColor = (theme: Theme, color: TextButtonColor) => {
-  if (color === 'primary') {
-    return theme.semantic.primary.normal;
-  }
-  if (color === 'assistive') {
-    return theme.semantic.label.alternative;
-  }
+  if (color === 'primary') return theme.semantic.primary.normal;
+  if (color === 'assistive') return theme.semantic.label.alternative;
+  return theme.semantic.interaction.inactive;
 };
 
 export const TextButton = styled.button<TextButtonStyleProps>`
-  ${({ theme }) => commonStyles(theme)};
+  ${({ theme, fillContainer, align }) => commonStyles(theme, fillContainer, align)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => colorStyles[color](theme)};
   ${({ theme, interactionVariant, disabled, color }) =>
