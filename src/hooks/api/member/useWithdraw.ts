@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-import { authApi } from '@/api/authApis';
+import { memberApi } from '@/api/memberApis';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
@@ -14,7 +14,7 @@ export const useWithdrawMutation = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: authApi.withdraw,
+    mutationFn: memberApi.withdraw,
     onSuccess: () => {
       clearToken();
       queryClient.clear();

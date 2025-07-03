@@ -23,7 +23,6 @@ export const END_POINTS_V1 = {
     SEND_EMAIL: `${BASE_PATH_V1.AUTH}/email-verification`,
     CHECK_EMAIL_VERIFIED: `${BASE_PATH_V1.AUTH}/email/status`,
     NICKNAME: `${BASE_PATH_V1.AUTH}/nickname`,
-    WITHDRAW: `${BASE_PATH_V1.AUTH}/withdraw`,
     REISSUE_TOKEN: `${BASE_PATH_V1.AUTH}/reissue`,
   },
   MEMBERS: {
@@ -35,7 +34,7 @@ export const END_POINTS_V1 = {
     DASHBOARD: `${BASE_PATH_V1.MEMBERS}/me/dashboard`,
     DAILY: `${BASE_PATH_V1.MEMBERS}/me/daily`,
     ORDERS: `${BASE_PATH_V1.MEMBERS}/orders`,
-    SIGNOUT: `${BASE_PATH_V1.MEMBERS}/me`,
+    WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
   },
 
   DAILY: {

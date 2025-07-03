@@ -1,13 +1,7 @@
 import { http, HttpResponse } from 'msw';
 
 import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
-import {
-  CheckEmailVerifiedRequest,
-  LoginRequest,
-  SendEmailRequest,
-  SignupRequest,
-  WithdrawRequest,
-} from '@/types/auth';
+import { CheckEmailVerifiedRequest, LoginRequest, SendEmailRequest, SignupRequest } from '@/types/auth';
 
 import { checkEmailVerifiedError, checkEmailVerifiedSuccess } from '../data/auth/checkEmailVerifiedData';
 import {
@@ -21,7 +15,6 @@ import { logoutSuccess } from '../data/auth/logoutData';
 import { reissueError, reissueSuccess } from '../data/auth/reissueTokenData';
 import { sendEmailError, sendEmailSuccess } from '../data/auth/sendEmailData';
 import { signupError, signupSuccess } from '../data/auth/signupData';
-import { withdrawSuccess } from '../data/auth/withdrawData';
 
 export const authHandlers = [
   http.post(END_POINTS_V1.AUTH.LOGIN, async ({ request }) => {
@@ -96,12 +89,6 @@ export const authHandlers = [
 
   http.post(END_POINTS_V1.AUTH.LOGOUT, async () => {
     return new HttpResponse(JSON.stringify(logoutSuccess), {
-      status: HTTP_STATUS_CODE.OK,
-    });
-  }),
-
-  http.delete(END_POINTS_V1.AUTH.WITHDRAW, async () => {
-    return new HttpResponse(JSON.stringify(withdrawSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

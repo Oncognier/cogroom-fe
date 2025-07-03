@@ -35,7 +35,3 @@ export interface SignupRequest {
   email: string;
   nickname: string;
 }
-
-export interface WithdrawRequest {
-  reason: string;
-}

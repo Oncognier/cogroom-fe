@@ -51,3 +51,7 @@ export interface CheckNicknameRequest {
 export interface CheckNicknameResponse extends ApiResponse {
   result: boolean;
 }
+
+export interface WithdrawRequest {
+  reason: string;
+}

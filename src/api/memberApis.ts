@@ -10,6 +10,7 @@ import {
   UserDashboardResponse,
   UserInfoResponse,
   UserSummaryResponse,
+  WithdrawRequest,
 } from '@/types/member';
 
 import { axiosInstance } from './axios/axiosInstance';
@@ -65,6 +66,17 @@ const checkNickname = async ({ nickname }: CheckNicknameRequest) => {
   return data.result;
 };
 
+const withdraw = async ({ reason }: WithdrawRequest) => {
+  const { data } = await axiosInstance.delete<WithdrawRequest, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.MEMBERS.WITHDRAW,
+    {
+      data: { reason },
+    },
+  );
+
+  return data;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
@@ -72,4 +84,5 @@ export const memberApi = {
   getUserDaily,
   editUserInfo,
   checkNickname,
+  withdraw,
 };

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { WITHDRAW_STEP, WithdrawStep } from '@/constants/common';
-import { useWithdrawMutation } from '@/hooks/api/auth/useWithdraw';
+import { useWithdrawMutation } from '@/hooks/api/member/useWithdraw';
 import { useAppModalStore } from '@/stores/useModalStore';
 import { WithdrawFormFields } from '@/types/form';
 

@@ -9,6 +9,7 @@ import { getUserDailySuccess } from '../data/member/getUserDailyData';
 import { getUserDashboardSuccess } from '../data/member/getUserDashboardData';
 import { getUserInfoSuccess } from '../data/member/getUserInfoData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
+import { withdrawSuccess } from '../data/member/withdrawData';
 
 export const memberHandlers = [
   http.get(END_POINTS_V1.MEMBERS.SUMMARY, async () => {
@@ -59,6 +60,12 @@ export const memberHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(checkNicknameSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.delete(END_POINTS_V1.MEMBERS.WITHDRAW, async () => {
+    return new HttpResponse(JSON.stringify(withdrawSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
