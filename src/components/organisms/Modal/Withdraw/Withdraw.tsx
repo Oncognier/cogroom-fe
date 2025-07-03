@@ -4,11 +4,15 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { WITHDRAW_STEP, WithdrawStep } from '@/constants/common';
+import { useWithdrawMutation } from '@/hooks/api/auth/useWithdraw';
+import { useAppModalStore } from '@/stores/useModalStore';
 import { WithdrawFormFields } from '@/types/form';
 
 import { SupportContact, ConfirmWithdraw, InputReason, WithdrawComplete } from './Steps';
 
 export default function Withdraw() {
+  const { withdraw } = useWithdrawMutation();
+  const { close } = useAppModalStore();
   const [step, setStep] = useState<WithdrawStep>(WITHDRAW_STEP.SUPPORT_CONTACT);
 
   const methods = useForm<WithdrawFormFields>({
@@ -18,7 +22,8 @@ export default function Withdraw() {
 
   const handleComplete = () => {
     const reason = methods.getValues('reason');
-    console.log('탈퇴 사유:', reason);
+    withdraw({ reason });
+    close();
   };
 
   return (

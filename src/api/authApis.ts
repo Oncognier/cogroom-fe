@@ -10,6 +10,7 @@ import {
   CheckEmailVerifiedRequest,
   SignupRequest,
   CheckEmailVerifiedResponse,
+  WithdrawRequest,
 } from '../types/auth';
 import { axiosInstance } from './axios/axiosInstance';
 
@@ -57,6 +58,17 @@ const logout = async () => {
   return data;
 };
 
+const withdraw = async ({ reason }: WithdrawRequest) => {
+  const { data } = await axiosInstance.delete<WithdrawRequest, AxiosResponse<ApiResponse>>(
+    END_POINTS_V1.AUTH.WITHDRAW,
+    {
+      data: { reason },
+    },
+  );
+
+  return data;
+};
+
 const reissueToken = async () => {
   const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN, null, {
     useAuth: false,
@@ -72,5 +84,6 @@ export const authApi = {
   sendEmail,
   checkEmailVerified,
   logout,
+  withdraw,
   reissueToken,
 };
