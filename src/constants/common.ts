@@ -40,6 +40,15 @@ export const SIGNUP_STEP = {
 
 export type SignupStep = (typeof SIGNUP_STEP)[keyof typeof SIGNUP_STEP];
 
+export const WITHDRAW_STEP = {
+  SUPPORT_CONTACT: 'SUPPORT_CONTACT',
+  CONFIRM: 'CONFIRM',
+  INPUT_REASON: 'INPUT_REASON',
+  COMPLETE: 'COMPLETE',
+} as const;
+
+export type WithdrawStep = (typeof WITHDRAW_STEP)[keyof typeof WITHDRAW_STEP];
+
 export const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
 
 export const SOCIAL_LINKS = {
