@@ -26,6 +26,7 @@ const STREAK_QUERY_KEYS = {
 const ADMIN_QUERY_KEYS = {
   ADMIN: ['admin'],
   ADMIN_MEMBER_LIST: ['admin', 'member_list'],
+  ADMIN_DAILY_LIST: ['admin', 'daily_list'],
   ADMIN_MEMBER_DAILY: ['admin', 'daily'],
 } as const;
 
