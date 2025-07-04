@@ -1,6 +1,6 @@
 'use client';
 
-import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
+import AuthGuard from '@/components/organisms/Guard/AuthGuard/AuthGuard';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 import MyPageBreadcrumb from './_components/MyPageBreadcrumb/MyPageBreadcrumb';

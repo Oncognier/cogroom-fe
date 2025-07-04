@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation';
 
 import TabBar from '@/components/atoms/TabBar/TabBar';
+import { TabBarState } from '@/components/atoms/TabBar/TabBar.styled';
 import { InteractionVariant } from '@/styles/interaction';
 
 import * as S from './TabBarList.styled';
@@ -10,6 +11,7 @@ import * as S from './TabBarList.styled';
 interface TabBarItem {
   label: string;
   href: string;
+  state?: TabBarState;
 }
 
 interface TabBarListProps {
@@ -37,7 +39,7 @@ export default function TabBarList({ items, size = 'sm', fillContainer = false, 
           label={item.label}
           onChange={() => handleTabClick(item.href)}
           size={size}
-          state={pathname.startsWith(item.href)}
+          state={item.state}
           fillContainer={fillContainer}
           interactionVariant={interactionVariant}
         />

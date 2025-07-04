@@ -1,7 +1,20 @@
+'use client';
+
 import { redirect } from 'next/navigation';
 
-// TODO: 사용자 정보 가져와서 redirect 조건 분기 처리
-// 콘텐츠 제공자일 때는 콘텐츠 쪽으로
+import Loading from '@/components/organisms/Loading/Loading';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+
 export default function Admin() {
+  const { data, isLoading } = useGetUserSummary();
+
+  const role = data?.memberRole;
+
+  if (isLoading) return <Loading />;
+
+  if (role === 'CONTENT_PROVIDER') {
+    redirect('/admin/contents');
+  }
+
   redirect('/admin/notices');
 }
