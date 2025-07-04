@@ -8,6 +8,7 @@ import useGetDailyQuery from '@/hooks/api/daily/useGetDaily';
 import useGetDailyHasAnsweredQuery from '@/hooks/api/daily/useGetDailyHasAnswered';
 import useGetStreakCalendarQuery from '@/hooks/api/streak/useGetStreakCalendar';
 import useGetStreakDaysQuery from '@/hooks/api/streak/useGetStreakDays';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 
 import Calendar from './_components/Calendar/Calendar';
@@ -17,6 +18,8 @@ import * as S from './page.styled';
 
 export default function Daily() {
   const { open } = useAppModalStore();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+
   const { data: dailyData, isLoading: isDailyLoading } = useGetDailyQuery();
   const { data: streakCalendarData, isLoading: isCalendarLoading } = useGetStreakCalendarQuery();
   const { data: streakDaysData, isLoading: isDaysLoading } = useGetStreakDaysQuery();
@@ -48,7 +51,11 @@ export default function Daily() {
           color='secondary'
           iconRight={<Upload />}
           interactionVariant='normal'
-          onClick={() => open('dailyShare', { dailyStreak: streakDaysData?.result.dailyStreak ?? 0 })}
+          onClick={
+            isLoggedIn
+              ? () => open('dailyShare', { dailyStreak: streakDaysData?.result.dailyStreak ?? 0 })
+              : () => open('login')
+          }
         />
       </S.ButtonWrapper>
     </>
