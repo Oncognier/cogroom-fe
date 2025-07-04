@@ -82,7 +82,7 @@ export default function Calendar({ streakDateList, hasAnswered }: CalendarProps)
             label='리포트 보러가기'
             size='md'
             interactionVariant='normal'
-            onClick={() => open('login')}
+            onClick={isLoggedIn ? handleGoToReport : () => open('login')}
             fillContainer
             iconRight={<ArrowRight />}
           />
