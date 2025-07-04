@@ -1,8 +1,9 @@
 'use client';
 
 import { redirect } from 'next/navigation';
-import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+
 import Loading from '@/components/organisms/Loading/Loading';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 
 export default function Admin() {
   const { data, isLoading } = useGetUserSummary();

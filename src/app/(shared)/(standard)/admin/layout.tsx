@@ -5,10 +5,11 @@ import { usePathname } from 'next/navigation';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import TabBarList from '@/components/molecules/TabBarList/TabBarList';
 import AdminGuard from '@/components/organisms/Guard/AdminGuard/AdminGuard';
-import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import Loading from '@/components/organisms/Loading/Loading';
-import * as S from './layout.styled';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+
 import { getAdminTabState } from './_utils/getAdminTabState';
+import * as S from './layout.styled';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { data, isLoading } = useGetUserSummary();

@@ -1,9 +1,10 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 import TabBarList from '@/components/molecules/TabBarList/TabBarList';
 
 import * as S from './layout.styled';
-import { usePathname } from 'next/navigation';
 
 export default function CommunityLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

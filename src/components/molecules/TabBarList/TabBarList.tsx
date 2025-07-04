@@ -3,8 +3,8 @@
 import { usePathname, useRouter } from 'next/navigation';
 
 import TabBar from '@/components/atoms/TabBar/TabBar';
-import { InteractionVariant } from '@/styles/interaction';
 import { TabBarState } from '@/components/atoms/TabBar/TabBar.styled';
+import { InteractionVariant } from '@/styles/interaction';
 
 import * as S from './TabBarList.styled';
 
