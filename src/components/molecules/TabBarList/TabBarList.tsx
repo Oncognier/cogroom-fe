@@ -10,6 +10,7 @@ import * as S from './TabBarList.styled';
 interface TabBarItem {
   label: string;
   href: string;
+  state?: 'default' | 'active' | 'disabled';
 }
 
 interface TabBarListProps {
@@ -37,7 +38,7 @@ export default function TabBarList({ items, size = 'sm', fillContainer = false, 
           label={item.label}
           onChange={() => handleTabClick(item.href)}
           size={size}
-          state={pathname.startsWith(item.href)}
+          state={item.state}
           fillContainer={fillContainer}
           interactionVariant={interactionVariant}
         />
