@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
+export type TabBarState = 'default' | 'active' | 'disabled';
 type TabBarSize = 'sm' | 'md';
-type TabBarState = 'default' | 'active' | 'disabled';
 
 export interface TabBarStyleProps {
   size: TabBarSize;

@@ -4,13 +4,14 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import TabBar from '@/components/atoms/TabBar/TabBar';
 import { InteractionVariant } from '@/styles/interaction';
+import { TabBarState } from '@/components/atoms/TabBar/TabBar.styled';
 
 import * as S from './TabBarList.styled';
 
 interface TabBarItem {
   label: string;
   href: string;
-  state?: 'default' | 'active' | 'disabled';
+  state?: TabBarState;
 }
 
 interface TabBarListProps {
