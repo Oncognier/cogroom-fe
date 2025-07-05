@@ -7,6 +7,7 @@ interface TextButtonProps extends TextButtonStyleProps {
   iconRight?: React.ReactNode;
   isDisabled?: boolean;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export default function TextButton({
@@ -19,6 +20,7 @@ export default function TextButton({
   onClick,
   interactionVariant,
   fillContainer,
+  type = 'button',
   align = 'center',
 }: TextButtonProps) {
   return (
@@ -29,6 +31,7 @@ export default function TextButton({
       onClick={onClick}
       interactionVariant={interactionVariant}
       fillContainer={fillContainer}
+      type={type}
       align={align}
     >
       {iconLeft && <S.Icon>{iconLeft}</S.Icon>}
