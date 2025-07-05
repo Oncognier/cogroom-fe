@@ -63,7 +63,7 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
           >
             <Bell />
           </IconButton>
-          {userRoleLabel ? (
+          {userRoleLabel && userSummary?.memberRole !== 'USER' ? (
             <S.UserWrapper
               memberRole={userSummary?.memberRole}
               onClick={() => router.push('/mypage')}
