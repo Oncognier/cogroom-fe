@@ -1,9 +1,9 @@
-import { DropdownItem } from '@/components/atoms/DropdownItem/DropdownItem';
+import { FilterDropdownItem } from '@/components/atoms/FilterDropdownItem/FilterDropdownItem';
 import { SelectOption } from '@/types/common';
 
-import * as S from './DropdownList.styled';
+import * as S from './FilterDropdownList.styled';
 
-interface DropdownListProps {
+interface FilterDropdownListProps {
   options: SelectOption[];
   selectedValues: Array<string | number>;
   isMulti: boolean;
@@ -11,7 +11,7 @@ interface DropdownListProps {
   onSelect: (value: Array<string | number>) => void;
 }
 
-export function DropdownList({ options, selectedValues, isMulti, groupName, onSelect }: DropdownListProps) {
+export function FilterDropdownList({ options, selectedValues, isMulti, groupName, onSelect }: FilterDropdownListProps) {
   const handleToggle = (value: string | number, checked: boolean) => {
     if (isMulti) {
       const next = checked ? [...selectedValues, value] : selectedValues.filter((v) => v !== value);
@@ -22,9 +22,9 @@ export function DropdownList({ options, selectedValues, isMulti, groupName, onSe
   };
 
   return (
-    <S.DropdownList>
+    <S.FilterDropdownList>
       {options.map((option) => (
-        <DropdownItem
+        <FilterDropdownItem
           key={`${option.label}-${option.value}`}
           label={option.label}
           value={option.value}
@@ -34,6 +34,6 @@ export function DropdownList({ options, selectedValues, isMulti, groupName, onSe
           groupName={groupName}
         />
       ))}
-    </S.DropdownList>
+    </S.FilterDropdownList>
   );
 }

@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const DropdownList = styled.div`
+export const FilterDropdownList = styled.div`
   display: flex;
   flex-direction: column;
 
