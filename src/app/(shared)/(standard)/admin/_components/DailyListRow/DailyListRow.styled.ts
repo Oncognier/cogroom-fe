@@ -10,6 +10,7 @@ export const DailyListRow = styled.div`
   width: 100%;
   height: 10.8rem;
   padding: 2.4rem 3.2rem;
+  border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
 `;
 
 export const MemberInfoWrapper = styled.div`
