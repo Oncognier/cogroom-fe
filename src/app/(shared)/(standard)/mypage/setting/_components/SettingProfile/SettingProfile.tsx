@@ -6,12 +6,12 @@ import { useFormContext } from 'react-hook-form';
 import SettingIcon from '@/assets/icons/setting.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
-import { useDropdown } from '@/hooks/useDropdown';
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
+import { useDropdown } from '@/hooks/useDropdown';
 import { SettingFormFields } from '@/types/form';
 
-import * as S from './SettingProfile.styled';
 import MenuDropdown from './MenuDropdown/MenuDropdown';
+import * as S from './SettingProfile.styled';
 
 interface SettingProfileProps {
   initialImageUrl?: string;
