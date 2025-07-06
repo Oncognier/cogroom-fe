@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
 import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
-import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useCheckEmailVerified';
+import { useGetEmailStatusQuery } from '@/hooks/api/auth/useGetEmailStatus';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
 import { validateEmail } from '@/utils/validators/userValidators';
@@ -19,8 +19,6 @@ interface EmailFormProps {
 }
 
 export default function EmailForm({ emailState, setEmailState }: EmailFormProps) {
-  const { value: isCooldown, start: startCooldown } = useCooldown(3000);
-
   const {
     register,
     getValues,
@@ -29,15 +27,16 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
     formState: { errors },
   } = useFormContext<{ email: string }>();
 
+  const { value: isCooldown, start: startCooldown } = useCooldown(3000);
+
   const { sendEmail } = useSendEmailMutation(() => {
     setEmailState('waiting');
     startCooldown();
   }, setError);
 
-  const { checkEmailVerified } = useCheckEmailVerifiedMutation(
-    () => setEmailState('idle'),
-    () => setError('email', { message: VALIDATION_MESSAGE.EMAIL_NOT_VERIFIED_ERROR }),
-  );
+  const email = getValues('email');
+
+  const { refetch: refetchEmailStatus, isFetching: isChecking } = useGetEmailStatusQuery(email, false); // 수동 호출, enabled false
 
   const handleClick = async () => {
     const email = getValues('email');
@@ -49,7 +48,12 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
     if (emailState === 'editing') {
       sendEmail({ email });
     } else if (emailState === 'waiting' && !isCooldown) {
-      checkEmailVerified({ email });
+      const { data } = await refetchEmailStatus();
+      if (data) {
+        setEmailState('idle');
+      } else {
+        setError('email', { message: VALIDATION_MESSAGE.EMAIL_NOT_VERIFIED_ERROR });
+      }
     }
   };
 
@@ -81,7 +85,7 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
           label={getLabel()}
           onClick={handleClick}
           interactionVariant='normal'
-          isDisabled={emailState === 'waiting' && isCooldown}
+          isDisabled={(emailState === 'waiting' && isCooldown) || isChecking}
         />
       </S.ButtonWrapper>
     </S.EmailForm>
