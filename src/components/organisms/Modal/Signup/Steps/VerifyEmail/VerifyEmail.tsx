@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
-import { useCheckEmailVerifiedMutation } from '@/hooks/api/auth/useCheckEmailVerified';
+import { useGetEmailStatusQuery } from '@/hooks/api/auth/useGetEmailStatus';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
+import { useAlertModalStore } from '@/stores/useModalStore';
 
 import * as S from './VerifyEmail.styled';
 
@@ -18,23 +19,40 @@ export interface VerifyEmailProps {
 
 export default function VerifyEmail({ onConfirm, onChangeEmail }: VerifyEmailProps) {
   const { getValues } = useFormContext<{ email: string }>();
-
   const { sendEmail } = useSendEmailMutation();
-  const { checkEmailVerified } = useCheckEmailVerifiedMutation(onConfirm);
+  const { open } = useAlertModalStore();
+
+  const [shouldFetch, setShouldFetch] = useState(false);
+  const email = getValues('email');
+
+  const { data, refetch, isFetching } = useGetEmailStatusQuery(email, shouldFetch);
 
   const { value: isConfirmDisabled, start: startConfirmCooldown } = useCooldown(3000);
   const { value: isResendDisabled, start: startResendCooldown } = useCooldown(3000);
+
+  useEffect(() => {
+    if (shouldFetch) {
+      refetch().then((res) => {
+        if (res.data) {
+          onConfirm();
+        } else {
+          open('error', { message: '이메일 인증에 실패했습니다.' });
+        }
+        setShouldFetch(false);
+      });
+    }
+  }, [shouldFetch]);
 
   useEffect(() => {
     startConfirmCooldown();
   }, []);
 
   const handleComplete = () => {
-    checkEmailVerified({ email: getValues('email') });
+    setShouldFetch(true);
   };
 
   const handleResend = () => {
-    sendEmail({ email: getValues('email') });
+    sendEmail({ email });
     startResendCooldown();
   };
 
@@ -53,12 +71,12 @@ export default function VerifyEmail({ onConfirm, onChangeEmail }: VerifyEmailPro
 
       <S.ButtonWrapper>
         <SolidButton
-          label='인증 완료하기'
+          label={isFetching ? '확인 중...' : '인증 완료하기'}
           size='md'
           color='primary'
           interactionVariant='normal'
           onClick={handleComplete}
-          isDisabled={isConfirmDisabled}
+          isDisabled={isConfirmDisabled || isFetching}
           fillContainer
         />
         <TextButton

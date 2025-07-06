@@ -13,6 +13,15 @@ import {
 } from '../types/auth';
 import { axiosInstance } from './axios/axiosInstance';
 
+const getEmailStatus = async (params: CheckEmailVerifiedRequest) => {
+  const { data } = await axiosInstance.get<CheckEmailVerifiedResponse>(END_POINTS_V1.AUTH.EMAIL_VERIFIED_STATUS, {
+    params,
+    useAuth: false,
+  });
+
+  return data.result;
+};
+
 const login = async ({ code, provider }: LoginRequest) => {
   return await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(
     END_POINTS_V1.AUTH.LOGIN,
@@ -39,16 +48,6 @@ const sendEmail = async ({ email }: SendEmailRequest) => {
   return data;
 };
 
-const checkEmailVerified = async ({ email }: CheckEmailVerifiedRequest) => {
-  const { data } = await axiosInstance.post<CheckEmailVerifiedRequest, AxiosResponse<CheckEmailVerifiedResponse>>(
-    END_POINTS_V1.AUTH.CHECK_EMAIL_VERIFIED,
-    { email },
-    { useAuth: false },
-  );
-
-  return data.result;
-};
-
 const logout = async () => {
   const { data } = await axiosInstance.post<CheckEmailVerifiedRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.AUTH.LOGOUT,
@@ -70,7 +69,7 @@ export const authApi = {
   login,
   signup,
   sendEmail,
-  checkEmailVerified,
+  getEmailStatus,
   logout,
   reissueToken,
 };
