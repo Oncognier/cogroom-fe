@@ -1,5 +1,10 @@
 import { ApiResponse } from './api';
 
+export interface CheckEmailRequest {
+  userEmail: string;
+  verificationCode: string;
+}
+
 export interface GetEmailStatusRequest {
   email: string;
 }
