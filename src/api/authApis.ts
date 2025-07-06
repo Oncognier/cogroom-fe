@@ -7,14 +7,14 @@ import {
   LoginRequest,
   LoginResponse,
   SendEmailRequest,
-  CheckEmailVerifiedRequest,
   SignupRequest,
-  CheckEmailVerifiedResponse,
+  GetEmailStatusRequest,
+  GetEmailStatusResponse,
 } from '../types/auth';
 import { axiosInstance } from './axios/axiosInstance';
 
-const getEmailStatus = async (params: CheckEmailVerifiedRequest) => {
-  const { data } = await axiosInstance.get<CheckEmailVerifiedResponse>(END_POINTS_V1.AUTH.EMAIL_VERIFIED_STATUS, {
+const getEmailStatus = async (params: GetEmailStatusRequest) => {
+  const { data } = await axiosInstance.get<GetEmailStatusResponse>(END_POINTS_V1.AUTH.EMAIL_VERIFIED_STATUS, {
     params,
     useAuth: false,
   });
