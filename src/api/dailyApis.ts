@@ -2,21 +2,24 @@ import type { AxiosResponse } from 'axios';
 
 import { axiosInstance } from '@/api/axios/axiosInstance';
 import { END_POINTS_V1 } from '@/constants/api';
-import { ApiResponse } from '@/types/api';
+import { ApiResponse, PrefetchMeta } from '@/types/api';
 import { DailyAnswerRequest, DailyHasAnsweredResponse, DailyQuestionResponse } from '@/types/daily';
 
-const getDaily = async () => {
+export const getDailyQuestions = async (meta?: PrefetchMeta) => {
   const { data } = await axiosInstance.get<DailyQuestionResponse>(END_POINTS_V1.DAILY.QUESTIONS, {
     useAuth: true,
+    meta,
   });
-  return data;
+
+  return data.result;
 };
 
-const getDailyHasAnswered = async () => {
+export const getDailyHasAnswered = async (meta?: PrefetchMeta) => {
   const { data } = await axiosInstance.get<DailyHasAnsweredResponse>(END_POINTS_V1.DAILY.HAS_ANSWERED, {
     useAuth: true,
+    meta,
   });
-  return data;
+  return data.result;
 };
 
 const submitDailyAnswer = async ({ assignedQuestionId, answer }: DailyAnswerRequest) => {
@@ -38,7 +41,7 @@ const editDailyAnswer = async ({ assignedQuestionId, answer }: DailyAnswerReques
 };
 
 export const dailyApi = {
-  getDaily,
+  getDailyQuestions,
   submitDailyAnswer,
   editDailyAnswer,
   getDailyHasAnswered,

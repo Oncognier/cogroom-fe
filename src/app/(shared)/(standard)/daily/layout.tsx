@@ -1,5 +1,8 @@
+import { QueryClient, dehydrate, HydrationBoundary } from '@tanstack/react-query';
+
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import { STREAK_SHARE_IMAGE_URLS } from '@/constants/image';
+import { prefetchDaily } from '@/utils/api/prefetchDaily';
 
 import * as S from './layout.styled';
 
@@ -20,16 +23,21 @@ export async function generateMetadata() {
   };
 }
 
-export default function DailyLayout({ children }: { children: React.ReactNode }) {
+export default async function DailyLayout({ children }: { children: React.ReactNode }) {
+  const queryClient = new QueryClient();
+  await prefetchDaily(queryClient);
+
   return (
-    <S.DailyLayout>
-      <Breadcrumb
-        items={[
-          { name: '홈', href: '/' },
-          { name: '데일리', href: '/daily' },
-        ]}
-      />
-      {children}
-    </S.DailyLayout>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <S.DailyLayout>
+        <Breadcrumb
+          items={[
+            { name: '홈', href: '/' },
+            { name: '데일리', href: '/daily' },
+          ]}
+        />
+        {children}
+      </S.DailyLayout>
+    </HydrationBoundary>
   );
 }
