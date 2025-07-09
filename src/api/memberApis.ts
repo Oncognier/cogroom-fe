@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
-import { ApiResponse } from '@/types/api';
+import { ApiResponse, PrefetchMeta } from '@/types/api';
 import {
   CheckNicknameRequest,
   CheckNicknameResponse,
@@ -15,10 +15,11 @@ import {
 
 import { axiosInstance } from './axios/axiosInstance';
 
-export const getUserSummary = async (accessToken?: string) => {
+const getUserSummary = async (accessToken?: string, meta?: PrefetchMeta) => {
   const { data } = await axiosInstance.get<UserSummaryResponse>(END_POINTS_V1.MEMBERS.SUMMARY, {
     headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
     useAuth: !accessToken,
+    meta,
   });
 
   return data.result;
