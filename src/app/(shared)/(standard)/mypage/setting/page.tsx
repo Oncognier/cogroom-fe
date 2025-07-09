@@ -39,7 +39,7 @@ export default function Setting() {
 
   const { open: openApp } = useAppModalStore();
   const { open: openAlert } = useAlertModalStore();
-  const { data, isLoading } = useGetUserInfo();
+  const { data, isLoading, isError } = useGetUserInfo();
 
   const methods = useForm<SettingFormFields>({
     mode: 'onChange',
@@ -73,7 +73,7 @@ export default function Setting() {
     editUserInfo(formData);
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || isError) return <Loading />;
 
   return (
     <S.SettingContainer>
