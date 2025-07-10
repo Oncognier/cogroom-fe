@@ -32,11 +32,11 @@ export const useLoginMutation = () => {
         });
       }
 
-      router.push('/daily');
+      router.replace('/daily');
     },
     onError: () => {
       openAlert('error', { message: '로그인 중 오류가 발생했습니다.' });
-      router.push('/');
+      router.replace('/');
     },
   });
 
