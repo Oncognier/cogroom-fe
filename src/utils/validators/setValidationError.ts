@@ -20,6 +20,6 @@ export function setValidationError<FormFields extends FieldValues>(
       message: VALIDATION_MESSAGE[code],
     });
   } else {
-    open('error', { message: '요청에 실패했습니다.' });
+    open('error', { message: error.message });
   }
 }
