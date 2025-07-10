@@ -2,6 +2,7 @@ export const VALIDATION_MESSAGE = {
   EMAIL_PATTERN_ERROR: '이메일 형식이 아닙니다.',
   EMAIL_NOT_VERIFIED_ERROR: '이메일 인증이 실패했습니다.',
   EMAIL_EMPTY_FILED_ERROR: '이메일은 필수입니다.',
+  EMAIL_DUPLICATE_ERROR: '이미 존재하는 이메일입니다.',
 
   PHONENUMBER_PATTERN_ERROR: '전화번호 형식이 올바르지 않습니다.',
   PHONENUMBER_INVALID_CHARACTERS_ERROR: '전화번호는 숫자와 하이픈(-)만 입력할 수 있습니다.',
@@ -20,6 +21,7 @@ export const VALIDATION_FIELD_MAP: Partial<Record<ValidationErrorKey, string>> =
   EMAIL_PATTERN_ERROR: 'email',
   EMAIL_NOT_VERIFIED_ERROR: 'email',
   EMAIL_EMPTY_FILED_ERROR: 'email',
+  EMAIL_DUPLICATE_ERROR: 'email',
 
   PHONENUMBER_PATTERN_ERROR: 'phoneNumber',
   PHONENUMBER_INVALID_CHARACTERS_ERROR: 'phoneNumber',
