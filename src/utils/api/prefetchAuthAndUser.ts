@@ -14,7 +14,8 @@ export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<Pre
   try {
     await queryClient.prefetchQuery({
       queryKey: [...AUTH_QUERY_KEYS.AUTH_REISSUE],
-      queryFn: authApi.reissueToken,
+      queryFn: () => authApi.reissueToken({ prefetch: true }),
+      meta: { prefetch: true },
     });
 
     const refreshResult = queryClient.getQueryData<{ accessToken: string }>(AUTH_QUERY_KEYS.AUTH_REISSUE);
@@ -25,7 +26,7 @@ export async function prefetchAuthAndUser(queryClient: QueryClient): Promise<Pre
     if (accessToken) {
       await queryClient.prefetchQuery({
         queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY],
-        queryFn: () => memberApi.getUserSummary(accessToken),
+        queryFn: () => memberApi.getUserSummary(accessToken, { prefetch: true }),
       });
 
       userSummary = queryClient.getQueryData<UserSummary>(MEMBER_QUERY_KEYS.MEMBER_SUMMARY);

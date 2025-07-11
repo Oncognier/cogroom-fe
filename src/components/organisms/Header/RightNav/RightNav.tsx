@@ -26,7 +26,7 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
   const { setToken, isLoggedIn } = useAuthStore();
   const router = useRouter();
 
-  const { data: clientUserSummary } = useGetUserSummary();
+  const { data: clientUserSummary } = useGetUserSummary(isLoggedIn);
 
   const userSummary = clientUserSummary ?? serverUserSummary;
 

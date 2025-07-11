@@ -1,29 +1,23 @@
 'use client';
 
-import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { isServer, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { HTTPError } from '@/api/axios/errors/HTTPError';
-import { ERROR_CODE } from '@/constants/api';
-import { useAppModalStore } from '@/stores/useModalStore';
+import { globalErrorHandler } from '@/utils/api/globalErrorHandler';
 
 function makeQueryClient() {
   return new QueryClient({
+    queryCache: new QueryCache({
+      onError: globalErrorHandler,
+    }),
     defaultOptions: {
       queries: {
-        throwOnError: true,
+        retry: 2,
+        throwOnError: false,
       },
       mutations: {
-        onError: (error) => {
-          if (
-            error instanceof HTTPError &&
-            (error.code === ERROR_CODE.TOKEN_NOT_FOUND_ERROR ||
-              error.code === ERROR_CODE.TOKEN_INVALID_ERROR ||
-              error.code === ERROR_CODE.ALREADY_BLACK_LIST)
-          ) {
-            useAppModalStore.getState().open('login');
-          }
-        },
+        onError: globalErrorHandler,
+        retry: false,
       },
     },
   });

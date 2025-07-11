@@ -9,9 +9,9 @@ import DailyQuestionCard from './_components/DailyQuestionCard/DailyQuestionCard
 import * as S from './page.styled';
 
 export default function Daily() {
-  const { data, isLoading } = useGetUserDailyQuery();
+  const { data, isLoading, isError } = useGetUserDailyQuery();
 
-  if (isLoading) return <Loading />;
+  if (isLoading || isError) return <Loading />;
   if (!data?.length) return <EmptyState icon={<ScriptX />} />;
 
   return (

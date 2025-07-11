@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 
-import * as S from './AdminGuard.styled';
+import * as S from './page.styled';
 
 export default function AdminGuard() {
   const router = useRouter();

@@ -4,8 +4,8 @@ import Upload from '@/assets/icons/upload.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Loading from '@/components/organisms/Loading/Loading';
 import { DEFAULT_DAILY_QUESTION } from '@/constants/common';
-import useGetDailyQuery from '@/hooks/api/daily/useGetDaily';
 import useGetDailyHasAnsweredQuery from '@/hooks/api/daily/useGetDailyHasAnswered';
+import useGetDailyQuestionsQuery from '@/hooks/api/daily/useGetDailyQuestions';
 import useGetStreakCalendarQuery from '@/hooks/api/streak/useGetStreakCalendar';
 import useGetStreakDaysQuery from '@/hooks/api/streak/useGetStreakDays';
 import { useAuthStore } from '@/stores/useAuthStore';
@@ -20,7 +20,7 @@ export default function Daily() {
   const { open } = useAppModalStore();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
-  const { data: dailyData, isLoading: isDailyLoading } = useGetDailyQuery();
+  const { data: dailyData, isLoading: isDailyLoading } = useGetDailyQuestionsQuery();
   const { data: streakCalendarData, isLoading: isCalendarLoading } = useGetStreakCalendarQuery();
   const { data: streakDaysData, isLoading: isDaysLoading } = useGetStreakDaysQuery();
   const { data: hasAnsweredData, isLoading: isAnsweredLoading } = useGetDailyHasAnsweredQuery();
@@ -34,14 +34,14 @@ export default function Daily() {
       <S.DailyContainer>
         <Streak dailyStreak={streakDaysData?.result.dailyStreak ?? 0} />
         <Question
-          assignedQuestionId={dailyData?.result.assignedQuestionId ?? 0}
-          question={dailyData?.result.question ?? DEFAULT_DAILY_QUESTION}
-          answer={dailyData?.result.answer ?? ''}
-          hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
+          assignedQuestionId={dailyData?.assignedQuestionId ?? 0}
+          question={dailyData?.question ?? DEFAULT_DAILY_QUESTION}
+          answer={dailyData?.answer ?? ''}
+          hasAnswered={hasAnsweredData?.hasAnswered ?? false}
         />
         <Calendar
           streakDateList={streakCalendarData?.result.streakDateList ?? []}
-          hasAnswered={hasAnsweredData?.result.hasAnswered ?? false}
+          hasAnswered={hasAnsweredData?.hasAnswered ?? false}
         />
       </S.DailyContainer>
       <S.ButtonWrapper>

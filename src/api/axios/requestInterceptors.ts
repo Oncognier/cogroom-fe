@@ -7,6 +7,10 @@ import { HTTPError } from './errors/HTTPError';
 
 const isServer = typeof window === 'undefined';
 
+export const isPrefetchRequest = (config?: InternalAxiosRequestConfig): boolean => {
+  return Boolean(config?.meta?.prefetch);
+};
+
 export const cookiesInterceptor = async (req: InternalAxiosRequestConfig) => {
   if (isServer) {
     const { cookies } = await import('next/headers');
@@ -25,7 +29,7 @@ export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
 
   const { accessToken } = useAuthStore.getState();
 
-  if (!accessToken) {
+  if (!accessToken && !isPrefetchRequest(config)) {
     throw new HTTPError(HTTP_STATUS_CODE.UNAUTHORIZED, '로그인이 필요합니다', ERROR_CODE.TOKEN_NOT_FOUND_ERROR);
   }
 

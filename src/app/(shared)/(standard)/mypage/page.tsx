@@ -11,9 +11,9 @@ import StreakSummaryCard from './_components/StreakSummaryCard/StreakSummaryCard
 import * as S from './page.styled';
 
 export default function Dashboard() {
-  const { data, isLoading } = useGetUserDashboardQuery();
+  const { data, isLoading, isError } = useGetUserDashboardQuery();
 
-  if (isLoading) return <Loading />;
+  if (isLoading || isError) return <Loading />;
 
   return (
     <S.DashboardContainer>

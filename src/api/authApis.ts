@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
-import { ApiResponse } from '@/types/api';
+import { ApiResponse, PrefetchMeta } from '@/types/api';
 
 import {
   LoginRequest,
@@ -64,9 +64,10 @@ const logout = async () => {
   return data;
 };
 
-const reissueToken = async () => {
+const reissueToken = async (meta?: PrefetchMeta) => {
   const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN, null, {
     useAuth: false,
+    meta,
   });
 
   const accessToken = response.headers['authorization'];
