@@ -8,22 +8,14 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing[32]};
+  gap: 3.2rem;
 
-  padding: ${({ theme }) => theme.spacing[12]} ${({ theme }) => theme.spacing[24]};
   background-color: ${({ theme }) => theme.semantic.background.normal.normal};
   border-radius: ${({ theme }) => theme.radius[8]};
 `;
 
-export const TextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[16]};
-`;
-
 export const Title = styled.p`
-  ${({ theme }) => theme.typography.body2.regular};
+  ${({ theme }) => theme.typography.headline1.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};
 
   text-align: center;
