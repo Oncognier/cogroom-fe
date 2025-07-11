@@ -16,7 +16,7 @@ export default function UserTableHeader({ checked, onCheckToggle }: UserTableHea
         onToggle={onCheckToggle}
         interactionVariant='normal'
       />
-
+      <S.FixText>회원 번호</S.FixText>
       <S.FixText>프로필</S.FixText>
       <S.ExpandText>회원 정보</S.ExpandText>
       <S.FixText>가입일</S.FixText>
