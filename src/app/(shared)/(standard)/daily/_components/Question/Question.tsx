@@ -44,21 +44,17 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
       return;
     }
 
+    if (!isFirstAnswer.current) {
+      openAlertModal('dailyFirstAnswer', { assignedQuestionId, answer: inputValue });
+      isFirstAnswer.current = true;
+      return;
+    }
+
     submitDailyAnswer({ assignedQuestionId, answer: inputValue });
   };
 
   const handleEdit = () => {
     openAlertModal('dailyAnswerEdit', { assignedQuestionId, answer: inputValue, redirectTo: '/daily' });
-  };
-
-  const handleFocus = () => {
-    if (!isFirstAnswer.current && isLoggedIn) {
-      openAlertModal('alert', {
-        message: '작성한 답변은 오늘 자정까지만 바꿀 수 있어요',
-      });
-      isFirstAnswer.current = true;
-      return;
-    }
   };
 
   useEffect(() => {
@@ -97,7 +93,6 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
             onChange={(e) => {
               setInputValue(e.target.value);
             }}
-            onFocus={handleFocus}
           />
         </S.InputGroup>
 
