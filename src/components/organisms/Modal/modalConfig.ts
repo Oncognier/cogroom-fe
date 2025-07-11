@@ -4,6 +4,7 @@ import Alert, { AlertProps } from './Alert/Alert';
 import ChangeRole, { ChangeRoleProps } from './ChangeRole/ChangeRole';
 import DailyShare, { DailyShareProps } from './Daily/DailyShare/DailyShare';
 import DailyAnswerEdit, { DailyAnswerEditProps } from './Daily/Edit/DailyAnswerEdit';
+import DailyFirstAnswer, { DailyFirstAnswerProps } from './Daily/FirstAnswer/DailyFirstAnswer';
 import DailyAnswerPost, { DailyAnswerPostProps } from './Daily/Post/DailyAnswerPost';
 import Error, { ErrorProps } from './Error/Error';
 import Login from './Login/Login';
@@ -23,6 +24,7 @@ export type AppModalProps = {
 export type AlertModalProps = {
   error: ErrorProps;
   alert: AlertProps;
+  dailyFirstAnswer: DailyFirstAnswerProps;
   dailyAnswerEdit: DailyAnswerEditProps;
   changeRole: ChangeRoleProps;
 };
@@ -39,6 +41,7 @@ export const AppModalRegistry = {
 export const AlertModalRegistry = {
   error: { Component: Error, disableOutsideClick: false },
   alert: { Component: Alert, disableOutsideClick: false },
+  dailyFirstAnswer: { Component: DailyFirstAnswer, disableOutsideClick: false },
   dailyAnswerEdit: { Component: DailyAnswerEdit, disableOutsideClick: false },
   changeRole: { Component: ChangeRole, disableOutsideClick: false },
 } satisfies ModalMap<AlertModalProps>;
