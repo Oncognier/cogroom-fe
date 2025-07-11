@@ -2,7 +2,7 @@
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
-import { useAppModalStore } from '@/stores/useModalStore';
+import { useAlertModalStore } from '@/stores/useModalStore';
 
 import * as S from './DailyFirstAnswer.styled';
 
@@ -12,8 +12,13 @@ export interface DailyFirstAnswerProps {
 }
 
 export default function DailyFirstAnswer({ assignedQuestionId, answer }: DailyFirstAnswerProps) {
-  const { close } = useAppModalStore();
+  const { close } = useAlertModalStore();
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
+
+  const handleSubmit = () => {
+    close();
+    submitDailyAnswer({ assignedQuestionId, answer });
+  };
 
   return (
     <S.Container>
@@ -25,10 +30,7 @@ export default function DailyFirstAnswer({ assignedQuestionId, answer }: DailyFi
         color='assistive'
         interactionVariant='normal'
         fillContainer
-        onClick={async () => {
-          close();
-          await submitDailyAnswer({ assignedQuestionId, answer });
-        }}
+        onClick={handleSubmit}
         type='submit'
       />
     </S.Container>
