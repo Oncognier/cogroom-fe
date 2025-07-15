@@ -25,6 +25,7 @@ export default function Footer() {
             height={16}
           />
         </S.LogoWrapper>
+        
         <S.InfoWrapper>
           <S.Info>
             상호명: 온코그니어 Oncognier <span> | </span> 대표: 김다희 <span> | </span> 사업자등록번호: 663-01-03713
@@ -39,17 +40,12 @@ export default function Footer() {
         <S.FooterBottom>
           <S.FooterLinks>
             <Link href={'/terms'}>이용 약관</Link>
-            <span>|</span>
             <Link href={'/privacy'}>개인정보 처리방침</Link>
-            <span>|</span>
             <Link href={'/marketing'}>마케팅 정보 수신동의</Link>
           </S.FooterLinks>
-
           <SocialLink />
         </S.FooterBottom>
       </S.FooterWrapper>
     </S.Footer>
   );
 }
-
-
