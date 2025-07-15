@@ -88,7 +88,8 @@ export default function Terms() {
           <S.ContentWrapper>
             <S.Content>
               <S.ContentNumber>1.</S.ContentNumber>
-              이용자는 회사가 정한 가입 양식에 따라 회원정보를 기입하고 약관에 동의함으로써 회원가입을 신청할 수 있습니다.
+              이용자는 회사가 정한 가입 양식에 따라 회원정보를 기입하고 약관에 동의함으로써 회원가입을 신청할 수
+              있습니다.
             </S.Content>
           </S.ContentWrapper>
 
