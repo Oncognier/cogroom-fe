@@ -1,4 +1,3 @@
-// TODO: 추후 수정 필요
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -25,7 +24,7 @@ export default function Footer() {
             height={16}
           />
         </S.LogoWrapper>
-        
+
         <S.InfoWrapper>
           <S.Info>
             상호명: 온코그니어 Oncognier <span> | </span> 대표: 김다희 <span> | </span> 사업자등록번호: 663-01-03713
