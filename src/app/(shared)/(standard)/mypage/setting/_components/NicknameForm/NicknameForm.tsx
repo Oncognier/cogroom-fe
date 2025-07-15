@@ -17,6 +17,8 @@ interface NicknameFormProps {
   onCheck: (isChecked: boolean) => void;
 }
 
+type NicknameCheckState = 'idle' | 'checking' | 'valid' | 'invalid';
+
 export default function NicknameForm({ initialNickname, onCheck }: NicknameFormProps) {
   const {
     register,
@@ -24,32 +26,31 @@ export default function NicknameForm({ initialNickname, onCheck }: NicknameFormP
     setError,
     formState: { errors },
   } = useFormContext<{ nickname: string }>();
-  const { open } = useAlertModalStore();
 
-  const [isChecked, setIsChecked] = useState(true);
-  const nicknameValue = watch('nickname');
-  const isChanged = nicknameValue !== initialNickname;
+  const nickname = watch('nickname');
+  const [checkState, setCheckState] = useState<NicknameCheckState>('idle');
+  const { open } = useAlertModalStore();
 
   const { checkNickname } = useCheckNicknameMutation(
     setError,
     () => {
-      setIsChecked(true);
+      setCheckState('valid');
       onCheck(true);
       open('alert', { message: '사용 가능해요!' });
     },
     () => {
-      setIsChecked(false);
+      setCheckState('invalid');
       onCheck(false);
       open('alert', { message: VALIDATION_MESSAGE.NICKNAME_DUPLICATE_ERROR });
     },
   );
 
   useEffect(() => {
-    if (isChanged) {
-      setIsChecked(false);
+    if (nickname && nickname !== initialNickname) {
+      setCheckState('idle');
       onCheck(false);
     }
-  }, [nicknameValue]);
+  }, [nickname, initialNickname]);
 
   return (
     <S.NicknameForm>
@@ -64,7 +65,6 @@ export default function NicknameForm({ initialNickname, onCheck }: NicknameFormP
         error={errors.nickname?.message}
         width='34.5rem'
       />
-
       <S.ButtonWrapper isError={!!errors.nickname}>
         <OutlinedButton
           type='button'
@@ -72,8 +72,11 @@ export default function NicknameForm({ initialNickname, onCheck }: NicknameFormP
           color='primary'
           label='중복확인'
           interactionVariant='normal'
-          onClick={() => checkNickname({ nickname: nicknameValue })}
-          isDisabled={!isChanged || isChecked}
+          onClick={() => {
+            setCheckState('checking');
+            checkNickname({ nickname });
+          }}
+          isDisabled={checkState === 'valid' || nickname === initialNickname}
         />
       </S.ButtonWrapper>
     </S.NicknameForm>
