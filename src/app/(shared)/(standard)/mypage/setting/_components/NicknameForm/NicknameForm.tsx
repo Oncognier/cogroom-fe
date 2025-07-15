@@ -7,48 +7,49 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
 import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useCheckNicknameMutation } from '@/hooks/api/member/useCheckNickname';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { validateNickname } from '@/utils/validators/userValidators';
 
 import * as S from './NicknameForm.styled';
 
 interface NicknameFormProps {
+  initialNickname?: string;
   onCheck: (isChecked: boolean) => void;
 }
 
-export default function NicknameForm({ onCheck }: NicknameFormProps) {
+export default function NicknameForm({ initialNickname, onCheck }: NicknameFormProps) {
   const {
     register,
     watch,
-    getValues,
     setError,
-    clearErrors,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useFormContext<{ nickname: string }>();
+  const { open } = useAlertModalStore();
 
-  const isChanged = !!dirtyFields.nickname;
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
+  const nicknameValue = watch('nickname');
+  const isChanged = nicknameValue !== initialNickname;
+
+  const { checkNickname } = useCheckNicknameMutation(
+    setError,
+    () => {
+      setIsChecked(true);
+      onCheck(true);
+      open('alert', { message: '사용 가능해요!' });
+    },
+    () => {
+      setIsChecked(false);
+      onCheck(false);
+      open('alert', { message: VALIDATION_MESSAGE.NICKNAME_DUPLICATE_ERROR });
+    },
+  );
 
   useEffect(() => {
     if (isChanged) {
       setIsChecked(false);
       onCheck(false);
     }
-  }, [isChanged, onCheck]);
-
-  const { checkNickname } = useCheckNicknameMutation(
-    setError,
-    () => {
-      setError('nickname', {
-        type: 'manual',
-        message: VALIDATION_MESSAGE.NICKNAME_DUPLICATE_ERROR,
-      });
-    },
-    () => {
-      setIsChecked(true);
-      clearErrors('nickname');
-      onCheck(true);
-    },
-  );
+  }, [nicknameValue]);
 
   return (
     <S.NicknameForm>
@@ -71,7 +72,7 @@ export default function NicknameForm({ onCheck }: NicknameFormProps) {
           color='primary'
           label='중복확인'
           interactionVariant='normal'
-          onClick={() => checkNickname({ nickname: getValues('nickname') })}
+          onClick={() => checkNickname({ nickname: nicknameValue })}
           isDisabled={!isChanged || isChecked}
         />
       </S.ButtonWrapper>

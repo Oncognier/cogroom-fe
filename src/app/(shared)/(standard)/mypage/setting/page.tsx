@@ -53,7 +53,7 @@ export default function Setting() {
     setValue,
     reset,
     setError,
-    formState: { errors, isValid, dirtyFields },
+    formState: { errors, isValid },
   } = methods;
 
   const { editUserInfo } = useEditUserInfoMutation(setError);
@@ -65,7 +65,7 @@ export default function Setting() {
   }, [data, isLoading, reset]);
 
   const onSubmit = (formData: SettingFormFields) => {
-    if (dirtyFields.nickname && !isNicknameChecked) {
+    if (!isNicknameChecked) {
       openAlert('alert', { message: '닉네임 중복 확인을 완료해주세요.' });
       return;
     }
@@ -81,7 +81,10 @@ export default function Setting() {
         <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
           <SettingProfile initialImageUrl={data?.imageUrl} />
 
-          <NicknameForm onCheck={setIsNicknameChecked} />
+          <NicknameForm
+            initialNickname={data?.nickname}
+            onCheck={setIsNicknameChecked}
+          />
 
           <EmailForm
             emailState={emailState}
