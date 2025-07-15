@@ -15,6 +15,11 @@ export function setValidationError<FormFields extends FieldValues>(
   const code = error.code as ValidationErrorKey;
   const field = VALIDATION_FIELD_MAP[code];
 
+  if (code === 'EMAIL_DUPLICATE_ERROR') {
+    open('alert', { message: VALIDATION_MESSAGE[code] });
+    return;
+  }
+
   if (field && setError) {
     setError(field as Path<FormFields>, {
       message: VALIDATION_MESSAGE[code],

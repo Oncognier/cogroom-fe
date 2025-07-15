@@ -35,8 +35,7 @@ const isEmailStateValid = (emailState: EmailState) => emailState === 'idle';
 
 export default function Setting() {
   const [emailState, setEmailState] = useState<EmailState>('idle');
-  const [isNicknameChecked, setIsNicknameChecked] = useState(true);
-
+  const [isNicknameValid, setIsNicknameValid] = useState(true);
   const { open: openApp } = useAppModalStore();
   const { open: openAlert } = useAlertModalStore();
   const { data, isLoading, isError } = useGetUserInfo();
@@ -53,7 +52,7 @@ export default function Setting() {
     setValue,
     reset,
     setError,
-    formState: { errors, isValid, dirtyFields },
+    formState: { errors, isValid },
   } = methods;
 
   const { editUserInfo } = useEditUserInfoMutation(setError);
@@ -61,12 +60,15 @@ export default function Setting() {
   useEffect(() => {
     if (data && !isLoading) {
       reset(getDefaultValues(data));
+      setIsNicknameValid(true);
     }
   }, [data, isLoading, reset]);
 
+  const isFormSubmittable = isValid && isEmailStateValid(emailState) && isNicknameValid;
+
   const onSubmit = (formData: SettingFormFields) => {
-    if (dirtyFields.nickname && !isNicknameChecked) {
-      openAlert('alert', { message: '닉네임 중복 확인을 완료해주세요.' });
+    if (!isFormSubmittable) {
+      openAlert('alert', { message: '입력값을 다시 확인해주세요.' });
       return;
     }
 
@@ -81,7 +83,10 @@ export default function Setting() {
         <S.SettingForm onSubmit={handleSubmit(onSubmit)}>
           <SettingProfile initialImageUrl={data?.imageUrl} />
 
-          <NicknameForm onCheck={setIsNicknameChecked} />
+          <NicknameForm
+            initialNickname={data?.nickname}
+            onCheck={setIsNicknameValid}
+          />
 
           <EmailForm
             emailState={emailState}
@@ -118,7 +123,7 @@ export default function Setting() {
               label='저장하기'
               interactionVariant='normal'
               type='submit'
-              isDisabled={!isValid || !isEmailStateValid(emailState)}
+              isDisabled={!isFormSubmittable}
             />
           </S.ButtonWrapper>
         </S.SettingForm>
