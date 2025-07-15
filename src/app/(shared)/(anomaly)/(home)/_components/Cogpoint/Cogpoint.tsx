@@ -1,5 +1,4 @@
-import Image from 'next/image';
-
+import Graph from '@/assets/icons/graph.svg';
 import { COGPOINT_CARDS } from '@/constants/common';
 
 import * as S from './Cogpoint.styled';
@@ -15,12 +14,11 @@ export default function Cogpoint() {
         <S.CardList>
           {COGPOINT_CARDS.map((card, index) => (
             <S.Card key={`cogpoint-${index}`}>
-              <Image
-                src={card.src}
-                alt=''
-                width={300}
-                height={170}
-              />
+              <S.IconWrapper>
+                <S.Icon>
+                  <card.icon />
+                </S.Icon>
+              </S.IconWrapper>
               <S.TextWrapper>
                 <S.Subtitle>{card.subtitle}</S.Subtitle>
                 <S.Title>{card.title}</S.Title>
