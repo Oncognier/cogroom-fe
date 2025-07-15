@@ -45,7 +45,7 @@ export const FooterBottom = styled.div`
 
 export const FooterLinks = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 3.5rem;
 
   a {
     ${({ theme }) => theme.typography.label2.semibold};
