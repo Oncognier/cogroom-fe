@@ -16,7 +16,7 @@ export const useSubmitDailyAnswerMutation = () => {
   const mutation = useMutation({
     mutationFn: dailyApi.submitDailyAnswer,
     onSuccess: () => {
-      openApp('dailyAnswerPost', { redirectTo: '/daily' });
+      openApp('dailyAnswerPost', { redirectTo: '/mypage/activity/daily' });
       queryClient.invalidateQueries({ queryKey: [...DAILY_QUERY_KEYS.DAILY] });
       queryClient.invalidateQueries({ queryKey: [...STREAK_QUERY_KEYS.STREAK] });
     },
