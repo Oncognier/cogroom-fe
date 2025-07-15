@@ -29,6 +29,14 @@ export default function Daily() {
 
   if (isLoading) return <Loading />;
 
+  const handleShare = () => {
+    if (!isLoggedIn) {
+      open('login');
+      return;
+    }
+    open('dailyShare', { dailyStreak: streakDaysData?.result.dailyStreak ?? 0 });
+  };
+
   return (
     <>
       <S.DailyContainer>
@@ -51,11 +59,7 @@ export default function Daily() {
           color='secondary'
           iconRight={<Upload />}
           interactionVariant='normal'
-          onClick={
-            isLoggedIn
-              ? () => open('dailyShare', { dailyStreak: streakDaysData?.result.dailyStreak ?? 0 })
-              : () => open('login')
-          }
+          onClick={handleShare}
         />
       </S.ButtonWrapper>
     </>
