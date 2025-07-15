@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import CheckCircle from '@/assets/icons/checkcircle-fill.svg';
 import { DEFAULT_QUESTION_BACKGROUND } from '@/constants/image';
+import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore, useAlertModalStore } from '@/stores/useModalStore';
@@ -25,6 +26,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
+  const { editDailyAnswer } = useEditDailyAnswerMutation();
   const { open } = useAppModalStore();
   const { open: openAlertModal } = useAlertModalStore();
   const { isLoggedIn } = useAuthStore();
@@ -53,7 +55,12 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   };
 
   const handleEdit = () => {
-    openAlertModal('dailyAnswerEdit', { assignedQuestionId, answer: inputValue, redirectTo: '/daily' });
+    if (!isLoggedIn) {
+      open('login');
+      return;
+    }
+
+    editDailyAnswer({ assignedQuestionId, answer: inputValue });
   };
 
   useEffect(() => {
