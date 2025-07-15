@@ -8,6 +8,7 @@ import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useGetEmailStatusQuery } from '@/hooks/api/auth/useGetEmailStatus';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
 import { useCooldown } from '@/hooks/useCooldown';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { validateEmail } from '@/utils/validators/userValidators';
 
 import * as S from './EmailForm.styled';
@@ -27,6 +28,7 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
     formState: { errors },
   } = useFormContext<{ email: string }>();
 
+  const { open } = useAlertModalStore();
   const { value: isCooldown, start: startCooldown } = useCooldown(3000);
 
   const { sendEmail } = useSendEmailMutation(() => {
@@ -51,8 +53,9 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
       const { data } = await refetchEmailStatus();
       if (data) {
         setEmailState('idle');
+        open('alert', { message: '변경되었습니다!' });
       } else {
-        setError('email', { message: VALIDATION_MESSAGE.EMAIL_NOT_VERIFIED_ERROR });
+        open('alert', { message: VALIDATION_MESSAGE.EMAIL_NOT_VERIFIED_ERROR });
       }
     }
   };
