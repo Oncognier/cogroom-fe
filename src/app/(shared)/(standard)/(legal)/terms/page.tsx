@@ -33,7 +33,7 @@ export default function Terms() {
           <S.ContentWrapper>
             <S.Content>
               <S.ContentNumber>2.</S.ContentNumber>
-              &quot;데일리&quot;란 플랫폼의 통해 제공되는 하루 1개의 질문 및 스트릭 서비스를 말합니다.
+              &quot;데일리&quot;란 플랫폼을 통해 제공되는 하루 1개의 질문 및 스트릭 서비스를 말합니다.
             </S.Content>
           </S.ContentWrapper>
           <S.ContentWrapper>
