@@ -5,30 +5,51 @@ import Link from 'next/link';
 
 import * as S from './CarouselCard.styled';
 
-interface CarouselCardProps {
+import type { CarouselCardStyleProps } from './CarouselCard.styled';
+
+interface CarouselCardProps extends CarouselCardStyleProps {
   href: string;
   src: string;
   alt: string;
+  heroTitle: string;
   title: string;
   content: string;
+  contentType: string;
 }
 
-export default function CarouselCard({ href, src, alt, title, content }: CarouselCardProps) {
+export default function CarouselCard({
+  href,
+  src,
+  alt,
+  heroTitle,
+  title,
+  content,
+  contentType,
+  gradientColor = 'black',
+}: CarouselCardProps) {
   return (
-    <S.CarouselCard>
-      <Link href={href}>
-        <Image
-          src={src}
-          alt={alt}
-          width={340}
-          height={172}
-          quality={100}
-        />
+    <Link href={href}>
+      <S.CarouselCard>
+        <S.ImageWrapper>
+          <Image
+            src={src}
+            alt={alt}
+            quality={100}
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+          <S.Overlay gradientColor={gradientColor} />
+          <S.HeroWrapper>
+            <S.HeroTitle>{heroTitle}</S.HeroTitle>
+            <S.Badge>{contentType}</S.Badge>
+          </S.HeroWrapper>
+        </S.ImageWrapper>
+
         <S.TextContainer>
           <S.Title>{title}</S.Title>
           <S.Content>{content}</S.Content>
         </S.TextContainer>
-      </Link>
-    </S.CarouselCard>
+      </S.CarouselCard>
+    </Link>
   );
 }

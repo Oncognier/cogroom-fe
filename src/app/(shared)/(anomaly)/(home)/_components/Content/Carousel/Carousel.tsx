@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import * as S from './Carousel.styled';
 import CarouselCard from './CarouselCard';
+import { GradientColor } from './CarouselCard.styled';
 
 export default function Carousel() {
   return (
@@ -28,8 +29,11 @@ export default function Carousel() {
               href={card.href}
               src={card.src}
               alt={card.alt}
+              heroTitle={card.heroTitle}
               title={card.title}
               content={card.content}
+              contentType={card.contentType}
+              gradientColor={card.gradientColor as GradientColor}
             />
           </SwiperSlide>
         ))}
@@ -44,66 +48,50 @@ const cards = [
     href: '/content',
     src: '/carousel1.png',
     alt: 'carousel',
-    title: '뇌를 깨우는 5분 영상',
-    content: '하루를 활기차게 시작해 보세요',
+    heroTitle: '우리는 지금부터,\n뇌를 마구 쪼갤 거예요',
+    title: '뇌과학 기초',
+    content: '우리는 지금부터, 뇌를 마구 쪼갤 거예요',
+    contentType: 'PDF',
+    gradientColor: 'black',
   },
   {
     href: '/content',
     src: '/carousel2.png',
     alt: 'carousel',
-    title: '뇌를 깨우는 5분 영상',
-    content: '하루를 활기차게 시작해 보세요',
+    heroTitle: '0세부터 지금까지\n‘나’ 알아가기',
+    title: '발달심리학 개요',
+    content: '0세부터 지금까지 ‘나’ 알아가기',
+    contentType: 'PDF',
+    gradientColor: 'primary',
   },
   {
     href: '/content',
     src: '/carousel3.png',
     alt: 'carousel',
-    title: '뇌를 깨우는 5분 영상',
-    content: '하루를 활기차게 시작해 보세요',
+    heroTitle: '이유없이 몸이 아플 때\n이것 1개만\n살펴보자',
+    title: '몸-마음 연결',
+    content: '이유없이 몸이 아플 때 이것 1개만 살펴보자',
+    contentType: 'PDF',
+    gradientColor: 'black',
   },
   {
     href: '/content',
-    src: '/carousel1.png',
+    src: '/carousel4.png',
     alt: 'carousel',
-    title: '뇌를 깨우는 5분 영상',
-    content: '하루를 활기차게 시작해 보세요',
+    heroTitle: '마음이 궁금한\n모든 사람들에게',
+    title: '인지과학 입문',
+    content: '마음이 궁금한 모든 사람들에게',
+    contentType: 'PDF',
+    gradientColor: 'primary',
   },
   {
     href: '/content',
-    src: '/carousel2.png',
+    src: '/carousel5.png',
     alt: 'carousel',
-    title: '뇌를 깨우는 5분 영상',
-    content: '하루를 활기차게 시작해 보세요',
+    heroTitle: 'AI가 지금의\n‘생각하는 기계’ 되기까지',
+    title: '인공지능(AI) 본질',
+    content: 'AI가 지금의 ‘생각하는 기계’ 되기까지',
+    contentType: 'PDF',
+    gradientColor: 'black',
   },
 ];
-
-
-// 뇌과학 기초 지식
-// 우리는 지금부터, 뇌를 마구 쪼갤 거예요 
-
-// 발달심리학 개요
-// 0세부터 지금까지 ‘나’ 알아보기 
-
-// 심리적 번아웃
-// 모르면 손해보는 번아웃 방지법 
-
-// 방어기제 타파하기
-// 합리화하지 않고 더 나은 나 만들기
-
-// 애착유형의 모든 것
-// 회피형, 불안형, 그리고 ‘이것’ 애착이란?
-
-// 몸-마음 연결 
-// 이유 없이 몸이 아플 때, 1개만 살펴보자
-
-// 인지과학 입문하기 
-// 마음이 궁금한 모든 사람들에게 
-
-// 인공지능(AI) 본질이란 
-// AI가 실제 ‘생각하는 기계’ 되기까지
-
-// 코그룸 이용 가이드 
-// (필독) 코그룸에 처음 왔다면 
-
-// 수: 물의 여정 
-// (추천) 어쩌면 당신도 작은 물방울일지도
