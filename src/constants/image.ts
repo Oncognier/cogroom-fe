@@ -22,9 +22,6 @@ export const DEFAULT_LOGO_KOREAN = 'https://cdn.cogroom.com/default_image/Logo/L
 
 // Home
 export const DEFAULT_HERO_WAVY = 'https://cdn.cogroom.com/default_image/Hero_Wavy.gif' as const;
-export const DEFAULT_COGPOINT_IMAGE1 = 'https://cdn.cogroom.com/default_image/Cogpoint_Image1.png' as const;
-export const DEFAULT_COGPOINT_IMAGE2 = 'https://cdn.cogroom.com/default_image/Cogpoint_Image2.png' as const;
-export const DEFAULT_COGPOINT_IMAGE3 = 'https://cdn.cogroom.com/default_image/Cogpoint_Image3.png' as const;
 export const DEFAULT_DAILY_WATERDROP = 'https://cdn.cogroom.com/default_image/Daily_Waterdrop.png' as const;
 export const DEFAULT_COMMUNITY_BANNER = 'https://cdn.cogroom.com/default_image/Community_Banner.png' as const;
 
