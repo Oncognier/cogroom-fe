@@ -1,7 +1,7 @@
 'use client';
 
+import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
-import { css, SerializedStyles, Theme } from '@emotion/react';
 
 export type GradientColor = 'black' | 'primary';
 

@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import * as S from './CarouselCard.styled';
-
 import type { CarouselCardStyleProps } from './CarouselCard.styled';
 
 interface CarouselCardProps extends CarouselCardStyleProps {
