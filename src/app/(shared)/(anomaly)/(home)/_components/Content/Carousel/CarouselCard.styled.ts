@@ -91,8 +91,9 @@ export const Content = styled.p`
 
 export const Badge = styled.span`
   padding: 0.4rem 1.2rem;
-  border-radius: 999px;
   ${({ theme }) => theme.typography.label2.regular};
+  border: 1px solid ${({ theme }) => theme.semantic.primary.normal};
+  border-radius: 999px;
   background-color: ${({ theme }) => theme.semantic.background.normal.normal};
   color: ${({ theme }) => theme.semantic.primary.normal};
 `;
