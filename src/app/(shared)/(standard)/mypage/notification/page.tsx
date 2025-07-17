@@ -8,11 +8,11 @@ import * as S from './page.styled';
 
 export default function Notification() {
   const [settings, setSettings] = useState({
-    push: true,
-    sound: true,
-    news: true,
-    streak: true,
-    marketing: true,
+    push: false,
+    sound: false,
+    news: false,
+    streak: false,
+    marketing: false,
   });
 
   const toggle = (key: keyof typeof settings) => {
