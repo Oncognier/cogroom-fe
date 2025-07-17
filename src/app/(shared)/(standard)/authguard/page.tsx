@@ -3,7 +3,7 @@
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useAppModalStore } from '@/stores/useModalStore';
 
-import * as S from './AuthGuard.styled';
+import * as S from './page.styled';
 
 export default function AuthGuard() {
   const { open } = useAppModalStore();

@@ -3,9 +3,9 @@ import React from 'react';
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import Radio from '@/components/atoms/Radio/Radio';
 
-import * as S from './DropdownItem.styled';
+import * as S from './FilterDropdownItem.styled';
 
-interface DropdownItemProps {
+interface FilterDropdownItemProps {
   label: string;
   value: string | number;
   isChecked: boolean;
@@ -14,13 +14,13 @@ interface DropdownItemProps {
   onToggle: (value: string | number, checked: boolean) => void;
 }
 
-export function DropdownItem({ label, value, isChecked, isMulti, groupName, onToggle }: DropdownItemProps) {
+export function FilterDropdownItem({ label, value, isChecked, isMulti, groupName, onToggle }: FilterDropdownItemProps) {
   const handleClick = () => {
     onToggle(value, !isChecked);
   };
 
   return (
-    <S.DropdownItem
+    <S.FilterDropdownItem
       tabIndex={0}
       onClick={handleClick}
       onKeyDown={(e) => {
@@ -54,6 +54,6 @@ export function DropdownItem({ label, value, isChecked, isMulti, groupName, onTo
         />
       )}
       {label}
-    </S.DropdownItem>
+    </S.FilterDropdownItem>
   );
 }

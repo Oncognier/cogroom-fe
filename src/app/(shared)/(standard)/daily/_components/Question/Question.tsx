@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import CheckCircle from '@/assets/icons/checkcircle-fill.svg';
-import TextButton from '@/components/atoms/TextButton/TextButton';
 import { DEFAULT_QUESTION_BACKGROUND } from '@/constants/image';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
 import { useAuthStore } from '@/stores/useAuthStore';

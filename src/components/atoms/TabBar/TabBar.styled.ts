@@ -5,11 +5,12 @@ import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
+export type TabBarState = 'default' | 'active' | 'disabled';
 type TabBarSize = 'sm' | 'md';
 
 export interface TabBarStyleProps {
   size: TabBarSize;
-  state?: boolean;
+  state?: TabBarState;
   fillContainer?: boolean;
   interactionVariant: InteractionVariant;
 }
@@ -31,20 +32,32 @@ const sizeStyles: Record<TabBarSize, (theme: Theme) => SerializedStyles> = {
   `,
 };
 
-const getStateStyles = (theme: Theme, state?: boolean) => css`
-  ${state
-    ? css`
-        color: ${theme.semantic.primary.normal};
-        border-top-left-radius: 1.2rem;
-        border-top-right-radius: 1.2rem;
-        border-bottom: 3px solid ${theme.semantic.primary.normal};
-      `
-    : css`
-        color: ${theme.semantic.interaction.inactive};
-        border-radius: 1.2rem;
-        border-bottom: 3px solid transparent;
-      `}
-`;
+const getStateStyles = (theme: Theme, state?: TabBarState) => {
+  if (state === 'disabled') {
+    return css`
+      cursor: default;
+      pointer-events: none;
+      color: ${theme.semantic.interaction.disable};
+      border-radius: 1.2rem;
+      border-bottom: 3px solid transparent;
+    `;
+  }
+
+  if (state === 'active') {
+    return css`
+      color: ${theme.semantic.primary.normal};
+      border-top-left-radius: 1.2rem;
+      border-top-right-radius: 1.2rem;
+      border-bottom: 3px solid ${theme.semantic.primary.normal};
+    `;
+  }
+
+  return css`
+    color: ${theme.semantic.interaction.inactive};
+    border-radius: 1.2rem;
+    border-bottom: 3px solid transparent;
+  `;
+};
 
 const getFillStyle = (fillContainer: boolean | undefined) =>
   fillContainer &&

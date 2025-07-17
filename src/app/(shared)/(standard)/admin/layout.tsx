@@ -1,9 +1,29 @@
+'use client';
+
+import { usePathname, useRouter } from 'next/navigation';
+
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import TabBarList from '@/components/molecules/TabBarList/TabBarList';
+import Loading from '@/components/organisms/Loading/Loading';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 
+import { getAdminTabState } from './_utils/getAdminTabState';
 import * as S from './layout.styled';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const { data, isLoading } = useGetUserSummary();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  if (isLoading) return <Loading />;
+
+  if (!data?.memberRole) {
+    router.push('/authguard');
+    return null;
+  }
+
+  const role = data?.memberRole;
+
   return (
     <S.AdminLayout>
       <S.AdminHeader>
@@ -15,10 +35,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         />
         <TabBarList
           items={[
-            { label: '공지사항', href: '/admin/notices' },
-            { label: '회원관리', href: '/admin/users' },
-            { label: '결제관리', href: '/admin/payments' },
-            { label: '콘텐츠 관리', href: '/admin/contents' },
+            {
+              label: '공지사항',
+              href: '/admin/notices',
+              state: getAdminTabState(pathname, '/admin/notices', role),
+            },
+            {
+              label: '회원관리',
+              href: '/admin/users',
+              state: getAdminTabState(pathname, '/admin/users', role),
+            },
+            {
+              label: '결제관리',
+              href: '/admin/payments',
+              state: getAdminTabState(pathname, '/admin/payments', role),
+            },
+            {
+              label: '콘텐츠 관리',
+              href: '/admin/contents',
+              state: getAdminTabState(pathname, '/admin/contents', role),
+            },
           ]}
           size='md'
           interactionVariant='normal'

@@ -2,14 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { memberApi } from '@/api/memberApis';
 import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
-import { useAuthStore } from '@/stores/useAuthStore';
 
-export default function useGetUserSummaryQuery() {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
-
+export default function useGetUserSummaryQuery(enabled?: boolean) {
   return useQuery({
     queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY],
     queryFn: () => memberApi.getUserSummary(),
-    enabled: isLoggedIn,
+    enabled,
   });
 }

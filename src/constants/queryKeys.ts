@@ -1,6 +1,8 @@
 const AUTH_QUERY_KEYS = {
   AUTH: ['auth'],
   AUTH_REISSUE: ['auth', 'reissue'],
+  GET_EMAIL_STATUS: ['auth', 'get_email_status'],
+  CHECK_EMAIL: ['auth', 'check_email'],
 } as const;
 
 const MEMBER_QUERY_KEYS = {

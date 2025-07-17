@@ -10,6 +10,7 @@ import ChevronUp from '@/assets/icons/chevronup.svg';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { WEEK_DAYS } from '@/constants/common';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 import { getCalendarMonthDates, getCalendarWeekDates } from '@/utils/getCalendar';
 
 import * as S from './Calendar.styled';
@@ -24,6 +25,7 @@ interface CalendarProps {
 export default function Calendar({ streakDateList, hasAnswered }: CalendarProps) {
   const { isLoggedIn } = useAuthStore();
   const router = useRouter();
+  const { open } = useAppModalStore();
   const today = dayjs();
 
   const [isMonthly, setIsMonthly] = useState(false);
@@ -80,7 +82,7 @@ export default function Calendar({ streakDateList, hasAnswered }: CalendarProps)
             label='리포트 보러가기'
             size='md'
             interactionVariant='normal'
-            onClick={handleGoToReport}
+            onClick={isLoggedIn ? handleGoToReport : () => open('login')}
             fillContainer
             iconRight={<ArrowRight />}
           />

@@ -9,7 +9,7 @@ import { SelectOption } from '@/types/common';
 
 import * as S from './Select.styled';
 import type { SelectStyleProps } from './Select.styled';
-import { DropdownList } from '../DropdownList/DropdownList';
+import { FilterDropdownList } from '../FilterDropdownList/FilterDropdownList';
 import { SelectTagList } from './SelectTagList/SelectTagList';
 
 interface SelectProps extends SelectStyleProps {
@@ -96,7 +96,7 @@ export function Select({
 
         {isOpen && (
           <S.DropdownPanel role='listbox'>
-            <DropdownList
+            <FilterDropdownList
               options={options}
               selectedValues={value}
               isMulti={isMulti}

@@ -13,9 +13,9 @@ const meta = {
       options: ['sm', 'md'],
     },
     state: {
-      control: 'boolean',
-      description: '선택된 탭 여부',
-      defaultValue: false,
+      control: 'radio',
+      options: ['default', 'active', 'disabled'],
+      defaultValue: 'default',
     },
     fillContainer: {
       control: 'boolean',
@@ -38,18 +38,29 @@ export const Default: Story = {
   args: {
     label: 'Label',
     size: 'md',
-    state: false,
+    state: 'default',
     fillContainer: false,
     interactionVariant: 'normal',
     onChange: action('탭 클릭됨'),
   },
 };
 
-export const Selected: Story = {
+export const Active: Story = {
   args: {
     label: 'Label',
     size: 'md',
-    state: true,
+    state: 'active',
+    fillContainer: false,
+    interactionVariant: 'normal',
+    onChange: action('선택된 탭 클릭됨'),
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    label: 'Label',
+    size: 'md',
+    state: 'disabled',
     fillContainer: false,
     interactionVariant: 'normal',
     onChange: action('선택된 탭 클릭됨'),
