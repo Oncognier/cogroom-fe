@@ -38,10 +38,3 @@ export const MainMessage = styled.p`
 
   text-align: center;
 `;
-
-export const Description = styled.p`
-  ${({ theme }) => theme.typography.label1.regular};
-  color: ${({ theme }) => theme.semantic.label.alternative};
-
-  text-align: center;
-`;
