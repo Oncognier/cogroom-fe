@@ -11,11 +11,10 @@ import { validateEmail } from '@/utils/validators/userValidators';
 import * as S from './InputEmail.styled';
 
 export interface InputEmailProps {
-  email: string;
   onConfirm: () => void;
 }
 
-export default function InputEmail({ email, onConfirm }: InputEmailProps) {
+export default function InputEmail({ onConfirm }: InputEmailProps) {
   const {
     register,
     handleSubmit,
@@ -41,7 +40,7 @@ export default function InputEmail({ email, onConfirm }: InputEmailProps) {
         <Input
           label='이메일'
           inputSize='md'
-          placeholder={email}
+          placeholder='cognier@cogroom.com'
           {...register('email', {
             required: VALIDATION_MESSAGE.EMAIL_EMPTY_FILED_ERROR,
             validate: validateEmail,
