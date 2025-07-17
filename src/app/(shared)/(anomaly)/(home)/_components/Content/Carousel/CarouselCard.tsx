@@ -38,10 +38,8 @@ export default function CarouselCard({
             style={{ objectFit: 'cover' }}
           />
           <S.Overlay gradientColor={gradientColor} />
-          <S.HeroWrapper>
-            <S.HeroTitle>{heroTitle}</S.HeroTitle>
-            <S.Badge>{contentType}</S.Badge>
-          </S.HeroWrapper>
+          <S.HeroTitle>{heroTitle}</S.HeroTitle>
+          <S.Badge>{contentType}</S.Badge>
         </S.ImageWrapper>
 
         <S.TextContainer>
