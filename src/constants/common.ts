@@ -63,7 +63,7 @@ export const DEFAULT_DAILY_QUESTION = '내가 생각하는 ‘나’는 어떤 �
 
 export const COGPOINT_CARDS = [
   {
-    icon: HandHeart,
+    icon: Smile,
     subtitle: 'for self growth',
     title: '나보다 나를 더 잘 아는\n자기이해 플랫폼',
     content: '무의식적으로 해온 생각과 나도 몰랐던 나의 마음들을 알아차려요',
@@ -75,10 +75,10 @@ export const COGPOINT_CARDS = [
     content: '단순한 학습이 아닌, 과학적 학문 기반으로',
   },
   {
-    icon: Smile,
-    subtitle: 'for self growth',
-    title: '나보다 나를 더 잘 아는\n자기이해 플랫폼',
-    content: '무의식적으로 해온 생각과 나도 몰랐던 나의 마음들을 알아차려요',
+    icon: HandHeart,
+    subtitle: 'droplet to ocean',
+    title: '한 방울씩 성찰이 쌓여\n내면의 깊은 바다로',
+    content: '매일 질문에 답하고, 지식을 쌓으며, 함께 소통하고 성장해요',
   },
 ];
 
