@@ -171,3 +171,5 @@ export const ROLE_OPTIONS: RoleKey[] = ['ADMIN', 'USER', 'CONTENT_PROVIDER'];
 export const SPRITE_WIDTH = 257;
 export const FRAME_COUNT = 9;
 export const FRAME_DURATION = 800;
+export const DAILY_MAX_LENGTH = 101;
+
