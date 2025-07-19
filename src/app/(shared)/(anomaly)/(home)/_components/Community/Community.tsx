@@ -6,8 +6,8 @@ import Section from '../Section/Section';
 export default function Community() {
   return (
     <Section
-      title='커뮤니티'
-      subtitle='단순한 학습이 아닌 나를 알아가고 이해하는 여정을 제공합니다'
+      title='우리는 생각하는 사람들, 코그니어'
+      subtitle='혼자서는 닿을 수 없던 깊은 성찰을 함께 나누는 공간입니다'
     >
       <S.Wrapper>
         <a href='/community'>

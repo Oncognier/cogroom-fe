@@ -40,12 +40,7 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
         />
       )}
 
-      {step === SIGNUP_STEP.INPUT_NEW_EMAIL && (
-        <InputEmail
-          email={email}
-          onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)}
-        />
-      )}
+      {step === SIGNUP_STEP.INPUT_NEW_EMAIL && <InputEmail onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)} />}
 
       {step === SIGNUP_STEP.VERIFY_EMAIL && (
         <VerifyEmail

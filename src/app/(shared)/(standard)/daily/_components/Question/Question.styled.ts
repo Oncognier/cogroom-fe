@@ -2,6 +2,7 @@
 
 import styled from '@emotion/styled';
 
+import { shakeAnimation } from '@/styles/animations';
 import { getInteraction } from '@/styles/interaction';
 
 export const QuestionCard = styled.div`
@@ -122,7 +123,7 @@ export const SubmitGroup = styled.div`
   gap: ${({ theme }) => theme.spacing[8]};
 `;
 
-export const CountValue = styled.div<{ isHundredOver?: boolean }>`
+export const CountValue = styled.div<{ isHundredOver?: boolean; isShaking?: boolean }>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing[4]};
@@ -131,6 +132,8 @@ export const CountValue = styled.div<{ isHundredOver?: boolean }>`
   ${({ theme }) => theme.typography.label2.regular}
   color: ${({ theme, isHundredOver }) =>
     isHundredOver ? theme.semantic.status.destructive : theme.semantic.primary.normal};
+
+  ${({ isShaking }) => isShaking && shakeAnimation}
 `;
 
 export const Button = styled.button`

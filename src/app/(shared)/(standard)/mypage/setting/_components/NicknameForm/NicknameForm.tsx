@@ -7,48 +7,50 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Input from '@/components/molecules/Input/Input';
 import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { useCheckNicknameMutation } from '@/hooks/api/member/useCheckNickname';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { validateNickname } from '@/utils/validators/userValidators';
 
 import * as S from './NicknameForm.styled';
 
 interface NicknameFormProps {
+  initialNickname?: string;
   onCheck: (isChecked: boolean) => void;
 }
 
-export default function NicknameForm({ onCheck }: NicknameFormProps) {
+type NicknameCheckState = 'idle' | 'checking' | 'valid' | 'invalid';
+
+export default function NicknameForm({ initialNickname, onCheck }: NicknameFormProps) {
   const {
     register,
     watch,
-    getValues,
     setError,
-    clearErrors,
-    formState: { errors, dirtyFields },
+    formState: { errors },
   } = useFormContext<{ nickname: string }>();
 
-  const isChanged = !!dirtyFields.nickname;
-  const [isChecked, setIsChecked] = useState(false);
-
-  useEffect(() => {
-    if (isChanged) {
-      setIsChecked(false);
-      onCheck(false);
-    }
-  }, [isChanged, onCheck]);
+  const nickname = watch('nickname');
+  const [checkState, setCheckState] = useState<NicknameCheckState>('idle');
+  const { open } = useAlertModalStore();
 
   const { checkNickname } = useCheckNicknameMutation(
     setError,
     () => {
-      setError('nickname', {
-        type: 'manual',
-        message: VALIDATION_MESSAGE.NICKNAME_DUPLICATE_ERROR,
-      });
+      setCheckState('valid');
+      onCheck(true);
+      open('alert', { message: '사용 가능해요!' });
     },
     () => {
-      setIsChecked(true);
-      clearErrors('nickname');
-      onCheck(true);
+      setCheckState('invalid');
+      onCheck(false);
+      open('alert', { message: VALIDATION_MESSAGE.NICKNAME_DUPLICATE_ERROR });
     },
   );
+
+  useEffect(() => {
+    if (nickname && nickname !== initialNickname) {
+      setCheckState('idle');
+      onCheck(false);
+    }
+  }, [nickname, initialNickname]);
 
   return (
     <S.NicknameForm>
@@ -63,7 +65,6 @@ export default function NicknameForm({ onCheck }: NicknameFormProps) {
         error={errors.nickname?.message}
         width='34.5rem'
       />
-
       <S.ButtonWrapper isError={!!errors.nickname}>
         <OutlinedButton
           type='button'
@@ -71,8 +72,11 @@ export default function NicknameForm({ onCheck }: NicknameFormProps) {
           color='primary'
           label='중복확인'
           interactionVariant='normal'
-          onClick={() => checkNickname({ nickname: getValues('nickname') })}
-          isDisabled={!isChanged || isChecked}
+          onClick={() => {
+            setCheckState('checking');
+            checkNickname({ nickname });
+          }}
+          isDisabled={checkState === 'valid' || nickname === initialNickname}
         />
       </S.ButtonWrapper>
     </S.NicknameForm>

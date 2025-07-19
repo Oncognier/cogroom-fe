@@ -41,7 +41,7 @@ export default function CheckEmail({ email, onConfirm, onChangeEmail }: CheckEma
 
       <S.ButtonWrapper>
         <SolidButton
-          label='이 이메일로 시작하기'
+          label='맞아요'
           size='md'
           color='primary'
           interactionVariant='normal'
@@ -49,7 +49,7 @@ export default function CheckEmail({ email, onConfirm, onChangeEmail }: CheckEma
           fillContainer
         />
         <OutlinedButton
-          label='다른 이메일 사용하기'
+          label='다른 이메일 쓸게요'
           size='md'
           color='assistive'
           interactionVariant='normal'

@@ -5,8 +5,8 @@ export default function Content() {
   return (
     <>
       <Section
-        title='콘텐츠'
-        subtitle='단순한 학습이 아닌 나를 알아가고 이해하는 여정을 제공합니다'
+        title='더욱 깊이 알아가는 나의 마음'
+        subtitle='심층 지식을 담은 PDF와 강의 콘텐츠입니다'
       >
         <Carousel />
       </Section>

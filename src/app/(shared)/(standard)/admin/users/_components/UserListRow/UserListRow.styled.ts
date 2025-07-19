@@ -50,7 +50,7 @@ export const Email = styled.p`
   color: ${({ theme }) => theme.semantic.label.alternative};
 `;
 
-export const JoinedAt = styled.p`
+export const Text = styled.p`
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
 
