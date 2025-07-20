@@ -1,4 +1,6 @@
-import { DEFAULT_COGPOINT_IMAGE1, DEFAULT_COGPOINT_IMAGE2, DEFAULT_COGPOINT_IMAGE3 } from '@/constants/image';
+import Graph from '@/assets/icons/graph.svg';
+import HandHeart from '@/assets/icons/handheart.svg';
+import Smile from '@/assets/icons/smile.svg';
 import { SelectOption } from '@/types/common';
 
 export const HEADER_NAV_ITEMS = [
@@ -61,22 +63,22 @@ export const DEFAULT_DAILY_QUESTION = '내가 생각하는 ‘나’는 어떤 �
 
 export const COGPOINT_CARDS = [
   {
-    src: DEFAULT_COGPOINT_IMAGE1,
+    icon: Smile,
     subtitle: 'for self growth',
     title: '나보다 나를 더 잘 아는\n자기이해 플랫폼',
-    content: '무의식적으로 해온 생각과 나도 몰랐던\n나의 마음들을 알아차려요',
+    content: '무의식적으로 해온 생각과 나도 몰랐던 나의 마음들을 알아차려요',
   },
   {
-    src: DEFAULT_COGPOINT_IMAGE2,
+    icon: Graph,
     subtitle: 'scientific method',
     title: '6가지 인지과학 분야로\n체계적인 성장을',
     content: '단순한 학습이 아닌, 과학적 학문 기반으로',
   },
   {
-    src: DEFAULT_COGPOINT_IMAGE3,
-    subtitle: 'for self growth',
-    title: '나보다 나를 더 잘 아는\n자기이해 플랫폼',
-    content: '무의식적으로 해온 생각과 나도 몰랐던 나의\n마음들을 알아차려요',
+    icon: HandHeart,
+    subtitle: 'droplet to ocean',
+    title: '한 방울씩 성찰이 쌓여\n내면의 깊은 바다로',
+    content: '매일 질문에 답하고, 지식을 쌓으며, 함께 소통하고 성장해요',
   },
 ];
 
@@ -169,3 +171,4 @@ export const ROLE_OPTIONS: RoleKey[] = ['ADMIN', 'USER', 'CONTENT_PROVIDER'];
 export const SPRITE_WIDTH = 257;
 export const FRAME_COUNT = 9;
 export const FRAME_DURATION = 800;
+export const DAILY_MAX_LENGTH = 101;

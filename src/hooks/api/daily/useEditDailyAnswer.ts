@@ -14,18 +14,19 @@ export const useEditDailyAnswerMutation = () => {
   const mutation = useMutation({
     mutationFn: dailyApi.editDailyAnswer,
     onSuccess: () => {
+      open('alert', { message: '수정되었습니다.' });
       queryClient.invalidateQueries({ queryKey: [...DAILY_QUERY_KEYS.DAILY_QUESTION_ANSWER] });
     },
     onError: (error: HTTPError) => {
       switch (error.code) {
         case 'ANSWER_NOTBLANK_ERROR':
-          open('error', { message: '한 글자라도 적어주세요' });
+          open('alert', { message: '한 글자라도 적어주세요' });
           break;
         case 'ANSWER_SIZE_ERROR':
-          open('error', { message: '내용을 조금만 줄여볼까요?' });
+          open('alert', { message: '내용을 조금만 줄여볼까요?' });
           break;
         case 'ANSWER_TIME_EXPIRED':
-          open('error', { message: '앗.. 자정이 지나 수정할 수 없어요' });
+          open('alert', { message: '앗.. 자정이 지나 수정할 수 없어요' });
           break;
         default:
           open('error', { message: error.message });

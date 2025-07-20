@@ -6,6 +6,7 @@ import Image from 'next/image';
 export const Wrapper = styled.div`
   position: relative;
   height: 50rem;
+  margin-top: 6.8rem;
 `;
 
 export const DailyImage = styled(Image)`
