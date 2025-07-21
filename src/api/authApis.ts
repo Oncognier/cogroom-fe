@@ -70,6 +70,7 @@ const reissueToken = async (meta?: PrefetchMeta) => {
     meta,
   });
 
+  console.log('[reissueToken] response.headers:', response.headers);
   const accessToken = response.headers['authorization'];
   return { accessToken };
 };
