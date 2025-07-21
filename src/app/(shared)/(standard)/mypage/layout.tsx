@@ -5,6 +5,7 @@ import Sidebar from './_components/Sidebar/Sidebar';
 import * as S from './layout.styled';
 
 export default function MyPageLayout({ children }: { children: React.ReactNode }) {
+  console.log('MyPageLayout');
   return (
     <S.MyPageLayout>
       <MyPageBreadcrumb />
