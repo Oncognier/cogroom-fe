@@ -43,6 +43,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
 
       if (!isServer && !isPrefetchRequest(originalRequest)) {
         // window.location.href = '/';
+        return;
       }
 
       if (!isPrefetchRequest(originalRequest)) throw reissueError;
@@ -58,6 +59,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
 
     if (!isServer && !isPrefetchRequest(originalRequest)) {
       // window.location.href = '/';
+      return;
     }
 
     if (!isPrefetchRequest(originalRequest)) {
