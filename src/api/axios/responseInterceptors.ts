@@ -42,7 +42,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
       clearToken();
 
       if (!isServer && !isPrefetchRequest(originalRequest)) {
-        window.location.href = '/';
+        // window.location.href = '/';
       }
 
       if (!isPrefetchRequest(originalRequest)) throw reissueError;
