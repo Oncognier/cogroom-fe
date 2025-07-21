@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { authApi } from '@/api/authApis';
 import Bell from '@/assets/icons/bell.svg';
 import Search from '@/assets/icons/search.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
@@ -43,6 +44,19 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
   useEffect(() => {
     setIsAuthenticated(isLoggedIn);
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const { accessToken } = await authApi.reissueToken();
+        if (accessToken) {
+          setToken(accessToken); // accessToken은 string 타입이어야 함
+        }
+      } catch (err) {}
+    };
+
+    fetchToken();
+  }, []);
 
   return (
     <S.RightNav>
