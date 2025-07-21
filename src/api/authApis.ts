@@ -13,6 +13,7 @@ import {
   CheckEmailRequest,
 } from '../types/auth';
 import { axiosInstance } from './axios/axiosInstance';
+import { createAxiosInstance } from './axios/createAxiosInstance';
 
 const checkEmail = async (params: CheckEmailRequest) => {
   const { data } = await axiosInstance.get<ApiResponse>(END_POINTS_V1.AUTH.CHECK_EMAIL, {
@@ -65,7 +66,11 @@ const logout = async () => {
 };
 
 const reissueToken = async (meta?: PrefetchMeta) => {
-  const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN, null, {
+  const isServer = typeof window === 'undefined';
+
+  const client = isServer ? createAxiosInstance() : axiosInstance;
+
+  const response = await client.post(END_POINTS_V1.AUTH.REISSUE_TOKEN, null, {
     useAuth: false,
     meta,
   });
@@ -73,7 +78,6 @@ const reissueToken = async (meta?: PrefetchMeta) => {
   const accessToken = response.headers['authorization'];
   return { accessToken };
 };
-
 export const authApi = {
   checkEmail,
   getEmailStatus,

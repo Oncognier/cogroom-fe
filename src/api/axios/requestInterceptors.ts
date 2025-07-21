@@ -27,6 +27,8 @@ export const cookiesInterceptor = async (req: InternalAxiosRequestConfig) => {
 export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
   if (!config.useAuth || !config.headers || config.headers.Authorization) return config;
 
+  if (isServer) return config;
+
   const { accessToken } = useAuthStore.getState();
 
   if (!accessToken && !isPrefetchRequest(config)) {
