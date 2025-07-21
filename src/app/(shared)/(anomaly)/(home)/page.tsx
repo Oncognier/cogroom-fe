@@ -7,6 +7,8 @@ import Hero from './_components/Hero/Hero';
 import * as S from './page.styled';
 
 export default function Home() {
+  console.log('home');
+
   return (
     <>
       <Hero />
