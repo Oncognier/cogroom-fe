@@ -8,6 +8,7 @@ import DailyAnswerPost, { DailyAnswerPostProps } from './Daily/Post/DailyAnswerP
 import Error, { ErrorProps } from './Error/Error';
 import Login from './Login/Login';
 import Logout from './Logout/Logout';
+import Notify from './Notify/Notify';
 import Signup, { SignupProps } from './Signup/Signup';
 import Withdraw from './Withdraw/Withdraw';
 
@@ -18,6 +19,7 @@ export type AppModalProps = {
   dailyAnswerPost: DailyAnswerPostProps;
   dailyShare: DailyShareProps;
   withdraw: undefined;
+  notify: undefined;
 };
 
 export type AlertModalProps = {
@@ -34,6 +36,7 @@ export const AppModalRegistry = {
   dailyAnswerPost: { Component: DailyAnswerPost, disableOutsideClick: false },
   dailyShare: { Component: DailyShare, disableOutsideClick: false },
   withdraw: { Component: Withdraw, disableOutsideClick: false },
+  notify: { Component: Notify, disableOutsideClick: false },
 } satisfies ModalMap<AppModalProps>;
 
 export const AlertModalRegistry = {
