@@ -12,7 +12,9 @@ export const useSignupMutation = (onSuccess?: () => void) => {
     mutationFn: authApi.signup,
     onSuccess: (response) => {
       const accessToken = response.headers['authorization']?.replace(/^Bearer\s/i, '');
-      if (accessToken) setToken(accessToken);
+      if (accessToken) {
+        setToken(accessToken);
+      }
       onSuccess?.();
     },
     onError: () => {
