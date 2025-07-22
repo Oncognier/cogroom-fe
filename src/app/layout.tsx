@@ -8,6 +8,7 @@ import { pretendard } from '@/styles/font';
 
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
+import NotifyComponent from './NotifyComponent';
 
 mockingServer();
 
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EmotionRegistry>
           <MSWProvider>
             <QueryProvider>
+              <NotifyComponent />
               {children}
               <ModalProvider />
             </QueryProvider>
