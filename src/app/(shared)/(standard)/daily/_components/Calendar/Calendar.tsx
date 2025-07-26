@@ -23,11 +23,11 @@ interface CalendarProps {
 }
 
 export default function Calendar({ streakDateList, hasAnswered }: CalendarProps) {
-  const { isLoggedIn } = useAuthStore();
   const router = useRouter();
   const { open } = useAppModalStore();
-  const today = dayjs();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
+  const today = dayjs();
   const [isMonthly, setIsMonthly] = useState(false);
   const monthDates = useMemo(() => getCalendarMonthDates(today), [today]);
   const weekDates = useMemo(() => getCalendarWeekDates(today), [today]);
@@ -36,20 +36,20 @@ export default function Calendar({ streakDateList, hasAnswered }: CalendarProps)
   const [isFirstAnswer, setIsFirstAnswer] = useState(false);
   const prevHasAnsweredRef = useRef<boolean>(hasAnswered);
 
-  const handleGoToReport = () => {
-    if (!isLoggedIn) {
-      router.push('/login');
-      return;
-    }
-    router.push('/mypage/activity');
-  };
-
   useEffect(() => {
     if (!prevHasAnsweredRef.current && hasAnswered) {
       setIsFirstAnswer(true);
     }
     prevHasAnsweredRef.current = hasAnswered;
   }, [hasAnswered]);
+
+  const handleGoToReport = () => {
+    if (!isLoggedIn) {
+      open('login');
+      return;
+    }
+    router.push('/mypage/activity');
+  };
 
   return (
     <S.CalendarCard>
@@ -82,7 +82,7 @@ export default function Calendar({ streakDateList, hasAnswered }: CalendarProps)
             label='리포트 보러가기'
             size='md'
             interactionVariant='normal'
-            onClick={isLoggedIn ? handleGoToReport : () => open('login')}
+            onClick={handleGoToReport}
             fillContainer
             iconRight={<ArrowRight />}
           />

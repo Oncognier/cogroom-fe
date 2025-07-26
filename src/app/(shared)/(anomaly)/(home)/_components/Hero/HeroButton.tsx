@@ -9,9 +9,9 @@ import { useAppModalStore } from '@/stores/useModalStore';
 import * as S from './Hero.styled';
 
 export default function HeroButton() {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const { open } = useAppModalStore();
   const router = useRouter();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const handleClick = () => {
     if (isLoggedIn) {

@@ -9,15 +9,13 @@ export const useLoginMutation = () => {
   const router = useRouter();
   const { open: openApp } = useAppModalStore();
   const { open: openAlert } = useAlertModalStore();
-
   const setToken = useAuthStore((state) => state.setToken);
 
   const mutation = useMutation({
     mutationFn: authApi.login,
     onSuccess: (response) => {
       const accessToken = response.headers['authorization'];
-
-      if (!!accessToken) {
+      if (accessToken) {
         setToken(accessToken);
       }
 

@@ -6,9 +6,12 @@ export const globalErrorHandler = (error: unknown) => {
 
   const { code, statusCode } = error;
 
+  if (!localStorage.getItem('accessToken') && code === ERROR_CODE.TOKEN_NOT_FOUND_ERROR) {
+    return;
+  }
+
   if (
     code === ERROR_CODE.TOKEN_REISSUE_FAILED ||
-    code === ERROR_CODE.TOKEN_NOT_FOUND_ERROR ||
     code === ERROR_CODE.TOKEN_EXPIRED_ERROR ||
     code === ERROR_CODE.TOKEN_INVALID_ERROR ||
     code === ERROR_CODE.ALREADY_BLACK_LIST

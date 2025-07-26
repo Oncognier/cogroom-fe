@@ -22,15 +22,15 @@ interface QuestionProps {
 }
 
 export default function Question({ assignedQuestionId, question, answer, hasAnswered }: QuestionProps) {
-  const [isAnswered, setIsAnswered] = useState<boolean>(answer ? true : false);
+  const [isAnswered, setIsAnswered] = useState<boolean>(!!answer);
   const isFirstAnswer = useRef<boolean>(hasAnswered);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const { isLoggedIn } = useAuthStore();
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
   const { editDailyAnswer } = useEditDailyAnswerMutation();
   const { open } = useAppModalStore();
   const { open: openAlertModal } = useAlertModalStore();
-  const { isLoggedIn } = useAuthStore();
 
   const {
     value: answerValue,
