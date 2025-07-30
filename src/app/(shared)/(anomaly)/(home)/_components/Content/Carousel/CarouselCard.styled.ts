@@ -54,27 +54,16 @@ export const TextContainer = styled.div`
   width: 100%;
 `;
 
-export const HeroWrapper = styled.div`
+export const HeroTitle = styled.p`
   position: absolute;
-  top: 0;
+  top: 2rem;
   left: 0;
-  bottom: 0;
   right: 0;
   z-index: 2;
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 3.8rem;
-
-  padding: 2rem 1rem 1rem 1rem;
-`;
-
-export const HeroTitle = styled.p`
   ${({ theme }) => theme.typography.title2.bold};
   color: ${({ theme }) => theme.semantic.static.white};
 
-  width: 100%;
   text-align: center;
   white-space: pre-line;
 `;
@@ -90,6 +79,11 @@ export const Content = styled.p`
 `;
 
 export const Badge = styled.span`
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+
   padding: 0.4rem 1.2rem;
   ${({ theme }) => theme.typography.label2.regular};
   border: 1px solid ${({ theme }) => theme.semantic.primary.normal};
