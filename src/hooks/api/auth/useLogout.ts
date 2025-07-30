@@ -6,10 +6,10 @@ import { useAuthStore } from '@/stores/useAuthStore';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
 export const useLogoutMutation = () => {
-  const { clearToken } = useAuthStore();
   const { open } = useAlertModalStore();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const clearToken = useAuthStore((state) => state.clearToken);
 
   const mutation = useMutation({
     mutationFn: authApi.logout,

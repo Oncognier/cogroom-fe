@@ -6,9 +6,9 @@ import { MSWProvider } from '@/lib/msw/MSWProvider';
 import QueryProvider from '@/lib/query/QueryProvider';
 import { pretendard } from '@/styles/font';
 
+import AuthComponent from './AuthComponent';
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
-import NotifyComponent from './NotifyComponent';
 
 mockingServer();
 
@@ -57,8 +57,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EmotionRegistry>
           <MSWProvider>
             <QueryProvider>
-              <NotifyComponent />
               {children}
+              <AuthComponent />
               <ModalProvider />
             </QueryProvider>
           </MSWProvider>

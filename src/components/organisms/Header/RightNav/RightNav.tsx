@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 import Bell from '@/assets/icons/bell.svg';
 import Search from '@/assets/icons/search.svg';
@@ -12,37 +11,16 @@ import { ROLE_LABELS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
-import { UserSummary } from '@/types/member';
 
 import * as S from './RightNav.styled';
 
-interface RightNavProps {
-  accessToken?: string;
-  userSummary?: UserSummary;
-}
-
-export default function RightNav({ accessToken, userSummary: serverUserSummary }: RightNavProps) {
-  const { open } = useAppModalStore();
-  const { setToken, isLoggedIn } = useAuthStore();
+export default function RightNav() {
   const router = useRouter();
+  const { open } = useAppModalStore();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
-  const { data: clientUserSummary } = useGetUserSummary(isLoggedIn);
-
-  const userSummary = clientUserSummary ?? serverUserSummary;
-
-  const [isAuthenticated, setIsAuthenticated] = useState(!!userSummary);
-
-  const userRoleLabel = userSummary?.memberRole && ROLE_LABELS[userSummary.memberRole];
-
-  useEffect(() => {
-    if (accessToken) {
-      setToken(accessToken);
-    }
-  }, [accessToken]);
-
-  useEffect(() => {
-    setIsAuthenticated(isLoggedIn);
-  }, [isLoggedIn]);
+  const { data, isLoading } = useGetUserSummary();
+  const userRoleLabel = data?.memberRole && ROLE_LABELS[data.memberRole];
 
   return (
     <S.RightNav>
@@ -54,7 +32,7 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
         <Search />
       </IconButton>
 
-      {isAuthenticated ? (
+      {isLoggedIn ? (
         <S.NavLogin>
           <IconButton
             size='4rem'
@@ -63,28 +41,31 @@ export default function RightNav({ accessToken, userSummary: serverUserSummary }
           >
             <Bell />
           </IconButton>
-          {userRoleLabel && userSummary?.memberRole !== 'USER' ? (
-            <S.UserWrapper
-              memberRole={userSummary?.memberRole}
-              onClick={() => router.push('/mypage')}
-            >
-              <S.UserIconWrapper>
-                <AvatarPerson
-                  type='icon'
-                  size='fillContainer'
-                  src={userSummary?.imageUrl}
-                />
-              </S.UserIconWrapper>
-              {userRoleLabel}
-            </S.UserWrapper>
-          ) : (
-            <AvatarPerson
-              type='icon'
-              size='fillContainer'
-              src={userSummary?.imageUrl}
-              onClick={() => router.push('/mypage')}
-            />
-          )}
+
+          {!isLoading && data ? (
+            data.memberRole !== 'USER' && userRoleLabel ? (
+              <S.UserWrapper
+                memberRole={data.memberRole}
+                onClick={() => router.push('/mypage')}
+              >
+                <S.UserIconWrapper>
+                  <AvatarPerson
+                    type='icon'
+                    size='fillContainer'
+                    src={data.imageUrl}
+                  />
+                </S.UserIconWrapper>
+                {userRoleLabel}
+              </S.UserWrapper>
+            ) : (
+              <AvatarPerson
+                type='icon'
+                size='fillContainer'
+                src={data.imageUrl}
+                onClick={() => router.push('/mypage')}
+              />
+            )
+          ) : null}
         </S.NavLogin>
       ) : (
         <OutlinedButton
