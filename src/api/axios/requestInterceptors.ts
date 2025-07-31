@@ -1,10 +1,5 @@
 import type { InternalAxiosRequestConfig } from 'axios';
 
-import { ERROR_CODE, HTTP_STATUS_CODE } from '@/constants/api';
-import { useAuthStore } from '@/stores/useAuthStore';
-
-import { HTTPError } from './errors/HTTPError';
-
 const isServer = typeof window === 'undefined';
 
 export const isPrefetchRequest = (config?: InternalAxiosRequestConfig): boolean => {
@@ -22,21 +17,4 @@ export const cookiesInterceptor = async (req: InternalAxiosRequestConfig) => {
       .join('; ');
   }
   return req;
-};
-
-export const checkAndSetToken = (config: InternalAxiosRequestConfig) => {
-  if (!config.useAuth || !config.headers || config.headers.Authorization) return config;
-  if (isServer) return config;
-
-  const accessToken = useAuthStore.getState().accessToken;
-
-  if (!accessToken && !isPrefetchRequest(config)) {
-    throw new HTTPError(HTTP_STATUS_CODE.UNAUTHORIZED, '로그인이 필요합니다', ERROR_CODE.TOKEN_NOT_FOUND_ERROR);
-  }
-
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
-
-  return config;
 };
