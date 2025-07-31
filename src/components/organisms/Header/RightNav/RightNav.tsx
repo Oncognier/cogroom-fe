@@ -9,7 +9,6 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { ROLE_LABELS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './RightNav.styled';
@@ -17,7 +16,6 @@ import * as S from './RightNav.styled';
 export default function RightNav() {
   const router = useRouter();
   const { open } = useAppModalStore();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const { data, isLoading } = useGetUserSummary();
   const userRoleLabel = data?.memberRole && ROLE_LABELS[data.memberRole];
@@ -32,7 +30,7 @@ export default function RightNav() {
         <Search />
       </IconButton>
 
-      {isLoggedIn ? (
+      {data ? (
         <S.NavLogin>
           <IconButton
             size='4rem'
