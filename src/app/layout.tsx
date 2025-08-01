@@ -8,7 +8,6 @@ import QueryProvider from '@/lib/query/QueryProvider';
 import { pretendard } from '@/styles/font';
 import { prefetchAppData } from '@/utils/api/prefetchAppData';
 
-import AuthComponent from './AuthComponent';
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
 
@@ -66,7 +65,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <MSWProvider>
             <QueryProvider>
               <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
-              <AuthComponent />
               <ModalProvider />
             </QueryProvider>
           </MSWProvider>
