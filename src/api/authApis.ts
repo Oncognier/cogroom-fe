@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
-import { ApiResponse, PrefetchMeta } from '@/types/api';
+import { ApiResponse } from '@/types/api';
 
 import {
   LoginRequest,
@@ -17,7 +17,6 @@ import { axiosInstance } from './axios/axiosInstance';
 const checkEmail = async (params: CheckEmailRequest) => {
   const { data } = await axiosInstance.get<ApiResponse>(END_POINTS_V1.AUTH.CHECK_EMAIL, {
     params,
-    useAuth: false,
   });
 
   return data;
@@ -26,28 +25,27 @@ const checkEmail = async (params: CheckEmailRequest) => {
 const getEmailStatus = async (params: GetEmailStatusRequest) => {
   const { data } = await axiosInstance.get<GetEmailStatusResponse>(END_POINTS_V1.AUTH.EMAIL_VERIFIED_STATUS, {
     params,
-    useAuth: false,
   });
 
   return data.result;
 };
 
 const login = async ({ code, provider }: LoginRequest) => {
-  const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(
-    END_POINTS_V1.AUTH.LOGIN,
-    { code, provider },
-    { useAuth: false },
-  );
+  const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(END_POINTS_V1.AUTH.LOGIN, {
+    code,
+    provider,
+  });
 
   return data.result;
 };
 
 const signup = async ({ provider, providerId, email, nickname }: SignupRequest) => {
-  const { data } = await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(
-    END_POINTS_V1.AUTH.SIGNUP,
-    { provider, providerId, email, nickname },
-    { useAuth: false },
-  );
+  const { data } = await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(END_POINTS_V1.AUTH.SIGNUP, {
+    provider,
+    providerId,
+    email,
+    nickname,
+  });
 
   return data;
 };
@@ -56,7 +54,6 @@ const sendEmail = async ({ email }: SendEmailRequest) => {
   const { data } = await axiosInstance.post<SendEmailRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.AUTH.SEND_EMAIL,
     { email },
-    { useAuth: false },
   );
 
   return data;
@@ -68,11 +65,8 @@ const logout = async () => {
   return data;
 };
 
-const reissueToken = async (meta?: PrefetchMeta) => {
-  const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN, null, {
-    useAuth: false,
-    meta,
-  });
+const reissueToken = async () => {
+  const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN);
 
   const accessToken = response.headers['authorization'];
   return { accessToken };

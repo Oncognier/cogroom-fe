@@ -6,6 +6,6 @@ import { DAILY_QUERY_KEYS } from '@/constants/queryKeys';
 export default function useGetDailyQuestionsQuery() {
   return useQuery({
     queryKey: [...DAILY_QUERY_KEYS.DAILY],
-    queryFn: () => dailyApi.getDailyQuestions({ prefetch: true }),
+    queryFn: dailyApi.getDailyQuestions,
   });
 }
