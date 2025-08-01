@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import Bell from '@/assets/icons/bell.svg';
 import Search from '@/assets/icons/search.svg';
@@ -9,6 +10,7 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { ROLE_LABELS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './RightNav.styled';
@@ -17,6 +19,13 @@ export default function RightNav() {
   const router = useRouter();
   const { open } = useAppModalStore();
   const { data } = useGetUserSummary();
+  const setLoggedIn = useAuthStore((state) => state.setLoggedIn);
+
+  useEffect(() => {
+    if (data) {
+      setLoggedIn();
+    }
+  }, [data, setLoggedIn]);
 
   const userRole = data?.memberRole;
   const userRoleLabel = userRole && ROLE_LABELS[userRole];

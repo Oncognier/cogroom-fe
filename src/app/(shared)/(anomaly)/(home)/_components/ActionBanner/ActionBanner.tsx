@@ -1,19 +1,19 @@
 'use client';
 
-import { useAuthStore } from '@/stores/useAuthStore';
+import useGetUserSummaryQuery from '@/hooks/api/member/useGetUserSummary';
 import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './ActionBanner.styled';
 
 export default function ActionBanner() {
   const { open } = useAppModalStore();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const { isError } = useGetUserSummaryQuery();
 
   const handleClick = () => {
     open('login');
   };
 
-  if (isLoggedIn) return null;
+  if (!isError) return null;
 
   return (
     <S.Container>

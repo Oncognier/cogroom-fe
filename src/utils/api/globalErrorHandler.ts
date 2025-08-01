@@ -1,5 +1,6 @@
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { ERROR_CODE, HTTP_STATUS_CODE } from '@/constants/api';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import { isAuthRequiredPath } from '../authRoute';
 
@@ -7,6 +8,8 @@ export const globalErrorHandler = (error: unknown) => {
   if (!(error instanceof HTTPError)) return;
 
   const { code, statusCode } = error;
+
+  const { setLoggedOut } = useAuthStore.getState();
 
   if (
     code === ERROR_CODE.REFRESH_TOKEN_EMPTY_ERROR ||
@@ -20,6 +23,8 @@ export const globalErrorHandler = (error: unknown) => {
         window.location.href = '/authguard';
       }
     }
+
+    setLoggedOut();
   }
 
   if (code === ERROR_CODE.FORBIDDEN_ERROR) {
