@@ -16,7 +16,7 @@ import * as S from './RightNav.styled';
 export default function RightNav() {
   const router = useRouter();
   const { open } = useAppModalStore();
-  const { data, isError } = useGetUserSummary();
+  const { data } = useGetUserSummary();
 
   const userRole = data?.memberRole;
   const userRoleLabel = userRole && ROLE_LABELS[userRole];
@@ -31,7 +31,7 @@ export default function RightNav() {
         <Search />
       </IconButton>
 
-      {data && !isError ? (
+      {data ? (
         <S.NavLogin>
           <IconButton
             size='4rem'
