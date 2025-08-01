@@ -2,10 +2,6 @@ import type { InternalAxiosRequestConfig } from 'axios';
 
 const isServer = typeof window === 'undefined';
 
-export const isPrefetchRequest = (config?: InternalAxiosRequestConfig): boolean => {
-  return Boolean(config?.meta?.prefetch);
-};
-
 export const cookiesInterceptor = async (req: InternalAxiosRequestConfig) => {
   if (isServer) {
     const { cookies } = await import('next/headers');
