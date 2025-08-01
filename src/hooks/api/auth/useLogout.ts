@@ -14,9 +14,9 @@ export const useLogoutMutation = () => {
   const mutation = useMutation({
     mutationFn: authApi.logout,
     onSuccess: () => {
-      clearToken();
-      queryClient.clear();
+      queryClient.invalidateQueries();
       router.push('/');
+      clearToken();
     },
     onError: () => {
       open('error', { message: '로그아웃에 실패했습니다.' });

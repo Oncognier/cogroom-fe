@@ -16,9 +16,10 @@ import * as S from './RightNav.styled';
 export default function RightNav() {
   const router = useRouter();
   const { open } = useAppModalStore();
+  const { data, isError } = useGetUserSummary();
 
-  const { data, isLoading } = useGetUserSummary();
-  const userRoleLabel = data?.memberRole && ROLE_LABELS[data.memberRole];
+  const userRole = data?.memberRole;
+  const userRoleLabel = userRole && ROLE_LABELS[userRole];
 
   return (
     <S.RightNav>
@@ -30,7 +31,7 @@ export default function RightNav() {
         <Search />
       </IconButton>
 
-      {data ? (
+      {data && !isError ? (
         <S.NavLogin>
           <IconButton
             size='4rem'
@@ -40,30 +41,28 @@ export default function RightNav() {
             <Bell />
           </IconButton>
 
-          {!isLoading && data ? (
-            data.memberRole !== 'USER' && userRoleLabel ? (
-              <S.UserWrapper
-                memberRole={data.memberRole}
-                onClick={() => router.push('/mypage')}
-              >
-                <S.UserIconWrapper>
-                  <AvatarPerson
-                    type='icon'
-                    size='fillContainer'
-                    src={data.imageUrl}
-                  />
-                </S.UserIconWrapper>
-                {userRoleLabel}
-              </S.UserWrapper>
-            ) : (
-              <AvatarPerson
-                type='icon'
-                size='fillContainer'
-                src={data.imageUrl}
-                onClick={() => router.push('/mypage')}
-              />
-            )
-          ) : null}
+          {userRole !== 'USER' && userRoleLabel ? (
+            <S.UserWrapper
+              memberRole={userRole}
+              onClick={() => router.push('/mypage')}
+            >
+              <S.UserIconWrapper>
+                <AvatarPerson
+                  type='icon'
+                  size='fillContainer'
+                  src={data.imageUrl}
+                />
+              </S.UserIconWrapper>
+              {userRoleLabel}
+            </S.UserWrapper>
+          ) : (
+            <AvatarPerson
+              type='icon'
+              size='fillContainer'
+              src={data.imageUrl}
+              onClick={() => router.push('/mypage')}
+            />
+          )}
         </S.NavLogin>
       ) : (
         <OutlinedButton
