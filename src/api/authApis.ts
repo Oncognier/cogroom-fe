@@ -33,19 +33,23 @@ const getEmailStatus = async (params: GetEmailStatusRequest) => {
 };
 
 const login = async ({ code, provider }: LoginRequest) => {
-  return await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(
+  const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(
     END_POINTS_V1.AUTH.LOGIN,
     { code, provider },
     { useAuth: false },
   );
+
+  return data.result;
 };
 
 const signup = async ({ provider, providerId, email, nickname }: SignupRequest) => {
-  return await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(
+  const { data } = await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(
     END_POINTS_V1.AUTH.SIGNUP,
     { provider, providerId, email, nickname },
     { useAuth: false },
   );
+
+  return data;
 };
 
 const sendEmail = async ({ email }: SendEmailRequest) => {
