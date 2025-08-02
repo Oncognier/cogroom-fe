@@ -1,3 +1,4 @@
+import { HydrationBoundary, dehydrate, QueryClient } from '@tanstack/react-query';
 import Script from 'next/script';
 
 import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
@@ -5,14 +6,20 @@ import { mockingServer } from '@/lib/msw/mockingServer';
 import { MSWProvider } from '@/lib/msw/MSWProvider';
 import QueryProvider from '@/lib/query/QueryProvider';
 import { pretendard } from '@/styles/font';
+import { prefetchAppData } from '@/utils/api/prefetchAppData';
 
-import AuthComponent from './AuthComponent';
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
 
 mockingServer();
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const queryClient = new QueryClient();
+
+  await prefetchAppData(queryClient);
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
     <html
       lang='ko'
@@ -57,8 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <EmotionRegistry>
           <MSWProvider>
             <QueryProvider>
-              {children}
-              <AuthComponent />
+              <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
               <ModalProvider />
             </QueryProvider>
           </MSWProvider>

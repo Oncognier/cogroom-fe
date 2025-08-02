@@ -1,22 +1,15 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
 
 import { authApi } from '@/api/authApis';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
 export const useLogoutMutation = () => {
   const { open } = useAlertModalStore();
-  const router = useRouter();
-  const queryClient = useQueryClient();
-  const clearToken = useAuthStore((state) => state.clearToken);
 
   const mutation = useMutation({
     mutationFn: authApi.logout,
     onSuccess: () => {
-      clearToken();
-      queryClient.clear();
-      router.push('/');
+      window.location.href = '/';
     },
     onError: () => {
       open('error', { message: '로그아웃에 실패했습니다.' });
