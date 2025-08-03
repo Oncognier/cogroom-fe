@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - develop
+      - 'release/**'
     paths-ignore:
       - '**.md'
   create:
@@ -40,7 +41,7 @@ jobs:
               echo "vercel_url=https://story.cogroom.com" >> $GITHUB_OUTPUT
             fi
 
-          elif [[ "$GITHUB_REF" == refs/heads/release* ]]; then
+          elif [[ "$GITHUB_REF" == release/* || "$GITHUB_REF" == refs/heads/release* ]]; then
             echo "env_name=Production – cogroom-staging" >> $GITHUB_OUTPUT
             echo "vercel_project_id=${{ secrets.VERCEL_PROJECT_ID_STAGING }}" >> $GITHUB_OUTPUT
             echo "vercel_url=https://staging.cogroom.com" >> $GITHUB_OUTPUT
@@ -63,7 +64,7 @@ jobs:
           echo "commit_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Notify Discord
-        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/release' || github.ref == 'refs/heads/develop' }}
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
