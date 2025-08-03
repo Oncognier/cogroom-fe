@@ -1,5 +1,3 @@
-import { Dayjs } from 'dayjs';
-
 export interface SignupFormFields {
   email: string;
 }
@@ -24,8 +22,8 @@ export interface MemberDailyFormFields {
   keyword: string;
   category: number[];
   level: string[];
-  startDate: Dayjs | null;
-  endDate: Dayjs | null;
+  startDate: Date | null;
+  endDate: Date | null;
 }
 
 export interface WithdrawFormFields {
