@@ -1,13 +1,12 @@
 'use client';
 
-import { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ChevronUp from '@/assets/icons/chevronup.svg';
 import DateSelect from '@/components/molecules/DateSelect/DateSelect';
 import { useDropdown } from '@/hooks/useDropdown';
-import { formatDateRangeLabel } from '@/utils/formatDay';
+import { formatDateRangeLabel } from '@/utils/date/formatDay';
 
 import * as S from './SelectDate.styled';
 
@@ -17,21 +16,21 @@ export default function SelectDate({
   onStartDateChange,
   onEndDateChange,
 }: {
-  selectedStartDate: Dayjs | null;
-  selectedEndDate: Dayjs | null;
-  onStartDateChange: (date: Dayjs | null) => void;
-  onEndDateChange: (date: Dayjs | null) => void;
+  selectedStartDate: Date | null;
+  selectedEndDate: Date | null;
+  onStartDateChange: (date: Date | null) => void;
+  onEndDateChange: (date: Date | null) => void;
 }) {
   const { isOpen, toggle } = useDropdown();
-  const [draftStart, setDraftStart] = useState<Dayjs | null>(selectedStartDate);
-  const [draftEnd, setDraftEnd] = useState<Dayjs | null>(selectedEndDate);
+  const [draftStart, setDraftStart] = useState<Date | null>(selectedStartDate);
+  const [draftEnd, setDraftEnd] = useState<Date | null>(selectedEndDate);
 
   useEffect(() => {
     if (isOpen) {
       setDraftStart(selectedStartDate);
       setDraftEnd(selectedEndDate);
     }
-  }, [isOpen]);
+  }, [isOpen, selectedStartDate, selectedEndDate]);
 
   const handleApply = () => {
     onStartDateChange(draftStart);
