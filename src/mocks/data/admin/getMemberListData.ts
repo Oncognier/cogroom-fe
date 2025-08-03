@@ -13,7 +13,7 @@ export const getMemberListSuccess = {
         nickname: 'a123123',
         email: 'thsgur1212@gmail.com',
         imageUrl: null,
-        createdAt: '2025/06/21',
+        createdAt: '2025-08-03 17:43:45',
         memberRole: 'USER',
       },
       {
@@ -21,7 +21,7 @@ export const getMemberListSuccess = {
         nickname: 'a123123',
         email: 'thsgur1212@naver.com',
         imageUrl: null,
-        createdAt: '2025/06/15',
+        createdAt: '2025-08-02 17:43:45',
         memberRole: 'ADMIN',
       },
       {
@@ -29,7 +29,7 @@ export const getMemberListSuccess = {
         nickname: '손혁',
         email: 'thsgur1212@naver.com',
         imageUrl: 'https://cdn.cogroom.com/PROFILE/6_test-2025-05-27-101511.png',
-        createdAt: '2025/06/13',
+        createdAt: '2025-08-01 17:43:45',
         memberRole: 'CONTENT_PROVIDER',
       },
     ],
