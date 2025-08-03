@@ -47,6 +47,11 @@ jobs:
             echo "vercel_url=https://staging.cogroom.com" >> $GITHUB_OUTPUT
           fi
 
+      - name: Create Vercel project config
+        run: |
+          mkdir -p .vercel
+          echo '{ "projectId": "${{ steps.set-env.outputs.vercel_project_id }}", "orgId": "team_TfBhDRfIusADELYUqCaEhmi6" }' > .vercel/project.json
+
       - name: Install Vercel CLI
         run: npm install -g vercel
 
