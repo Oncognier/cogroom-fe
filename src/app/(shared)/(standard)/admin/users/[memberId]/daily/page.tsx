@@ -15,6 +15,7 @@ import Loading from '@/components/organisms/Loading/Loading';
 import { CATEGORY_SELECT_OPTIONS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetMemberDailyQuestions from '@/hooks/api/admin/useGetMemberDailyQuestions';
 import { MemberDailyFormFields } from '@/types/form';
+import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 import DailyTableHeader from './_components/DailyTableHeader/DailyTableHeader';
 import * as S from './page.styled';
@@ -45,8 +46,8 @@ export default function MemberDaily() {
       keyword: filterValues.keyword,
       category: filterValues.category,
       level: filterValues.level,
-      startDate: filterValues.startDate?.format('YYYY-MM-DD'),
-      endDate: filterValues.endDate?.format('YYYY-MM-DD'),
+      startDate: formatDayAsDashYYYYMMDD(filterValues.startDate),
+      endDate: formatDayAsDashYYYYMMDD(filterValues.endDate),
     },
   });
 
