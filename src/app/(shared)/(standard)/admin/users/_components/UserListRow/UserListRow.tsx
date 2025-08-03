@@ -9,6 +9,7 @@ import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import { USER_ROLE_META } from '@/constants/common';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { Member } from '@/types/admin';
+import { formatDayAsSlashYYYYMMDD } from '@/utils/date/formatDay';
 import { formatToSixDigits } from '@/utils/formatText';
 
 import * as S from './UserListRow.styled';
@@ -71,7 +72,7 @@ export default function UserListRow({ member, checked, onCheckToggle }: UserList
         <S.Email>{email}</S.Email>
       </S.UserInfoWrapper>
 
-      <S.Text>{createdAt}</S.Text>
+      <S.Text>{formatDayAsSlashYYYYMMDD(createdAt)}</S.Text>
 
       <IconButton
         size='3rem'
