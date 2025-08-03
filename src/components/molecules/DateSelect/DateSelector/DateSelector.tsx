@@ -1,13 +1,11 @@
-import { Dayjs } from 'dayjs';
-
 import DateIcon from '@/assets/icons/date.svg';
-import { formatDayAsSlashYYMMDD } from '@/utils/formatDay';
+import { formatDayAsSlashYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './DateSelector.styled';
 
 interface DateSelectorProps {
   label: string;
-  selectedDate: Dayjs | null;
+  selectedDate: Date | null;
   onClick: () => void;
 }
 
