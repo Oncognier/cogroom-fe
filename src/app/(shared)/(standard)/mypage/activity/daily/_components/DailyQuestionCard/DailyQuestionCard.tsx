@@ -1,13 +1,12 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ChevronUp from '@/assets/icons/chevronup.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Textarea from '@/components/molecules/Textarea/Textarea';
-import { formatDayAsSlashMMDD, formatDayAsWeekday } from '@/utils/formatDay';
+import { formatDayAsSlashMMDD, formatWeekday } from '@/utils/date/formatDay';
 
 import * as S from './DailyQuestionCard.styled';
 
@@ -30,9 +29,8 @@ export default function DailyQuestionCard({
     setIsOpen((prev) => !prev);
   };
 
-  const date = dayjs(assignedDate);
-  const formattedDate = formatDayAsSlashMMDD(date);
-  const weekday = formatDayAsWeekday(date);
+  const formattedDate = formatDayAsSlashMMDD(assignedDate);
+  const weekday = formatWeekday(assignedDate);
 
   return (
     <S.DailyQuestionCard>

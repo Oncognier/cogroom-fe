@@ -15,7 +15,7 @@ export const getMemberDailyQuestionsSuccess = {
         question: '지금 가장 크게 느끼고 있는 감정은 어떤 감정 인가요?',
         level: 'BASIC',
         categories: ['심리학'],
-        answeredAt: '2025-06-28T08:18:59.945Z',
+        answeredAt: '2025-06-28T08:18:59',
       },
       {
         assignedQuestionId: 2,
@@ -24,7 +24,7 @@ export const getMemberDailyQuestionsSuccess = {
         question: '지금 가장 크게 느끼고 있는 감정은 어떤 감정 인가요?',
         level: 'NORMAL',
         categories: ['뇌과학', '인류학'],
-        answeredAt: '2025-06-28T08:18:59.945Z',
+        answeredAt: '2025-06-28T08:18:59',
       },
       {
         assignedQuestionId: 3,
@@ -33,7 +33,7 @@ export const getMemberDailyQuestionsSuccess = {
         question: '지금 가장 크게 느끼고 있는 감정은 어떤 감정 인가요?',
         level: 'ADVANCED',
         categories: ['심리학', '뇌과학', '철학', '인류학', '언어학', '컴퓨터공학'],
-        answeredAt: '2025-06-28T08:18:59.945Z',
+        answeredAt: '2025-06-28T08:18:59',
       },
     ],
   },
