@@ -1,4 +1,4 @@
-import { DeployEnv } from './common';
+import { DeployEnv } from '@/types/common';
 
 // Avatar
 export const DEFAULT_AVATAR_IMAGE: string = 'https://cdn.cogroom.com/default_image/Profile.png';
