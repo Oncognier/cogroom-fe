@@ -10,7 +10,7 @@ import { USER_ROLE_META } from '@/constants/common';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { Member } from '@/types/admin';
 import { formatDayAsSlashYYYYMMDD } from '@/utils/date/formatDay';
-import { formatToSixDigits } from '@/utils/formatText';
+import { formatToDigits } from '@/utils/formatText';
 
 import * as S from './UserListRow.styled';
 
@@ -40,7 +40,7 @@ export default function UserListRow({ member, checked, onCheckToggle }: UserList
         stopPropagation
       />
 
-      <S.Text>{formatToSixDigits(memberId)}</S.Text>
+      <S.Text>{formatToDigits(memberId, 6)}</S.Text>
 
       <S.AvatarWrapper>
         <AvatarPerson

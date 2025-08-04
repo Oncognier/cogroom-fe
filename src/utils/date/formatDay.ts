@@ -1,31 +1,31 @@
 import { WEEK_DAYS } from '@/constants/common';
 import { createDateFormatter } from '@/utils/date/createDateFormatter';
-import { formatToTwoDigits } from '@/utils/formatText';
+import { formatToDigits } from '@/utils/formatText';
 
 // YYYY-MM-DD 형식으로 포맷팅 (2025-08-04)
 export const formatDayAsDashYYYYMMDD = createDateFormatter((date) => {
-  return `${date.getFullYear()}-${formatToTwoDigits(date.getMonth() + 1)}-${formatToTwoDigits(date.getDate())}`;
+  return `${date.getFullYear()}-${formatToDigits(date.getMonth() + 1, 2)}-${formatToDigits(date.getDate(), 2)}`;
 });
 
 // YYYY/MM/DD 형식으로 포맷팅 (2025/08/04)
 export const formatDayAsSlashYYYYMMDD = createDateFormatter((date) => {
-  return `${date.getFullYear()}/${formatToTwoDigits(date.getMonth() + 1)}/${formatToTwoDigits(date.getDate())}`;
+  return `${date.getFullYear()}/${formatToDigits(date.getMonth() + 1, 2)}/${formatToDigits(date.getDate(), 2)}`;
 });
 
 // YY/MM/DD 형식으로 포맷팅 (25/08/04)
 export const formatDayAsSlashYYMMDD = createDateFormatter((date) => {
   const year = String(date.getFullYear()).slice(-2);
-  return `${year}/${formatToTwoDigits(date.getMonth() + 1)}/${formatToTwoDigits(date.getDate())}`;
+  return `${year}/${formatToDigits(date.getMonth() + 1, 2)}/${formatToDigits(date.getDate(), 2)}`;
 });
 
 // MM/DD 형식으로 포맷팅 (08/04)
 export const formatDayAsSlashMMDD = createDateFormatter((date) => {
-  return `${formatToTwoDigits(date.getMonth() + 1)}/${formatToTwoDigits(date.getDate())}`;
+  return `${formatToDigits(date.getMonth() + 1, 2)}/${formatToDigits(date.getDate(), 2)}`;
 });
 
 // YYYY년 MM월 형식으로 포맷팅 (2025년 08월)
 export const formatDayAsYYYYMM = createDateFormatter((date) => {
-  return `${date.getFullYear()}년 ${formatToTwoDigits(date.getMonth() + 1)}월`;
+  return `${date.getFullYear()}년 ${formatToDigits(date.getMonth() + 1, 2)}월`;
 });
 
 // 요일 반환 (월~일)
