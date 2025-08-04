@@ -1,7 +1,4 @@
-export const formatToTwoDigits = (num: number): string => {
-  return num.toString().padStart(2, '0');
-};
-
-export const formatToSixDigits = (num: number): string => {
-  return num.toString().padStart(6, '0');
+// 숫자를 지정된 자릿수만큼 포맷팅
+export const formatToDigits = (num: number, digits: number): string => {
+  return num.toString().padStart(digits, '0');
 };
