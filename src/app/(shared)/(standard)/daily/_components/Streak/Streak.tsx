@@ -1,8 +1,7 @@
-import dayjs from 'dayjs';
 import Image from 'next/image';
 
 import { DEFAULT_WATERDROP } from '@/constants/image';
-import { formatDayAsSlashYYMMDD } from '@/utils/formatDay';
+import { formatDayAsSlashYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './Streak.styled';
 
@@ -11,7 +10,8 @@ interface StreakProps {
 }
 
 export default function Streak({ dailyStreak }: StreakProps) {
-  const today = dayjs();
+  const today = new Date();
+  const formattedDate = formatDayAsSlashYYMMDD(today);
 
   return (
     <S.StreakCard>
@@ -31,7 +31,7 @@ export default function Streak({ dailyStreak }: StreakProps) {
           <S.Message>코그룸에서 나만의 바다를 만들어보세요</S.Message>
         </S.MessageWrapper>
 
-        <S.DateText>{formatDayAsSlashYYMMDD(today)}</S.DateText>
+        <S.DateText>{formattedDate}</S.DateText>
       </S.ContentWrapper>
     </S.StreakCard>
   );

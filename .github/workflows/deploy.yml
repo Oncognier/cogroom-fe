@@ -1,0 +1,105 @@
+name: Deploy to Vercel and Notify Discord
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'release/**'
+    paths-ignore:
+      - '**.md'
+  create:
+    branches:
+      - 'release/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set environment variables
+        id: set-env
+        run: |
+          echo "🧾 GITHUB_REF: $GITHUB_REF"
+
+          if [[ "$GITHUB_REF" == "refs/heads/main" ]]; then
+            echo "env_name=Production – cogroom" >> $GITHUB_OUTPUT
+            echo "vercel_project_id=${{ secrets.VERCEL_PROJECT_ID_COGROOM }}" >> $GITHUB_OUTPUT
+            echo "vercel_url=https://cogroom.com" >> $GITHUB_OUTPUT
+
+          elif [[ "$GITHUB_REF" == "refs/heads/develop" ]]; then
+            echo "env_name=Production – cogroom-dev" >> $GITHUB_OUTPUT
+            echo "vercel_project_id=${{ secrets.VERCEL_PROJECT_ID_DEV }}" >> $GITHUB_OUTPUT
+            echo "vercel_url=https://dev.cogroom.com" >> $GITHUB_OUTPUT
+
+            if git diff --name-only HEAD^ HEAD | grep -q 'stories\|\.stories\.tsx'; then
+              echo "env_name=Production – cogroom-storybook" >> $GITHUB_OUTPUT
+              echo "vercel_project_id=${{ secrets.VERCEL_PROJECT_ID_STORYBOOK }}" >> $GITHUB_OUTPUT
+              echo "vercel_url=https://story.cogroom.com" >> $GITHUB_OUTPUT
+            fi
+
+          elif [[ "$GITHUB_REF" == release/* || "$GITHUB_REF" == refs/heads/release* ]]; then
+            echo "env_name=Production – cogroom-staging" >> $GITHUB_OUTPUT
+            echo "vercel_project_id=${{ secrets.VERCEL_PROJECT_ID_STAGING }}" >> $GITHUB_OUTPUT
+            echo "vercel_url=https://staging.cogroom.com" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Vercel project config
+        run: |
+          mkdir -p .vercel
+          echo '{ "projectId": "${{ steps.set-env.outputs.vercel_project_id }}", "orgId": "team_TfBhDRfIusADELYUqCaEhmi6" }' > .vercel/project.json
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Trigger Vercel Deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          vercel deploy --prod --token=$VERCEL_TOKEN
+
+      - name: Get commit message
+        id: commit
+        run: |
+          echo "commit_message=$(git log -1 --pretty=format:%s)" >> $GITHUB_OUTPUT
+          echo "commit_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Notify Discord
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/')
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          STATUS="✅ 배포 성공"
+          COLOR=3066993
+          ENVIRONMENT="${{ steps.set-env.outputs.env_name }}"
+          DISPLAY_URL="${{ steps.set-env.outputs.vercel_url }}"
+          COMMIT="${{ steps.commit.outputs.commit_sha }}"
+          MESSAGE="${{ steps.commit.outputs.commit_message }}"
+          REPO="${{ github.repository }}"
+
+          JSON=$(jq -n \
+            --arg title "$STATUS" \
+            --arg env "$ENVIRONMENT" \
+            --arg repo "$REPO" \
+            --arg url "$DISPLAY_URL" \
+            --arg commit "\`$COMMIT\` $MESSAGE" \
+            --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
+            '{
+              "embeds": [{
+                "title": $title,
+                "color": 3066993,
+                "fields": [
+                  { "name": "환경", "value": $env, "inline": true },
+                  { "name": "저장소", "value": $repo, "inline": true },
+                  { "name": "배포 URL", "value": $url },
+                  { "name": "커밋", "value": $commit }
+                ],
+                "timestamp": $timestamp
+              }]
+            }')
+
+          curl -H "Content-Type: application/json" -d "$JSON" $DISCORD_WEBHOOK_URL

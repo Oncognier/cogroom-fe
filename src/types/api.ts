@@ -11,7 +11,3 @@ export interface PaginationResult<T> {
   last: boolean;
   data: T[];
 }
-
-export interface PrefetchMeta {
-  prefetch?: boolean;
-}

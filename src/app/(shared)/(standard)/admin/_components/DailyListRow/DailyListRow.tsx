@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 import DotsVertical from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
@@ -7,7 +5,7 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import { Category, CATEGORY_META, Level, LEVEL_META } from '@/constants/common';
 import { DailyContent } from '@/types/daily';
-import { formatDayAsSlashYYMMDD } from '@/utils/formatDay';
+import { formatDayAsSlashYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './DailyListRow.styled';
 
@@ -54,7 +52,7 @@ export default function DailyListRow({ daily, checked, onCheckToggle }: DailyLis
 
       <S.Text>{LEVEL_META[level as Level]?.label}</S.Text>
 
-      {answeredAt && <S.Text>{formatDayAsSlashYYMMDD(dayjs(answeredAt))}</S.Text>}
+      {answeredAt && <S.Text>{formatDayAsSlashYYMMDD(answeredAt)}</S.Text>}
 
       <IconButton
         size='3rem'

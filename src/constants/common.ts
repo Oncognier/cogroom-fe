@@ -1,7 +1,7 @@
 import Graph from '@/assets/icons/graph.svg';
 import HandHeart from '@/assets/icons/handheart.svg';
 import Smile from '@/assets/icons/smile.svg';
-import { SelectOption } from '@/types/common';
+import { DeployEnv, SelectOption } from '@/types/common';
 
 export const HEADER_NAV_ITEMS = [
   { label: '데일리', href: '/daily' },
@@ -172,3 +172,5 @@ export const SPRITE_WIDTH = 257;
 export const FRAME_COUNT = 9;
 export const FRAME_DURATION = 800;
 export const DAILY_MAX_LENGTH = 101;
+
+export const DEPLOY_ENV = (process.env.NEXT_PUBLIC_DEPLOY_ENV ?? 'production') as DeployEnv;

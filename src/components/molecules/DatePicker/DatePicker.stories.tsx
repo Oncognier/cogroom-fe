@@ -1,6 +1,5 @@
 import { useArgs } from '@storybook/preview-api';
 import type { Meta, StoryObj } from '@storybook/react';
-import dayjs from 'dayjs';
 
 import DatePicker from './DatePicker';
 
@@ -22,7 +21,7 @@ type Story = StoryObj<typeof DatePicker>;
 export const Default: Story = {
   args: {
     isOpen: true,
-    selectedDate: dayjs(),
+    selectedDate: new Date(),
   },
   render: (args) => {
     const [{ selectedDate }, updateArgs] = useArgs();
@@ -30,7 +29,7 @@ export const Default: Story = {
     return (
       <DatePicker
         {...args}
-        selectedDate={selectedDate ? dayjs(selectedDate) : null}
+        selectedDate={selectedDate ? selectedDate : null}
         onSelect={(date) => {
           updateArgs({ selectedDate: date });
         }}

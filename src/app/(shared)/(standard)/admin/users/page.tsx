@@ -1,6 +1,5 @@
 'use client';
 
-import { Dayjs } from 'dayjs';
 import { useMemo, useState } from 'react';
 
 import ScriptX from '@/assets/icons/script-x.svg';
@@ -12,6 +11,7 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import { useDeleteMemberMutation } from '@/hooks/api/admin/useDeleteMember';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
+import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 import UserListRow from './_components/UserListRow/UserListRow';
 import UserTableHeader from './_components/UserTableHeader/UserTableHeader';
@@ -21,18 +21,18 @@ export default function Users() {
   const [currentPage, setCurrentPage] = useState(0);
 
   const [draftKeyword, setDraftKeyword] = useState('');
-  const [draftStartDate, setDraftStartDate] = useState<Dayjs | null>(null);
-  const [draftEndDate, setDraftEndDate] = useState<Dayjs | null>(null);
+  const [draftStartDate, setDraftStartDate] = useState<Date | null>(null);
+  const [draftEndDate, setDraftEndDate] = useState<Date | null>(null);
 
   const [keyword, setKeyword] = useState('');
-  const [startDate, setStartDate] = useState<Dayjs | null>(null);
-  const [endDate, setEndDate] = useState<Dayjs | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
 
   const { data, isLoading } = useGetMemberList({
     page: currentPage,
     keyword,
-    startDate: startDate?.format('YYYY-MM-DD'),
-    endDate: endDate?.format('YYYY-MM-DD'),
+    startDate: formatDayAsDashYYYYMMDD(startDate),
+    endDate: formatDayAsDashYYYYMMDD(endDate),
   });
 
   const { deleteMember } = useDeleteMemberMutation();

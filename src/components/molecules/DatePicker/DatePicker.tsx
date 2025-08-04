@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs, { Dayjs } from 'dayjs';
 import React, { useState, useMemo } from 'react';
 
 import ChevronLeft from '@/assets/icons/chevronleft.svg';
@@ -8,34 +7,34 @@ import ChevronRight from '@/assets/icons/chevronright.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { WEEK_DAYS } from '@/constants/common';
-import { formatDayAsYYYYMM } from '@/utils/formatDay';
-import { getCalendarMonthDates } from '@/utils/getCalendar';
+import { formatDayAsYYYYMM } from '@/utils/date/formatDay';
+import { getCalendarMonthDateStrings } from '@/utils/date/getCalendar';
 
 import * as S from './DatePicker.styled';
 
 interface DatePickerProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelect: (date: Dayjs | null) => void;
-  selectedDate: Dayjs | null;
+  onSelect: (date: Date | null) => void;
+  selectedDate: Date | null;
 }
 
 export default function DatePicker({ isOpen, onClose, onSelect, selectedDate }: DatePickerProps) {
-  const today = dayjs();
+  const today = new Date();
   const [viewDate, setViewDate] = useState(selectedDate || today);
 
-  const monthDates = useMemo(() => getCalendarMonthDates(viewDate), [viewDate]);
+  const monthDates = useMemo(() => getCalendarMonthDateStrings(), []);
 
-  const handleDateClick = (date: Dayjs) => {
+  const handleDateClick = (date: Date) => {
     setViewDate(date);
     onSelect(date);
   };
   const handlePrevMonth = () => {
-    setViewDate(viewDate.subtract(1, 'month'));
+    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, viewDate.getDate()));
   };
 
   const handleNextMonth = () => {
-    setViewDate(viewDate.add(1, 'month'));
+    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, viewDate.getDate()));
   };
 
   if (!isOpen) return null;
@@ -57,13 +56,13 @@ export default function DatePicker({ isOpen, onClose, onSelect, selectedDate }: 
         ))}
         {monthDates.map((date) => (
           <S.DateItem
-            key={date.toISOString()}
-            isSelected={selectedDate?.isSame(date, 'day') ?? false}
+            key={date}
+            isSelected={selectedDate?.toISOString() === date}
             onClick={() => {
-              handleDateClick(date);
+              handleDateClick(new Date(date));
             }}
           >
-            {date.date()}
+            {new Date(date).getDate()}
           </S.DateItem>
         ))}
       </S.DateList>

@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
@@ -17,18 +16,21 @@ export default function DateSelect({
   onEndDateChange,
   onApply,
 }: {
-  selectedStartDate: Dayjs | null;
-  selectedEndDate: Dayjs | null;
-  onStartDateChange: (date: Dayjs | null) => void;
-  onEndDateChange: (date: Dayjs | null) => void;
+  selectedStartDate: Date | null;
+  selectedEndDate: Date | null;
+  onStartDateChange: (date: Date | null) => void;
+  onEndDateChange: (date: Date | null) => void;
   onApply: () => void;
 }) {
-  const today = dayjs();
+  const today = new Date();
   const [isStartOpen, setIsStartOpen] = useState(false);
   const [isEndOpen, setIsEndOpen] = useState(false);
 
   const handleQuickSelect = (days: number) => {
-    const start = today.subtract(days, 'day');
+    const start = new Date();
+
+    start.setDate(today.getDate() - days);
+
     onStartDateChange(start);
     onEndDateChange(today);
   };
