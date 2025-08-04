@@ -172,3 +172,6 @@ export const SPRITE_WIDTH = 257;
 export const FRAME_COUNT = 9;
 export const FRAME_DURATION = 800;
 export const DAILY_MAX_LENGTH = 101;
+
+export type DeployEnv = 'production' | 'staging' | 'development';
+export const DEPLOY_ENV = (process.env.NEXT_PUBLIC_DEPLOY_ENV ?? 'production') as DeployEnv;

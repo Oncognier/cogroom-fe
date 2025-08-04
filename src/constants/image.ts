@@ -1,3 +1,5 @@
+import { DeployEnv } from './common';
+
 // Avatar
 export const DEFAULT_AVATAR_IMAGE: string = 'https://cdn.cogroom.com/default_image/Profile.png';
 export const DEFAULT_THUMBNAIL: string = 'https://cdn.cogroom.com/default_image/Thumbnail.png';
@@ -20,6 +22,12 @@ export const DEFAULT_LOGO_VERTICAL_BLACK: string = 'https://cdn.cogroom.com/defa
 export const DEFAULT_LOGO_KOREAN: string = 'https://cdn.cogroom.com/default_image/Logo/Logo_Korean.svg';
 export const DEFAULT_LOGO_STAGING: string = 'https://cdn.cogroom.com/default_image/Logo/Logo_Staging.svg';
 export const DEFAULT_LOGO_DEV: string = 'https://cdn.cogroom.com/default_image/Logo/Logo_Dev.svg';
+
+export const ENV_LOGO_MAP: Record<DeployEnv, string> = {
+  production: DEFAULT_LOGO_HORIZONTAL_NORMAL,
+  staging: DEFAULT_LOGO_STAGING,
+  development: DEFAULT_LOGO_DEV,
+};
 
 // Home
 export const DEFAULT_HERO_WAVY: string = 'https://cdn.cogroom.com/default_image/Hero_Wavy.gif';
