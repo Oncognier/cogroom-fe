@@ -19,6 +19,8 @@ export const useLoginMutation = () => {
           email: socialUserInfo.email ?? '',
           nickname: socialUserInfo.nickname ?? '',
         });
+
+        return;
       }
 
       router.replace('/daily');
