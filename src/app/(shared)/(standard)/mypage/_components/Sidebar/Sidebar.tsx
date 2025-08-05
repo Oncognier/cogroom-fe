@@ -35,16 +35,6 @@ export default function Sidebar() {
             <Setting />
           </S.SettingIcon>
         </S.NameWrapper>
-
-        {(data?.memberRole === 'ADMIN' || data?.memberRole === 'CONTENT_PROVIDER') && (
-          <OutlinedButton
-            size='sm'
-            label='관리자모드'
-            color='assistive'
-            interactionVariant='normal'
-            onClick={() => router.push('/admin')}
-          />
-        )}
       </S.Profile>
 
       <S.SidebarNavList>
@@ -58,6 +48,15 @@ export default function Sidebar() {
           />
         ))}
         <S.Logout onClick={() => open('logout')}>로그아웃</S.Logout>
+        {(data?.memberRole === 'ADMIN' || data?.memberRole === 'CONTENT_PROVIDER') && (
+          <OutlinedButton
+            size='sm'
+            label='관리자모드'
+            color='assistive'
+            interactionVariant='normal'
+            onClick={() => router.push('/admin')}
+          />
+        )}
       </S.SidebarNavList>
     </S.Sidebar>
   );
