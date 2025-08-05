@@ -27,6 +27,7 @@ export default function Sidebar() {
           type='icon'
           size='lg'
           src={data?.imageUrl}
+          onClick={() => router.push('/mypage/setting')}
         />
         <S.NameWrapper>
           <S.UserName>{data?.nickname || ''}</S.UserName>
