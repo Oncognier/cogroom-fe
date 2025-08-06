@@ -129,7 +129,7 @@ export default function Setting() {
       </FormProvider>
 
       <TextButton
-        size='lg'
+        size='sm'
         label='상세 개인정보 설정'
         color='assistive'
         iconRight={<SettingIcon />}
