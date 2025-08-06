@@ -41,8 +41,7 @@ export default function Setting() {
   const { data, isLoading, isError } = useGetUserInfo();
 
   const methods = useForm<SettingFormFields>({
-    mode: 'onChange',
-    reValidateMode: 'onBlur',
+    mode: 'onSubmit',
     defaultValues: getDefaultValues(),
   });
 

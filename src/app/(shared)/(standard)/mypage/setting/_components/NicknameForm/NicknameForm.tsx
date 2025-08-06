@@ -24,6 +24,7 @@ export default function NicknameForm({ initialNickname, onCheck }: NicknameFormP
     register,
     watch,
     setError,
+    trigger,
     formState: { errors },
   } = useFormContext<{ nickname: string }>();
 
@@ -50,7 +51,7 @@ export default function NicknameForm({ initialNickname, onCheck }: NicknameFormP
       setCheckState('idle');
       onCheck(false);
     }
-  }, [nickname, initialNickname]);
+  }, [nickname, initialNickname, onCheck]);
 
   return (
     <S.NicknameForm>
@@ -72,7 +73,10 @@ export default function NicknameForm({ initialNickname, onCheck }: NicknameFormP
           color='primary'
           label='중복확인'
           interactionVariant='normal'
-          onClick={() => {
+          onClick={async () => {
+            const isValid = await trigger('nickname');
+            if (!isValid) return;
+
             setCheckState('checking');
             checkNickname({ nickname });
           }}
