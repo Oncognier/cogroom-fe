@@ -3,7 +3,7 @@ import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 export const regex = {
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   phone: /^[0-9-]*$/,
-  nickname: /^[가-힣a-zA-Z0-9]+$/,
+  nickname: /^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]+$/,
 };
 
 export const validateEmail = (v: string): true | string => {
