@@ -19,7 +19,7 @@ export const SetImage = styled.div`
 export const DropdownWrapper = styled.div`
   position: absolute;
   bottom: 2.5rem;
-  right: -400%;
+  right: -185%;
 
-  width: 15.8rem;
+  width: 7rem;
 `;
