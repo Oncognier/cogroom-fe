@@ -24,17 +24,3 @@ export const Icon = styled.div`
   color: ${({ theme }) => theme.semantic.label.assistive};
   background-color: ${({ theme }) => theme.semantic.background.normal.alternative};
 `;
-
-export const MessageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing[8]};
-`;
-
-export const MainMessage = styled.p`
-  ${({ theme }) => theme.typography.headline2.semibold};
-  color: ${({ theme }) => theme.semantic.label.alternative};
-
-  text-align: center;
-`;
