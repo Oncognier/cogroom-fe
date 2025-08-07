@@ -15,7 +15,7 @@ export default function MenuDropdown({ triggerSelect, onResetToDefault, isUpload
     <S.MenuDropdown>
       <TextButton
         size='sm'
-        label='이미지 추가 및 변경'
+        label='수정'
         color='assistive'
         interactionVariant='normal'
         onClick={triggerSelect}
@@ -24,7 +24,7 @@ export default function MenuDropdown({ triggerSelect, onResetToDefault, isUpload
       <S.Divider />
       <TextButton
         size='sm'
-        label='기본 프로필로 변경'
+        label='삭제'
         color='assistive'
         interactionVariant='normal'
         onClick={onResetToDefault}

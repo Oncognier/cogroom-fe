@@ -7,7 +7,7 @@ export const MenuDropdown = styled.div`
   flex-direction: column;
   gap: 0.8rem;
 
-  padding: 1.2rem 1.6rem;
+  padding: 0.8rem 1.2rem;
   background-color: ${({ theme }) => theme.semantic.background.normal.normal};
   ${({ theme }) => theme.shadow.normal}
   border-radius: 0.8rem;

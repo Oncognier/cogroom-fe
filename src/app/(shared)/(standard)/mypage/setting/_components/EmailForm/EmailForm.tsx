@@ -38,17 +38,21 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
 
   const email = getValues('email');
 
-  const { refetch: refetchEmailStatus, isFetching: isChecking } = useGetEmailStatusQuery(email, false); // 수동 호출, enabled false
+  const { refetch: refetchEmailStatus, isFetching: isChecking } = useGetEmailStatusQuery(email, false);
 
   const handleClick = async () => {
-    const email = getValues('email');
+    const currentEmail = getValues('email');
 
-    if (emailState === 'idle') return setEmailState('editing');
+    if (emailState === 'idle') {
+      setEmailState('editing');
+      return;
+    }
 
-    if (!(await trigger('email'))) return;
+    const isValid = await trigger('email');
+    if (!isValid) return;
 
     if (emailState === 'editing') {
-      sendEmail({ email });
+      sendEmail({ email: currentEmail });
     } else if (emailState === 'waiting' && !isCooldown) {
       const { data } = await refetchEmailStatus();
       if (data) {
@@ -61,9 +65,14 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
   };
 
   const getLabel = () => {
-    if (emailState === 'editing') return '인증하기';
-    if (emailState === 'waiting') return '인증완료';
-    return '변경하기';
+    switch (emailState) {
+      case 'editing':
+        return '인증하기';
+      case 'waiting':
+        return '인증완료';
+      default:
+        return '변경하기';
+    }
   };
 
   return (

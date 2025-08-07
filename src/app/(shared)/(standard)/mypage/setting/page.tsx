@@ -41,8 +41,7 @@ export default function Setting() {
   const { data, isLoading, isError } = useGetUserInfo();
 
   const methods = useForm<SettingFormFields>({
-    mode: 'onChange',
-    reValidateMode: 'onBlur',
+    mode: 'onSubmit',
     defaultValues: getDefaultValues(),
   });
 
@@ -130,7 +129,7 @@ export default function Setting() {
       </FormProvider>
 
       <TextButton
-        size='lg'
+        size='sm'
         label='상세 개인정보 설정'
         color='assistive'
         iconRight={<SettingIcon />}
