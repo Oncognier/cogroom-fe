@@ -8,6 +8,7 @@ import QueryProvider from '@/lib/query/QueryProvider';
 import { pretendard } from '@/styles/font';
 import { prefetchAppData } from '@/utils/api/prefetchAppData';
 import { getKakaoPixelId } from '@/utils/kakaoPixel';
+import { getMetaPixelId } from '@/utils/metaPixel';
 
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   const dehydratedState = dehydrate(queryClient);
   const kakaoPixelId = getKakaoPixelId();
+  const metaPixelId = getMetaPixelId();
 
   return (
     <html
@@ -31,7 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* Naver Site Verification */}
         <meta
           name='naver-site-verification'
-          content='9ce45d6fee641e3f35678043f0c7f6b20ac0dfc2'
+          content='73c39f04c3c8aae6561e065752f3e58c6b8f8756'
         />
 
         {/* Google Tag Manager */}
@@ -48,17 +50,17 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   `}
         </Script>
         {/* End Google Tag Manager */}
-        
+
         {/* Kakao Pixel */}
         {kakaoPixelId && (
           <>
             <Script
-              src="//t1.daumcdn.net/kas/static/kp.js"
-              strategy="beforeInteractive"
+              src='//t1.daumcdn.net/kas/static/kp.js'
+              strategy='afterInteractive'
             />
             <Script
-              id="kakao-pixel"
-              strategy="beforeInteractive"
+              id='kakao-pixel'
+              strategy='afterInteractive'
             >
               {`
                 kakaoPixel(${kakaoPixelId}).pageView();
@@ -67,6 +69,28 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           </>
         )}
         {/* End Kakao Pixel */}
+
+        {/* Meta Pixel */}
+        {metaPixelId && (
+          <Script
+            id='meta-pixel'
+            strategy='afterInteractive'
+          >
+            {`
+              !function(f,b,e,v,n,t,s)
+              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+              n.queue=[];t=b.createElement(e);t.async=!0;
+              t.src=v;s=b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t,s)}(window, document,'script',
+              'https://connect.facebook.net/en_US/fbevents.js');
+              fbq('init', '${metaPixelId}');
+              fbq('track', 'PageView');
+            `}
+          </Script>
+        )}
+        {/* End Meta Pixel */}
       </head>
       <body>
         {/* Google Tag Manager (noscript) */}
@@ -79,6 +103,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
+
+        {/* Meta Pixel (noscript) */}
+        {metaPixelId && (
+          <noscript>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              alt='meta-pixel'
+              height='1'
+              width='1'
+              style={{ display: 'none' }}
+              src={`https://www.facebook.com/tr?id=${metaPixelId}&ev=PageView&noscript=1`}
+            />
+          </noscript>
+        )}
+        {/* End Meta Pixel (noscript) */}
 
         {/* Kakao JavaScript SDK */}
         <Script

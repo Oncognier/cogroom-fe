@@ -9,5 +9,7 @@ declare global {
       completeRegistration: () => void;
       pageView: () => void;
     };
+    // Meta (Facebook) Pixel
+    fbq: (action: string, event?: string, parameters?: any) => void;
   }
 }

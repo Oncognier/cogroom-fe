@@ -15,6 +15,7 @@ export const useSignupMutation = (onSuccess?: () => void) => {
       const kakaoPixelId = getKakaoPixelId();
 
       if (typeof window !== 'undefined' && window.kakaoPixel && kakaoPixelId) {
+        window.kakaoPixel(kakaoPixelId).pageView();
         window.kakaoPixel(kakaoPixelId).completeRegistration();
       }
 
