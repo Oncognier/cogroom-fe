@@ -7,6 +7,7 @@ import { MSWProvider } from '@/lib/msw/MSWProvider';
 import QueryProvider from '@/lib/query/QueryProvider';
 import { pretendard } from '@/styles/font';
 import { prefetchAppData } from '@/utils/api/prefetchAppData';
+import { getKakaoPixelId } from '@/utils/kakaoPixel';
 
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
@@ -19,6 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   await prefetchAppData(queryClient);
 
   const dehydratedState = dehydrate(queryClient);
+  const kakaoPixelId = getKakaoPixelId();
 
   return (
     <html
@@ -45,6 +47,26 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
   `}
         </Script>
+        {/* End Google Tag Manager */}
+        
+        {/* Kakao Pixel */}
+        {kakaoPixelId && (
+          <>
+            <Script
+              src="//t1.daumcdn.net/kas/static/kp.js"
+              strategy="beforeInteractive"
+            />
+            <Script
+              id="kakao-pixel"
+              strategy="beforeInteractive"
+            >
+              {`
+                kakaoPixel(${kakaoPixelId}).pageView();
+              `}
+            </Script>
+          </>
+        )}
+        {/* End Kakao Pixel */}
       </head>
       <body>
         {/* Google Tag Manager (noscript) */}
