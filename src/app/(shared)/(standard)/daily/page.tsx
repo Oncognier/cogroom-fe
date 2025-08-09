@@ -1,9 +1,12 @@
 'use client';
 
+import Link from 'next/link';
+
 import Upload from '@/assets/icons/upload.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Loading from '@/components/organisms/Loading/Loading';
 import { DEFAULT_DAILY_QUESTION } from '@/constants/common';
+import { DEFAULT_DAILY_BANNER } from '@/constants/image';
 import useGetDailyHasAnsweredQuery from '@/hooks/api/daily/useGetDailyHasAnswered';
 import useGetDailyQuestionsQuery from '@/hooks/api/daily/useGetDailyQuestions';
 import useGetStreakCalendarQuery from '@/hooks/api/streak/useGetStreakCalendar';
@@ -52,16 +55,30 @@ export default function Daily() {
           hasAnswered={hasAnsweredData?.hasAnswered ?? false}
         />
       </S.DailyContainer>
-      <S.ButtonWrapper>
-        <OutlinedButton
-          label='공유하기'
-          size='sm'
-          color='secondary'
-          iconRight={<Upload />}
-          interactionVariant='normal'
-          onClick={handleShare}
-        />
-      </S.ButtonWrapper>
+      <OutlinedButton
+        label='공유하기'
+        size='sm'
+        color='secondary'
+        iconRight={<Upload />}
+        interactionVariant='normal'
+        onClick={handleShare}
+      />
+
+      <Link
+        href='https://docs.google.com/forms/d/e/1FAIpQLSeZ-6SkoxlPCltFvF4G20XXEsuyk3FjGFsBN5Kbrh1Rjru2Xg/viewform'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <S.BannerWrapper>
+          <S.BannerImage
+            src={DEFAULT_DAILY_BANNER}
+            alt='코그룸 피드백 참여하기 배너'
+            width={798}
+            height={244}
+            priority
+          />
+        </S.BannerWrapper>
+      </Link>
     </>
   );
 }
