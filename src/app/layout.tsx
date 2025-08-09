@@ -26,6 +26,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={pretendard.variable}
     >
       <head>
+        {/* Naver Site Verification */}
+        <meta
+          name='naver-site-verification'
+          content='9ce45d6fee641e3f35678043f0c7f6b20ac0dfc2'
+        />
+
         {/* Google Tag Manager */}
         <Script
           id='gtm-head'
@@ -39,7 +45,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GTM_ID}');
   `}
         </Script>
-        {/* End Google Tag Manager */}
       </head>
       <body>
         {/* Google Tag Manager (noscript) */}
@@ -52,8 +57,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
 
+        {/* Kakao JavaScript SDK */}
         <Script
           src='https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js'
           integrity='sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6'
