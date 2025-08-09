@@ -5,11 +5,15 @@ on:
     branches:
       - master
       - develop
+      - release/**
+      - hotfix/**
   pull_request:
     branches:
       - master
       - develop
-
+      - release/**
+      - hotfix/**
+      
 jobs:
   build:
     runs-on: ubuntu-latest
