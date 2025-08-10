@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { DEFAULT_COMMUNITY_BANNER } from '@/constants/image';
+import { DEFAULT_HOME_THUMBNAIL } from '@/constants/image';
 
 import ActionBanner from './_components/ActionBanner/ActionBanner';
 import Cogpoint from './_components/Cogpoint/Cogpoint';
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     siteName: '코그룸',
     images: [
       {
-        url: DEFAULT_COMMUNITY_BANNER,
+        url: DEFAULT_HOME_THUMBNAIL,
         width: 1200,
         height: 630,
-        alt: '코그룸 콘텐츠 메인 배너',
+        alt: '코그룸 홈 배너',
       },
     ],
   },
