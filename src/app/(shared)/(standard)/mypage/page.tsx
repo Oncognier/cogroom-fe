@@ -35,20 +35,20 @@ export default function Dashboard() {
       </S.TextWrapper>
 
       <S.BannerWrapper>
-        <Link
-          href={ONCOGNIER_URL}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <S.BannerCard>
+        <S.BannerCard>
+          <Link
+            href={ONCOGNIER_URL}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <S.BannerImage
               src={DEFAULT_MYPAGE_BANNER_1}
               alt='마이페이지 첫 번째 배너'
               width={391}
               height={244}
             />
-          </S.BannerCard>
-        </Link>
+          </Link>
+        </S.BannerCard>
 
         <S.BannerCard>
           <S.BannerImage
