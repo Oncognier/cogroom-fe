@@ -2,6 +2,7 @@
 
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 export type AvatarPersonType = 'icon' | 'image';
 export type AvatarPersonSize = 'xsm' | 'sm' | 'md' | 'lg' | 'xlg' | 'fillContainer';
@@ -69,4 +70,9 @@ export const AvatarPerson = styled.div<AvatarPersonStyleProps>`
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const AvatarImage = styled(Image)`
+  object-fit: cover;
+  object-position: center;
 `;
