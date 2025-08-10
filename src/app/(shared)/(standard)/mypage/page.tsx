@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Loading from '@/components/organisms/Loading/Loading';
-import { USER_INTERVIEW_FORM_URL } from '@/constants/common';
+import { ONCOGNIER_URL, USER_INTERVIEW_FORM_URL } from '@/constants/common';
 import {
   DEFAULT_MYPAGE_BANNER_1,
   DEFAULT_MYPAGE_BANNER_2,
@@ -35,14 +35,20 @@ export default function Dashboard() {
       </S.TextWrapper>
 
       <S.BannerWrapper>
-        <S.BannerCard>
-          <S.BannerImage
-            src={DEFAULT_MYPAGE_BANNER_1}
-            alt='마이페이지 첫 번째 배너'
-            width={391}
-            height={244}
-          />
-        </S.BannerCard>
+        <Link
+          href={ONCOGNIER_URL}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <S.BannerCard>
+            <S.BannerImage
+              src={DEFAULT_MYPAGE_BANNER_1}
+              alt='마이페이지 첫 번째 배너'
+              width={391}
+              height={244}
+            />
+          </S.BannerCard>
+        </Link>
 
         <S.BannerCard>
           <S.BannerImage
