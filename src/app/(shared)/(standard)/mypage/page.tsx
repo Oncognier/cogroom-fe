@@ -35,18 +35,23 @@ export default function Dashboard() {
       </S.TextWrapper>
 
       <S.BannerWrapper>
-        <S.BannerImage
-          src={DEFAULT_MYPAGE_BANNER_1}
-          alt='마이페이지 첫 번째 배너'
-          width={391}
-          height={244}
-        />
-        <S.BannerImage
-          src={DEFAULT_MYPAGE_BANNER_2}
-          alt='마이페이지 두 번째 배너'
-          width={391}
-          height={244}
-        />
+        <S.BannerCard>
+          <S.BannerImage
+            src={DEFAULT_MYPAGE_BANNER_1}
+            alt='마이페이지 첫 번째 배너'
+            width={391}
+            height={244}
+          />
+        </S.BannerCard>
+
+        <S.BannerCard>
+          <S.BannerImage
+            src={DEFAULT_MYPAGE_BANNER_2}
+            alt='마이페이지 두 번째 배너'
+            width={391}
+            height={244}
+          />
+        </S.BannerCard>
       </S.BannerWrapper>
 
       <S.Report>

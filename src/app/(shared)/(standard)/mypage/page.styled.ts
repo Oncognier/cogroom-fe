@@ -24,11 +24,15 @@ export const BannerWrapper = styled.div`
   width: 100%;
 `;
 
+export const BannerCard = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 export const BannerImage = styled(Image)`
   width: 100%;
   height: auto;
   cursor: pointer;
-  display: block;
   object-fit: cover;
 `;
 
