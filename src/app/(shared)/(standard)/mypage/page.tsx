@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Loading from '@/components/organisms/Loading/Loading';
+import { USER_INTERVIEW_FORM_URL } from '@/constants/common';
 import {
   DEFAULT_MYPAGE_BANNER_1,
   DEFAULT_MYPAGE_BANNER_2,
@@ -63,7 +64,7 @@ export default function Dashboard() {
       </S.SummarySectionWrapper>
 
       <Link
-        href='https://docs.google.com/forms/d/e/1FAIpQLSeZ-6SkoxlPCltFvF4G20XXEsuyk3FjGFsBN5Kbrh1Rjru2Xg/viewform'
+        href={USER_INTERVIEW_FORM_URL}
         target='_blank'
         rel='noopener noreferrer'
       >

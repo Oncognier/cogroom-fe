@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Upload from '@/assets/icons/upload.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Loading from '@/components/organisms/Loading/Loading';
-import { DEFAULT_DAILY_QUESTION } from '@/constants/common';
+import { DAILY_FEEDBACK_FORM_URL, DEFAULT_DAILY_QUESTION } from '@/constants/common';
 import { DEFAULT_DAILY_BANNER } from '@/constants/image';
 import useGetDailyHasAnsweredQuery from '@/hooks/api/daily/useGetDailyHasAnswered';
 import useGetDailyQuestionsQuery from '@/hooks/api/daily/useGetDailyQuestions';
@@ -65,7 +65,7 @@ export default function Daily() {
       />
 
       <Link
-        href='https://docs.google.com/forms/d/e/1FAIpQLSeZ-6SkoxlPCltFvF4G20XXEsuyk3FjGFsBN5Kbrh1Rjru2Xg/viewform'
+        href={DAILY_FEEDBACK_FORM_URL}
         target='_blank'
         rel='noopener noreferrer'
       >
