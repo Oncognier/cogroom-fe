@@ -17,7 +17,7 @@ export default function AvatarPerson({ type, src = DEFAULT_AVATAR_IMAGE, size, o
       size={size}
       onClick={onClick}
     >
-      <Image
+      <S.AvatarImage
         src={src || DEFAULT_AVATAR_IMAGE}
         alt='avatar'
         fill
