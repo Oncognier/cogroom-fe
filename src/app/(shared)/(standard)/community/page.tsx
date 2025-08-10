@@ -1,9 +1,33 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import { DEFAULT_COMMUNITY_MAIN_BANNER } from '@/constants/image';
 
 import * as S from './page.styled';
+
+export const metadata: Metadata = {
+  title: '생각하는 사람들이 모인 곳',
+  description:
+    '코그룸 심리학 커뮤니티. 혼자서는 닿을 수 없던 깊은 성찰을 함께 나누는 공간입니다. 우리는 코그니어(cognier).',
+  openGraph: {
+    title: '생각하는 사람들이 모인 곳',
+    description:
+      '코그룸 심리학 커뮤니티. 혼자서는 닿을 수 없던 깊은 성찰을 함께 나누는 공간입니다. 우리는 코그니어(cognier).',
+    type: 'website',
+    locale: 'ko_KR',
+    url: 'https://cogroom.com/community',
+    siteName: '코그룸',
+    images: [
+      {
+        url: DEFAULT_COMMUNITY_MAIN_BANNER,
+        width: 1200,
+        height: 630,
+        alt: '코그룸 커뮤니티 메인 배너',
+      },
+    ],
+  },
+};
 
 export default function Community() {
   return (
