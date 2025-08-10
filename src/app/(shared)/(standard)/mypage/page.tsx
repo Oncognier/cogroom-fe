@@ -1,9 +1,15 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Loading from '@/components/organisms/Loading/Loading';
-import { REPORT_IMAGE } from '@/constants/image';
+import {
+  DEFAULT_MYPAGE_BANNER_1,
+  DEFAULT_MYPAGE_BANNER_2,
+  DEFAULT_MYPAGE_BANNER_3,
+  REPORT_IMAGE,
+} from '@/constants/image';
 import useGetUserDashboardQuery from '@/hooks/api/member/useGetUserDashboard';
 
 import ContentRecordToggle from './_components/ContentRecordToggle/ContentRecordToggle';
@@ -27,6 +33,21 @@ export default function Dashboard() {
         <S.ChronotypeMessage>생각하는 방, 코그룸에서 한 방울씩 성장하는 나를 만나봐요</S.ChronotypeMessage>
       </S.TextWrapper>
 
+      <S.BannerWrapper>
+        <S.BannerImage
+          src={DEFAULT_MYPAGE_BANNER_1}
+          alt='마이페이지 첫 번째 배너'
+          width={391}
+          height={244}
+        />
+        <S.BannerImage
+          src={DEFAULT_MYPAGE_BANNER_2}
+          alt='마이페이지 두 번째 배너'
+          width={391}
+          height={244}
+        />
+      </S.BannerWrapper>
+
       <S.Report>
         <Image
           src={REPORT_IMAGE}
@@ -40,6 +61,21 @@ export default function Dashboard() {
         <StreakSummaryCard dailyStreak={data?.dailyStreak || 0} />
         <ContentRecordToggle />
       </S.SummarySectionWrapper>
+
+      <Link
+        href='https://docs.google.com/forms/d/e/1FAIpQLSeZ-6SkoxlPCltFvF4G20XXEsuyk3FjGFsBN5Kbrh1Rjru2Xg/viewform'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        <S.BannerWrapper>
+          <S.BannerImage
+            src={DEFAULT_MYPAGE_BANNER_3}
+            alt='코그룸 유저인터뷰 참여하기 배너'
+            width={798}
+            height={244}
+          />
+        </S.BannerWrapper>
+      </Link>
     </S.DashboardContainer>
   );
 }
