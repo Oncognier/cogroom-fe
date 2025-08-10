@@ -25,7 +25,6 @@ export const BannerWrapper = styled.div`
 `;
 
 export const BannerImage = styled(Image)`
-  flex: 1;
   width: 100%;
   height: auto;
   cursor: pointer;

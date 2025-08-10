@@ -49,6 +49,7 @@ export const DEFAULT_COMMUNITY_MAIN_BANNER: string = 'https://cdn.cogroom.com/de
 // MyPage
 export const DEFAULT_MYPAGE_BANNER_1: string = 'https://cdn.cogroom.com/default_image/MyPage_Banner1.png';
 export const DEFAULT_MYPAGE_BANNER_2: string = 'https://cdn.cogroom.com/default_image/MyPage_Banner2.png';
+export const DEFAULT_MYPAGE_BANNER_3: string = 'https://cdn.cogroom.com/default_image/MyPage_Banner3.png';
 
 // Loading
 export const DEFAULT_LOADING: string = 'https://cdn.cogroom.com/default_image/Loading.png';
