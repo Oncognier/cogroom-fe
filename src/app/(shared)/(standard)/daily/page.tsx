@@ -62,12 +62,12 @@ export default function Daily() {
         onClick={handleShare}
       />
 
-      <a
-        href={DAILY_FEEDBACK_FORM_URL}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <S.BannerWrapper>
+      <S.BannerWrapper>
+        <a
+          href={DAILY_FEEDBACK_FORM_URL}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
           <S.BannerImage
             src={DEFAULT_DAILY_BANNER}
             alt='코그룸 피드백 참여하기 배너'
@@ -75,8 +75,8 @@ export default function Daily() {
             height={244}
             priority
           />
-        </S.BannerWrapper>
-      </a>
+        </a>
+      </S.BannerWrapper>
     </>
   );
 }

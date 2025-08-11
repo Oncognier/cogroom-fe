@@ -34,29 +34,27 @@ export default function Dashboard() {
       </S.TextWrapper>
 
       <S.BannerWrapper>
-        <S.BannerCard>
-          <a
-            href={ONCOGNIER_URL}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <S.BannerImage
-              src={DEFAULT_MYPAGE_BANNER_1}
-              alt='마이페이지 첫 번째 배너'
-              width={391}
-              height={244}
-            />
-          </a>
-        </S.BannerCard>
+        <S.ExternalLink
+          href={ONCOGNIER_URL}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <S.BannerImage
+            src={DEFAULT_MYPAGE_BANNER_1}
+            alt='마이페이지 첫 번째 배너'
+            width={391}
+            height={244}
+          />
+        </S.ExternalLink>
 
-        <S.BannerCard>
+        <S.ExternalLink>
           <S.BannerImage
             src={DEFAULT_MYPAGE_BANNER_2}
             alt='마이페이지 두 번째 배너'
             width={391}
             height={244}
           />
-        </S.BannerCard>
+        </S.ExternalLink>
       </S.BannerWrapper>
 
       <S.Report>
@@ -73,20 +71,20 @@ export default function Dashboard() {
         <ContentRecordToggle />
       </S.SummarySectionWrapper>
 
-      <a
-        href={USER_INTERVIEW_FORM_URL}
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        <S.BannerWrapper>
+      <S.BannerWrapper>
+        <S.ExternalLink
+          href={USER_INTERVIEW_FORM_URL}
+          target='_blank'
+          rel='noopener noreferrer'
+        >
           <S.BannerImage
             src={DEFAULT_MYPAGE_BANNER_3}
             alt='코그룸 유저인터뷰 참여하기 배너'
             width={798}
             height={244}
           />
-        </S.BannerWrapper>
-      </a>
+        </S.ExternalLink>
+      </S.BannerWrapper>
     </S.DashboardContainer>
   );
 }

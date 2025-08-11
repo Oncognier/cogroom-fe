@@ -24,7 +24,7 @@ export const BannerWrapper = styled.div`
   width: 100%;
 `;
 
-export const BannerCard = styled.div`
+export const ExternalLink = styled.a`
   position: relative;
   width: 100%;
 `;
