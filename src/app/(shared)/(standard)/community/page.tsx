@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
-import { DEFAULT_COMMUNITY_MAIN_BANNER } from '@/constants/image';
+import { DEFAULT_COMMUNITY_MAIN_BANNER, DEFAULT_OG_THUMBNAIL } from '@/constants/image';
 
 import * as S from './page.styled';
 
@@ -20,10 +20,10 @@ export const metadata: Metadata = {
     siteName: '코그룸',
     images: [
       {
-        url: DEFAULT_COMMUNITY_MAIN_BANNER,
+        url: DEFAULT_OG_THUMBNAIL,
         width: 1200,
         height: 630,
-        alt: '코그룸 커뮤니티 메인 배너',
+        alt: '코그룸 브랜드 메인 썸네일',
       },
     ],
   },
