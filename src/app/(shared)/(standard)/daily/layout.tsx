@@ -41,7 +41,7 @@ export default async function DailyLayout({ children }: { children: React.ReactN
           { name: '데일리', href: '/daily' },
         ]}
       />
-      {children}
+      <S.MainLayout>{children}</S.MainLayout>
     </S.DailyLayout>
   );
 }
