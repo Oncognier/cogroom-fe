@@ -1,7 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-
 import Upload from '@/assets/icons/upload.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Loading from '@/components/organisms/Loading/Loading';
@@ -64,7 +62,7 @@ export default function Daily() {
         onClick={handleShare}
       />
 
-      <Link
+      <a
         href={DAILY_FEEDBACK_FORM_URL}
         target='_blank'
         rel='noopener noreferrer'
@@ -78,7 +76,7 @@ export default function Daily() {
             priority
           />
         </S.BannerWrapper>
-      </Link>
+      </a>
     </>
   );
 }

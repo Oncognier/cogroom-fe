@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 
 import Loading from '@/components/organisms/Loading/Loading';
 import { ONCOGNIER_URL, USER_INTERVIEW_FORM_URL } from '@/constants/common';
@@ -36,7 +35,7 @@ export default function Dashboard() {
 
       <S.BannerWrapper>
         <S.BannerCard>
-          <Link
+          <a
             href={ONCOGNIER_URL}
             target='_blank'
             rel='noopener noreferrer'
@@ -47,7 +46,7 @@ export default function Dashboard() {
               width={391}
               height={244}
             />
-          </Link>
+          </a>
         </S.BannerCard>
 
         <S.BannerCard>
@@ -74,7 +73,7 @@ export default function Dashboard() {
         <ContentRecordToggle />
       </S.SummarySectionWrapper>
 
-      <Link
+      <a
         href={USER_INTERVIEW_FORM_URL}
         target='_blank'
         rel='noopener noreferrer'
@@ -87,7 +86,7 @@ export default function Dashboard() {
             height={244}
           />
         </S.BannerWrapper>
-      </Link>
+      </a>
     </S.DashboardContainer>
   );
 }
