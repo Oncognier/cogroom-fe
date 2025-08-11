@@ -1,5 +1,7 @@
 import { DeployEnv } from '@/types/common';
 
+export const DEFAULT_OG_THUMBNAIL: string = 'https://cdn.cogroom.com/default_image/OG_Thumbnail.png';
+
 // Avatar
 export const DEFAULT_AVATAR_IMAGE: string = 'https://cdn.cogroom.com/default_image/Profile.png';
 export const DEFAULT_THUMBNAIL: string = 'https://cdn.cogroom.com/default_image/Thumbnail.png';
@@ -33,7 +35,6 @@ export const ENV_LOGO_MAP: Record<DeployEnv, string> = {
 export const DEFAULT_HERO_WAVY: string = 'https://cdn.cogroom.com/default_image/Hero_Wavy.gif';
 export const DEFAULT_DAILY_WATERDROP: string = 'https://cdn.cogroom.com/default_image/Daily_Waterdrop.png';
 export const DEFAULT_COMMUNITY_BANNER: string = 'https://cdn.cogroom.com/default_image/Community_Banner.png';
-export const DEFAULT_HOME_THUMBNAIL: string = 'https://cdn.cogroom.com/default_image/Home_Thumbnail.png';
 
 // Daily
 export const DEFAULT_QUESTION_BACKGROUND: string =
