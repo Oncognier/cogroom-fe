@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: randomImage,
           width: 1200,
           height: 630,
-          alt: '코그룸 데일리 사유 루틴',
+          alt: '코그룸 브랜드 데일리 썸네일',
         },
       ],
     },
