@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
 import { useAlertModalStore } from '@/stores/useModalStore';
+import { getKakaoPixelId } from '@/utils/kakaoPixel';
 
 export const useSignupMutation = (onSuccess?: () => void) => {
   const router = useRouter();
@@ -11,6 +12,13 @@ export const useSignupMutation = (onSuccess?: () => void) => {
   const mutation = useMutation({
     mutationFn: authApi.signup,
     onSuccess: () => {
+      const kakaoPixelId = getKakaoPixelId();
+
+      if (typeof window !== 'undefined' && window.kakaoPixel && kakaoPixelId) {
+        window.kakaoPixel(kakaoPixelId).pageView();
+        window.kakaoPixel(kakaoPixelId).completeRegistration();
+      }
+
       onSuccess?.();
       router.replace('/daily');
     },
