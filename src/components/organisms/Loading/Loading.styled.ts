@@ -22,6 +22,8 @@ export const Loading = styled.div`
 export const Sprite = styled.div<LoadingStyledProps>`
   width: ${({ frameWidth }) => frameWidth}px;
   height: ${({ frameWidth }) => frameWidth}px;
+
+  background-color: transparent;
   background-image: ${({ image }) => `url(${image})`};
   background-repeat: no-repeat;
   background-position: ${({ frame, frameWidth }) => `-${frame * frameWidth}px 0`};
