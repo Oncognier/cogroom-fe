@@ -174,3 +174,9 @@ export const FRAME_DURATION = 800;
 export const DAILY_MAX_LENGTH = 101;
 
 export const DEPLOY_ENV = (process.env.NEXT_PUBLIC_DEPLOY_ENV ?? 'production') as DeployEnv;
+
+export const USER_INTERVIEW_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSeNXXBCdvAPksPRyA2PT3zafIjX6Yc9RZ0RFb0m4mtEEbmMuQ/viewform';
+export const DAILY_FEEDBACK_FORM_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSeZ-6SkoxlPCltFvF4G20XXEsuyk3FjGFsBN5Kbrh1Rjru2Xg/viewform';
+export const ONCOGNIER_URL = 'https://www.oncognier.com/';

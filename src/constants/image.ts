@@ -1,5 +1,7 @@
 import { DeployEnv } from '@/types/common';
 
+export const DEFAULT_OG_THUMBNAIL: string = 'https://cdn.cogroom.com/default_image/OG_Thumbnail.png';
+
 // Avatar
 export const DEFAULT_AVATAR_IMAGE: string = 'https://cdn.cogroom.com/default_image/Profile.png';
 export const DEFAULT_THUMBNAIL: string = 'https://cdn.cogroom.com/default_image/Thumbnail.png';
@@ -38,12 +40,18 @@ export const DEFAULT_COMMUNITY_BANNER: string = 'https://cdn.cogroom.com/default
 export const DEFAULT_QUESTION_BACKGROUND: string =
   'https://cdn.cogroom.com/default_image/Daily_Question_Background.png';
 export const DEFAULT_WATERDROP: string = 'https://cdn.cogroom.com/default_image/Waterdrop.svg';
+export const DEFAULT_DAILY_BANNER: string = 'https://cdn.cogroom.com/default_image/Daily_Banner.png';
 
 // Contents
 export const DEFAULT_CONTENT_MAIN_BANNER: string = 'https://cdn.cogroom.com/default_image/Content_Main_Banner.png';
 
 // Community
 export const DEFAULT_COMMUNITY_MAIN_BANNER: string = 'https://cdn.cogroom.com/default_image/Community_Main_Banner.png';
+
+// MyPage
+export const DEFAULT_MYPAGE_BANNER_1: string = 'https://cdn.cogroom.com/default_image/MyPage_Banner1.png';
+export const DEFAULT_MYPAGE_BANNER_2: string = 'https://cdn.cogroom.com/default_image/MyPage_Banner2.png';
+export const DEFAULT_MYPAGE_BANNER_3: string = 'https://cdn.cogroom.com/default_image/MyPage_Banner3.png';
 
 // Loading
 export const DEFAULT_LOADING: string = 'https://cdn.cogroom.com/default_image/Loading.png';

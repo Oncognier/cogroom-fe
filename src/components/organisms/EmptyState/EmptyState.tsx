@@ -8,9 +8,6 @@ export default function EmptyState({ icon }: EmptyStateProps) {
   return (
     <S.EmptyState>
       <S.Icon>{icon}</S.Icon>
-      <S.MessageWrapper>
-        <S.MainMessage>X</S.MainMessage>
-      </S.MessageWrapper>
     </S.EmptyState>
   );
 }
