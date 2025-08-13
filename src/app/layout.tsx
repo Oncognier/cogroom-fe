@@ -1,4 +1,5 @@
 import { HydrationBoundary, dehydrate, QueryClient } from '@tanstack/react-query';
+import { Metadata } from 'next';
 import Script from 'next/script';
 
 import EmotionRegistry from '@/lib/emotion/EmotionRegistry';
@@ -12,6 +13,14 @@ import { getMetaPixelId } from '@/utils/metaPixel';
 
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
+
+export const metadata: Metadata = {
+  verification: {
+    other: {
+      'naver-site-verification': `${process.env.NEXT_PUBLIC_NAVER_VERIFICATION}`,
+    },
+  },
+};
 
 mockingServer();
 
@@ -30,12 +39,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       className={pretendard.variable}
     >
       <head>
-        {/* Naver Site Verification */}
-        <meta
-          name='naver-site-verification'
-          content='73c39f04c3c8aae6561e065752f3e58c6b8f8756'
-        />
-
         {/* Google Tag Manager */}
         <Script
           id='gtm-head'
