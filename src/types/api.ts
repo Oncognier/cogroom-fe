@@ -11,3 +11,7 @@ export interface PaginationResult<T> {
   last: boolean;
   data: T[];
 }
+
+export interface AxiosMeta {
+  prefetch?: boolean;
+}
