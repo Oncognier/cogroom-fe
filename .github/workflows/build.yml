@@ -7,13 +7,25 @@ on:
       - develop
       - release/**
       - hotfix/**
-      
+      - feat/**
+      - fix/**
+      - refactor/**
+      - ci/**
+      - test/**
+      - chore/**
+
   pull_request:
     branches:
       - main
       - develop
       - release/**
       - hotfix/**
+      - feat/**
+      - fix/**
+      - refactor/**
+      - ci/**
+      - test/**
+      - chore/**
 
 jobs:
   build:
