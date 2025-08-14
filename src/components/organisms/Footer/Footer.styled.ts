@@ -24,13 +24,13 @@ export const FooterWrapper = styled.div`
 export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
   ${({ theme }) => theme.typography.label2.regular};
   color: ${({ theme }) => theme.semantic.label.assistive};

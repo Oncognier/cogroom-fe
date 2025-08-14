@@ -19,7 +19,7 @@ export const DateInputWrapper = styled.div`
   gap: 1.4rem;
 
   padding: 0.8rem 1.2rem;
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.semantic.background.normal.alternative};
 `;
 

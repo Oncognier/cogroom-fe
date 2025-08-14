@@ -12,7 +12,7 @@ export const HeroWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 2rem;
-  margin-bottom: ${({ theme }) => theme.spacing[40]};
+  margin-bottom: 4rem;
 `;
 
 export const HeroImage = styled(Image)`
@@ -59,7 +59,7 @@ export const ButtonWrapper = styled.button`
   gap: 4px;
 
   padding: 1.1rem 2.3rem;
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
   border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
   background-color: ${({ theme }) => theme.semantic.static.white};
   color: ${({ theme }) => theme.semantic.label.normal};

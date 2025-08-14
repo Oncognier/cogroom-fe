@@ -13,7 +13,7 @@ export const CardList = styled.section`
   display: flex;
   justify-content: center;
 
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 `;
 
 export const Card = styled.div`
@@ -69,14 +69,14 @@ export const Icon = styled.div`
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[4]};
+  gap: 0.4rem;
 `;
 
 export const Subtitle = styled.p`

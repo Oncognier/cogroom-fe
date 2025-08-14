@@ -69,7 +69,7 @@ export const Report = styled.div`
   width: 100%;
   height: 41.5rem;
   border: 1px solid rgba(190, 194, 197, 0.4);
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
 
   overflow: hidden;
 `;

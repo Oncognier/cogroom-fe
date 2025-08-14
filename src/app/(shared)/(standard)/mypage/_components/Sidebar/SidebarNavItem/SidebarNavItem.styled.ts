@@ -20,6 +20,6 @@ export const SidebarNavItem = styled.li<SidebarNavItemStyleProps>`
     align-items: center;
 
     height: 3rem;
-    border-radius: ${({ theme }) => theme.radius[4]};
+    border-radius: 0.4rem;
   }
 `;

@@ -5,10 +5,10 @@ import styled from '@emotion/styled';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
   width: 100%;
-  padding: ${({ theme }) => theme.spacing[24]} ${({ theme }) => theme.spacing[32]};
+  padding: 2.4rem 3.2rem;
 `;
 
 export const SettingItem = styled.div`

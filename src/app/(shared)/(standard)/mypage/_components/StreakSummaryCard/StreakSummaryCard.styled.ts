@@ -8,7 +8,7 @@ export const StreakSummaryCard = styled.div`
   align-items: center;
 
   padding: 1.8rem 3rem;
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.semantic.background.elevated.normal};
 `;
 

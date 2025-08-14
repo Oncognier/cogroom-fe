@@ -15,8 +15,8 @@ export const ToggleWrapper = styled.div<{ isOpen: boolean }>`
   padding: 2rem 3rem;
   background-color: ${({ theme }) => theme.semantic.fill.normal};
 
-  border-top-left-radius: ${({ theme }) => theme.radius[12]};
-  border-top-right-radius: ${({ theme }) => theme.radius[12]};
+  border-top-left-radius: 1.2rem;
+  border-top-right-radius: 1.2rem;
   border-bottom-left-radius: ${({ isOpen, theme }) => (isOpen ? '0' : theme.radius[12])};
   border-bottom-right-radius: ${({ isOpen, theme }) => (isOpen ? '0' : theme.radius[12])};
 `;
@@ -31,8 +31,8 @@ export const DropdownWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.semantic.line.neutral};
   border-top: none;
 
-  border-bottom-left-radius: ${({ theme }) => theme.radius[12]};
-  border-bottom-right-radius: ${({ theme }) => theme.radius[12]};
+  border-bottom-left-radius: 1.2rem;
+  border-bottom-right-radius: 1.2rem;
 
   background-color: ${({ theme }) => theme.semantic.background.normal.normal};
 `;

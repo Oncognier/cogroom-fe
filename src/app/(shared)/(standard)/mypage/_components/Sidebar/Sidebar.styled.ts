@@ -7,7 +7,7 @@ import { getInteraction } from '@/styles/interaction';
 export const Sidebar = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[40]};
+  gap: 4rem;
 
   width: 20rem;
 `;
@@ -21,7 +21,7 @@ export const Profile = styled.div`
 export const NameWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[4]};
+  gap: 0.4rem;
 `;
 
 export const UserName = styled.p`
@@ -38,7 +38,7 @@ export const SettingIcon = styled.button`
 export const SidebarNavList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 `;
 
 export const Logout = styled.button`
@@ -50,5 +50,5 @@ export const Logout = styled.button`
   align-items: center;
 
   height: 3rem;
-  border-radius: ${({ theme }) => theme.radius[4]};
+  border-radius: 0.4rem;
 `;
