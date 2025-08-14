@@ -28,9 +28,9 @@ export const radius = {
 } as const;
 
 export const breakpoints = {
-  desktop: '1440px',
-  tablet: '768px',
-  mobile: '480px',
+  desktop: '@media (min-width:1440px)',
+  tablet: '@media (min-width:768px)',
+  mobile: '@media (min-width:375px)',
 } as const;
 
 export const ratio = {
