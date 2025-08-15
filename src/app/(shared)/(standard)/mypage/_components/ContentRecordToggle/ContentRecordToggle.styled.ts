@@ -17,8 +17,8 @@ export const ToggleWrapper = styled.div<{ isOpen: boolean }>`
 
   border-top-left-radius: 1.2rem;
   border-top-right-radius: 1.2rem;
-  border-bottom-left-radius: ${({ isOpen, theme }) => (isOpen ? '0' : theme.radius[12])};
-  border-bottom-right-radius: ${({ isOpen, theme }) => (isOpen ? '0' : theme.radius[12])};
+  border-bottom-left-radius: ${({ isOpen }) => (isOpen ? '0' : '1.2rem')};
+  border-bottom-right-radius: ${({ isOpen }) => (isOpen ? '0' : '1.2rem')};
 `;
 
 export const DropdownWrapper = styled.div`

@@ -28,10 +28,10 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButton
 
   width: ${fillContainer ? '100%' : 'auto'};
   border: none;
-  border-radius: ${theme.radius[12]};
+  border-radius: 1.2rem;
   background-color: ${theme.semantic.primary.normal};
   color: ${theme.semantic.static.white};
-  padding: ${theme.spacing[12]} ${theme.spacing[24]};
+  padding: 1.2rem 2.4rem;
 
   &:hover {
     cursor: pointer;

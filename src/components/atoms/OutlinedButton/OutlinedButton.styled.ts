@@ -24,7 +24,7 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: OutlinedBut
   gap: 4px;
 
   width: ${fillContainer ? '100%' : 'auto'};
-  border-radius: ${theme.radius[12]};
+  border-radius: 1.2rem;
   border: 1px solid ${theme.semantic.primary.normal};
   color: ${theme.semantic.primary.normal};
   padding: 1.1rem 2.3rem;

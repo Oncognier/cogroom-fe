@@ -14,12 +14,12 @@ const commonStyles = (theme: Theme) => css`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: ${theme.spacing[12]};
+  gap: 1.2rem;
 
   border: 1px solid ${theme.semantic.label.assistive};
-  border-radius: ${theme.radius[12]};
+  border-radius: 1.2rem;
   background-color: ${theme.semantic.static.white};
-  padding: ${theme.spacing[12]} ${theme.spacing[16]};
+  padding: 1.2rem 1.6rem;
 
   color: ${theme.semantic.label.normal};
 

@@ -25,7 +25,7 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: TextButtonA
 
   width: ${fillContainer ? '100%' : 'auto'};
   border: none;
-  border-radius: ${theme.radius[4]};
+  border-radius: 0.4rem;
   background-color: transparent;
   padding: 0.3rem 0.4rem;
 
