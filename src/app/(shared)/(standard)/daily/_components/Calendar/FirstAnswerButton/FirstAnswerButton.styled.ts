@@ -23,7 +23,7 @@ export const ButtonWrapper = styled.button`
   width: 100%;
 
   padding: 1.1rem 2.3rem;
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
   border: 1px solid ${({ theme }) => theme.semantic.primary.normal};
   background-color: ${({ theme }) => theme.semantic.static.white};
   color: ${({ theme }) => theme.semantic.primary.normal};

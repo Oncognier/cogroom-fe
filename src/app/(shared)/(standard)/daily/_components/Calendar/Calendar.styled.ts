@@ -6,11 +6,11 @@ export const CalendarCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 
   padding: 3rem 1.5rem 5rem 1.5rem;
 
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.semantic.background.elevated.normal};
 `;
 
@@ -23,7 +23,7 @@ export const CalendarContentWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
 
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 `;
 
 export const Title = styled.h1`
@@ -35,7 +35,7 @@ export const CalendarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 
   max-width: 55rem;
   width: 100%;
@@ -43,14 +43,14 @@ export const CalendarWrapper = styled.div`
   padding: 3rem;
 
   background-color: ${({ theme }) => theme.semantic.static.white};
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
 `;
 
 export const MonthSelector = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing[4]};
+  gap: 0.4rem;
 
   ${({ theme }) => theme.typography.body1.semibold}
   color: ${({ theme }) => theme.semantic.label.normal};

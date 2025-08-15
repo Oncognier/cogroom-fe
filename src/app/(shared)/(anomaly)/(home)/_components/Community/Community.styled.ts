@@ -23,13 +23,13 @@ export const CommunityImage = styled(Image)`
   object-fit: cover;
   z-index: -1;
 
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
 `;
 
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[24]};
+  gap: 2.4rem;
   margin-left: 16rem;
 `;
 
@@ -37,7 +37,7 @@ export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;
 
 export const Title = styled.p`

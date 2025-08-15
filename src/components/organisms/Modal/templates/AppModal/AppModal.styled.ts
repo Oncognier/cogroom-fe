@@ -8,13 +8,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing[32]};
+  gap: 3.2rem;
 
   width: 40.7rem;
   height: 45rem;
   padding: 0 6rem;
   background-color: ${({ theme }) => theme.semantic.background.normal.normal};
-  border-radius: ${({ theme }) => theme.radius[8]};
+  border-radius: 0.8rem;
 `;
 
 export const Close = styled.div`

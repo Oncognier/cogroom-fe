@@ -14,6 +14,6 @@ export const GroupTitle = styled.p`
 
   color: ${({ theme }) => theme.semantic.label.alternative};
   background-color: ${({ theme }) => theme.semantic.fill.normal};
-  padding: ${({ theme }) => theme.spacing[12]} ${({ theme }) => theme.spacing[32]};
-  border-radius: ${({ theme }) => theme.radius[12]};
+  padding: 1.2rem 3.2rem;
+  border-radius: 1.2rem;
 `;

@@ -5,15 +5,15 @@ import styled from '@emotion/styled';
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
-  padding-bottom: ${({ theme }) => theme.spacing[4]};
+  padding-bottom: 0.4rem;
 `;
 
 export const SubTitle = styled.p`
@@ -33,10 +33,10 @@ export const Title = styled.p`
 export const EmailWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
   width: 100%;
-  padding: ${({ theme }) => theme.spacing[8]} ${({ theme }) => theme.spacing[32]};
+  padding: 0.8rem 3.2rem;
   border: 1px solid ${({ theme }) => theme.semantic.line.normal};
   border-radius: 1000px;
 `;
@@ -59,5 +59,5 @@ export const Email = styled.p`
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;

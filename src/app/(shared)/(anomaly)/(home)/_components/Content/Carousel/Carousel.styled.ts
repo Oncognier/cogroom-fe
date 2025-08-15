@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     width: 340px;
-    margin-right: ${({ theme }) => theme.spacing[16]};
+    margin-right: 1.6rem;
   }
 
   .swiper-wrapper {
@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: ${({ theme }) => theme.spacing[40]};
+    margin-top: 4rem;
 
     .swiper-pagination-bullet {
       width: 10px;

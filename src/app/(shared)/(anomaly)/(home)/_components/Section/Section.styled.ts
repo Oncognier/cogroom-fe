@@ -6,8 +6,8 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[8]};
-  padding-bottom: ${({ theme }) => theme.spacing[40]};
+  gap: 0.8rem;
+  padding-bottom: 4rem;
 `;
 
 export const Title = styled.h2`

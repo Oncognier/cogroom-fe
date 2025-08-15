@@ -9,7 +9,7 @@ export const StreakCard = styled.div`
   padding: 1.5rem 0;
 
   background-color: ${theme.semantic.background.elevated.normal};
-  border-radius: ${theme.radius[12]};
+  border-radius: 1.2rem;
 `;
 
 export const ContentWrapper = styled.div`
@@ -33,15 +33,15 @@ export const CountWrapper = styled.div`
   ${theme.typography.body1.semibold}
 
   background-color: ${theme.semantic.static.white};
-  border-radius: ${theme.radius[40]};
-  padding: ${theme.spacing[12]};
-  gap: ${theme.spacing[4]};
+  border-radius: 4rem;
+  padding: 1.2rem;
+  gap: 0.4rem;
 `;
 
 export const MessageWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: ${theme.spacing[12]};
+  gap: 1.2rem;
 `;
 
 export const MessageContinue = styled.p`

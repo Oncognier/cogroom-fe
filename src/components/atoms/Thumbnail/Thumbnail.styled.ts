@@ -19,5 +19,5 @@ export const Thumbnail = styled.div<ThumbnailStyleProps>`
   overflow: hidden;
 
   border: ${({ border, theme }) => (border ? `1px solid ${theme.semantic.line.normal}` : 'none')};
-  border-radius: ${({ radius, theme }) => (radius ? theme.radius[12] : '0')};
+  border-radius: ${({ radius }) => (radius ? '1.2rem' : '0')};
 `;

@@ -13,12 +13,12 @@ export const QuestionCard = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 
-  padding: ${({ theme }) => theme.spacing[16]};
+  padding: 1.6rem;
 
   overflow: hidden;
-  border-radius: ${({ theme }) => theme.radius[16]};
+  border-radius: 1.6rem;
 
   background-color: ${({ theme }) => theme.semantic.fill.dimmer};
   backdrop-filter: blur(6px);
@@ -34,13 +34,13 @@ export const QuestionWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing[12]};
+  gap: 1.2rem;
 
   max-width: 52rem;
   width: 100%;
   height: 19.7rem;
-  padding: ${({ theme }) => theme.spacing[16]};
-  border-radius: ${({ theme }) => theme.radius[16]};
+  padding: 1.6rem;
+  border-radius: 1.6rem;
 
   ${({ theme }) => theme.typography.body1.semibold}
   color: ${({ theme }) => theme.semantic.static.white};
@@ -50,8 +50,8 @@ export const QuestionWrapper = styled.div`
 export const Badge = styled.div`
   display: inline-block;
 
-  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[12]};
-  border-radius: ${({ theme }) => theme.radius[12]};
+  padding: 0.4rem 1.2rem;
+  border-radius: 1.2rem;
 
   ${({ theme }) => theme.typography.label1.semibold}
   color: ${({ theme }) => theme.semantic.static.white};
@@ -77,7 +77,7 @@ export const Form = styled.div`
   padding: 0.6rem 0.8rem 0.6rem 3.2rem;
 
   ${({ theme }) => theme.typography.body1.regular}
-  border-radius: ${({ theme }) => theme.radius[40]};
+  border-radius: 4rem;
 
   background-color: ${({ theme }) => theme.semantic.static.white};
 `;
@@ -88,7 +88,7 @@ export const InputGroup = styled.div`
 
   width: 83%;
 
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;
 
 export const Input = styled.textarea`
@@ -120,13 +120,13 @@ export const SubmitGroup = styled.div`
   display: flex;
   align-items: center;
 
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;
 
 export const CountValue = styled.div<{ isHundredOver?: boolean; isShaking?: boolean }>`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[4]};
+  gap: 0.4rem;
   padding: 0.4rem 1.2rem;
 
   ${({ theme }) => theme.typography.label2.regular}
