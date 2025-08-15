@@ -3,6 +3,8 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
+import { mqMax } from '@/styles/foundation';
+
 export const DashboardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,6 +41,10 @@ export const BannerImage = styled(Image)`
 export const StreakWrapper = styled.div`
   display: flex;
   gap: 0.4rem;
+
+  ${mqMax.lg} {
+    display: none;
+  }
 `;
 
 export const StreakMessage = styled.p`
@@ -54,11 +60,19 @@ export const Highlight = styled.span`
 export const GreetingMessage = styled.p`
   ${({ theme }) => theme.typography.title2.bold};
   color: ${({ theme }) => theme.semantic.label.normal};
+
+  ${mqMax.lg} {
+    display: none;
+  }
 `;
 
 export const ChronotypeMessage = styled.p`
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
+
+  ${mqMax.lg} {
+    display: none;
+  }
 `;
 
 export const Report = styled.div`
@@ -80,4 +94,92 @@ export const SummarySectionWrapper = styled.div`
   gap: 2rem;
 
   width: 100%;
+`;
+
+export const MobileProfile = styled.div`
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+
+  ${mqMax.lg} {
+    display: flex;
+  }
+`;
+
+export const MobileNameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+`;
+
+export const MobileUserName = styled.span`
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  color: ${({ theme }) => theme.semantic.label.normal};
+  flex: 1;
+`;
+
+export const MobileSettingIcon = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: ${({ theme }) => theme.semantic.label.alternative};
+  }
+
+  &:hover svg {
+    color: ${({ theme }) => theme.semantic.label.normal};
+  }
+`;
+
+export const MenuButton = styled.button`
+  display: none;
+  width: 100%;
+  max-width: 720px;
+  height: 64px;
+  padding: 20px 30px;
+  background: ${({ theme }) => theme.semantic.background.normal.normal};
+  border: 1px solid #c7c7c8;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 16px;
+  justify-content: space-between;
+  align-items: center;
+
+  ${mqMax.lg} {
+    display: flex;
+  }
+
+  &:hover {
+    background: ${({ theme }) => theme.semantic.background.normal.alternative};
+  }
+
+  &:active {
+    background: ${({ theme }) => theme.semantic.fill.alternative};
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    color: ${({ theme }) => theme.semantic.label.alternative};
+    flex-shrink: 0;
+  }
+`;
+
+export const MenuButtonText = styled.span`
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2.4rem;
+  color: ${({ theme }) => theme.semantic.label.normal};
 `;
