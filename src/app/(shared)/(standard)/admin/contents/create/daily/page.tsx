@@ -48,49 +48,45 @@ export default function CreateDaily() {
 
       <S.ContentsForm onSubmit={handleSubmit(onSubmit)}>
         <S.SelectWrapper>
-          <S.FixedSelectItem>
-            <Controller
-              name='level'
-              control={control}
-              rules={{ required: '난이도를 선택해주세요.' }}
-              render={({ field }) => (
-                <Select
-                  inputSize='md'
-                  label='난이도'
-                  placeholder='기본'
-                  options={LEVEL_SELECT_OPTIONS}
-                  value={field.value ? [field.value] : []}
-                  onChange={(val) => field.onChange(String(val[0]))}
-                  error={errors.level?.message}
-                  required
-                />
-              )}
-            />
-          </S.FixedSelectItem>
+          <Controller
+            name='level'
+            control={control}
+            rules={{ required: '난이도를 선택해주세요.' }}
+            render={({ field }) => (
+              <Select
+                inputSize='md'
+                label='난이도'
+                placeholder='기본'
+                options={LEVEL_SELECT_OPTIONS}
+                value={field.value ? [field.value] : []}
+                onChange={(val) => field.onChange(String(val[0]))}
+                error={errors.level?.message}
+                required
+              />
+            )}
+          />
 
-          <S.FixedSelectItem>
-            <Controller
-              name='categories'
-              control={control}
-              rules={{ required: '카테고리를 선택해주세요.' }}
-              render={({ field }) => (
-                <Select
-                  inputSize='md'
-                  label='카테고리'
-                  placeholder='카테고리'
-                  isMulti
-                  options={CATEGORY_SELECT_OPTIONS}
-                  value={field.value}
-                  onChange={(val) => {
-                    const parsed = val.map((v) => Number(v)).filter((v) => !isNaN(v));
-                    field.onChange(parsed);
-                  }}
-                  error={errors.categories?.message}
-                  required
-                />
-              )}
-            />
-          </S.FixedSelectItem>
+          <Controller
+            name='categories'
+            control={control}
+            rules={{ required: '카테고리를 선택해주세요.' }}
+            render={({ field }) => (
+              <Select
+                inputSize='md'
+                label='카테고리'
+                placeholder='카테고리'
+                isMulti
+                options={CATEGORY_SELECT_OPTIONS}
+                value={field.value}
+                onChange={(val) => {
+                  const parsed = val.map((v) => Number(v)).filter((v) => !isNaN(v));
+                  field.onChange(parsed);
+                }}
+                error={errors.categories?.message}
+                required
+              />
+            )}
+          />
         </S.SelectWrapper>
 
         <S.InputWrapper>

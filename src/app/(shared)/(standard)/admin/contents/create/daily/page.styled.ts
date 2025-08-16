@@ -49,10 +49,6 @@ export const SelectWrapper = styled.div`
   width: 100%;
 `;
 
-export const FixedSelectItem = styled.div`
-  min-width: 28.55rem;
-`;
-
 export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
