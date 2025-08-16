@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
-import ScrollWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollWrapper/ScrollWrapper';
+import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
@@ -67,7 +67,7 @@ export default function MemberDaily() {
 
   return (
     <S.DailyContainer>
-      <ScrollWrapper>
+      <ScrollXWrapper>
         <S.FilterHeader onSubmit={handleSubmit(onSubmit)}>
           <S.Title>데일리 콘텐츠</S.Title>
 
@@ -174,7 +174,7 @@ export default function MemberDaily() {
             ))
           )}
         </S.MemberDailyTable>
-      </ScrollWrapper>
+      </ScrollXWrapper>
 
       <S.PaginationWrapper>
         <NumberPagination

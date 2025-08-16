@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 
-import ScrollWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollWrapper/ScrollWrapper';
+import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
@@ -56,7 +56,7 @@ export default function Users() {
 
   return (
     <S.UsersContainer>
-      <ScrollWrapper>
+      <ScrollXWrapper>
         <S.FilterHeader>
           <S.TotalMemberCount>전체 회원 ({totalCount.toLocaleString()})</S.TotalMemberCount>
 
@@ -123,7 +123,7 @@ export default function Users() {
             )}
           </S.UserTable>
         </S.TableWrapper>
-      </ScrollWrapper>
+      </ScrollXWrapper>
 
       <S.PaginationButton>
         <NumberPagination
