@@ -23,11 +23,12 @@ const commonStyles = (theme: Theme) => css`
   ${theme.typography.body2.semibold};
 `;
 
-const sizeStyles: Record<TabBarSize, (theme: Theme) => SerializedStyles> = {
-  sm: (theme) => css`
+const sizeStyles: Record<TabBarSize, SerializedStyles> = {
+  sm: css`
     padding: 0.8rem 2rem;
   `,
-  md: (theme) => css`
+
+  md: css`
     padding: 1.2rem 3.2rem;
   `,
 };
@@ -67,7 +68,7 @@ const getFillStyle = (fillContainer: boolean | undefined) =>
 
 export const TabBar = styled.button<TabBarStyleProps>`
   ${({ theme }) => commonStyles(theme)};
-  ${({ theme, size }) => sizeStyles[size](theme)};
+  ${({ size }) => sizeStyles[size]};
   ${({ theme, state }) => getStateStyles(theme, state)};
   ${({ fillContainer }) => getFillStyle(fillContainer)};
   ${({ theme, interactionVariant }) => getInteraction(interactionVariant, theme.semantic.label.normal)(theme)};
