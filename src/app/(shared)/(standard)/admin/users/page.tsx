@@ -86,16 +86,16 @@ export default function Users() {
           />
         </S.FilterHeader>
 
-        <S.TableWrapper>
-          {selectedIds.length > 0 && (
-            <OutlinedButton
-              size='sm'
-              color='primary'
-              label='선택항목 삭제'
-              interactionVariant='normal'
-              onClick={() => deleteMember({ memberIdList: selectedIds })}
-            />
-          )}
+      <S.TableWrapper>
+        {selectedIds.length > 0 && (
+          <OutlinedButton
+            size='sm'
+            color='destructive'
+            label='선택항목 삭제'
+            interactionVariant='normal'
+            onClick={() => deleteMember({ memberIdList: selectedIds })}
+          />
+        )}
 
           <S.UserTable>
             <UserTableHeader
