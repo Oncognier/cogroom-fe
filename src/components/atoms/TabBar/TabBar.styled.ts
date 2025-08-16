@@ -25,11 +25,11 @@ const commonStyles = (theme: Theme) => css`
 
 const sizeStyles: Record<TabBarSize, SerializedStyles> = {
   sm: css`
-    padding: 0.8rem 2rem;
+    padding: 0.8rem 0;
   `,
 
   md: css`
-    padding: 1.2rem 3.2rem;
+    padding: 1.2rem 0;
   `,
 };
 
