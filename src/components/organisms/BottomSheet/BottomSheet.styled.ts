@@ -4,7 +4,6 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { mqMax } from '@/styles/foundation';
-import { theme } from '@/styles/theme';
 
 const slideUp = keyframes`
   from {
@@ -37,63 +36,60 @@ export const BottomSheetOverlay = styled.div`
   align-items: flex-end;
   justify-content: center;
 
-  /* 데스크톱에서는 숨기기 */
   ${mqMax.desktop} {
     display: flex;
-  }
-
-  @media (min-width: 1440px) {
-    display: none;
   }
 `;
 
 export const BottomSheetContainer = styled.div<{ isOpen: boolean }>`
-  background: #ffffff;
-  border-radius: 12px 12px 0 0;
-  border: 1px solid rgba(194, 196, 200, 0.43);
   width: 100%;
   max-height: 80vh;
   overflow: hidden;
 
+  background: ${({ theme }) => theme.semantic.static.white};
+  border-radius: 1.2rem 1.2rem 0 0;
+  border: 0.1rem solid rgba(194, 196, 200, 0.43);
+
   animation: ${({ isOpen }) => (isOpen ? slideUp : slideDown)} 0.3s ease-out forwards;
 
   ${mqMax.tablet} {
-    border-radius: 12px 12px 0 0;
+    border-radius: 1.2rem 1.2rem 0 0;
     width: 100%;
-    margin: 0;
   }
 `;
 
 export const HandleBar = styled.div`
-  width: 52px;
-  height: 3px;
-  background: #d9d9d9;
-  border-radius: 12px;
-  /* margin: 0px auto; */
+  width: 5.2rem;
+  height: 0.3rem;
+
+  background: ${({ theme }) => theme.semantic.label.assistive};
 `;
 
 export const TitleSection = styled.div`
-  width: 100%;
-  padding: 0px;
-  height: 69px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
+  gap: 1.2rem;
+
+  width: 100%;
+  height: 6.9rem;
+
+  border-bottom: 0.1rem solid ${({ theme }) => theme.semantic.line.normal};
 `;
 
 export const Title = styled.h2`
   ${({ theme }) => theme.typography.headline1.semibold};
-  color: #000000;
+
+  color: ${({ theme }) => theme.semantic.static.black};
 `;
 
 export const MenuSection = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 12px;
-  padding-bottom: 40px;
+
+  padding-top: 1.2rem;
+  padding-bottom: 4rem;
 `;
 
 export const MenuList = styled.div`
@@ -101,5 +97,6 @@ export const MenuList = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   gap: 2.4rem;
 `;

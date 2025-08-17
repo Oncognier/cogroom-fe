@@ -33,7 +33,7 @@ export const Content = styled.div`
 export const MobileContainer = styled.div`
   display: none;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.6rem;
 
   ${mqMax.desktop} {
     display: flex;
@@ -43,14 +43,14 @@ export const MobileContainer = styled.div`
 export const MobileProfileSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.6rem;
   width: 100%;
 `;
 
 export const MobileNameWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.8rem;
   flex: 1;
 `;
 
@@ -64,7 +64,7 @@ export const MobileUserWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 4px;
+  gap: 0.4rem;
 `;
 
 export const MobileSettingIcon = styled.button`
@@ -72,8 +72,8 @@ export const MobileSettingIcon = styled.button`
   align-items: center;
   justify-content: center;
 
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
 
   background: transparent;
   border: none;
@@ -81,8 +81,8 @@ export const MobileSettingIcon = styled.button`
   cursor: pointer;
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 2rem;
+    height: 2rem;
     color: ${({ theme }) => theme.semantic.label.alternative};
   }
 
@@ -96,14 +96,14 @@ export const MobileMenuButton = styled.button`
   justify-content: space-between;
   align-items: center;
 
-  padding: 20px 30px;
-  max-width: 720px;
+  padding: 2rem 3rem;
+  max-width: 72rem;
   width: 100%;
-  height: 64px;
+  height: 6.4rem;
 
   background: ${({ theme }) => theme.semantic.background.normal.normal};
-  border: 1px solid #c7c7c8;
-  border-radius: 12px;
+  border: 0.1rem solid ${({ theme }) => theme.semantic.line.normal};
+  border-radius: 1.2rem;
 
   cursor: pointer;
 
@@ -120,8 +120,8 @@ export const MobileMenuButton = styled.button`
   }
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: 2.4rem;
+    height: 2.4rem;
     color: ${({ theme }) => theme.semantic.label.alternative};
     flex-shrink: 0;
   }
