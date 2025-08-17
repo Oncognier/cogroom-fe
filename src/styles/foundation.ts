@@ -5,9 +5,24 @@ import { css } from '@emotion/react';
 import { Shadow } from './types';
 
 export const breakpoints = {
-  desktop: '@media (min-width:1440px)',
-  tablet: '@media (min-width:768px)',
-  mobile: '@media (min-width:375px)',
+  mobile: 375,
+  tablet: 768,
+  desktop: 1024,
+} as const;
+
+const minQuery = (px: number) => `@media (min-width:${px}px)`;
+const maxQuery = (pxExclusive: number) => `@media (max-width:${pxExclusive - 1}px)`;
+
+export const mqMin = {
+  mobile: minQuery(breakpoints.mobile),
+  tablet: minQuery(breakpoints.tablet),
+  desktop: minQuery(breakpoints.desktop),
+} as const;
+
+export const mqMax = {
+  mobile: maxQuery(breakpoints.mobile),
+  tablet: maxQuery(breakpoints.tablet),
+  desktop: maxQuery(breakpoints.desktop),
 } as const;
 
 export const ratio = {

@@ -1,13 +1,15 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+
 import { HEADER_NAV_ITEMS } from '@/constants/common';
 
 import * as S from './NavList.styled';
 import NavItem from '../NavItem/NavItem';
 
-interface NavListProps {
-  pathname: string;
-}
+export default function NavList() {
+  const pathname = usePathname() || '/';
 
-export default function NavList({ pathname }: NavListProps) {
   return (
     <S.NavList>
       {HEADER_NAV_ITEMS.map(({ label, href }) => (
