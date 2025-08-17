@@ -2,12 +2,15 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
 import { theme } from '@/styles/theme';
 
 export const StreakCard = styled.div`
   display: flex;
-  padding: 1.5rem 0;
+  justify-content: center;
 
+  width: 100%;
+  padding: 1.5rem 0;
   background-color: ${theme.semantic.background.elevated.normal};
   border-radius: 1.2rem;
 `;
@@ -21,6 +24,10 @@ export const ContentWrapper = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 0 1.5rem;
+
+  ${mqMax.tablet} {
+    display: none;
+  }
 `;
 
 export const CountWrapper = styled.div`
@@ -41,6 +48,18 @@ export const CountWrapper = styled.div`
 export const MessageWrapper = styled.div`
   display: flex;
   align-items: center;
+  gap: 1.6rem;
+`;
+
+export const StreakWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+`;
+
+export const StreakInfoWrapper = styled.div`
+  display: flex;
+  align-items: center;
   gap: 1.2rem;
 `;
 
@@ -50,7 +69,7 @@ export const MessageContinue = styled.p`
 `;
 
 export const MessageDate = styled.p`
-  ${theme.typography.label1.regular}
+  ${theme.typography.label1.semibold}
   color: ${theme.semantic.label.normal};
 `;
 
@@ -66,4 +85,17 @@ export const DateText = styled.div`
 
   ${theme.typography.label1.regular}
   color: ${theme.semantic.label.alternative};
+`;
+
+export const MobileWrapper = styled.div`
+  display: none;
+
+  ${mqMax.tablet} {
+    display: flex;
+  }
+
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.2rem;
 `;
