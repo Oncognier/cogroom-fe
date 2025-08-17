@@ -2,6 +2,7 @@ import { COGPOINT_CARDS } from '@/constants/common';
 
 import * as S from './Cogpoint.styled';
 import Section from '../Section/Section';
+import CogpointSwiper from './CogpointSwiper/CogpointSwiper';
 
 export default function Cogpoint() {
   return (
@@ -19,13 +20,17 @@ export default function Cogpoint() {
                 </S.Icon>
               </S.IconWrapper>
               <S.TextWrapper>
-                <S.Subtitle>{card.subtitle}</S.Subtitle>
-                <S.Title>{card.title}</S.Title>
+                <S.TitleWrapper>
+                  <S.Subtitle>{card.subtitle}</S.Subtitle>
+                  <S.Title>{card.title}</S.Title>
+                </S.TitleWrapper>
                 <S.Content>{card.content}</S.Content>
               </S.TextWrapper>
             </S.Card>
           ))}
         </S.CardList>
+
+        <CogpointSwiper />
       </S.Wrapper>
     </Section>
   );

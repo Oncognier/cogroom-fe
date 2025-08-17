@@ -4,21 +4,46 @@ import styled from '@emotion/styled';
 
 import { mqMax, mqMin } from '@/styles/foundation';
 
-export const Wrapper = styled.div`
+const container = `
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
   padding: 0 2rem;
 `;
 
-export const CardList = styled.section`
-  display: none;
-  justify-content: center;
-
-  gap: 1.6rem;
+export const MobileSwiper = styled.div`
+  ${container};
 
   ${mqMin.tablet} {
+    display: none;
+  }
+
+  .swiper-wrapper {
     display: flex;
+    justify-content: center;
+  }
+
+  .swiper-slide:last-child {
+    margin-right: 0 !important;
+  }
+
+  .swiper-pagination {
+    position: relative;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+
+    .swiper-pagination-bullet {
+      width: 8px;
+      height: 8px;
+      background: ${({ theme }) => theme.semantic.label.assistive};
+      opacity: 1;
+      transition: background 0.3s ease;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: ${({ theme }) => theme.semantic.static.black};
+    }
   }
 `;
 
@@ -32,7 +57,6 @@ export const Card = styled.div`
   height: 30rem;
   border-radius: 4rem;
   ${({ theme }) => theme.shadow.emphasize};
-
   background-color: ${({ theme }) => theme.semantic.background.elevated.normal};
 
   transition:
@@ -62,7 +86,6 @@ export const IconWrapper = styled.div`
 
   width: 6rem;
   height: 6rem;
-
   padding: 1.6rem;
 
   box-shadow:
@@ -123,7 +146,6 @@ export const Subtitle = styled.p`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.headline2.semibold};
   color: ${({ theme }) => theme.semantic.static.black};
-
   white-space: pre-line;
 
   ${mqMax.desktop} {
@@ -134,7 +156,6 @@ export const Title = styled.p`
 export const Content = styled.p`
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
-
   white-space: pre-line;
 
   ${mqMax.desktop} {
