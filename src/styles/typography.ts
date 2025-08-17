@@ -85,6 +85,16 @@ const baseTextStyle = {
     line-height: 1.4rem;
     letter-spacing: 0.0311em;
   `,
+  mini1: css`
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.0057em;
+  `,
+  mini2: css`
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+    letter-spacing: 0.0145em;
+  `,
 };
 
 const weights = {
@@ -317,6 +327,18 @@ export const typography: Typography = {
     semibold: css`
       ${baseTextStyle.caption2};
       font-weight: ${weights.semibold};
+    `,
+  },
+  mini1: {
+    semibold: css`
+      ${baseTextStyle.mini1};
+      font-weight: ${weights.semibold};
+    `,
+  },
+  mini2: {
+    regular: css`
+      ${baseTextStyle.mini2};
+      font-weight: ${weights.regular};
     `,
   },
 };

@@ -3,6 +3,8 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
+import { mqMax } from '@/styles/foundation';
+
 export const Wrapper = styled.div`
   position: relative;
 
@@ -53,4 +55,12 @@ export const SubTitle = styled.p`
 export const Content = styled.div`
   ${({ theme }) => theme.typography.body2.regular}
   color: ${({ theme }) => theme.semantic.label.neutral};
+`;
+
+export const MobileBreak = styled.br`
+  display: none;
+
+  ${mqMax.tablet} {
+    display: inline;
+  }
 `;

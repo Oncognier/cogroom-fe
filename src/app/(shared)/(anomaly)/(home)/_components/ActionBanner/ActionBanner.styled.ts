@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const Container = styled.div`
   position: fixed;
   bottom: 3.4rem;
@@ -28,6 +30,13 @@ export const Wrapper = styled.div`
 
   background-color: ${({ theme }) => theme.semantic.primary.normal};
   border-radius: 2rem;
+
+  ${mqMax.desktop} {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+    height: 10.8rem;
+  }
 `;
 
 export const TextWrapper = styled.div`

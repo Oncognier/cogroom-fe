@@ -3,6 +3,8 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
+import { mqMax } from '@/styles/foundation';
+
 export const HeroWrapper = styled.div`
   position: relative;
   height: 50rem;
@@ -43,11 +45,21 @@ export const TitleWrapper = styled.div`
 `;
 
 export const SubTitle = styled.p`
-  ${({ theme }) => theme.typography.body1.semibold}
+  ${({ theme }) => theme.typography.body1.semibold};
+  text-align: center;
 `;
 
 export const Title = styled.p`
-  ${({ theme }) => theme.typography.title1.bold}
+  ${({ theme }) => theme.typography.title1.bold};
+  text-align: center;
+`;
+
+export const MobileBreak = styled.br`
+  display: none;
+
+  ${mqMax.desktop} {
+    display: inline;
+  }
 `;
 
 export const ButtonWrapper = styled.button`
@@ -91,12 +103,15 @@ export const ButtonWrapper = styled.button`
 export const Icon = styled.div`
   position: absolute;
   right: 1.6rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   opacity: 0;
   transform: translateX(5px);
   transition: all 0.3s ease;
+
   & > svg {
     width: 1.2em;
     height: 1.2em;
