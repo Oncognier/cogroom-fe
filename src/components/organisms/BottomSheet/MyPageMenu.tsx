@@ -2,6 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 
+import TextButton from '@/components/atoms/TextButton/TextButton';
+import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
+
 import * as S from './BottomSheet.styled';
 
 interface MyPageMenuProps {
@@ -18,11 +21,7 @@ export default function MyPageMenu({ onClose }: MyPageMenuProps) {
 
   const menuItems = [
     { label: '마이 대시보드', path: '/mypage' },
-    { label: '개인정보 설정', path: '/mypage/setting' },
-    { label: '학습 및 활동기록', path: '/mypage/activity' },
-    { label: '구매 기록', path: '/mypage/purchase' },
-    { label: '커뮤니티 활동', path: '/mypage/community' },
-    { label: '푸시 및 카톡 알림', path: '/mypage/notification' },
+    ...SIDEBAR_NAV_ITEMS.map((item) => ({ label: item.label, path: item.href })),
     { label: '로그아웃', path: '#logout' },
   ];
 
@@ -35,12 +34,15 @@ export default function MyPageMenu({ onClose }: MyPageMenuProps) {
       <S.MenuSection>
         <S.MenuList>
           {menuItems.map((item) => (
-            <S.MenuItem
+            <TextButton
               key={item.path}
+              label={item.label}
+              color='assistive'
+              size='md'
+              interactionVariant='normal'
+              isDisabled={false}
               onClick={() => handleMenuClick(item.path)}
-            >
-              {item.label}
-            </S.MenuItem>
+            />
           ))}
         </S.MenuList>
       </S.MenuSection>

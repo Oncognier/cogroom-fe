@@ -38,7 +38,7 @@ export const BottomSheetOverlay = styled.div`
   justify-content: center;
 
   /* 데스크톱에서는 숨기기 */
-  ${mqMax.lg} {
+  ${mqMax.desktop} {
     display: flex;
   }
 
@@ -57,7 +57,7 @@ export const BottomSheetContainer = styled.div<{ isOpen: boolean }>`
 
   animation: ${({ isOpen }) => (isOpen ? slideUp : slideDown)} 0.3s ease-out forwards;
 
-  ${mqMax.md} {
+  ${mqMax.tablet} {
     border-radius: 12px 12px 0 0;
     width: 100%;
     margin: 0;
@@ -101,22 +101,5 @@ export const MenuList = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-`;
-
-export const MenuItem = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  background: transparent;
-  border: none;
-  border-radius: 12px;
-  font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 2.4rem;
-  letter-spacing: 0.0057em;
-  color: ${theme.semantic.label.alternative};
-  cursor: pointer;
-  height: 22px;
+  gap: 2.4rem;
 `;

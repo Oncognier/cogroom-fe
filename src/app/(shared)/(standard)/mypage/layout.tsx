@@ -24,7 +24,7 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
     <S.MyPageLayout>
       <MyPageBreadcrumb />
 
-      <S.MobileContianer>
+      <S.MobileContainer>
         <S.MobileProfileSection>
           <AvatarPerson
             type='icon'
@@ -45,7 +45,7 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
           <S.MobileMenuButtonText>{currentPageName}</S.MobileMenuButtonText>
           <ChevronDown />
         </S.MobileMenuButton>
-      </S.MobileContianer>
+      </S.MobileContainer>
 
       <S.ContentLayout>
         <Sidebar />

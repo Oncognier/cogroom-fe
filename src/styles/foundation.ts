@@ -25,18 +25,6 @@ export const mqMax = {
   desktop: maxQuery(breakpoints.desktop),
 } as const;
 
-export const mq = {
-  lg: `@media (min-width:${breakpoints.desktop}px)`,
-  md: `@media (min-width:${breakpoints.tablet}px)`,
-  sm: `@media (min-width:${breakpoints.mobile}px)`,
-};
-
-export const mqMax = {
-  lg: '@media (max-width: 1439px)',
-  md: '@media (max-width: 767px)',
-  sm: '@media (max-width: 374px)',
-};
-
 export const ratio = {
   '1_1': '1 / 1',
   '1_2': '1 / 2',

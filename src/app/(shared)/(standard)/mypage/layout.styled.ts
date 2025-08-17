@@ -9,8 +9,8 @@ export const MyPageLayout = styled.div`
   flex-direction: column;
   gap: 5rem;
 
-  ${mqMax.lg} {
-    gap: 27px;
+  ${mqMax.desktop} {
+    gap: 2.7rem;
   }
 `;
 
@@ -18,7 +18,7 @@ export const ContentLayout = styled.div`
   display: flex;
   gap: 6.2rem;
 
-  ${mqMax.lg} {
+  ${mqMax.desktop} {
     > div:first-of-type {
       display: none;
     }
@@ -30,21 +30,21 @@ export const Content = styled.div`
   flex: 1;
 `;
 
-export const MobileContianer = styled.div`
+export const MobileContainer = styled.div`
   display: none;
   flex-direction: column;
   gap: 16px;
 
-  ${mqMax.lg} {
+  ${mqMax.desktop} {
     display: flex;
   }
 `;
 
 export const MobileProfileSection = styled.div`
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  width: 100%;
 `;
 
 export const MobileNameWrapper = styled.div`
@@ -71,10 +71,13 @@ export const MobileSettingIcon = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 24px;
   height: 24px;
+
   background: transparent;
   border: none;
+
   cursor: pointer;
 
   svg {
@@ -90,18 +93,21 @@ export const MobileSettingIcon = styled.button`
 
 export const MobileMenuButton = styled.button`
   display: none;
-  width: 100%;
-  max-width: 720px;
-  height: 64px;
-  padding: 20px 30px;
-  background: ${({ theme }) => theme.semantic.background.normal.normal};
-  border: 1px solid #c7c7c8;
-  border-radius: 12px;
-  cursor: pointer;
   justify-content: space-between;
   align-items: center;
 
-  ${mqMax.lg} {
+  padding: 20px 30px;
+  max-width: 720px;
+  width: 100%;
+  height: 64px;
+
+  background: ${({ theme }) => theme.semantic.background.normal.normal};
+  border: 1px solid #c7c7c8;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  ${mqMax.desktop} {
     display: flex;
   }
 
@@ -122,8 +128,7 @@ export const MobileMenuButton = styled.button`
 `;
 
 export const MobileMenuButtonText = styled.span`
-  font-size: 1.6rem;
-  font-weight: 500;
-  line-height: 2.4rem;
+  ${({ theme }) => theme.typography.label1.semibold};
+
   color: ${({ theme }) => theme.semantic.label.normal};
 `;

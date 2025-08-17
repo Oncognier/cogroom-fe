@@ -34,6 +34,7 @@ export const ExternalLink = styled.a`
 export const BannerImage = styled(Image)`
   width: 100%;
   height: auto;
+
   cursor: pointer;
   object-fit: cover;
 `;
@@ -42,7 +43,7 @@ export const StreakWrapper = styled.div`
   display: flex;
   gap: 0.4rem;
 
-  ${mqMax.lg} {
+  ${mqMax.desktop} {
     display: none;
   }
 `;
@@ -61,7 +62,7 @@ export const GreetingMessage = styled.p`
   ${({ theme }) => theme.typography.title2.bold};
   color: ${({ theme }) => theme.semantic.label.normal};
 
-  ${mqMax.lg} {
+  ${mqMax.desktop} {
     display: none;
   }
 `;
@@ -70,7 +71,7 @@ export const ChronotypeMessage = styled.p`
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
 
-  ${mqMax.lg} {
+  ${mqMax.desktop} {
     display: none;
   }
 `;
@@ -102,7 +103,7 @@ export const MobileProfile = styled.div`
   gap: 12px;
   padding: 16px 0;
 
-  ${mqMax.lg} {
+  ${mqMax.desktop} {
     display: flex;
   }
 `;
@@ -115,9 +116,7 @@ export const MobileNameWrapper = styled.div`
 `;
 
 export const MobileUserName = styled.span`
-  font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 2.4rem;
+  ${({ theme }) => theme.typography.heading2.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};
   flex: 1;
 `;
@@ -126,10 +125,13 @@ export const MobileSettingIcon = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 24px;
   height: 24px;
+
   background: transparent;
   border: none;
+
   cursor: pointer;
 
   svg {
@@ -145,19 +147,23 @@ export const MobileSettingIcon = styled.button`
 
 export const MenuButton = styled.button`
   display: none;
-  width: 100%;
-  max-width: 720px;
-  height: 64px;
-  padding: 20px 30px;
-  background: ${({ theme }) => theme.semantic.background.normal.normal};
-  border: 1px solid #c7c7c8;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-top: 16px;
   justify-content: space-between;
   align-items: center;
 
-  ${mqMax.lg} {
+  width: 100%;
+  height: 64px;
+  max-width: 720px;
+
+  padding: 20px 30px;
+  margin-top: 16px;
+
+  background: ${({ theme }) => theme.semantic.background.normal.normal};
+  border: 1px solid #c7c7c8;
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  ${mqMax.desktop} {
     display: flex;
   }
 
@@ -178,8 +184,7 @@ export const MenuButton = styled.button`
 `;
 
 export const MenuButtonText = styled.span`
-  font-size: 1.6rem;
-  font-weight: 500;
-  line-height: 2.4rem;
+  ${({ theme }) => theme.typography.label1.semibold};
+
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
