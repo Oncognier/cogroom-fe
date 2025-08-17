@@ -15,7 +15,7 @@ export default function Streak({ dailyStreak }: StreakProps) {
 
   return (
     <S.StreakCard>
-      <S.ContentWrapper>
+      <S.DesktopWrapper>
         <S.CountWrapper>
           <Image
             src={DEFAULT_WATERDROP}
@@ -34,7 +34,7 @@ export default function Streak({ dailyStreak }: StreakProps) {
         </S.MessageWrapper>
 
         <S.DateText>{formattedDate}</S.DateText>
-      </S.ContentWrapper>
+      </S.DesktopWrapper>
 
       <S.MobileWrapper>
         <S.StreakInfoWrapper>

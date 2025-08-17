@@ -15,7 +15,7 @@ export const StreakCard = styled.div`
   border-radius: 1.2rem;
 `;
 
-export const ContentWrapper = styled.div`
+export const DesktopWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -89,13 +89,12 @@ export const DateText = styled.div`
 
 export const MobileWrapper = styled.div`
   display: none;
-
-  ${mqMax.tablet} {
-    display: flex;
-  }
-
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 1.2rem;
+
+  ${mqMax.tablet} {
+    display: flex;
+  }
 `;
