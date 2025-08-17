@@ -90,7 +90,7 @@ export default function Users() {
           {selectedIds.length > 0 && (
             <OutlinedButton
               size='sm'
-              color='primary'
+              color='destructive'
               label='선택항목 삭제'
               interactionVariant='normal'
               onClick={() => deleteMember({ memberIdList: selectedIds })}

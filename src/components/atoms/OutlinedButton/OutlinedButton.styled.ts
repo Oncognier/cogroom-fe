@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
-type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive';
+type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive' | 'destructive';
 type OutlinedButtonSize = 'sm' | 'md' | 'lg';
 type OutlinedButtonAlign = 'center' | 'space-between';
 
@@ -71,6 +71,11 @@ const colorStyles: Record<OutlinedButtonColor, (theme: Theme) => SerializedStyle
   assistive: (theme) => css`
     border-color: ${theme.semantic.label.assistive};
     color: ${theme.semantic.label.normal};
+  `,
+
+  destructive: (theme) => css`
+    border-color: ${theme.semantic.status.destructive};
+    color: ${theme.semantic.status.destructive};
   `,
 };
 
