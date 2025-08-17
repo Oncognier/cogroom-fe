@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import CheckCircle from '@/assets/icons/checkcircle-fill.svg';
@@ -84,10 +83,11 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
 
   return (
     <S.QuestionCard>
-      <Image
+      <S.BackgroundImage
         src={DEFAULT_QUESTION_BACKGROUND}
         alt='streakBackground'
-        fill
+        width={1060}
+        height={522}
       />
       <S.QuestionWrapper>
         <S.Badge>오늘의 질문</S.Badge>
