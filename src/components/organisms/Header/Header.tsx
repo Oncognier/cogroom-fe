@@ -6,18 +6,14 @@ import RightNav from './RightNav/RightNav';
 export default async function Header() {
   return (
     <S.Header>
-      <S.HeaderBar>
-        <S.HeaderInner>
-          <LeftNav />
-          <RightNav />
-        </S.HeaderInner>
-      </S.HeaderBar>
+      <S.ContentWrapper>
+        <LeftNav />
+        <RightNav />
+      </S.ContentWrapper>
 
-      <S.HeaderBar>
-        <S.MobileContainer>
-          <NavList />
-        </S.MobileContainer>
-      </S.HeaderBar>
+      <S.MobileWrapper>
+        <NavList />
+      </S.MobileWrapper>
     </S.Header>
   );
 }
