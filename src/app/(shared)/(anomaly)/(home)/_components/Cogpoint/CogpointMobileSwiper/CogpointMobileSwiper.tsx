@@ -5,12 +5,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { COGPOINT_CARDS } from '@/constants/common';
 
-import * as S from './CogpointSwiper.styled';
+import * as S from './CogpointMobileSwiper.styled';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-export default function CogpointSwiper() {
+export default function CogpointMobileSwiper() {
   return (
     <S.MobileSwiper>
       <Swiper

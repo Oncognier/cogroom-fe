@@ -2,7 +2,7 @@ import { COGPOINT_CARDS } from '@/constants/common';
 
 import * as S from './Cogpoint.styled';
 import Section from '../Section/Section';
-import CogpointSwiper from './CogpointSwiper/CogpointSwiper';
+import CogpointMobileSwiper from './CogpointMobileSwiper/CogpointMobileSwiper';
 
 export default function Cogpoint() {
   return (
@@ -35,7 +35,7 @@ export default function Cogpoint() {
           ))}
         </S.CardList>
 
-        <CogpointSwiper />
+        <CogpointMobileSwiper />
       </S.Wrapper>
     </Section>
   );
