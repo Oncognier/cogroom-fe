@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
+import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
@@ -66,112 +67,114 @@ export default function MemberDaily() {
 
   return (
     <S.DailyContainer>
-      <S.FilterHeader onSubmit={handleSubmit(onSubmit)}>
-        <S.Title>데일리 콘텐츠</S.Title>
+      <ScrollXWrapper>
+        <S.FilterHeader onSubmit={handleSubmit(onSubmit)}>
+          <S.Title>데일리 콘텐츠</S.Title>
 
-        <Controller
-          name='category'
-          control={control}
-          render={({ field }) => (
-            <S.SelectWrapper>
-              <Select
-                inputSize='sm'
-                placeholder='카테고리 선택'
-                isMulti
-                options={CATEGORY_SELECT_OPTIONS}
-                value={field.value}
-                onChange={field.onChange}
-              />
-            </S.SelectWrapper>
-          )}
-        />
-
-        <Controller
-          name='level'
-          control={control}
-          render={({ field }) => (
-            <S.SelectWrapper>
-              <Select
-                inputSize='sm'
-                placeholder='난이도 선택'
-                isMulti
-                options={LEVEL_SELECT_OPTIONS}
-                value={field.value}
-                onChange={field.onChange}
-              />
-            </S.SelectWrapper>
-          )}
-        />
-
-        <Controller
-          name='startDate'
-          control={control}
-          render={({ field: startField }) => (
-            <Controller
-              name='endDate'
-              control={control}
-              render={({ field: endField }) => (
-                <SelectDate
-                  selectedStartDate={startField.value}
-                  selectedEndDate={endField.value}
-                  onStartDateChange={startField.onChange}
-                  onEndDateChange={endField.onChange}
+          <Controller
+            name='category'
+            control={control}
+            render={({ field }) => (
+              <S.SelectWrapper>
+                <Select
+                  inputSize='sm'
+                  placeholder='카테고리 선택'
+                  isMulti
+                  options={CATEGORY_SELECT_OPTIONS}
+                  value={field.value}
+                  onChange={field.onChange}
                 />
-              )}
-            />
-          )}
-        />
+              </S.SelectWrapper>
+            )}
+          />
 
-        <Controller
-          name='keyword'
-          control={control}
-          render={({ field }) => (
-            <S.SearchWrapper>
-              <Search
-                inputSize='sm'
-                placeholder='키워드 / 작성자 검색'
-                interactionVariant='normal'
-                value={field.value}
-                onChange={(e) => field.onChange(e.target.value)}
+          <Controller
+            name='level'
+            control={control}
+            render={({ field }) => (
+              <S.SelectWrapper>
+                <Select
+                  inputSize='sm'
+                  placeholder='난이도 선택'
+                  isMulti
+                  options={LEVEL_SELECT_OPTIONS}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              </S.SelectWrapper>
+            )}
+          />
+
+          <Controller
+            name='startDate'
+            control={control}
+            render={({ field: startField }) => (
+              <Controller
+                name='endDate'
+                control={control}
+                render={({ field: endField }) => (
+                  <SelectDate
+                    selectedStartDate={startField.value}
+                    selectedEndDate={endField.value}
+                    onStartDateChange={startField.onChange}
+                    onEndDateChange={endField.onChange}
+                  />
+                )}
               />
-            </S.SearchWrapper>
+            )}
+          />
+
+          <Controller
+            name='keyword'
+            control={control}
+            render={({ field }) => (
+              <S.SearchWrapper>
+                <Search
+                  inputSize='sm'
+                  placeholder='키워드 / 작성자 검색'
+                  interactionVariant='normal'
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </S.SearchWrapper>
+            )}
+          />
+
+          <OutlinedButton
+            type='submit'
+            size='sm'
+            color='primary'
+            label='검색하기'
+            interactionVariant='normal'
+          />
+        </S.FilterHeader>
+
+        <S.MemberDailyTable>
+          <DailyTableHeader
+            checked={isAllSelected}
+            onCheckToggle={(ck) => setSelectedIds(ck ? currentPageContentIds : [])}
+          />
+
+          {isLoading ? (
+            <Loading />
+          ) : contents.length === 0 ? (
+            <EmptyState icon={<ScriptX />} />
+          ) : (
+            contents.map((d) => (
+              <DailyListRow
+                key={d.assignedQuestionId}
+                daily={d}
+                checked={selectedIds.includes(d.assignedQuestionId)}
+                onCheckToggle={(ck) =>
+                  setSelectedIds((prev) =>
+                    ck ? [...prev, d.assignedQuestionId] : prev.filter((id) => id !== d.assignedQuestionId),
+                  )
+                }
+              />
+            ))
           )}
-        />
-
-        <OutlinedButton
-          type='submit'
-          size='sm'
-          color='primary'
-          label='검색하기'
-          interactionVariant='normal'
-        />
-      </S.FilterHeader>
-
-      <S.MemberDailyTable>
-        <DailyTableHeader
-          checked={isAllSelected}
-          onCheckToggle={(ck) => setSelectedIds(ck ? currentPageContentIds : [])}
-        />
-
-        {isLoading ? (
-          <Loading />
-        ) : contents.length === 0 ? (
-          <EmptyState icon={<ScriptX />} />
-        ) : (
-          contents.map((d) => (
-            <DailyListRow
-              key={d.assignedQuestionId}
-              daily={d}
-              checked={selectedIds.includes(d.assignedQuestionId)}
-              onCheckToggle={(ck) =>
-                setSelectedIds((prev) =>
-                  ck ? [...prev, d.assignedQuestionId] : prev.filter((id) => id !== d.assignedQuestionId),
-                )
-              }
-            />
-          ))
-        )}
-      </S.MemberDailyTable>
+        </S.MemberDailyTable>
+      </ScrollXWrapper>
 
       <S.PaginationWrapper>
         <NumberPagination

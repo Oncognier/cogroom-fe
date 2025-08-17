@@ -54,7 +54,7 @@ export const InputContainer = styled.div<SelectStyleProps>`
 `;
 
 export const TriggerInput = styled.input<SelectStyleProps>`
-  flex: 1;
+  width: 100%;
   border: none;
   background: transparent;
 
