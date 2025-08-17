@@ -1,13 +1,13 @@
 'use client';
 
 import styled from '@emotion/styled';
+import Image from 'next/image';
 
 import { shakeAnimation } from '@/styles/animations';
 import { getInteraction } from '@/styles/interaction';
 
 export const QuestionCard = styled.div`
   position: relative;
-  aspect-ratio: 1060 / 522;
 
   display: flex;
   flex-direction: column;
@@ -15,18 +15,19 @@ export const QuestionCard = styled.div`
   align-items: center;
   gap: 1.6rem;
 
+  width: 100%;
+  height: 52.2rem;
   padding: 1.6rem;
+  border-radius: 1.6rem;
+  background-color: ${({ theme }) => theme.semantic.fill.dimmer};
 
   overflow: hidden;
-  border-radius: 1.6rem;
-
-  background-color: ${({ theme }) => theme.semantic.fill.dimmer};
   backdrop-filter: blur(6px);
+`;
 
-  img {
-    object-fit: contain;
-    z-index: -1;
-  }
+export const BackgroundImage = styled(Image)`
+  position: absolute;
+  z-index: -1;
 `;
 
 export const QuestionWrapper = styled.div`
