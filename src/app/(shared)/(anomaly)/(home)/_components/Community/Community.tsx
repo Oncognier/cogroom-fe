@@ -7,7 +7,12 @@ export default function Community() {
   return (
     <Section
       title='우리는 생각하는 사람들, 코그니어'
-      subtitle='혼자서는 닿을 수 없던 깊은 성찰을 함께 나누는 공간입니다'
+      subtitle={
+        <>
+          혼자서는 닿을 수 없던
+          <S.MobileBreak /> 깊은 성찰을 함께 나누는 공간입니다
+        </>
+      }
     >
       <S.Wrapper>
         <a href='/community'>

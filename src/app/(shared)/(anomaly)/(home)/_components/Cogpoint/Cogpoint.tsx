@@ -8,7 +8,12 @@ export default function Cogpoint() {
   return (
     <Section
       title='생각하는 방에서 할 수 있는 것'
-      subtitle='단순한 학습이 아닌 나를 알아가고 이해하는 여정을 제공합니다'
+      subtitle={
+        <>
+          단순한 학습이 아닌 나를 알아가고
+          <S.MobileBreak /> 이해하는 여정을 제공합니다
+        </>
+      }
     >
       <S.Wrapper>
         <S.CardList>
