@@ -3,7 +3,7 @@
 import { Theme, css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { breakpoints } from '@/styles/foundation';
+import { mqMax } from '@/styles/foundation';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
 export type TabBarState = 'default' | 'active' | 'disabled';
@@ -30,10 +30,10 @@ const sizeStyles: Record<TabBarSize, SerializedStyles> = {
   `,
 
   md: css`
-    padding: 0.8rem 0;
+    padding: 1.2rem 0;
 
-    ${breakpoints.tablet} {
-      padding: 1.2rem 0;
+    ${mqMax.tablet} {
+      padding: 0.8rem 0;
     }
   `,
 };
