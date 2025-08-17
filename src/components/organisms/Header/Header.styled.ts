@@ -38,7 +38,7 @@ export const HeaderInner = styled.div`
   height: 6.9rem;
 `;
 
-export const SmallScreenNav = styled.nav`
+export const MobileContainer = styled.nav`
   ${container};
   display: flex;
   align-items: center;

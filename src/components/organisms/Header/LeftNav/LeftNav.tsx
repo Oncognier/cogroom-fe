@@ -19,9 +19,9 @@ export default function LeftNav() {
           priority
         />
       </Link>
-      <S.MobileContainer>
+      <S.DesktopContainer>
         <NavList />
-      </S.MobileContainer>
+      </S.DesktopContainer>
     </S.LeftNav>
   );
 }

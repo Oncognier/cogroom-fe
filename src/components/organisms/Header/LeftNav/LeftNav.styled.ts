@@ -10,7 +10,7 @@ export const LeftNav = styled.div`
   gap: 4rem;
 `;
 
-export const MobileContainer = styled.div`
+export const DesktopContainer = styled.div`
   ${mqMax.desktop} {
     display: none;
   }

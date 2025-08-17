@@ -14,9 +14,9 @@ export default async function Header() {
       </S.HeaderBar>
 
       <S.HeaderBar>
-        <S.SmallScreenNav>
+        <S.MobileContainer>
           <NavList />
-        </S.SmallScreenNav>
+        </S.MobileContainer>
       </S.HeaderBar>
     </S.Header>
   );
