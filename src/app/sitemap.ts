@@ -6,6 +6,8 @@ import { DEFAULT_OG_THUMBNAIL, STREAK_SHARE_IMAGE_URLS } from '@/constants/image
 const currentDate = new Date();
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  if (process.env.DEPLOY_ENV === 'development' || process.env.DEPLOY_ENV === 'staging') return [];
+
   return [
     {
       url: BASE_URL,

@@ -1,8 +1,12 @@
 import { BASE_URL } from '@/constants/common';
 
-const currentDate = new Date().toISOString();
+const currentDate = new Date().toUTCString();
+
+export const contentType = 'application/rss+xml';
 
 export default function RSS(): string {
+  if (process.env.DEPLOY_ENV === 'development' || process.env.DEPLOY_ENV === 'staging') return '';
+
   return `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
