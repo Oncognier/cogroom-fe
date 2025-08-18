@@ -33,3 +33,11 @@ export const WeekdayText = styled.p`
   ${({ theme }) => theme.typography.label2.semibold};
   color: ${({ theme }) => theme.semantic.label.alternative};
 `;
+
+export const StyledOutlinedButton = styled.div<{ $isOpen: boolean }>`
+  & > button {
+    border-bottom-left-radius: ${({ $isOpen }) => ($isOpen ? '0' : '1.2rem')};
+    border-bottom-right-radius: ${({ $isOpen }) => ($isOpen ? '0' : '1.2rem')};
+    border-bottom: ${({ $isOpen }) => ($isOpen ? 'none' : '')};
+  }
+`;
