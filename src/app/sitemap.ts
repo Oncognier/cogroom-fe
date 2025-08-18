@@ -34,12 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       images: [DEFAULT_OG_THUMBNAIL],
     },
     {
-      url: `${BASE_URL}/mypage`,
-      lastModified: currentDate,
-      priority: 0.6,
-      images: [DEFAULT_OG_THUMBNAIL],
-    },
-    {
       url: `${BASE_URL}/terms`,
       lastModified: currentDate,
       priority: 0.5,
