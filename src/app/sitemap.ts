@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+
 import { BASE_URL } from '@/constants/common';
 import { DEFAULT_OG_THUMBNAIL, STREAK_SHARE_IMAGE_URLS } from '@/constants/image';
 

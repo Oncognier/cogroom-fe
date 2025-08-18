@@ -3,7 +3,6 @@ import { BASE_URL } from '@/constants/common';
 const currentDate = new Date().toISOString();
 
 export default function RSS(): string {
-
   return `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
