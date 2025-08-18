@@ -11,13 +11,12 @@ export const useLoginMutation = () => {
 
   const mutation = useMutation({
     mutationFn: authApi.login,
-    onSuccess: ({ socialUserInfo, needSignup }) => {
-      if (needSignup || socialUserInfo) {
+    onSuccess: ({ signupToken, socialUserInfo, needSignup }) => {
+      if (needSignup) {
         openApp('signup', {
-          provider: socialUserInfo.provider ?? '',
-          providerId: socialUserInfo.providerId ?? '',
+          signupToken: signupToken ?? '',
           email: socialUserInfo.email ?? '',
-          nickname: socialUserInfo.nickname ?? '',
+          provider: socialUserInfo.provider ?? '',
         });
 
         return;

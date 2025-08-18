@@ -1,6 +1,7 @@
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const API_V1 = `${BASE_URL}/api/v1`;
+const API_V2 = `${BASE_URL}/api/v2`;
 
 const BASE_PATH_V1 = {
   AUTH: `${API_V1}/auth`,
@@ -15,10 +16,23 @@ const BASE_PATH_V1 = {
   ADMIN: `${API_V1}/admin`,
 } as const;
 
+const BASE_PATH_V2 = {
+  AUTH: `${API_V2}/auth`,
+  MEMBERS: `${API_V2}/members`,
+
+  NOTICES: `${API_V2}/notices`,
+  DAILY: `${API_V2}/daily`,
+  CONTENTS: `${API_V2}/contents`,
+  FILE: `${API_V2}/files`,
+  STREAKS: `${API_V2}/streaks`,
+
+  ADMIN: `${API_V2}/admin`,
+} as const;
+
 export const END_POINTS_V1 = {
   AUTH: {
     SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
-    LOGIN: `${BASE_PATH_V1.AUTH}/login`,
+    LOGIN: `${BASE_PATH_V2.AUTH}/login`,
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
     SEND_EMAIL: `${BASE_PATH_V1.AUTH}/email-verification`,
     CHECK_EMAIL: `${BASE_PATH_V1.AUTH}/check-verification`,

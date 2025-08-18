@@ -30,10 +30,11 @@ const getEmailStatus = async (params: GetEmailStatusRequest) => {
   return data.result;
 };
 
-const login = async ({ code, provider }: LoginRequest) => {
+const login = async ({ code, provider, state }: LoginRequest) => {
   const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(END_POINTS_V1.AUTH.LOGIN, {
     code,
     provider,
+    state,
   });
 
   return data.result;
