@@ -24,7 +24,7 @@ export default function SolidButton({
   align = 'center',
 }: SolidButtonProps) {
   return (
-    <S.StyledSolidButton
+    <S.SolidButton
       size={size}
       color={color}
       disabled={isDisabled}
@@ -37,6 +37,6 @@ export default function SolidButton({
       {iconLeft && <S.Icon>{iconLeft}</S.Icon>}
       {label}
       {iconRight && <S.Icon>{iconRight}</S.Icon>}
-    </S.StyledSolidButton>
+    </S.SolidButton>
   );
 }
