@@ -75,7 +75,7 @@ export const authHandlers = [
   http.post(END_POINTS_V1.AUTH.SIGNUP, async ({ request }) => {
     const body = (await request.json()) as SignupRequest;
 
-    if (!body.provider || !body.providerId || !body.email || !body.nickname) {
+    if (!body.provider || !body.email) {
       return new HttpResponse(JSON.stringify(signupError), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
