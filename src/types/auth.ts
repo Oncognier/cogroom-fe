@@ -36,7 +36,6 @@ export interface SendEmailRequest {
 
 export interface SignupRequest {
   provider: string;
-  providerId: string;
+  signupToken: string;
   email: string;
-  nickname: string;
 }

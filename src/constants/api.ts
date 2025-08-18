@@ -31,7 +31,7 @@ const BASE_PATH_V2 = {
 
 export const END_POINTS_V1 = {
   AUTH: {
-    SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
+    SIGNUP: `${BASE_PATH_V2.AUTH}/signup`,
     LOGIN: `${BASE_PATH_V2.AUTH}/login`,
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
     SEND_EMAIL: `${BASE_PATH_V1.AUTH}/email-verification`,
