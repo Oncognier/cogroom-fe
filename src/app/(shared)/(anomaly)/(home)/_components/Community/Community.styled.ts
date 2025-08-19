@@ -21,6 +21,7 @@ export const Wrapper = styled.div`
 
 export const CommunityImage = styled(Image)`
   object-fit: cover;
+  object-position: left center;
   z-index: -1;
 
   border-radius: 1.2rem;
