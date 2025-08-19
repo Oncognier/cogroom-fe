@@ -59,14 +59,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <>
             <Script
               src='//t1.daumcdn.net/kas/static/kp.js'
-              strategy='afterInteractive'
+              strategy='beforeInteractive'
             />
             <Script
               id='kakao-pixel'
               strategy='afterInteractive'
             >
               {`
-                kakaoPixel(${kakaoPixelId}).pageView();
+                if (typeof kakaoPixel !== 'undefined') {
+                  kakaoPixel(${JSON.stringify(kakaoPixelId)}).pageView();
+                } else {
+                  console.warn('kakaoPixel is not loaded yet');
+                }
               `}
             </Script>
           </>
