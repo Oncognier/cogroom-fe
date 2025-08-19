@@ -2,6 +2,7 @@ import { DEFAULT_COMMUNITY_BANNER } from '@/constants/image';
 
 import * as S from './Community.styled';
 import Section from '../Section/Section';
+import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 export default function Community() {
   return (
@@ -10,7 +11,7 @@ export default function Community() {
       subtitle={
         <>
           혼자서는 닿을 수 없던
-          <S.MobileBreak /> 깊은 성찰을 함께 나누는 공간입니다
+          <LineBreakMobile /> 깊은 성찰을 함께 나누는 공간입니다
         </>
       }
     >

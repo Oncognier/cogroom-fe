@@ -4,7 +4,7 @@ import { Theme, css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { mqMax } from '@/styles/foundation';
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
 export type TabBarState = 'default' | 'active' | 'disabled';
 type TabBarSize = 'sm' | 'md';

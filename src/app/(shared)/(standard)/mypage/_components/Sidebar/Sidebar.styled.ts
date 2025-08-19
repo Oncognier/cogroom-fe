@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-import { getInteraction } from '@/styles/interaction';
+import { getInteraction } from '@/styles/helpers/interaction';
 
 export const Sidebar = styled.div`
   display: flex;

@@ -141,11 +141,3 @@ export const Content = styled.p`
     ${({ theme }) => theme.typography.mini2.regular};
   }
 `;
-
-export const MobileBreak = styled.br`
-  display: none;
-
-  ${mqMax.tablet} {
-    display: inline;
-  }
-`;

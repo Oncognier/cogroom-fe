@@ -1,6 +1,7 @@
 import { DEFAULT_DAILY_WATERDROP } from '@/constants/image';
 
 import * as S from './Daily.styled';
+import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 export default function Daily() {
   return (
@@ -14,8 +15,11 @@ export default function Daily() {
         />
         <S.ContentWrapper>
           <S.TitleWrapper>
-            <S.Title>하루 30초, 한 걸음 나아가기</S.Title>
-            <S.SubTitle>쉽고 부담없는 데일리 질문으로 일상에서 사유를 습관화합니다</S.SubTitle>
+            <S.Title>데일리</S.Title>
+            <S.SubTitle>
+              단순한 학습이 아닌
+              <LineBreakMobile /> 나를 알아가고 이해하는 여정을 제공합니다
+            </S.SubTitle>
           </S.TitleWrapper>
 
           <S.QuestionsWrapper>

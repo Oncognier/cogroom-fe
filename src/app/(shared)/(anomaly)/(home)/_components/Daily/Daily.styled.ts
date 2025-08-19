@@ -42,8 +42,10 @@ export const Title = styled.p`
 `;
 
 export const SubTitle = styled.p`
-  ${({ theme }) => theme.typography.headline1.regular}
+  ${({ theme }) => theme.typography.headline1.regular};
   color: ${({ theme }) => theme.semantic.static.white};
+
+  text-align: center;
 `;
 
 export const QuestionsWrapper = styled.div`
