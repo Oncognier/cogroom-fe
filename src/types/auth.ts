@@ -16,15 +16,15 @@ export interface GetEmailStatusResponse extends ApiResponse {
 export interface LoginRequest {
   code: string;
   provider: string;
+  state?: string;
 }
 
 export interface LoginResponse extends ApiResponse {
   result: {
+    signupToken: string;
     socialUserInfo: {
-      provider: string;
-      providerId: string;
       email: string;
-      nickname: string;
+      provider: string;
     };
     needSignup: boolean;
   };
@@ -36,7 +36,6 @@ export interface SendEmailRequest {
 
 export interface SignupRequest {
   provider: string;
-  providerId: string;
+  signupToken: string;
   email: string;
-  nickname: string;
 }

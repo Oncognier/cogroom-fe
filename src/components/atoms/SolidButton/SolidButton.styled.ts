@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { brandColors } from '@/styles/color';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
-type BrandColors = keyof typeof brandColors;
+type BrandColors = keyof Pick<typeof brandColors, 'kakao' | 'naver'>;
 
 type SolidButtonColor = 'primary' | BrandColors;
 type SolidButtonSize = 'sm' | 'md' | 'lg';
@@ -70,9 +70,13 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
     background-color: ${theme.brandColors.kakao};
     color: ${theme.semantic.label.normal};
   `,
+  naver: (theme) => css`
+    background-color: ${theme.brandColors.naver};
+    color: ${theme.semantic.static.white};
+  `,
 };
 
-export const StyledSolidButton = styled.button<SolidButtonStyleProps>`
+export const SolidButton = styled.button<SolidButtonStyleProps>`
   ${({ theme, fillContainer, align }) => commonStyles(theme, fillContainer, align)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};

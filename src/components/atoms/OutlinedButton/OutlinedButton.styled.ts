@@ -3,9 +3,12 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { brandColors } from '@/styles/color';
 import { getInteraction, InteractionVariant } from '@/styles/interaction';
 
-type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive' | 'destructive';
+type BrandColors = keyof Pick<typeof brandColors, 'google'>;
+
+type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive' | 'destructive' | BrandColors;
 type OutlinedButtonSize = 'sm' | 'md' | 'lg';
 type OutlinedButtonAlign = 'center' | 'space-between';
 
@@ -76,6 +79,11 @@ const colorStyles: Record<OutlinedButtonColor, (theme: Theme) => SerializedStyle
   destructive: (theme) => css`
     border-color: ${theme.semantic.status.destructive};
     color: ${theme.semantic.status.destructive};
+  `,
+
+  google: (theme) => css`
+    border-color: ${theme.brandColors.google};
+    color: ${theme.semantic.label.normal};
   `,
 };
 

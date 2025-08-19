@@ -288,4 +288,6 @@ export const semantic = {
 
 export const brandColors = {
   kakao: '#FEE502',
+  naver: '#03C75A',
+  google: '#747775',
 } as const;
