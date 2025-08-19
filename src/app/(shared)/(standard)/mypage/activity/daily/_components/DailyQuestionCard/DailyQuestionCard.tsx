@@ -40,16 +40,18 @@ export default function DailyQuestionCard({
       </S.DateWrapper>
 
       <S.QuestionAnswerGroup>
-        <OutlinedButton
-          size='md'
-          color='assistive'
-          label={question}
-          iconRight={isOpen ? <ChevronUp /> : <ChevronDown />}
-          interactionVariant='normal'
-          fillContainer
-          align='space-between'
-          onClick={toggleOpen}
-        />
+        <S.StyledOutlinedButton $isOpen={isOpen}>
+          <OutlinedButton
+            size='md'
+            color='assistive'
+            label={question}
+            iconRight={isOpen ? <ChevronUp /> : <ChevronDown />}
+            interactionVariant='normal'
+            fillContainer
+            align='space-between'
+            onClick={toggleOpen}
+          />
+        </S.StyledOutlinedButton>
         {isOpen && (
           <Textarea
             textareaSize='md'
@@ -57,6 +59,7 @@ export default function DailyQuestionCard({
             minHeight='15.5rem'
             disabled
             autoResize
+            style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
           />
         )}
       </S.QuestionAnswerGroup>
