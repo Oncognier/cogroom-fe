@@ -3,6 +3,8 @@ import HandHeart from '@/assets/icons/handheart.svg';
 import Smile from '@/assets/icons/smile.svg';
 import { DeployEnv, SelectOption } from '@/types/common';
 
+export const BASE_URL = 'https://cogroom.com';
+
 export const HEADER_NAV_ITEMS = [
   { label: '데일리', href: '/daily' },
   { label: '콘텐츠', href: '/content' },
