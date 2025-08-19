@@ -64,7 +64,6 @@ export default function NicknameForm({ initialNickname, onCheck }: NicknameFormP
           validate: validateNickname,
         })}
         error={errors.nickname?.message}
-        width='34.5rem'
       />
       <S.ButtonWrapper isError={!!errors.nickname}>
         <OutlinedButton

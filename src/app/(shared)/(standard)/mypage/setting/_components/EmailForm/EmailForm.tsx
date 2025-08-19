@@ -87,7 +87,6 @@ export default function EmailForm({ emailState, setEmailState }: EmailFormProps)
           validate: validateEmail,
         })}
         error={errors.email?.message}
-        width='34.5rem'
       />
       <S.ButtonWrapper isError={!!errors.email}>
         <OutlinedButton
