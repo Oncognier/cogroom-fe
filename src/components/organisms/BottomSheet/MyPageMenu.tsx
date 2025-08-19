@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './BottomSheet.styled';
 
@@ -13,10 +14,15 @@ interface MyPageMenuProps {
 
 export default function MyPageMenu({ onClose }: MyPageMenuProps) {
   const router = useRouter();
+  const { open } = useAppModalStore();
 
   const handleMenuClick = (path: string) => {
     onClose();
-    router.push(path);
+    if (path === '#logout') {
+      open('logout');
+    } else {
+      router.push(path);
+    }
   };
 
   const menuItems = [
