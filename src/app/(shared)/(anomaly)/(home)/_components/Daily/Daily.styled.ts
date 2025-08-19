@@ -1,5 +1,6 @@
 'use client';
 
+import { mqMax } from '@/styles/foundation';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
@@ -7,6 +8,10 @@ export const Wrapper = styled.div`
   position: relative;
   height: 50rem;
   margin-top: 6.8rem;
+
+  ${mqMax.tablet} {
+    background-color: ${({ theme }) => theme.semantic.background.elevated.normal};
+  }
 `;
 
 export const DailyImage = styled(Image)`
@@ -15,6 +20,10 @@ export const DailyImage = styled(Image)`
   width: 100%;
   height: 100%;
   z-index: -1;
+
+  ${mqMax.tablet} {
+    display: none;
+  }
 `;
 
 export const ContentWrapper = styled.div`
@@ -39,6 +48,10 @@ export const TitleWrapper = styled.div`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.title1.bold}
   color: ${({ theme }) => theme.semantic.static.white};
+
+  ${mqMax.tablet} {
+    color: ${({ theme }) => theme.semantic.label.normal};
+  }
 `;
 
 export const SubTitle = styled.p`
@@ -46,6 +59,10 @@ export const SubTitle = styled.p`
   color: ${({ theme }) => theme.semantic.static.white};
 
   text-align: center;
+
+  ${mqMax.tablet} {
+    color: ${({ theme }) => theme.semantic.label.normal};
+  }
 `;
 
 export const QuestionsWrapper = styled.div`
@@ -55,6 +72,10 @@ export const QuestionsWrapper = styled.div`
   max-width: 860px;
   margin: 0 auto;
   gap: 2.4rem;
+
+  ${mqMax.tablet} {
+    display: none;
+  }
 `;
 
 export const Question = styled.p`
