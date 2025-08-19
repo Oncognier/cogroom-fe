@@ -11,6 +11,10 @@ export const MyPageLayout = styled.div`
 
   ${mqMax.desktop} {
     gap: 2.7rem;
+
+    & > *:last-child {
+      margin-top: 3.3rem;
+    }
   }
 `;
 
@@ -109,6 +113,7 @@ export const MobileMenuButton = styled.button`
 
   ${mqMax.desktop} {
     display: flex;
+    max-width: 100%;
   }
 
   &:hover {
