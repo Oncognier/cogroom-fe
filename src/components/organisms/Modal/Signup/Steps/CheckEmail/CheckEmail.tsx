@@ -1,8 +1,11 @@
 'use client';
 
+import { JSX } from 'react';
 import { useFormContext } from 'react-hook-form';
 
+import Google from '@/assets/icons/google.svg';
 import Kakao from '@/assets/icons/kakao.svg';
+import Naver from '@/assets/icons/naver.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useSendEmailMutation } from '@/hooks/api/auth/useSendEmail';
@@ -11,17 +14,24 @@ import * as S from './CheckEmail.styled';
 
 export interface CheckEmailProps {
   email: string;
+  provider: string;
   onConfirm: () => void;
   onChangeEmail: () => void;
 }
 
-export default function CheckEmail({ email, onConfirm, onChangeEmail }: CheckEmailProps) {
+export default function CheckEmail({ email, provider, onConfirm, onChangeEmail }: CheckEmailProps) {
   const { sendEmail } = useSendEmailMutation(onConfirm);
   const { setValue } = useFormContext<{ email: string }>();
 
   const handleSubmit = () => {
     setValue('email', email);
     sendEmail({ email });
+  };
+
+  const icons: Record<string, JSX.Element> = {
+    KAKAO: <Kakao />,
+    NAVER: <Naver />,
+    GOOGLE: <Google />,
   };
 
   return (
@@ -32,9 +42,7 @@ export default function CheckEmail({ email, onConfirm, onChangeEmail }: CheckEma
           <S.Title>이 이메일이 맞나요?</S.Title>
         </S.TitleWrapper>
         <S.EmailWrapper>
-          <S.KakaoIcon>
-            <Kakao />
-          </S.KakaoIcon>
+          <S.BrandIcon provider={provider}>{icons[provider]}</S.BrandIcon>
           <S.Email>{email}</S.Email>
         </S.EmailWrapper>
       </S.TextWrapper>
