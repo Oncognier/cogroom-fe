@@ -1,5 +1,6 @@
 'use client';
 
+import { mqMax } from '@/styles/foundation';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
@@ -32,6 +33,10 @@ export const TextWrapper = styled.div`
   flex-direction: column;
   gap: 2.4rem;
   margin-left: 16rem;
+
+  ${mqMax.tablet} {
+    margin: 0;
+  }
 `;
 
 export const TitleWrapper = styled.div`
