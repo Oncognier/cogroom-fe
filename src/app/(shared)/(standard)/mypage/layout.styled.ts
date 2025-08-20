@@ -97,7 +97,6 @@ export const MobileMenuButton = styled.button`
   align-items: center;
 
   padding: 2rem 3rem;
-  max-width: 72rem;
   width: 100%;
   height: 6.4rem;
 
