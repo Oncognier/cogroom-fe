@@ -92,28 +92,30 @@ export default function Setting() {
             setEmailState={setEmailState}
           />
 
-          <Input
-            inputSize='md'
-            label='전화번호'
-            {...register('phoneNumber', {
-              validate: validatePhoneNumber,
-            })}
-            onBlur={(e) => {
-              const formatted = formatPhoneNumber(e.target.value);
-              setValue('phoneNumber', formatted, { shouldValidate: true });
-            }}
-            error={errors.phoneNumber?.message}
-            width='34.5rem'
-          />
+          <S.InputWrapper>
+            <Input
+              inputSize='md'
+              label='전화번호'
+              {...register('phoneNumber', {
+                validate: validatePhoneNumber,
+              })}
+              onBlur={(e) => {
+                const formatted = formatPhoneNumber(e.target.value);
+                setValue('phoneNumber', formatted, { shouldValidate: true });
+              }}
+              error={errors.phoneNumber?.message}
+            />
+          </S.InputWrapper>
 
-          <Textarea
-            textareaSize='md'
-            label='자기소개'
-            {...register('description')}
-            error={errors.description?.message}
-            width='34.5rem'
-            minHeight='12.8rem'
-          />
+          <S.InputWrapper>
+            <Textarea
+              textareaSize='md'
+              label='자기소개'
+              {...register('description')}
+              error={errors.description?.message}
+              minHeight='12.8rem'
+            />
+          </S.InputWrapper>
 
           <S.ButtonWrapper>
             <OutlinedButton

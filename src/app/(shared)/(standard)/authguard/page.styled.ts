@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const AuthGuard = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,4 +29,13 @@ export const Description = styled.p`
 export const MainMessage = styled.p`
   ${({ theme }) => theme.typography.title2.bold};
   color: ${({ theme }) => theme.semantic.label.normal};
+  text-align: center;
+`;
+
+export const LineBreak = styled.br`
+  display: none;
+
+  ${mqMax.desktop} {
+    display: block;
+  }
 `;
