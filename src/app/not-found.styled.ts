@@ -67,7 +67,7 @@ export const Home = styled.button`
   right: 10%;
   bottom: 10%;
 
-  ${({ theme }) => theme.typography.heading2.semibold};
+  ${({ theme }) => theme.typography.label1.semibold};
   color: ${({ theme }) => theme.semantic.static.white};
   text-decoration: underline;
 `;
