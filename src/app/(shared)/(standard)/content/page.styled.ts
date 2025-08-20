@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,9 +42,17 @@ export const BannerTitleWrapper = styled.div`
 export const BannerTitle = styled.p`
   ${({ theme }) => theme.typography.title1.bold}
   color: ${({ theme }) => theme.semantic.label.normal};
+
+  ${mqMax.tablet} {
+    ${({ theme }) => theme.typography.title3.bold}
+  }
 `;
 
 export const BannerSubTitle = styled.p`
   ${({ theme }) => theme.typography.title2.medium}
   color: ${({ theme }) => theme.semantic.label.normal};
+
+  ${mqMax.tablet} {
+    ${({ theme }) => theme.typography.heading2.medium}
+  }
 `;
