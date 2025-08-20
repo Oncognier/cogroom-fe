@@ -75,6 +75,8 @@ export default function Contents() {
     setSelectedIds([]);
   };
 
+  if (isLoading) return <Loading />;
+
   return (
     <S.ContentsContainer>
       <ScrollXWrapper>
@@ -154,9 +156,7 @@ export default function Contents() {
             onCheckToggle={handleToggleAll}
           />
 
-          {isLoading ? (
-            <Loading />
-          ) : contents.length === 0 ? (
+          {contents.length === 0 ? (
             <EmptyState icon={<ScriptX />} />
           ) : (
             contents.map((daily) => (

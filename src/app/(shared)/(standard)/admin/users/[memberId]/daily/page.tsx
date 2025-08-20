@@ -65,6 +65,8 @@ export default function MemberDaily() {
     setSelectedIds([]);
   };
 
+  if (isLoading) return <Loading />;
+
   return (
     <S.DailyContainer>
       <ScrollXWrapper>
@@ -155,9 +157,7 @@ export default function MemberDaily() {
             onCheckToggle={(ck) => setSelectedIds(ck ? currentPageContentIds : [])}
           />
 
-          {isLoading ? (
-            <Loading />
-          ) : contents.length === 0 ? (
+          {contents.length === 0 ? (
             <EmptyState icon={<ScriptX />} />
           ) : (
             contents.map((d) => (
