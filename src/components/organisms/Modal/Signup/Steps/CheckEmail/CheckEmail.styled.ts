@@ -1,5 +1,6 @@
 'use client';
 
+import { Theme, css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const TextWrapper = styled.div`
@@ -41,12 +42,32 @@ export const EmailWrapper = styled.div`
   border-radius: 1000px;
 `;
 
-export const KakaoIcon = styled.div`
+const providerStyles: Record<string, (theme: Theme) => SerializedStyles> = {
+  KAKAO: (theme) => css`
+    background-color: ${theme.brandColors.kakao};
+    padding: 0.6rem;
+  `,
+  NAVER: (theme) => css`
+    background-color: ${theme.brandColors.naver};
+    padding: 0.6rem;
+  `,
+  GOOGLE: (theme) => css`
+    background-color: ${theme.semantic.static.white};
+    border: 1px solid ${theme.brandColors.google};
+    padding: 0.5rem;
+  `,
+};
+
+export const BrandIcon = styled.div<{ provider: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 2rem;
   height: 2rem;
-  padding: 0.6rem;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.brandColors.kakao};
+
+  ${({ theme, provider }) => providerStyles[provider]?.(theme)};
 `;
 
 export const Email = styled.p`

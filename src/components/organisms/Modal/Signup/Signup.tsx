@@ -34,6 +34,7 @@ export default function Signup({ provider, signupToken, email }: SignupProps) {
       {step === SIGNUP_STEP.CHECK_ORIGINAL_EMAIL && (
         <CheckEmail
           email={email}
+          provider={provider}
           onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)}
           onChangeEmail={() => setStep(SIGNUP_STEP.INPUT_NEW_EMAIL)}
         />
