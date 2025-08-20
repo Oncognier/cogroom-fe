@@ -1,4 +1,5 @@
 import { COGPOINT_CARDS } from '@/constants/common';
+import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 import * as S from './Cogpoint.styled';
 import Section from '../Section/Section';
@@ -11,7 +12,7 @@ export default function Cogpoint() {
       subtitle={
         <>
           단순한 학습이 아닌 나를 알아가고
-          <S.MobileBreak /> 이해하는 여정을 제공합니다
+          <LineBreakMobile /> 이해하는 여정을 제공합니다
         </>
       }
     >

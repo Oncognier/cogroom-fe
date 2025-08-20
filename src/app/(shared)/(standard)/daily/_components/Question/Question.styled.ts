@@ -3,8 +3,8 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
-import { shakeAnimation } from '@/styles/animations';
-import { getInteraction } from '@/styles/interaction';
+import { shakeAnimation } from '@/styles/helpers/animations';
+import { getInteraction } from '@/styles/helpers/interaction';
 
 export const QuestionCard = styled.div`
   position: relative;

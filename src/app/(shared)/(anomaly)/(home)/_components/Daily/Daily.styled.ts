@@ -3,6 +3,8 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
+import { mqMax } from '@/styles/foundation';
+
 export const Wrapper = styled.div`
   position: relative;
   height: 50rem;
@@ -39,11 +41,15 @@ export const TitleWrapper = styled.div`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.title1.bold}
   color: ${({ theme }) => theme.semantic.static.white};
+
+  text-align: center;
 `;
 
 export const SubTitle = styled.p`
-  ${({ theme }) => theme.typography.headline1.regular}
+  ${({ theme }) => theme.typography.headline1.regular};
   color: ${({ theme }) => theme.semantic.static.white};
+
+  text-align: center;
 `;
 
 export const QuestionsWrapper = styled.div`
@@ -76,4 +82,8 @@ export const CenterSide = styled.div`
   justify-content: end;
 
   margin-right: 12rem;
+
+  ${mqMax.tablet} {
+    display: none;
+  }
 `;

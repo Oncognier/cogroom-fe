@@ -4,7 +4,7 @@ import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { brandColors } from '@/styles/color';
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
 type BrandColors = keyof Pick<typeof brandColors, 'google'>;
 

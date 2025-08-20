@@ -18,7 +18,8 @@ export default function CogpointMobileSwiper() {
         pagination={{ clickable: true }}
         spaceBetween={16}
         slidesPerView='auto'
-        centeredSlides={false}
+        centeredSlides
+        centeredSlidesBounds
       >
         {COGPOINT_CARDS.map((card, i) => (
           <SwiperSlide

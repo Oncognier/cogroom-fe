@@ -35,7 +35,9 @@ export const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 1.2rem;
+
     height: 10.8rem;
+    padding: 0;
   }
 `;
 

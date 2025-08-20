@@ -3,7 +3,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getInteraction } from '@/styles/interaction';
+import { getInteraction } from '@/styles/helpers/interaction';
 
 const gradientSlide = keyframes`
   0% {

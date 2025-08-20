@@ -3,8 +3,6 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 
-import { mqMax } from '@/styles/foundation';
-
 export const Wrapper = styled.div`
   position: relative;
 
@@ -23,6 +21,7 @@ export const Wrapper = styled.div`
 
 export const CommunityImage = styled(Image)`
   object-fit: cover;
+  object-position: left center;
   z-index: -1;
 
   border-radius: 1.2rem;
@@ -31,8 +30,8 @@ export const CommunityImage = styled(Image)`
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2.4rem;
-  margin-left: 16rem;
 `;
 
 export const TitleWrapper = styled.div`
@@ -45,22 +44,20 @@ export const TitleWrapper = styled.div`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.title2.bold}
   color: ${({ theme }) => theme.semantic.primary.normal};
+
+  text-align: center;
 `;
 
 export const SubTitle = styled.p`
   ${({ theme }) => theme.typography.body1.semibold}
   color: ${({ theme }) => theme.semantic.primary.normal};
+
+  text-align: center;
 `;
 
 export const Content = styled.div`
   ${({ theme }) => theme.typography.body2.regular}
   color: ${({ theme }) => theme.semantic.label.neutral};
-`;
 
-export const MobileBreak = styled.br`
-  display: none;
-
-  ${mqMax.tablet} {
-    display: inline;
-  }
+  text-align: center;
 `;
