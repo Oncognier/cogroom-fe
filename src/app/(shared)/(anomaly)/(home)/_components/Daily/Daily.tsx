@@ -15,10 +15,13 @@ export default function Daily() {
         />
         <S.ContentWrapper>
           <S.TitleWrapper>
-            <S.Title>데일리</S.Title>
+            <S.Title>
+              하루 30초,
+              <LineBreakMobile />한 걸음 나아가기
+            </S.Title>
             <S.SubTitle>
-              단순한 학습이 아닌
-              <LineBreakMobile /> 나를 알아가고 이해하는 여정을 제공합니다
+              쉽고 부담없는 데일리 질문으로 <LineBreakMobile />
+              일상에서 사유를 습관화합니다
             </S.SubTitle>
           </S.TitleWrapper>
 
