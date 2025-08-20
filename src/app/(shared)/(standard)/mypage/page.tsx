@@ -11,6 +11,7 @@ import {
   REPORT_IMAGE,
 } from '@/constants/image';
 import useGetUserDashboardQuery from '@/hooks/api/member/useGetUserDashboard';
+import { useAlertModalStore } from '@/stores/useModalStore';
 
 import ContentRecordToggle from './_components/ContentRecordToggle/ContentRecordToggle';
 import StreakSummaryCard from './_components/StreakSummaryCard/StreakSummaryCard';
@@ -18,6 +19,11 @@ import * as S from './page.styled';
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetUserDashboardQuery();
+  const { open } = useAlertModalStore();
+
+  const handleBannerClick = () => {
+    open('alert', { message: '지금은 준비중이에요 ' });
+  };
 
   if (isLoading || isError) return <Loading />;
 
@@ -47,7 +53,7 @@ export default function Dashboard() {
           />
         </S.ExternalLink>
 
-        <S.ExternalLink>
+        <S.ExternalLink onClick={handleBannerClick}>
           <S.BannerImage
             src={DEFAULT_MYPAGE_BANNER_2}
             alt='마이페이지 두 번째 배너'
