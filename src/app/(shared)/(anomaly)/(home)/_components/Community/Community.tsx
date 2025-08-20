@@ -1,8 +1,8 @@
 import { DEFAULT_COMMUNITY_BANNER } from '@/constants/image';
+import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 import * as S from './Community.styled';
 import Section from '../Section/Section';
-import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 export default function Community() {
   return (

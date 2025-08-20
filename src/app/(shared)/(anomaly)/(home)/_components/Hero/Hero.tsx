@@ -1,8 +1,8 @@
 import { DEFAULT_HERO_WAVY } from '@/constants/image';
+import { LineBreakTablet } from '@/styles/helpers/lineBreak';
 
 import * as S from './Hero.styled';
 import HeroButton from './HeroButton';
-import { LineBreakTablet } from '@/styles/helpers/lineBreak';
 
 export default function Hero() {
   return (

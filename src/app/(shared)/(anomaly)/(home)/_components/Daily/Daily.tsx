@@ -1,7 +1,7 @@
 import { DEFAULT_DAILY_WATERDROP } from '@/constants/image';
+import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 import * as S from './Daily.styled';
-import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 export default function Daily() {
   return (

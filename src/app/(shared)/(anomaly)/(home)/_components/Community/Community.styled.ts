@@ -1,6 +1,5 @@
 'use client';
 
-import { mqMax } from '@/styles/foundation';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 

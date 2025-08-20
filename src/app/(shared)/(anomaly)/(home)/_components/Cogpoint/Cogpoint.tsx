@@ -1,9 +1,9 @@
 import { COGPOINT_CARDS } from '@/constants/common';
+import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 import * as S from './Cogpoint.styled';
 import Section from '../Section/Section';
 import CogpointMobileSwiper from './CogpointMobileSwiper/CogpointMobileSwiper';
-import { LineBreakMobile } from '@/styles/helpers/lineBreak';
 
 export default function Cogpoint() {
   return (

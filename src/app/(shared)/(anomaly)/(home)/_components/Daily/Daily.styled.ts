@@ -1,8 +1,9 @@
 'use client';
 
-import { mqMax } from '@/styles/foundation';
 import styled from '@emotion/styled';
 import Image from 'next/image';
+
+import { mqMax } from '@/styles/foundation';
 
 export const Wrapper = styled.div`
   position: relative;
