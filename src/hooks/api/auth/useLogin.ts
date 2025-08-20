@@ -1,11 +1,13 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
+import { DAILY_QUERY_KEYS, MEMBER_QUERY_KEYS, STREAK_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
 
 export const useLoginMutation = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { open: openApp } = useAppModalStore();
   const { open: openAlert } = useAlertModalStore();
 
@@ -18,10 +20,11 @@ export const useLoginMutation = () => {
           email: socialUserInfo.email ?? '',
           provider: socialUserInfo.provider ?? '',
         });
-
-        return;
       }
 
+      queryClient.invalidateQueries({ queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY] });
+      queryClient.invalidateQueries({ queryKey: [...DAILY_QUERY_KEYS.DAILY] });
+      queryClient.invalidateQueries({ queryKey: [...STREAK_QUERY_KEYS.STREAK] });
       router.replace('/daily');
     },
     onError: () => {
