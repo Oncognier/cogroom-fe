@@ -5,10 +5,12 @@ import styled from '@emotion/styled';
 import { mqMax, mqMin } from '@/styles/foundation';
 
 export const Wrapper = styled.div`
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 2rem;
+  ${mqMin.tablet} {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
 `;
 
 export const CardList = styled.section`
