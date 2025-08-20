@@ -31,12 +31,8 @@ export const CommunityImage = styled(Image)`
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2.4rem;
-  margin-left: 16rem;
-
-  ${mqMax.tablet} {
-    margin: 0;
-  }
 `;
 
 export const TitleWrapper = styled.div`
@@ -49,14 +45,20 @@ export const TitleWrapper = styled.div`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.title2.bold}
   color: ${({ theme }) => theme.semantic.primary.normal};
+
+  text-align: center;
 `;
 
 export const SubTitle = styled.p`
   ${({ theme }) => theme.typography.body1.semibold}
   color: ${({ theme }) => theme.semantic.primary.normal};
+
+  text-align: center;
 `;
 
 export const Content = styled.div`
   ${({ theme }) => theme.typography.body2.regular}
   color: ${({ theme }) => theme.semantic.label.neutral};
+
+  text-align: center;
 `;

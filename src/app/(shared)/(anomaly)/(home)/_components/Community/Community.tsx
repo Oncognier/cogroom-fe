@@ -29,7 +29,9 @@ export default function Community() {
               <S.SubTitle>우리는 생각하는 사람들(cognier)</S.SubTitle>
             </S.TitleWrapper>
             <S.Content>
-              생각에 갇혀 괴로워하지도, 정체된 삶에 답답해하지도 말고
+              생각에 갇혀 괴로워하지도,
+              <br />
+              정체된 삶에 답답해하지도 말고
               <br />
               함께 이끌고 보듬는 우리 되기를
             </S.Content>
