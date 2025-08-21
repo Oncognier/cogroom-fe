@@ -54,6 +54,8 @@ export default function Users() {
     setSelectedIds([]);
   };
 
+  if (isLoading) return <Loading />;
+
   return (
     <S.UsersContainer>
       <ScrollXWrapper>
@@ -103,9 +105,7 @@ export default function Users() {
               onCheckToggle={(checked) => setSelectedIds(checked ? currentPageMemberIds : [])}
             />
 
-            {isLoading ? (
-              <Loading />
-            ) : members.length === 0 ? (
+            {members.length === 0 ? (
               <EmptyState icon={<ScriptX />} />
             ) : (
               members.map((member) => (
