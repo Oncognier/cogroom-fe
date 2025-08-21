@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 
+import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
@@ -55,72 +56,74 @@ export default function Users() {
 
   return (
     <S.UsersContainer>
-      <S.FilterHeader>
-        <S.TotalMemberCount>전체 회원 ({totalCount.toLocaleString()})</S.TotalMemberCount>
+      <ScrollXWrapper>
+        <S.FilterHeader>
+          <S.TotalMemberCount>전체 회원 ({totalCount.toLocaleString()})</S.TotalMemberCount>
 
-        <SelectDate
-          selectedStartDate={draftStartDate}
-          selectedEndDate={draftEndDate}
-          onStartDateChange={setDraftStartDate}
-          onEndDateChange={setDraftEndDate}
-        />
-
-        <S.SearchWrapper>
-          <Search
-            inputSize='sm'
-            placeholder='회원정보 검색'
-            interactionVariant='normal'
-            value={draftKeyword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDraftKeyword(e.target.value)}
+          <SelectDate
+            selectedStartDate={draftStartDate}
+            selectedEndDate={draftEndDate}
+            onStartDateChange={setDraftStartDate}
+            onEndDateChange={setDraftEndDate}
           />
-        </S.SearchWrapper>
 
-        <OutlinedButton
-          size='sm'
-          color='primary'
-          label='검색하기'
-          interactionVariant='normal'
-          onClick={handleSearch}
-        />
-      </S.FilterHeader>
+          <S.SearchWrapper>
+            <Search
+              inputSize='sm'
+              placeholder='회원정보 검색'
+              interactionVariant='normal'
+              value={draftKeyword}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDraftKeyword(e.target.value)}
+            />
+          </S.SearchWrapper>
 
-      <S.TableWrapper>
-        {selectedIds.length > 0 && (
           <OutlinedButton
             size='sm'
             color='primary'
-            label='선택항목 삭제'
+            label='검색하기'
             interactionVariant='normal'
-            onClick={() => deleteMember({ memberIdList: selectedIds })}
+            onClick={handleSearch}
           />
-        )}
+        </S.FilterHeader>
 
-        <S.UserTable>
-          <UserTableHeader
-            checked={isAllSelected}
-            onCheckToggle={(checked) => setSelectedIds(checked ? currentPageMemberIds : [])}
-          />
-
-          {isLoading ? (
-            <Loading />
-          ) : members.length === 0 ? (
-            <EmptyState icon={<ScriptX />} />
-          ) : (
-            members.map((member) => (
-              <UserListRow
-                key={member.memberId}
-                member={member}
-                checked={selectedIds.includes(member.memberId)}
-                onCheckToggle={(ck) =>
-                  setSelectedIds((prev) =>
-                    ck ? [...prev, member.memberId] : prev.filter((id) => id !== member.memberId),
-                  )
-                }
-              />
-            ))
+        <S.TableWrapper>
+          {selectedIds.length > 0 && (
+            <OutlinedButton
+              size='sm'
+              color='destructive'
+              label='선택항목 삭제'
+              interactionVariant='normal'
+              onClick={() => deleteMember({ memberIdList: selectedIds })}
+            />
           )}
-        </S.UserTable>
-      </S.TableWrapper>
+
+          <S.UserTable>
+            <UserTableHeader
+              checked={isAllSelected}
+              onCheckToggle={(checked) => setSelectedIds(checked ? currentPageMemberIds : [])}
+            />
+
+            {isLoading ? (
+              <Loading />
+            ) : members.length === 0 ? (
+              <EmptyState icon={<ScriptX />} />
+            ) : (
+              members.map((member) => (
+                <UserListRow
+                  key={member.memberId}
+                  member={member}
+                  checked={selectedIds.includes(member.memberId)}
+                  onCheckToggle={(ck) =>
+                    setSelectedIds((prev) =>
+                      ck ? [...prev, member.memberId] : prev.filter((id) => id !== member.memberId),
+                    )
+                  }
+                />
+              ))
+            )}
+          </S.UserTable>
+        </S.TableWrapper>
+      </ScrollXWrapper>
 
       <S.PaginationButton>
         <NumberPagination

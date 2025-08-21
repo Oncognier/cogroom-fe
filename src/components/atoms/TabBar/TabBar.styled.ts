@@ -3,7 +3,8 @@
 import { Theme, css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { mqMax } from '@/styles/foundation';
+import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
 export type TabBarState = 'default' | 'active' | 'disabled';
 type TabBarSize = 'sm' | 'md';
@@ -23,12 +24,17 @@ const commonStyles = (theme: Theme) => css`
   ${theme.typography.body2.semibold};
 `;
 
-const sizeStyles: Record<TabBarSize, (theme: Theme) => SerializedStyles> = {
-  sm: (theme) => css`
-    padding: ${theme.spacing[8]} 2rem;
+const sizeStyles: Record<TabBarSize, SerializedStyles> = {
+  sm: css`
+    padding: 0.8rem 0;
   `,
-  md: (theme) => css`
-    padding: ${theme.spacing[12]} ${theme.spacing[32]};
+
+  md: css`
+    padding: 1.2rem 0;
+
+    ${mqMax.tablet} {
+      padding: 0.8rem 0;
+    }
   `,
 };
 
@@ -67,7 +73,7 @@ const getFillStyle = (fillContainer: boolean | undefined) =>
 
 export const TabBar = styled.button<TabBarStyleProps>`
   ${({ theme }) => commonStyles(theme)};
-  ${({ theme, size }) => sizeStyles[size](theme)};
+  ${({ size }) => sizeStyles[size]};
   ${({ theme, state }) => getStateStyles(theme, state)};
   ${({ fillContainer }) => getFillStyle(fillContainer)};
   ${({ theme, interactionVariant }) => getInteraction(interactionVariant, theme.semantic.label.normal)(theme)};

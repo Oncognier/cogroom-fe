@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 export const Logout = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[24]};
+  gap: 2.4rem;
 `;
 
 export const Mesage = styled.p`
@@ -17,5 +17,5 @@ export const Mesage = styled.p`
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  gap: ${({ theme }) => theme.spacing[12]};
+  gap: 1.2rem;
 `;

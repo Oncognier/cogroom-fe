@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const DailyQuestionCard = styled.div`
   display: flex;
   gap: 3.2rem;
@@ -32,4 +34,16 @@ export const DateText = styled.p`
 export const WeekdayText = styled.p`
   ${({ theme }) => theme.typography.label2.semibold};
   color: ${({ theme }) => theme.semantic.label.alternative};
+`;
+
+export const StyledOutlinedButton = styled.div<{ $isOpen: boolean }>`
+  & > button {
+    border-bottom-left-radius: ${({ $isOpen }) => ($isOpen ? '0' : '1.2rem')};
+    border-bottom-right-radius: ${({ $isOpen }) => ($isOpen ? '0' : '1.2rem')};
+    border-bottom: ${({ $isOpen }) => ($isOpen ? 'none' : '')};
+
+    ${mqMax.desktop} {
+      text-align: start !important;
+    }
+  }
 `;

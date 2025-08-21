@@ -24,13 +24,13 @@ export const FooterWrapper = styled.div`
 export const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
   ${({ theme }) => theme.typography.label2.regular};
   color: ${({ theme }) => theme.semantic.label.assistive};
@@ -40,7 +40,9 @@ export const Info = styled.p``;
 
 export const FooterBottom = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  gap: 1.2rem;
 `;
 
 export const FooterLinks = styled.div`

@@ -3,13 +3,13 @@ import styled from '@emotion/styled';
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;
 
 export const SubTitle = styled.p`

@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
 export interface SidebarNavItemStyleProps {
   isActive: boolean;
@@ -20,6 +20,6 @@ export const SidebarNavItem = styled.li<SidebarNavItemStyleProps>`
     align-items: center;
 
     height: 3rem;
-    border-radius: ${({ theme }) => theme.radius[4]};
+    border-radius: 0.4rem;
   }
 `;

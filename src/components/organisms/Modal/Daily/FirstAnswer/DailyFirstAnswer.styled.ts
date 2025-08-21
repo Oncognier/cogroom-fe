@@ -11,7 +11,7 @@ export const Container = styled.div`
   gap: 3.2rem;
 
   background-color: ${({ theme }) => theme.semantic.background.normal.normal};
-  border-radius: ${({ theme }) => theme.radius[8]};
+  border-radius: 0.8rem;
 `;
 
 export const Title = styled.p`

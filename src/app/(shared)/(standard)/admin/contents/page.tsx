@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
+import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
@@ -76,97 +77,99 @@ export default function Contents() {
 
   return (
     <S.ContentsContainer>
-      <S.FilterHeader onSubmit={handleSubmit(onSubmit)}>
-        <S.Title>데일리 콘텐츠</S.Title>
+      <ScrollXWrapper>
+        <S.FilterHeader onSubmit={handleSubmit(onSubmit)}>
+          <S.Title>데일리 콘텐츠</S.Title>
 
-        <Controller
-          name='category'
-          control={control}
-          render={({ field }) => (
-            <S.SelectWrapper>
-              <Select
-                inputSize='sm'
-                placeholder='카테고리 선택'
-                isMulti
-                options={CATEGORY_SELECT_OPTIONS}
-                value={field.value}
-                onChange={field.onChange}
+          <Controller
+            name='category'
+            control={control}
+            render={({ field }) => (
+              <S.SelectWrapper>
+                <Select
+                  inputSize='sm'
+                  placeholder='카테고리 선택'
+                  isMulti
+                  options={CATEGORY_SELECT_OPTIONS}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              </S.SelectWrapper>
+            )}
+          />
+
+          <Controller
+            name='level'
+            control={control}
+            render={({ field }) => (
+              <S.SelectWrapper>
+                <Select
+                  inputSize='sm'
+                  placeholder='난이도 선택'
+                  isMulti
+                  options={LEVEL_SELECT_OPTIONS}
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              </S.SelectWrapper>
+            )}
+          />
+
+          <Controller
+            name='keyword'
+            control={control}
+            render={({ field }) => (
+              <S.SearchWrapper>
+                <Search
+                  inputSize='sm'
+                  placeholder='키워드 검색'
+                  interactionVariant='normal'
+                  value={field.value}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
+              </S.SearchWrapper>
+            )}
+          />
+
+          <OutlinedButton
+            size='sm'
+            color='primary'
+            label='검색하기'
+            interactionVariant='normal'
+            type='submit'
+          />
+
+          <SolidButton
+            size='sm'
+            color='primary'
+            label='추가하기'
+            interactionVariant='normal'
+            onClick={() => router.push('/admin/contents/create/daily')}
+          />
+        </S.FilterHeader>
+
+        <S.ContentsTable>
+          <ContentsDailyTableHeader
+            checked={isAllSelected}
+            onCheckToggle={handleToggleAll}
+          />
+
+          {isLoading ? (
+            <Loading />
+          ) : contents.length === 0 ? (
+            <EmptyState icon={<ScriptX />} />
+          ) : (
+            contents.map((daily) => (
+              <DailyListRow
+                key={daily.questionId}
+                daily={daily}
+                checked={selectedIds.includes(daily.questionId)}
+                onCheckToggle={(checked) => handleToggleOne(daily.questionId, checked)}
               />
-            </S.SelectWrapper>
+            ))
           )}
-        />
-
-        <Controller
-          name='level'
-          control={control}
-          render={({ field }) => (
-            <S.SelectWrapper>
-              <Select
-                inputSize='sm'
-                placeholder='난이도 선택'
-                isMulti
-                options={LEVEL_SELECT_OPTIONS}
-                value={field.value}
-                onChange={field.onChange}
-              />
-            </S.SelectWrapper>
-          )}
-        />
-
-        <Controller
-          name='keyword'
-          control={control}
-          render={({ field }) => (
-            <S.SearchWrapper>
-              <Search
-                inputSize='sm'
-                placeholder='키워드 검색'
-                interactionVariant='normal'
-                value={field.value}
-                onChange={(e) => field.onChange(e.target.value)}
-              />
-            </S.SearchWrapper>
-          )}
-        />
-
-        <OutlinedButton
-          size='sm'
-          color='primary'
-          label='검색하기'
-          interactionVariant='normal'
-          type='submit'
-        />
-
-        <SolidButton
-          size='sm'
-          color='primary'
-          label='추가하기'
-          interactionVariant='normal'
-          onClick={() => router.push('/admin/contents/create/daily')}
-        />
-      </S.FilterHeader>
-
-      <S.ContentsTable>
-        <ContentsDailyTableHeader
-          checked={isAllSelected}
-          onCheckToggle={handleToggleAll}
-        />
-
-        {isLoading ? (
-          <Loading />
-        ) : contents.length === 0 ? (
-          <EmptyState icon={<ScriptX />} />
-        ) : (
-          contents.map((daily) => (
-            <DailyListRow
-              key={daily.questionId}
-              daily={daily}
-              checked={selectedIds.includes(daily.questionId)}
-              onCheckToggle={(checked) => handleToggleOne(daily.questionId, checked)}
-            />
-          ))
-        )}
-      </S.ContentsTable>
+        </S.ContentsTable>
+      </ScrollXWrapper>
 
       <S.PaginationWrapper>
         <NumberPagination

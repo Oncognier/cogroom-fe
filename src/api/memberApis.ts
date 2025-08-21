@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
-import { ApiResponse } from '@/types/api';
+import { ApiResponse, AxiosMeta } from '@/types/api';
 import {
   CheckNicknameRequest,
   CheckNicknameResponse,
@@ -15,9 +15,8 @@ import {
 
 import { axiosInstance } from './axios/axiosInstance';
 
-const getUserSummary = async () => {
-  const { data } = await axiosInstance.get<UserSummaryResponse>(END_POINTS_V1.MEMBERS.SUMMARY);
-
+const getUserSummary = async (meta?: AxiosMeta) => {
+  const { data } = await axiosInstance.get<UserSummaryResponse>(END_POINTS_V1.MEMBERS.SUMMARY, { meta });
   return data.result;
 };
 

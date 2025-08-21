@@ -6,7 +6,7 @@ export const EmptyState = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[24]};
+  gap: 2.4rem;
 
   width: 100%;
   padding: 8.45rem 0;

@@ -5,9 +5,9 @@ import styled from '@emotion/styled';
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
-  padding-bottom: ${({ theme }) => theme.spacing[4]};
+  padding-bottom: 0.4rem;
 `;
 
 export const SubTitle = styled.p`
@@ -27,5 +27,5 @@ export const Title = styled.p`
 export const EmailForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;

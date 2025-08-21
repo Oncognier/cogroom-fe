@@ -12,7 +12,7 @@ export const HeroWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 2rem;
-  margin-bottom: ${({ theme }) => theme.spacing[40]};
+  margin-bottom: 4rem;
 `;
 
 export const HeroImage = styled(Image)`
@@ -43,11 +43,13 @@ export const TitleWrapper = styled.div`
 `;
 
 export const SubTitle = styled.p`
-  ${({ theme }) => theme.typography.body1.semibold}
+  ${({ theme }) => theme.typography.body1.semibold};
+  text-align: center;
 `;
 
 export const Title = styled.p`
-  ${({ theme }) => theme.typography.title1.bold}
+  ${({ theme }) => theme.typography.title1.bold};
+  text-align: center;
 `;
 
 export const ButtonWrapper = styled.button`
@@ -59,7 +61,7 @@ export const ButtonWrapper = styled.button`
   gap: 4px;
 
   padding: 1.1rem 2.3rem;
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
   border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
   background-color: ${({ theme }) => theme.semantic.static.white};
   color: ${({ theme }) => theme.semantic.label.normal};
@@ -91,12 +93,15 @@ export const ButtonWrapper = styled.button`
 export const Icon = styled.div`
   position: absolute;
   right: 1.6rem;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   opacity: 0;
   transform: translateX(5px);
   transition: all 0.3s ease;
+
   & > svg {
     width: 1.2em;
     height: 1.2em;

@@ -3,7 +3,7 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
 type TextButtonColor = 'primary' | 'assistive';
 type TextButtonSize = 'sm' | 'md' | 'lg';
@@ -25,7 +25,7 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: TextButtonA
 
   width: ${fillContainer ? '100%' : 'auto'};
   border: none;
-  border-radius: ${theme.radius[4]};
+  border-radius: 0.4rem;
   background-color: transparent;
   padding: 0.3rem 0.4rem;
 

@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax, mqMin } from '@/styles/foundation';
+
 export const SettingContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -9,6 +11,11 @@ export const SettingContainer = styled.div`
   gap: 1.6rem;
 
   width: 100%;
+
+  ${mqMax.desktop} {
+    align-items: flex-start;
+    gap: 6rem;
+  }
 `;
 
 export const SettingProfile = styled.div`
@@ -31,6 +38,14 @@ export const SettingForm = styled.form`
   gap: 1.6rem;
 
   width: 100%;
+`;
+
+export const InputWrapper = styled.div`
+  width: 34.5rem;
+
+  ${mqMax.tablet} {
+    width: 100%;
+  }
 `;
 
 export const ButtonWrapper = styled.div`

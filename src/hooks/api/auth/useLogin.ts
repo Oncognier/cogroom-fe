@@ -1,28 +1,30 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 import { authApi } from '@/api/authApis';
+import { DAILY_QUERY_KEYS, MEMBER_QUERY_KEYS, STREAK_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
 
 export const useLoginMutation = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { open: openApp } = useAppModalStore();
   const { open: openAlert } = useAlertModalStore();
 
   const mutation = useMutation({
     mutationFn: authApi.login,
-    onSuccess: ({ socialUserInfo, needSignup }) => {
-      if (needSignup || socialUserInfo) {
+    onSuccess: ({ signupToken, socialUserInfo, needSignup }) => {
+      if (needSignup) {
         openApp('signup', {
-          provider: socialUserInfo.provider ?? '',
-          providerId: socialUserInfo.providerId ?? '',
+          signupToken: signupToken ?? '',
           email: socialUserInfo.email ?? '',
-          nickname: socialUserInfo.nickname ?? '',
+          provider: socialUserInfo.provider ?? '',
         });
-
-        return;
       }
 
+      queryClient.invalidateQueries({ queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SUMMARY] });
+      queryClient.invalidateQueries({ queryKey: [...DAILY_QUERY_KEYS.DAILY] });
+      queryClient.invalidateQueries({ queryKey: [...STREAK_QUERY_KEYS.STREAK] });
       router.replace('/daily');
     },
     onError: () => {

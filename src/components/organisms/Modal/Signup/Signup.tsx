@@ -11,12 +11,11 @@ import { CheckEmail, InputEmail, VerifyEmail, Complete } from './Steps';
 
 export interface SignupProps {
   provider: string;
-  providerId: string;
+  signupToken: string;
   email: string;
-  nickname: string;
 }
 
-export default function Signup({ provider, providerId, email, nickname }: SignupProps) {
+export default function Signup({ provider, signupToken, email }: SignupProps) {
   const [step, setStep] = useState<SignupStep>(SIGNUP_STEP.CHECK_ORIGINAL_EMAIL);
 
   const methods = useForm<SignupFormFields>({
@@ -27,7 +26,7 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
   const { signup } = useSignupMutation(() => setStep(SIGNUP_STEP.COMPLETE));
 
   const handleVerifiedAndSignup = () => {
-    signup({ provider, providerId, email: methods.getValues('email'), nickname });
+    signup({ provider, signupToken, email: methods.getValues('email') });
   };
 
   return (
@@ -35,6 +34,7 @@ export default function Signup({ provider, providerId, email, nickname }: Signup
       {step === SIGNUP_STEP.CHECK_ORIGINAL_EMAIL && (
         <CheckEmail
           email={email}
+          provider={provider}
           onConfirm={() => setStep(SIGNUP_STEP.VERIFY_EMAIL)}
           onChangeEmail={() => setStep(SIGNUP_STEP.INPUT_NEW_EMAIL)}
         />

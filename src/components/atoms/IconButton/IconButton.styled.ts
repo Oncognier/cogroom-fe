@@ -3,7 +3,7 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
 type IconButtonVariant = 'normal' | 'background' | 'outlined' | 'solid';
 

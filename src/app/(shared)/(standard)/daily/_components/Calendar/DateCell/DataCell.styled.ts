@@ -13,7 +13,7 @@ export const DateCell = styled.div<DateCellProps>`
 
   width: 3rem;
   height: 3rem;
-  border-radius: ${({ theme }) => theme.radius[40]};
+  border-radius: 4rem;
   text-align: center;
 
   ${({ theme }) => theme.typography.label1.medium}

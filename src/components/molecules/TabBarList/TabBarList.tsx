@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import TabBar from '@/components/atoms/TabBar/TabBar';
 import { TabBarState } from '@/components/atoms/TabBar/TabBar.styled';
-import { InteractionVariant } from '@/styles/interaction';
+import { InteractionVariant } from '@/styles/helpers/interaction';
 
 import * as S from './TabBarList.styled';
 

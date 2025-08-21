@@ -1,19 +1,20 @@
 'use client';
 
+import { Theme, css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[16]};
+  gap: 1.6rem;
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
-  padding-bottom: ${({ theme }) => theme.spacing[4]};
+  padding-bottom: 0.4rem;
 `;
 
 export const SubTitle = styled.p`
@@ -33,20 +34,40 @@ export const Title = styled.p`
 export const EmailWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 
   width: 100%;
-  padding: ${({ theme }) => theme.spacing[8]} ${({ theme }) => theme.spacing[32]};
+  padding: 0.8rem 3.2rem;
   border: 1px solid ${({ theme }) => theme.semantic.line.normal};
   border-radius: 1000px;
 `;
 
-export const KakaoIcon = styled.div`
+const providerStyles: Record<string, (theme: Theme) => SerializedStyles> = {
+  KAKAO: (theme) => css`
+    background-color: ${theme.brandColors.kakao};
+    padding: 0.6rem;
+  `,
+  NAVER: (theme) => css`
+    background-color: ${theme.brandColors.naver};
+    padding: 0.6rem;
+  `,
+  GOOGLE: (theme) => css`
+    background-color: ${theme.semantic.static.white};
+    border: 1px solid ${theme.brandColors.google};
+    padding: 0.5rem;
+  `,
+};
+
+export const BrandIcon = styled.div<{ provider: string }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 2rem;
   height: 2rem;
-  padding: 0.6rem;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.brandColors.kakao};
+
+  ${({ theme, provider }) => providerStyles[provider]?.(theme)};
 `;
 
 export const Email = styled.p`
@@ -59,5 +80,5 @@ export const Email = styled.p`
 export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing[8]};
+  gap: 0.8rem;
 `;

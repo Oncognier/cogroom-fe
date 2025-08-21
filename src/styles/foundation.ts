@@ -4,33 +4,25 @@ import { css } from '@emotion/react';
 
 import { Shadow } from './types';
 
-export const spacing = {
-  0: '0rem',
-  4: '0.4rem',
-  8: '0.8rem',
-  12: '1.2rem',
-  16: '1.6rem',
-  24: '2.4rem',
-  32: '3.2rem',
-  40: '4.0rem',
-} as const;
-
-export const radius = {
-  0: '0rem',
-  4: '0.4rem',
-  8: '0.8rem',
-  12: '1.2rem',
-  16: '1.6rem',
-  20: '2.0rem',
-  24: '2.4rem',
-  32: '3.2rem',
-  40: '4.0rem',
-} as const;
-
 export const breakpoints = {
-  desktop: '1440px',
-  tablet: '768px',
-  mobile: '480px',
+  mobile: 375,
+  tablet: 768,
+  desktop: 1024,
+} as const;
+
+const minQuery = (px: number) => `@media (min-width:${px}px)`;
+const maxQuery = (pxExclusive: number) => `@media (max-width:${pxExclusive - 1}px)`;
+
+export const mqMin = {
+  mobile: minQuery(breakpoints.mobile),
+  tablet: minQuery(breakpoints.tablet),
+  desktop: minQuery(breakpoints.desktop),
+} as const;
+
+export const mqMax = {
+  mobile: maxQuery(breakpoints.mobile),
+  tablet: maxQuery(breakpoints.tablet),
+  desktop: maxQuery(breakpoints.desktop),
 } as const;
 
 export const ratio = {

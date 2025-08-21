@@ -3,9 +3,12 @@
 import { css, SerializedStyles, Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getInteraction, InteractionVariant } from '@/styles/interaction';
+import { brandColors } from '@/styles/color';
+import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
-type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive';
+type BrandColors = keyof Pick<typeof brandColors, 'google'>;
+
+type OutlinedButtonColor = 'primary' | 'secondary' | 'assistive' | 'destructive' | BrandColors;
 type OutlinedButtonSize = 'sm' | 'md' | 'lg';
 type OutlinedButtonAlign = 'center' | 'space-between';
 
@@ -24,7 +27,7 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: OutlinedBut
   gap: 4px;
 
   width: ${fillContainer ? '100%' : 'auto'};
-  border-radius: ${theme.radius[12]};
+  border-radius: 1.2rem;
   border: 1px solid ${theme.semantic.primary.normal};
   color: ${theme.semantic.primary.normal};
   padding: 1.1rem 2.3rem;
@@ -70,6 +73,16 @@ const colorStyles: Record<OutlinedButtonColor, (theme: Theme) => SerializedStyle
 
   assistive: (theme) => css`
     border-color: ${theme.semantic.label.assistive};
+    color: ${theme.semantic.label.normal};
+  `,
+
+  destructive: (theme) => css`
+    border-color: ${theme.semantic.status.destructive};
+    color: ${theme.semantic.status.destructive};
+  `,
+
+  google: (theme) => css`
+    border-color: ${theme.brandColors.google};
     color: ${theme.semantic.label.normal};
   `,
 };

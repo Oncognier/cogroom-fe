@@ -1,6 +1,7 @@
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const API_V1 = `${BASE_URL}/api/v1`;
+const API_V2 = `${BASE_URL}/api/v2`;
 
 const BASE_PATH_V1 = {
   AUTH: `${API_V1}/auth`,
@@ -15,9 +16,22 @@ const BASE_PATH_V1 = {
   ADMIN: `${API_V1}/admin`,
 } as const;
 
+const BASE_PATH_V2 = {
+  AUTH: `${API_V2}/auth`,
+  MEMBERS: `${API_V2}/members`,
+
+  NOTICES: `${API_V2}/notices`,
+  DAILY: `${API_V2}/daily`,
+  CONTENTS: `${API_V2}/contents`,
+  FILE: `${API_V2}/files`,
+  STREAKS: `${API_V2}/streaks`,
+
+  ADMIN: `${API_V2}/admin`,
+} as const;
+
 export const END_POINTS_V1 = {
   AUTH: {
-    SIGNUP: `${BASE_PATH_V1.AUTH}/signup`,
+    SIGNUP: `${BASE_PATH_V2.AUTH}/signup`,
     LOGIN: `${BASE_PATH_V1.AUTH}/login`,
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
     SEND_EMAIL: `${BASE_PATH_V1.AUTH}/email-verification`,
@@ -117,9 +131,13 @@ export const ERROR_CODE = {
 export const REFRESH_TOKEN_COOKIE_NAME = 'refreshToken';
 
 const KAKAO_CLIENT_ID = process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID;
+const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
 
 const OAUTH_BASE_URL = process.env.NEXT_PUBLIC_OAUTH_BASE_URL;
 
 const REDIRECT_BASE_URL = `${OAUTH_BASE_URL}/callback`;
 
-export const KAKAO_AUTH_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}&response_type=code`;
+export const KAKAO_AUTH_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=kakao&response_type=code`;
+export const NAVER_AUTH_API_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=naver&state=STATE_STRING`;
+export const GOOGLE_AUTH_API_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=google&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent`;

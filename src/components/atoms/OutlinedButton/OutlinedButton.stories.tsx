@@ -12,7 +12,7 @@ const meta = {
   argTypes: {
     color: {
       control: 'radio',
-      options: ['primary', 'secondary', 'assistive'],
+      options: ['primary', 'secondary', 'assistive', 'destructive'],
     },
     size: {
       control: 'radio',
@@ -47,10 +47,49 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NoIcon: Story = {
+export const Primary: Story = {
   args: {
     label: 'Label',
     color: 'primary',
+    size: 'md',
+    fillContainer: false,
+    isDisabled: false,
+    interactionVariant: 'normal',
+    onClick: action('clicked'),
+    align: 'center',
+  },
+};
+
+export const Secondary: Story = {
+  args: {
+    label: 'Label',
+    color: 'secondary',
+    size: 'md',
+    fillContainer: false,
+    isDisabled: false,
+    interactionVariant: 'normal',
+    onClick: action('clicked'),
+    align: 'center',
+  },
+};
+
+export const Assistive: Story = {
+  args: {
+    label: 'Label',
+    color: 'assistive',
+    size: 'md',
+    fillContainer: false,
+    isDisabled: false,
+    interactionVariant: 'normal',
+    onClick: action('clicked'),
+    align: 'center',
+  },
+};
+
+export const Destructive: Story = {
+  args: {
+    label: 'Label',
+    color: 'destructive',
     size: 'md',
     fillContainer: false,
     isDisabled: false,

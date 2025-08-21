@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const Container = styled.div`
   position: fixed;
   bottom: 3.4rem;
@@ -11,7 +13,7 @@ export const Container = styled.div`
   max-width: 1100px;
   width: 100%;
   margin: 0 auto;
-  padding: ${({ theme }) => theme.spacing[40]} 2rem 0;
+  padding: 4rem 2rem 0;
 
   z-index: 99;
 `;
@@ -20,14 +22,23 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[4]};
+  gap: 0.4rem;
 
   padding: 0 7rem;
   width: 100%;
   height: 8.5rem;
 
   background-color: ${({ theme }) => theme.semantic.primary.normal};
-  border-radius: ${({ theme }) => theme.radius[20]};
+  border-radius: 2rem;
+
+  ${mqMax.desktop} {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.2rem;
+
+    height: 10.8rem;
+    padding: 0;
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -43,7 +54,7 @@ export const ButtonWrapper = styled.button`
   gap: 4px;
   padding: 1.1rem 2.3rem;
 
-  border-radius: ${({ theme }) => theme.radius[12]};
+  border-radius: 1.2rem;
   border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
   background-color: ${({ theme }) => theme.semantic.static.white};
   color: ${({ theme }) => theme.semantic.label.normal};
