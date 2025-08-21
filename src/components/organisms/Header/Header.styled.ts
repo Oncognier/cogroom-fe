@@ -26,8 +26,6 @@ export const ContentWrapper = styled.div`
 
   width: 100%;
   height: 6.9rem;
-  background-color: ${({ theme }) => theme.semantic.static.white};
-  border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
 `;
 
 export const MobileWrapper = styled.div`
@@ -37,10 +35,20 @@ export const MobileWrapper = styled.div`
 
   width: 100%;
   height: 4.2rem;
+
+  ${mqMin.desktop} {
+    display: none;
+  }
+`;
+
+export const BorderWrapper = styled.div`
+  width: 100%;
   background-color: ${({ theme }) => theme.semantic.static.white};
   border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
 
   ${mqMin.desktop} {
-    display: none;
+    &:last-child {
+      border-bottom: none;
+    }
   }
 `;
