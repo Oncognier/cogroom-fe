@@ -2,6 +2,7 @@
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useAppModalStore } from '@/stores/useModalStore';
+import { LineBreakTablet } from '@/styles/helpers/lineBreak';
 
 import * as S from './page.styled';
 
@@ -13,7 +14,7 @@ export default function AuthGuard() {
       <S.MessageWrapper>
         <S.Description>코그룸의 더 많은 서비스를 이용하시려면</S.Description>
         <S.MainMessage>
-          회원 가입 / 로그인 후<S.LineBreak /> 이용해주세요!
+          회원 가입 / 로그인 후<LineBreakTablet /> 이용해주세요!
         </S.MainMessage>
       </S.MessageWrapper>
 
