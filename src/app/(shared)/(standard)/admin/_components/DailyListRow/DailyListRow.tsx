@@ -44,6 +44,7 @@ export default function DailyListRow({ daily, checked, onCheckToggle }: DailyLis
             key={category}
             color={CATEGORY_META[category as Category].color}
             label={CATEGORY_META[category as Category].label}
+            round
           />
         ))}
       </S.TagWrapper>

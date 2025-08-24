@@ -59,6 +59,7 @@ export default function UserListRow({ member, checked, onCheckToggle }: UserList
               label={roleMeta.label}
               onClick={() => open('changeRole', { memberId, nickname, currentRole: memberRole })}
               stopPropagation
+              round
             />
           ) : (
             <OutlinedTag

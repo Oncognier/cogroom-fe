@@ -7,6 +7,7 @@ export type SolidTagColor = 'blue' | 'green' | 'violet' | 'orange' | 'cyan' | 'p
 
 export interface SolidTagStyleProps {
   color: SolidTagColor;
+  round?: boolean;
 }
 
 const colorStyles: Record<SolidTagColor, (theme: Theme) => SerializedStyles> = {
@@ -46,7 +47,7 @@ export const SolidTag = styled.span<SolidTagStyleProps>`
   justify-content: center;
 
   padding: 0.4rem 1.2rem;
-  border-radius: 9999px;
+  border-radius: ${({ round }) => (round ? '9999px' : '0.8rem')};
 
   ${({ theme, color }) => colorStyles[color](theme)};
   ${({ theme }) => theme.typography.label2.regular};
