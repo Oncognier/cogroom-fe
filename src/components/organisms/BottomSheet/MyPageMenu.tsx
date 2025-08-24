@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './BottomSheet.styled';
@@ -15,6 +16,7 @@ interface MyPageMenuProps {
 export default function MyPageMenu({ onClose }: MyPageMenuProps) {
   const router = useRouter();
   const { open } = useAppModalStore();
+  const { data } = useGetUserSummary();
 
   const handleMenuClick = (path: string) => {
     onClose();
@@ -28,6 +30,9 @@ export default function MyPageMenu({ onClose }: MyPageMenuProps) {
   const menuItems = [
     { label: '마이 대시보드', path: '/mypage' },
     ...SIDEBAR_NAV_ITEMS.map((item) => ({ label: item.label, path: item.href })),
+    ...(data?.memberRole === 'ADMIN' || data?.memberRole === 'CONTENT_PROVIDER'
+      ? [{ label: '관리자모드', path: '/admin' }]
+      : []),
     { label: '로그아웃', path: '#logout' },
   ];
 
