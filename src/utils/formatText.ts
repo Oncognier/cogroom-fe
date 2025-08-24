@@ -28,3 +28,17 @@ export function formatCountPlus(value: number, threshold = 1000): string {
   return safe.toLocaleString();
 }
 
+/**
+ * 작성자의 표시 이름을 반환하는 유틸 함수
+ *
+ * @param nickname    실제 닉네임 (예: "코그니어1")
+ * @param isAnonymous 익명 여부 (true면 익명 처리)
+ * @returns           익명일 경우 "익명", 아닐 경우 닉네임 그대로 반환
+ *
+ * @example
+ * getDisplayName("코그니어1", false); // "코그니어1"
+ * getDisplayName("코그니어1", true);  // "익명"
+ */
+export function getDisplayName(nickname: string, isAnonymous: boolean): string {
+  return isAnonymous ? '익명' : nickname;
+}
