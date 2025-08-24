@@ -19,7 +19,7 @@ export default function Posts() {
   return (
     <EmptyState icon={<MessageCircleX />}>
       <S.Wrapper>
-        <S.Title>코그니어 커뮤니티에 첫 글을 써 보세요!</S.Title>
+        <S.Text>코그니어 커뮤니티에 첫 글을 써 보세요!</S.Text>
         <SolidButton
           size='sm'
           color='primary'

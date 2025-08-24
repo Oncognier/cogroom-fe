@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   gap: 1.6rem;
 `;
 
-export const Title = styled.p`
+export const Text = styled.p`
   ${({ theme }) => theme.typography.heading1.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};
 `;

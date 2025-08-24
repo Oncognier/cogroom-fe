@@ -19,7 +19,7 @@ export default function Likes() {
   return (
     <EmptyState icon={<MessageCircleX />}>
       <S.Wrapper>
-        <S.Title>꼭 마음에 담아두고 싶던 글이 있나요?</S.Title>
+        <S.Text>꼭 마음에 담아두고 싶던 글이 있나요?</S.Text>
         <SolidButton
           size='sm'
           color='primary'

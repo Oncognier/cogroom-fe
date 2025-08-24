@@ -19,7 +19,7 @@ export default function Comments() {
   return (
     <EmptyState icon={<MessageCircleX />}>
       <S.Wrapper>
-        <S.Title>다른 코그니어 글에 댓글을 달아봐요</S.Title>
+        <S.Text>다른 코그니어 글에 댓글을 달아봐요</S.Text>
         <SolidButton
           size='sm'
           color='primary'
