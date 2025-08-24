@@ -1,20 +1,21 @@
-import Bookmark from '@/assets/icons/bookmark.svg';
-import Comment from '@/assets/icons/comment.svg';
-import Heart from '@/assets/icons/heart.svg';
+import { useRouter } from 'next/router';
+
 import BookmarkFill from '@/assets/icons/bookmark-fill.svg';
+import Bookmark from '@/assets/icons/bookmark.svg';
 import CommentFill from '@/assets/icons/comment-fill.svg';
+import Comment from '@/assets/icons/comment.svg';
 import HeartFill from '@/assets/icons/heart-fill.svg';
+import Heart from '@/assets/icons/heart.svg';
+import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
 import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
 import type { Post } from '@/types/post';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
-
-import * as S from './PostCard.styled';
-import MetaItem from './MetaItem/MetaItem';
-import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import { formatCountPlus, getDisplayName } from '@/utils/formatText';
-import { useRouter } from 'next/router';
+
+import MetaItem from './MetaItem/MetaItem';
+import * as S from './PostCard.styled';
 
 type PostCardProps = {
   post: Post;
