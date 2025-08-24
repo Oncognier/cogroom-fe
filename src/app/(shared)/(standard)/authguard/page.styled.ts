@@ -32,10 +32,3 @@ export const MainMessage = styled.p`
   text-align: center;
 `;
 
-export const LineBreak = styled.br`
-  display: none;
-
-  ${mqMax.desktop} {
-    display: block;
-  }
-`;
