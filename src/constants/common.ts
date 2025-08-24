@@ -3,8 +3,11 @@ import HandHeart from '@/assets/icons/handheart.svg';
 import Smile from '@/assets/icons/smile.svg';
 import { DeployEnv, SelectOption } from '@/types/common';
 
+/* ---------- 기본 URL/환경 ---------- */
 export const BASE_URL = 'https://cogroom.com';
+export const DEPLOY_ENV = (process.env.NEXT_PUBLIC_DEPLOY_ENV ?? 'production') as DeployEnv;
 
+/* ---------- 네비게이션 ---------- */
 export const HEADER_NAV_ITEMS = [
   { label: '데일리', href: '/daily' },
   { label: '콘텐츠', href: '/content' },
@@ -19,6 +22,7 @@ export const SIDEBAR_NAV_ITEMS = [
   { label: '푸시 및 카톡 알림', href: '/mypage/notification' },
 ] as const;
 
+/* ---------- 셀렉트 옵션 ---------- */
 export const LEVEL_SELECT_OPTIONS: SelectOption[] = [
   { label: '기초', value: 'BASIC' },
   { label: '기본', value: 'NORMAL' },
@@ -35,13 +39,68 @@ export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
   { label: '기타', value: 7 },
 ];
 
+export const POST_CATEGORY_SELECT_OPTIONS: SelectOption[] = [
+  { label: '데일리 공유', value: 1 },
+  { label: '사색/고민', value: 2 },
+  { label: '칼럼', value: 3 },
+];
+
+export const QUICK_DATE_SELECT = [
+  { label: '최근 7일', value: 7 },
+  { label: '최근 30일', value: 30 },
+  { label: '최근 90일', value: 90 },
+];
+
+/* ---------- 메타 데이터 ---------- */
+export const CATEGORY_META = {
+  심리학: { label: '심리학', color: 'orange' as const },
+  뇌과학: { label: '뇌과학', color: 'blue' as const },
+  철학: { label: '철학', color: 'green' as const },
+  인류학: { label: '인류학', color: 'violet' as const },
+  언어학: { label: '언어학', color: 'pink' as const },
+  컴퓨터공학: { label: '컴퓨터공학', color: 'cyan' as const },
+  기타: { label: '기타', color: 'gray' as const },
+};
+export type Category = keyof typeof CATEGORY_META;
+
+export const POST_CATEGORY_META = {
+  '데일리 공유': { label: '데일리 공유', color: 'blue' as const },
+  '사색/고민': { label: '사색/고민', color: 'blue' as const },
+  칼럼: { label: '칼럼', color: 'blue' as const },
+};
+
+export type PostCategory = keyof typeof POST_CATEGORY_META;
+
+export const LEVEL_META = {
+  BASIC: { label: '기초' },
+  NORMAL: { label: '기본' },
+  ADVANCED: { label: '심화' },
+} as const;
+export type Level = keyof typeof LEVEL_META;
+
+export const USER_ROLE_META = {
+  USER: { label: '일반회원', tagType: 'solid' as const, color: 'gray' as const },
+  ADMIN: { label: '관리자', tagType: 'solid' as const, color: 'blue' as const },
+  CONTENT_PROVIDER: { label: '콘텐츠제공자', tagType: 'outlined' as const, color: 'blue' as const },
+};
+export type UserRole = keyof typeof USER_ROLE_META;
+
+export const ROLE_LABELS = {
+  ADMIN: '관리자',
+  USER: '일반회원',
+  CONTENT_PROVIDER: '콘텐츠 제공자',
+} as const;
+export type RoleKey = keyof typeof ROLE_LABELS;
+
+export const ROLE_OPTIONS: RoleKey[] = ['ADMIN', 'USER', 'CONTENT_PROVIDER'];
+
+/* ---------- 회원가입/탈퇴 스텝 ---------- */
 export const SIGNUP_STEP = {
   CHECK_ORIGINAL_EMAIL: 'CHECK_ORIGINAL_EMAIL',
   INPUT_NEW_EMAIL: 'INPUT_NEW_EMAIL',
   VERIFY_EMAIL: 'VERIFY_EMAIL',
   COMPLETE: 'COMPLETE',
 } as const;
-
 export type SignupStep = (typeof SIGNUP_STEP)[keyof typeof SIGNUP_STEP];
 
 export const WITHDRAW_STEP = {
@@ -50,19 +109,20 @@ export const WITHDRAW_STEP = {
   INPUT_REASON: 'INPUT_REASON',
   COMPLETE: 'COMPLETE',
 } as const;
-
 export type WithdrawStep = (typeof WITHDRAW_STEP)[keyof typeof WITHDRAW_STEP];
 
+/* ---------- UI/기능 관련 ---------- */
 export const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
+export const PAGINATION_VISIBLE_RANGE = 5;
+export const DAILY_MAX_LENGTH = 101;
 
-export const SOCIAL_LINKS = {
-  YOUTUBE: 'https://www.youtube.com/@oncognier',
-  INSTAGRAM: 'https://www.instagram.com/on.cognier',
-  THREADS: 'https://www.threads.com/@on.cognier',
-} as const;
+export const SPRITE_WIDTH = 257;
+export const FRAME_COUNT = 9;
+export const FRAME_DURATION = 800;
 
 export const DEFAULT_DAILY_QUESTION = '내가 생각하는 ‘나’는 어떤 모습인가요?';
 
+/* ---------- 카드/컨텐츠 ---------- */
 export const COGPOINT_CARDS = [
   {
     icon: Smile,
@@ -84,101 +144,19 @@ export const COGPOINT_CARDS = [
   },
 ];
 
-export const PAGINATION_VISIBLE_RANGE = 5;
-
-export const USER_ROLE_META = {
-  USER: {
-    label: '일반회원',
-    tagType: 'solid' as const,
-    color: 'gray' as const,
-  },
-  ADMIN: {
-    label: '관리자',
-    tagType: 'solid' as const,
-    color: 'blue' as const,
-  },
-  CONTENT_PROVIDER: {
-    label: '콘텐츠제공자',
-    tagType: 'outlined' as const,
-    color: 'blue' as const,
-  },
-};
-
-export type UserRole = keyof typeof USER_ROLE_META;
-
-export const CATEGORY_META = {
-  심리학: {
-    label: '심리학',
-    color: 'orange' as const,
-  },
-  뇌과학: {
-    label: '뇌과학',
-    color: 'blue' as const,
-  },
-  철학: {
-    label: '철학',
-    color: 'green' as const,
-  },
-  인류학: {
-    label: '인류학',
-    color: 'violet' as const,
-  },
-  언어학: {
-    label: '언어학',
-    color: 'pink' as const,
-  },
-  컴퓨터공학: {
-    label: '컴퓨터공학',
-    color: 'cyan' as const,
-  },
-  기타: {
-    label: '기타',
-    color: 'gray' as const,
-  },
-};
-
-export type Category = keyof typeof CATEGORY_META;
-
-export const LEVEL_META = {
-  BASIC: {
-    label: '기초',
-  },
-  NORMAL: {
-    label: '기본',
-  },
-  ADVANCED: {
-    label: '심화',
-  },
+/* ---------- 외부 링크 ---------- */
+export const SOCIAL_LINKS = {
+  YOUTUBE: 'https://www.youtube.com/@oncognier',
+  INSTAGRAM: 'https://www.instagram.com/on.cognier',
+  THREADS: 'https://www.threads.com/@on.cognier',
 } as const;
-
-export type Level = keyof typeof LEVEL_META;
-
-export const QUICK_DATE_SELECT = [
-  { label: '최근 7일', value: 7 },
-  { label: '최근 30일', value: 30 },
-  { label: '최근 90일', value: 90 },
-];
 
 export const SHARE_DAILY_URL = process.env.NEXT_PUBLIC_SHARE_DAILY_URL || 'https://preview.cogroom.com/daily';
 
-export const ROLE_LABELS = {
-  ADMIN: '관리자',
-  USER: '일반회원',
-  CONTENT_PROVIDER: '콘텐츠 제공자',
-} as const;
-
-export type RoleKey = keyof typeof ROLE_LABELS;
-export const ROLE_OPTIONS: RoleKey[] = ['ADMIN', 'USER', 'CONTENT_PROVIDER'];
-
-export const SPRITE_WIDTH = 257;
-export const FRAME_COUNT = 9;
-export const FRAME_DURATION = 800;
-export const DAILY_MAX_LENGTH = 101;
-
-export const DEPLOY_ENV = (process.env.NEXT_PUBLIC_DEPLOY_ENV ?? 'production') as DeployEnv;
-
 export const USER_INTERVIEW_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSeNXXBCdvAPksPRyA2PT3zafIjX6Yc9RZ0RFb0m4mtEEbmMuQ/viewform';
+
 export const DAILY_FEEDBACK_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSeZ-6SkoxlPCltFvF4G20XXEsuyk3FjGFsBN5Kbrh1Rjru2Xg/viewform';
+
 export const ONCOGNIER_URL = 'https://www.oncognier.com/';
