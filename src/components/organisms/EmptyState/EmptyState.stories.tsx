@@ -14,6 +14,11 @@ const meta = {
         disable: true,
       },
     },
+    children: {
+      control: {
+        type: 'text',
+      },
+    },
   },
 } satisfies Meta<typeof EmptyState>;
 
@@ -24,5 +29,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     icon: <ScriptX />,
+  },
+};
+
+export const WithChildren: Story = {
+  args: {
+    icon: <ScriptX />,
+    children: <p>Children</p>,
   },
 };
