@@ -38,7 +38,8 @@ export function formatCountPlus(value: number, threshold = 1000): string {
  * @example
  * getDisplayName("코그니어1", false); // "코그니어1"
  * getDisplayName("코그니어1", true);  // "익명"
+ * getDisplayName(null, true);       // "익명"
  */
-export function getDisplayName(nickname: string, isAnonymous: boolean): string {
-  return isAnonymous ? '익명' : nickname;
+export function getDisplayName(nickname: string | null, isAnonymous: boolean): string {
+  return isAnonymous || nickname === null ? '익명' : nickname;
 }
