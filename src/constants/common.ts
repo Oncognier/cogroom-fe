@@ -22,77 +22,101 @@ export const SIDEBAR_NAV_ITEMS = [
   { label: '푸시 및 카톡 알림', href: '/mypage/notification' },
 ] as const;
 
-/* ---------- 셀렉트 옵션 ---------- */
-export const LEVEL_SELECT_OPTIONS: SelectOption[] = [
-  { label: '기초', value: 'BASIC' },
-  { label: '기본', value: 'NORMAL' },
-  { label: '심화', value: 'ADVANCED' },
-];
-
-export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
-  { label: '심리학', value: 1 },
-  { label: '뇌과학', value: 2 },
-  { label: '철학', value: 3 },
-  { label: '인류학', value: 4 },
-  { label: '언어학', value: 5 },
-  { label: '컴퓨터공학', value: 6 },
-  { label: '기타', value: 7 },
-];
-
-export const POST_CATEGORY_SELECT_OPTIONS: SelectOption[] = [
-  { label: '데일리 공유', value: 1 },
-  { label: '사색/고민', value: 2 },
-  { label: '칼럼', value: 3 },
-];
-
-export const QUICK_DATE_SELECT = [
-  { label: '최근 7일', value: 7 },
-  { label: '최근 30일', value: 30 },
-  { label: '최근 90일', value: 90 },
-];
-
 /* ---------- 메타 데이터 ---------- */
+export const CATEGORY_LABELS = {
+  PSYCHOLOGY: '심리학',
+  NEUROSCIENCE: '뇌과학',
+  PHILOSOPHY: '철학',
+  ANTHROPOLOGY: '인류학',
+  LINGUISTICS: '언어학',
+  COMPUTER_SCIENCE: '컴퓨터공학',
+  OTHERS: '기타',
+} as const;
+
+export const POST_CATEGORY_LABELS = {
+  DAILY_SHARE: '데일리 공유',
+  REFLECTION: '사색/고민',
+  COLUMN: '칼럼',
+} as const;
+
+export const LEVEL_LABELS = {
+  BASIC: '기초',
+  NORMAL: '기본',
+  ADVANCED: '심화',
+} as const;
+
 export const CATEGORY_META = {
-  심리학: { label: '심리학', color: 'orange' as const },
-  뇌과학: { label: '뇌과학', color: 'blue' as const },
-  철학: { label: '철학', color: 'green' as const },
-  인류학: { label: '인류학', color: 'violet' as const },
-  언어학: { label: '언어학', color: 'pink' as const },
-  컴퓨터공학: { label: '컴퓨터공학', color: 'cyan' as const },
-  기타: { label: '기타', color: 'gray' as const },
+  [CATEGORY_LABELS.PSYCHOLOGY]: { label: CATEGORY_LABELS.PSYCHOLOGY, color: 'orange' as const },
+  [CATEGORY_LABELS.NEUROSCIENCE]: { label: CATEGORY_LABELS.NEUROSCIENCE, color: 'blue' as const },
+  [CATEGORY_LABELS.PHILOSOPHY]: { label: CATEGORY_LABELS.PHILOSOPHY, color: 'green' as const },
+  [CATEGORY_LABELS.ANTHROPOLOGY]: { label: CATEGORY_LABELS.ANTHROPOLOGY, color: 'violet' as const },
+  [CATEGORY_LABELS.LINGUISTICS]: { label: CATEGORY_LABELS.LINGUISTICS, color: 'pink' as const },
+  [CATEGORY_LABELS.COMPUTER_SCIENCE]: { label: CATEGORY_LABELS.COMPUTER_SCIENCE, color: 'cyan' as const },
+  [CATEGORY_LABELS.OTHERS]: { label: CATEGORY_LABELS.OTHERS, color: 'gray' as const },
 };
+
 export type Category = keyof typeof CATEGORY_META;
 
 export const POST_CATEGORY_META = {
-  '데일리 공유': { label: '데일리 공유', color: 'blue' as const },
-  '사색/고민': { label: '사색/고민', color: 'blue' as const },
-  칼럼: { label: '칼럼', color: 'blue' as const },
+  [POST_CATEGORY_LABELS.DAILY_SHARE]: { label: POST_CATEGORY_LABELS.DAILY_SHARE, color: 'blue' as const },
+  [POST_CATEGORY_LABELS.REFLECTION]: { label: POST_CATEGORY_LABELS.REFLECTION, color: 'blue' as const },
+  [POST_CATEGORY_LABELS.COLUMN]: { label: POST_CATEGORY_LABELS.COLUMN, color: 'blue' as const },
 };
 
 export type PostCategory = keyof typeof POST_CATEGORY_META;
 
 export const LEVEL_META = {
-  BASIC: { label: '기초' },
-  NORMAL: { label: '기본' },
-  ADVANCED: { label: '심화' },
+  BASIC: { label: LEVEL_LABELS.BASIC },
+  NORMAL: { label: LEVEL_LABELS.NORMAL },
+  ADVANCED: { label: LEVEL_LABELS.ADVANCED },
 } as const;
+
 export type Level = keyof typeof LEVEL_META;
 
-export const USER_ROLE_META = {
-  USER: { label: '일반회원', tagType: 'solid' as const, color: 'gray' as const },
-  ADMIN: { label: '관리자', tagType: 'solid' as const, color: 'blue' as const },
-  CONTENT_PROVIDER: { label: '콘텐츠제공자', tagType: 'outlined' as const, color: 'blue' as const },
-};
-export type UserRole = keyof typeof USER_ROLE_META;
-
 export const ROLE_LABELS = {
-  ADMIN: '관리자',
   USER: '일반회원',
+  ADMIN: '관리자',
   CONTENT_PROVIDER: '콘텐츠 제공자',
 } as const;
+
 export type RoleKey = keyof typeof ROLE_LABELS;
 
 export const ROLE_OPTIONS: RoleKey[] = ['ADMIN', 'USER', 'CONTENT_PROVIDER'];
+
+export const USER_ROLE_META = {
+  USER: { label: ROLE_LABELS.USER, tagType: 'solid' as const, color: 'gray' as const },
+  ADMIN: { label: ROLE_LABELS.ADMIN, tagType: 'solid' as const, color: 'blue' as const },
+  CONTENT_PROVIDER: { label: ROLE_LABELS.CONTENT_PROVIDER, tagType: 'outlined' as const, color: 'blue' as const },
+};
+
+/* ---------- 셀렉트 옵션 ---------- */
+export const LEVEL_SELECT_OPTIONS: SelectOption[] = [
+  { label: LEVEL_LABELS.BASIC, value: 'BASIC' },
+  { label: LEVEL_LABELS.NORMAL, value: 'NORMAL' },
+  { label: LEVEL_LABELS.ADVANCED, value: 'ADVANCED' },
+];
+
+export const CATEGORY_SELECT_OPTIONS: SelectOption[] = [
+  { label: CATEGORY_LABELS.PSYCHOLOGY, value: 1 },
+  { label: CATEGORY_LABELS.NEUROSCIENCE, value: 2 },
+  { label: CATEGORY_LABELS.PHILOSOPHY, value: 3 },
+  { label: CATEGORY_LABELS.ANTHROPOLOGY, value: 4 },
+  { label: CATEGORY_LABELS.LINGUISTICS, value: 5 },
+  { label: CATEGORY_LABELS.COMPUTER_SCIENCE, value: 6 },
+  { label: CATEGORY_LABELS.OTHERS, value: 7 },
+];
+
+export const POST_CATEGORY_SELECT_OPTIONS: SelectOption[] = [
+  { label: POST_CATEGORY_LABELS.DAILY_SHARE, value: 1 },
+  { label: POST_CATEGORY_LABELS.REFLECTION, value: 2 },
+  { label: POST_CATEGORY_LABELS.COLUMN, value: 3 },
+];
+
+export const QUICK_DATE_SELECT: SelectOption[] = [
+  { label: '최근 7일', value: 7 },
+  { label: '최근 30일', value: 30 },
+  { label: '최근 90일', value: 90 },
+];
 
 /* ---------- 회원가입/탈퇴 스텝 ---------- */
 export const SIGNUP_STEP = {
