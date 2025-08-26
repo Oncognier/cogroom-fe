@@ -4,6 +4,8 @@ export const MetaItem = styled.div`
   display: flex;
   align-items: center;
   gap: 0.4rem;
+
+  width: 5.5rem;
 `;
 
 export const MetaIcon = styled.div<{ $isActive: boolean }>`
