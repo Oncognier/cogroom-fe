@@ -1,0 +1,219 @@
+'use client';
+
+import { useEffect, useCallback } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+
+import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import Search from '@/components/atoms/Search/Search';
+import SolidButton from '@/components/atoms/SolidButton/SolidButton';
+import { Select } from '@/components/molecules/Select/Select';
+import SelectDate from '@/components/molecules/SelectDate/SelectDate';
+import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
+
+import * as S from './SearchFilter.styled';
+
+export interface FilterFieldConfig {
+  search?: {
+    placeholder: string;
+    name?: string;
+  };
+  select?: {
+    name: string;
+    placeholder: string;
+    options: Array<{ label: string; value: string | number }>;
+    isMulti?: boolean;
+  }[];
+  dateRange?: {
+    startDateName?: string;
+    endDateName?: string;
+  };
+}
+
+export interface FilterAction {
+  type: 'submit' | 'button';
+  label: string;
+  variant?: 'outlined' | 'solid';
+  color?: 'primary' | 'destructive';
+  onClick?: () => void;
+}
+
+export interface FilterValues {
+  [key: string]: unknown;
+}
+
+interface FilterProps {
+  title?: string;
+  fields: FilterFieldConfig;
+  actions: FilterAction[];
+  onSubmit: (values: FilterValues) => void;
+  initialValues?: FilterValues;
+  className?: string;
+  enableUrlSync?: boolean;
+}
+
+export default function SearchFilter({
+  title,
+  fields,
+  actions,
+  onSubmit,
+  initialValues = {},
+  className,
+  enableUrlSync = false,
+}: FilterProps) {
+  const { updateSearchParams, getAllSearchParams } = useUrlSearchParams();
+
+  const getInitialValues = useCallback((): FilterValues => {
+    if (!enableUrlSync) return initialValues;
+
+    const urlParams = getAllSearchParams();
+    const mergedValues: FilterValues = { ...initialValues };
+
+    Object.keys(urlParams).forEach((key) => {
+      const value = urlParams[key];
+      if (Array.isArray(value)) {
+        const selectField = fields.select?.find((s) => s.name === key);
+        if (selectField) {
+          const convertedValues = value.map((v) => {
+            const option = selectField.options.find((opt) => String(opt.value) === v);
+            return option ? option.value : v;
+          });
+          mergedValues[key] = convertedValues;
+        } else {
+          mergedValues[key] = value;
+        }
+      } else {
+        if (key.includes('Date') && value) {
+          mergedValues[key] = new Date(value);
+        } else {
+          const selectField = fields.select?.find((s) => s.name === key);
+          if (selectField && value) {
+            const option = selectField.options.find((opt) => String(opt.value) === value);
+            mergedValues[key] = option ? option.value : value;
+          } else {
+            mergedValues[key] = value;
+          }
+        }
+      }
+    });
+
+    return mergedValues;
+  }, [enableUrlSync, initialValues, getAllSearchParams, fields.select]);
+
+  const { control, handleSubmit, watch, setValue, reset } = useForm<FilterValues>({
+    defaultValues: getInitialValues(),
+  });
+
+  useEffect(() => {
+    if (enableUrlSync) {
+      const urlValues = getInitialValues();
+      reset(urlValues);
+    }
+  }, [enableUrlSync, reset, getInitialValues]);
+
+  const handleFormSubmit = (formValues: FilterValues) => {
+    if (enableUrlSync) {
+      updateSearchParams(formValues);
+    }
+    onSubmit(formValues);
+  };
+
+  const renderButton = (action: FilterAction, index: number) => {
+    const commonProps = {
+      size: 'sm' as const,
+      label: action.label,
+      interactionVariant: 'normal' as const,
+    };
+
+    if (action.type === 'submit') {
+      return (
+        <OutlinedButton
+          key={index}
+          {...commonProps}
+          color={action.color || 'primary'}
+          type='submit'
+        />
+      );
+    }
+
+    if (action.variant === 'solid') {
+      return (
+        <SolidButton
+          key={index}
+          {...commonProps}
+          color='primary'
+          onClick={action.onClick}
+        />
+      );
+    }
+
+    return (
+      <OutlinedButton
+        key={index}
+        {...commonProps}
+        color={action.color || 'primary'}
+        onClick={action.onClick}
+      />
+    );
+  };
+
+  return (
+    <S.FilterContainer
+      className={className}
+      onSubmit={handleSubmit(handleFormSubmit)}
+    >
+      {title && <S.Title>{title}</S.Title>}
+
+      {fields.select?.map((selectField, index) => (
+        <Controller
+          key={`select-${index}`}
+          name={selectField.name}
+          control={control}
+          render={({ field }) => {
+            const selectValue = Array.isArray(field.value) ? field.value : field.value ? [field.value] : [];
+            return (
+              <S.FieldWrapper>
+                <Select
+                  inputSize='sm'
+                  placeholder={selectField.placeholder}
+                  isMulti={selectField.isMulti}
+                  options={selectField.options}
+                  value={selectValue}
+                  onChange={field.onChange}
+                />
+              </S.FieldWrapper>
+            );
+          }}
+        />
+      ))}
+
+      {fields.dateRange && (
+        <SelectDate
+          selectedStartDate={(watch(fields.dateRange.startDateName || 'startDate') as Date) || null}
+          selectedEndDate={(watch(fields.dateRange.endDateName || 'endDate') as Date) || null}
+          onStartDateChange={(date) => setValue(fields.dateRange!.startDateName || 'startDate', date)}
+          onEndDateChange={(date) => setValue(fields.dateRange!.endDateName || 'endDate', date)}
+        />
+      )}
+
+      {fields.search && (
+        <Controller
+          name={fields.search.name || 'keyword'}
+          control={control}
+          render={({ field }) => (
+            <S.FieldWrapper>
+              <Search
+                inputSize='sm'
+                placeholder={fields.search!.placeholder}
+                interactionVariant='normal'
+                value={String(field.value || '')}
+                onChange={(e) => field.onChange(e.target.value)}
+              />
+            </S.FieldWrapper>
+          )}
+        />
+      )}
+
+      {actions.map((action, index) => renderButton(action, index))}
+    </S.FilterContainer>
+  );
+}
