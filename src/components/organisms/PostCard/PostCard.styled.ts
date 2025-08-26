@@ -58,12 +58,6 @@ export const MetaRow = styled.div`
   padding-bottom: 0.6rem;
 `;
 
-export const MetaItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-`;
-
 export const Aside = styled.div`
   display: flex;
   flex-direction: column;
@@ -75,12 +69,6 @@ export const SideMeta = styled.div`
   flex-direction: column;
   align-items: flex-end;
   gap: 0.4rem;
-`;
-
-export const MetaIcon = styled.div`
-  width: 2rem;
-  height: 2rem;
-  color: ${({ theme }) => theme.semantic.line.normal};
 `;
 
 export const MetaText = styled.div`
