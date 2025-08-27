@@ -112,7 +112,7 @@ export const POST_CATEGORY_SELECT_OPTIONS: SelectOption[] = [
   { label: POST_CATEGORY_LABELS.COLUMN, value: 3 },
 ];
 
-export const QUICK_DATE_SELECT: SelectOption[] = [
+export const QUICK_DATE_SELECT = [
   { label: '최근 7일', value: 7 },
   { label: '최근 30일', value: 30 },
   { label: '최근 90일', value: 90 },
