@@ -1,0 +1,61 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
+import ChevronDown from '@/assets/icons/chevrondown.svg';
+import ChevronUp from '@/assets/icons/chevronup.svg';
+import { useDropdown } from '@/hooks/useDropdown';
+import { formatToDigits } from '@/utils/formatText';
+
+import * as S from './SelectTime.styled';
+import AlarmSelect from './TimeSelect/TimeSelect';
+
+interface SelectAlarmProps {
+  streakTime: string;
+  disabled: boolean;
+  onSelect: (hour: string, minute: string) => void;
+}
+
+export default function SelectAlarm({ streakTime, disabled, onSelect }: SelectAlarmProps) {
+  const { isOpen, toggle, close, handleBlur, dropdownRef } = useDropdown();
+
+  const [selectedStreakTime, setSelectedStreakTime] = useState(streakTime);
+
+  const formatTime = (time: string) => {
+    const [hour, minute] = time.split(':');
+    const meridiem = parseInt(hour) >= 12 ? 'PM' : 'AM';
+    const formattedHour =
+      parseInt(hour) >= 12 ? formatToDigits(parseInt(hour) - 12, 2) : formatToDigits(parseInt(hour), 2);
+    return `${formattedHour}:${minute} ${meridiem}`;
+  };
+
+  useEffect(() => {
+    disabled && close();
+  }, [disabled, close]);
+
+  return (
+    <S.SelectAlarm>
+      <S.InputContainer
+        ref={dropdownRef}
+        onClick={() => !disabled && toggle()}
+        onBlur={handleBlur}
+        disabled={disabled}
+      >
+        <p>{formatTime(streakTime)}</p>
+        <S.Icon>{isOpen ? <ChevronDown /> : <ChevronUp />}</S.Icon>
+      </S.InputContainer>
+      {isOpen && (
+        <S.AlarmPopup>
+          <AlarmSelect
+            streakTime={selectedStreakTime}
+            onSelect={(hour, minute) => {
+              setSelectedStreakTime(`${hour}:${minute}`);
+              onSelect(hour, minute);
+            }}
+            onClose={close}
+          />
+        </S.AlarmPopup>
+      )}
+    </S.SelectAlarm>
+  );
+}
