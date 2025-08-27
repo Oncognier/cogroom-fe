@@ -24,3 +24,20 @@ export const Icon = styled.div`
   color: ${({ theme }) => theme.semantic.label.assistive};
   background-color: ${({ theme }) => theme.semantic.background.normal.alternative};
 `;
+
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+`;
+
+export const Description = styled.p`
+  ${({ theme }) => theme.typography.heading1.semibold};
+  color: ${({ theme }) => theme.semantic.label.normal};
+`;
+
+export const Button = styled.button`
+  ${({ theme }) => theme.typography.body1.medium};
+  color: ${({ theme }) => theme.semantic.label.normal};
+`;
