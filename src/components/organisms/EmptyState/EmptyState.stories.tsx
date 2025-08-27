@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import ScriptX from '@/assets/icons/script-x.svg';
@@ -14,10 +15,18 @@ const meta = {
         disable: true,
       },
     },
-    children: {
+    description: {
       control: {
         type: 'text',
       },
+    },
+    buttonLabel: {
+      control: {
+        type: 'text',
+      },
+    },
+    buttonAction: {
+      action: 'clicked',
     },
   },
 } satisfies Meta<typeof EmptyState>;
@@ -32,9 +41,11 @@ export const Default: Story = {
   },
 };
 
-export const WithChildren: Story = {
+export const WithDescriptionAndButton: Story = {
   args: {
     icon: <ScriptX />,
-    children: <p>Children</p>,
+    description: 'Description',
+    buttonLabel: 'Button Label',
+    buttonAction: action('clicked'),
   },
 };
