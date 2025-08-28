@@ -21,18 +21,24 @@ export const Body = styled.div`
   align-items: center;
 
   width: 100%;
+  min-width: 0;
 `;
 
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 2.4rem;
+
+  min-width: 0;
 `;
 
 export const MainHeader = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+
+  min-width: 0;
 `;
 
 export const UserProfile = styled.div`
@@ -49,7 +55,7 @@ export const Nickname = styled.p`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.headline2.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};
-
+  min-width: 0;
   max-width: 36.7rem;
   white-space: nowrap;
   overflow: hidden;
