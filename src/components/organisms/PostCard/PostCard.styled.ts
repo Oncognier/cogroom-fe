@@ -10,8 +10,9 @@ export const PostCard = styled.div`
 `;
 
 export const ThumbnailWrapper = styled.div`
-  width: 17.4rem;
   flex-shrink: 0;
+
+  width: 17.4rem;
 `;
 
 export const Body = styled.div`
@@ -48,6 +49,11 @@ export const Nickname = styled.p`
 export const Title = styled.p`
   ${({ theme }) => theme.typography.headline2.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};
+
+  max-width: 36.7rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const MetaRow = styled.div`
@@ -62,6 +68,7 @@ export const Aside = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  flex-shrink: 0;
 `;
 
 export const SideMeta = styled.div`
