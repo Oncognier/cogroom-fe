@@ -6,15 +6,13 @@ type ThumbnailRatio = '1_1' | '5_4' | '4_3' | '3_2' | '16_10' | '16_9' | '2_1' |
 
 export interface ThumbnailStyleProps {
   ratio: ThumbnailRatio;
-  portrait?: boolean;
   border?: boolean;
   radius?: boolean;
 }
 
 export const Thumbnail = styled.div<ThumbnailStyleProps>`
   position: relative;
-  width: ${({ portrait }) => (portrait ? 'auto' : '100%')};
-  height: ${({ portrait }) => (portrait ? '100%' : 'auto')};
+  width: 100%;
   aspect-ratio: ${({ theme, ratio }) => theme.ratio[ratio]};
   overflow: hidden;
 

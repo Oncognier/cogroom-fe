@@ -14,14 +14,12 @@ export default function Thumbnail({
   src = DEFAULT_THUMBNAIL,
   alt = 'thumbnail',
   ratio = '1_1',
-  portrait = false,
   border = false,
   radius = false,
 }: ThumbnailProps) {
   return (
     <S.Thumbnail
       ratio={ratio}
-      portrait={portrait}
       border={border}
       radius={radius}
     >
