@@ -16,7 +16,7 @@ export default function EmptyState({ icon, description, buttonLabel, buttonActio
       <S.Icon>{icon}</S.Icon>
       <S.ContentWrapper>
         {description && <S.Description>{description}</S.Description>}
-        {buttonLabel && (
+        {buttonLabel && buttonAction && (
           <SolidButton
             label={buttonLabel}
             onClick={buttonAction}
