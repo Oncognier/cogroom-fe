@@ -34,13 +34,6 @@ export const Title = styled.p`
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
-export const MemberDailyTable = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-`;
-
 export const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;

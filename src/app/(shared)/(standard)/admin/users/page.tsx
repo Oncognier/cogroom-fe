@@ -10,12 +10,13 @@ import NumberPagination from '@/components/molecules/NumberPagination/NumberPagi
 import SelectDate from '@/components/molecules/SelectDate/SelectDate';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
+import Table from '@/components/organisms/Table/Table';
+import { USER_TABLE_HEADER_ITEMS } from '@/constants/common';
 import { useDeleteMemberMutation } from '@/hooks/api/admin/useDeleteMember';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 import UserListRow from './_components/UserListRow/UserListRow';
-import UserTableHeader from './_components/UserTableHeader/UserTableHeader';
 import * as S from './page.styled';
 
 export default function Users() {
@@ -99,29 +100,26 @@ export default function Users() {
             />
           )}
 
-          <S.UserTable>
-            <UserTableHeader
-              checked={isAllSelected}
-              onCheckToggle={(checked) => setSelectedIds(checked ? currentPageMemberIds : [])}
-            />
-
-            {members.length === 0 ? (
-              <EmptyState icon={<ScriptX />} />
-            ) : (
-              members.map((member) => (
-                <UserListRow
-                  key={member.memberId}
-                  member={member}
-                  checked={selectedIds.includes(member.memberId)}
-                  onCheckToggle={(ck) =>
-                    setSelectedIds((prev) =>
-                      ck ? [...prev, member.memberId] : prev.filter((id) => id !== member.memberId),
-                    )
-                  }
-                />
-              ))
-            )}
-          </S.UserTable>
+          <Table
+            checked={isAllSelected}
+            onCheckToggle={(checked) => setSelectedIds(checked ? currentPageMemberIds : [])}
+            headerItems={USER_TABLE_HEADER_ITEMS}
+            isEmpty={members.length === 0}
+            emptyState={<EmptyState icon={<ScriptX />} />}
+          >
+            {members.map((member) => (
+              <UserListRow
+                key={member.memberId}
+                member={member}
+                checked={selectedIds.includes(member.memberId)}
+                onCheckToggle={(ck) =>
+                  setSelectedIds((prev) =>
+                    ck ? [...prev, member.memberId] : prev.filter((id) => id !== member.memberId),
+                  )
+                }
+              />
+            ))}
+          </Table>
         </S.TableWrapper>
       </ScrollXWrapper>
 

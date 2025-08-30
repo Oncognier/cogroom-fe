@@ -13,10 +13,10 @@ import NumberPagination from '@/components/molecules/NumberPagination/NumberPagi
 import { Select } from '@/components/molecules/Select/Select';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
-import { CATEGORY_SELECT_OPTIONS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
+import Table from '@/components/organisms/Table/Table';
+import { CATEGORY_SELECT_OPTIONS, CONTENTS_TABLE_HEADER_ITEMS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetDailyQuestions from '@/hooks/api/admin/useGetDailyQuestions';
 
-import ContentsDailyTableHeader from './_components/ContentsDailyTableHeader/ContentsDailyTableHeader';
 import * as S from './page.styled';
 import DailyListRow from '../_components/DailyListRow/DailyListRow';
 
@@ -150,25 +150,22 @@ export default function Contents() {
           />
         </S.FilterHeader>
 
-        <S.ContentsTable>
-          <ContentsDailyTableHeader
-            checked={isAllSelected}
-            onCheckToggle={handleToggleAll}
-          />
-
-          {contents.length === 0 ? (
-            <EmptyState icon={<ScriptX />} />
-          ) : (
-            contents.map((daily) => (
-              <DailyListRow
-                key={daily.questionId}
-                daily={daily}
-                checked={selectedIds.includes(daily.questionId)}
-                onCheckToggle={(checked) => handleToggleOne(daily.questionId, checked)}
-              />
-            ))
-          )}
-        </S.ContentsTable>
+        <Table
+          checked={isAllSelected}
+          onCheckToggle={handleToggleAll}
+          headerItems={CONTENTS_TABLE_HEADER_ITEMS}
+          isEmpty={contents.length === 0}
+          emptyState={<EmptyState icon={<ScriptX />} />}
+        >
+          {contents.map((daily) => (
+            <DailyListRow
+              key={daily.questionId}
+              daily={daily}
+              checked={selectedIds.includes(daily.questionId)}
+              onCheckToggle={(checked) => handleToggleOne(daily.questionId, checked)}
+            />
+          ))}
+        </Table>
       </ScrollXWrapper>
 
       <S.PaginationWrapper>
