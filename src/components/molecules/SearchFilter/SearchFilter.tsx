@@ -51,40 +51,51 @@ interface FilterProps {
 export default function SearchFilter({ title, fields, actions, className }: FilterProps) {
   const { updateSearchParams, getAllSearchParams } = useUrlSearchParams();
 
+  const convertArrayValue = useCallback(
+    (key: string, value: string[]) => {
+      const selectField = fields.select?.find((s) => s.name === key);
+      if (!selectField) return value;
+
+      return value.map((v) => {
+        const option = selectField.options.find((opt) => String(opt.value) === v);
+        return option ? option.value : v;
+      });
+    },
+    [fields.select],
+  );
+
+  const convertSingleValue = useCallback(
+    (key: string, value: string) => {
+      if (key.includes('Date') && value) {
+        return new Date(value);
+      }
+
+      const selectField = fields.select?.find((s) => s.name === key);
+      if (!selectField || !value) return value;
+
+      const option = selectField.options.find((opt) => String(opt.value) === value);
+      return option ? option.value : value;
+    },
+    [fields.select],
+  );
+
   const getInitialValues = useCallback((): FilterValues => {
     const urlParams = getAllSearchParams();
     const mergedValues: FilterValues = {};
 
     Object.keys(urlParams).forEach((key) => {
       const value = urlParams[key];
+
       if (Array.isArray(value)) {
-        const selectField = fields.select?.find((s) => s.name === key);
-        if (selectField) {
-          const convertedValues = value.map((v) => {
-            const option = selectField.options.find((opt) => String(opt.value) === v);
-            return option ? option.value : v;
-          });
-          mergedValues[key] = convertedValues;
-        } else {
-          mergedValues[key] = value;
-        }
-      } else {
-        if (key.includes('Date') && value) {
-          mergedValues[key] = new Date(value);
-        } else {
-          const selectField = fields.select?.find((s) => s.name === key);
-          if (selectField && value) {
-            const option = selectField.options.find((opt) => String(opt.value) === value);
-            mergedValues[key] = option ? option.value : value;
-          } else {
-            mergedValues[key] = value;
-          }
-        }
+        mergedValues[key] = convertArrayValue(key, value);
+        return;
       }
+
+      mergedValues[key] = convertSingleValue(key, value);
     });
 
     return mergedValues;
-  }, [getAllSearchParams, fields.select]);
+  }, [getAllSearchParams, convertArrayValue, convertSingleValue]);
 
   const { control, handleSubmit, watch, setValue, reset } = useForm<FilterValues>({
     defaultValues: getInitialValues(),
@@ -100,28 +111,18 @@ export default function SearchFilter({ title, fields, actions, className }: Filt
   };
 
   const renderButton = (action: FilterAction, index: number) => {
-    const commonProps = {
+    const baseProps = {
+      key: index,
       size: 'sm' as const,
       label: action.label,
       interactionVariant: 'normal' as const,
+      color: (action.color || 'primary') as 'primary' | 'destructive',
     };
-
-    if (action.type === 'submit') {
-      return (
-        <OutlinedButton
-          key={index}
-          {...commonProps}
-          color={action.color || 'primary'}
-          type='submit'
-        />
-      );
-    }
 
     if (action.variant === 'solid') {
       return (
         <SolidButton
-          key={index}
-          {...commonProps}
+          {...baseProps}
           color='primary'
           onClick={action.onClick}
         />
@@ -130,10 +131,8 @@ export default function SearchFilter({ title, fields, actions, className }: Filt
 
     return (
       <OutlinedButton
-        key={index}
-        {...commonProps}
-        color={action.color || 'primary'}
-        onClick={action.onClick}
+        {...baseProps}
+        {...(action.type === 'submit' ? { type: 'submit' as const } : { onClick: action.onClick })}
       />
     );
   };
