@@ -30,3 +30,12 @@ export type Post = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type Comment = {
+  commentId: number;
+  comment: string;
+  parentId: number | null;
+  post: Post;
+  createdAt: string;
+  updatedAt: string;
+};
