@@ -7,6 +7,10 @@ export const SelectAlarm = styled.div`
   width: 100%;
 `;
 
+export const Text = styled.p`
+  ${({ theme }) => theme.typography.label1.semibold};
+`;
+
 export const DropdownPanel = styled.div`
   display: flex;
   flex-direction: column;

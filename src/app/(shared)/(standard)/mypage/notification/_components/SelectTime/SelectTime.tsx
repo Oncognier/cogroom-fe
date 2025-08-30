@@ -41,7 +41,7 @@ export default function SelectAlarm({ streakTime, disabled, onSelect }: SelectAl
         onBlur={handleBlur}
         disabled={disabled}
       >
-        <p>{formatTime(streakTime)}</p>
+        <S.Text>시간 설정 {formatTime(streakTime)}</S.Text>
         <S.Icon>{isOpen ? <ChevronDown /> : <ChevronUp />}</S.Icon>
       </S.InputContainer>
       {isOpen && (
