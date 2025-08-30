@@ -6,7 +6,7 @@ import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXW
 import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
-import SearchFilter, { FilterValues } from '@/components/molecules/SearchFilter/SearchFilter';
+import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
@@ -20,21 +20,16 @@ import UserListRow from './_components/UserListRow/UserListRow';
 import * as S from './page.styled';
 
 export default function Users() {
-  const { updateSearchParams, getSearchParam } = useUrlSearchParams();
+  const { updateSearchParams, getSearchParam, getSearchParamAsDate } = useUrlSearchParams();
 
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [filterValues, setFilterValues] = useState<FilterValues>({
-    keyword: '',
-    startDate: null,
-    endDate: null,
-  });
 
   const { data, isLoading } = useGetMemberList({
     page: currentPage,
-    keyword: (filterValues.keyword as string) ?? '',
-    startDate: formatDayAsDashYYYYMMDD(filterValues.startDate as Date | null),
-    endDate: formatDayAsDashYYYYMMDD(filterValues.endDate as Date | null),
+    keyword: getSearchParam('keyword') ?? '',
+    startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
+    endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
   const { deleteMember } = useDeleteMemberMutation();
@@ -60,17 +55,6 @@ export default function Users() {
     setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
   };
 
-  const handleFilter = (values: FilterValues) => {
-    setFilterValues(values);
-    setSelectedIds([]);
-
-    const currentPageParam = Number(getSearchParam('page') ?? currentPage + 1);
-    updateSearchParams({
-      ...values,
-      page: currentPageParam,
-    });
-  };
-
   const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   useEffect(() => {
@@ -91,9 +75,6 @@ export default function Users() {
             search: { placeholder: '회원정보 검색' },
           }}
           actions={[{ type: 'submit', label: '검색하기' }]}
-          onSubmit={handleFilter}
-          initialValues={filterValues}
-          enableUrlSync={true}
         />
 
         <S.TableWrapper>

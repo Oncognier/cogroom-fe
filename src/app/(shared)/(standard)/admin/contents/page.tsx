@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
-import SearchFilter, { FilterValues } from '@/components/molecules/SearchFilter/SearchFilter';
+import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
@@ -19,22 +19,16 @@ import DailyListRow from '../_components/DailyListRow/DailyListRow';
 
 export default function Contents() {
   const router = useRouter();
-  const { updateSearchParams, getSearchParam } = useUrlSearchParams();
+  const { updateSearchParams, getSearchParam, getSearchParamAsArray } = useUrlSearchParams();
 
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
-
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [filterValues, setFilterValues] = useState<FilterValues>({
-    category: [],
-    level: [],
-    keyword: '',
-  });
 
   const { data, isLoading } = useGetDailyQuestions({
     page: currentPage,
-    category: (filterValues.category as unknown as number[]) ?? [],
-    level: (filterValues.level as string[]) ?? [],
-    keyword: (filterValues.keyword as string) ?? '',
+    category: getSearchParamAsArray('category').map(Number).filter(Boolean),
+    level: getSearchParamAsArray('level'),
+    keyword: getSearchParam('keyword') ?? '',
   });
 
   const contents = useMemo(() => data?.data ?? [], [data]);
@@ -55,17 +49,6 @@ export default function Contents() {
     setCurrentPage(page);
     setSelectedIds([]);
     updateSearchParams({ page: page + 1 });
-  };
-
-  const handleFilter = (values: FilterValues) => {
-    setFilterValues(values);
-    setSelectedIds([]);
-
-    const currentPageParam = Number(getSearchParam('page') ?? currentPage + 1);
-    updateSearchParams({
-      ...values,
-      page: currentPageParam,
-    });
   };
 
   const urlPageNum = Number(getSearchParam('page') ?? 0);
@@ -109,9 +92,6 @@ export default function Contents() {
               onClick: () => router.push('/admin/contents/create/daily'),
             },
           ]}
-          onSubmit={handleFilter}
-          initialValues={filterValues}
-          enableUrlSync={true}
         />
 
         <Table

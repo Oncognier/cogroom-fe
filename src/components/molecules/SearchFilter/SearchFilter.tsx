@@ -45,28 +45,15 @@ interface FilterProps {
   title?: string;
   fields: FilterFieldConfig;
   actions: FilterAction[];
-  onSubmit: (values: FilterValues) => void;
-  initialValues?: FilterValues;
   className?: string;
-  enableUrlSync?: boolean;
 }
 
-export default function SearchFilter({
-  title,
-  fields,
-  actions,
-  onSubmit,
-  initialValues = {},
-  className,
-  enableUrlSync = false,
-}: FilterProps) {
+export default function SearchFilter({ title, fields, actions, className }: FilterProps) {
   const { updateSearchParams, getAllSearchParams } = useUrlSearchParams();
 
   const getInitialValues = useCallback((): FilterValues => {
-    if (!enableUrlSync) return initialValues;
-
     const urlParams = getAllSearchParams();
-    const mergedValues: FilterValues = { ...initialValues };
+    const mergedValues: FilterValues = {};
 
     Object.keys(urlParams).forEach((key) => {
       const value = urlParams[key];
@@ -97,24 +84,19 @@ export default function SearchFilter({
     });
 
     return mergedValues;
-  }, [enableUrlSync, initialValues, getAllSearchParams, fields.select]);
+  }, [getAllSearchParams, fields.select]);
 
   const { control, handleSubmit, watch, setValue, reset } = useForm<FilterValues>({
     defaultValues: getInitialValues(),
   });
 
   useEffect(() => {
-    if (enableUrlSync) {
-      const urlValues = getInitialValues();
-      reset(urlValues);
-    }
-  }, [enableUrlSync, reset, getInitialValues]);
+    const urlValues = getInitialValues();
+    reset(urlValues);
+  }, [reset, getInitialValues]);
 
   const handleFormSubmit = (formValues: FilterValues) => {
-    if (enableUrlSync) {
-      updateSearchParams(formValues);
-    }
-    onSubmit(formValues);
+    updateSearchParams(formValues);
   };
 
   const renderButton = (action: FilterAction, index: number) => {
