@@ -166,14 +166,17 @@ export default function MemberDaily() {
           isEmpty={contents.length === 0}
           emptyState={<EmptyState icon={<ScriptX />} />}
         >
-          {contents.map((d) => (
-            <DailyListRow
-              key={d.assignedQuestionId}
-              daily={d}
-              checked={selectedIds.includes(d.assignedQuestionId)}
-              onCheckToggle={(ck) => handleToggleOne(d.assignedQuestionId, ck)}
-            />
-          ))}
+          <S.RowWrapper>
+            {contents.map((d) => (
+              <DailyListRow
+                type='card'
+                key={d.assignedQuestionId}
+                daily={d}
+                checked={selectedIds.includes(d.assignedQuestionId)}
+                onCheckToggle={(ck) => handleToggleOne(d.assignedQuestionId, ck)}
+              />
+            ))}
+          </S.RowWrapper>
         </Table>
       </ScrollXWrapper>
 
