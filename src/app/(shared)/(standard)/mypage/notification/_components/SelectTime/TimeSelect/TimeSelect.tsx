@@ -31,6 +31,8 @@ export default function TimeSelect({ streakTime, onSelect, onClose }: AlarmSelec
   const [minuteIndex, setMinuteIndex] = useState(minute);
 
   const meridiemList = ['AM', 'PM'];
+
+  // TODO: 추후 무한 스크롤로 구현
   const hourList: string[] = Array.from({ length: 12 }, (_, i) => formatToDigits(i, 2));
   const minuteList: string[] = Array.from({ length: 6 }, (_, i) => formatToDigits(i * 10, 2));
 
@@ -52,7 +54,6 @@ export default function TimeSelect({ streakTime, onSelect, onClose }: AlarmSelec
 
   const ITEM_PX = 36;
 
-  // 사용자 스크롤과 프로그래밍 스크롤(데이터를 통한 스크롤)을 구분하기 위한 함수
   const scrollToIndex = (ref: React.RefObject<HTMLDivElement | null>, index: number) => {
     const el = ref.current;
     if (!el) return;
