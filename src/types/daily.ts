@@ -22,6 +22,7 @@ export interface DailyContent {
   question: string;
   level: string;
   categories: string[];
+  answer?: string;
   answeredAt?: string;
 }
 
