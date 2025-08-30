@@ -22,16 +22,16 @@ export default function CommentCard({ commentData }: CommentCardProps) {
 
   return (
     <S.CommentCard>
-      <S.CommentRight>
+      <S.CommentLeft>
         {parentId && (
           <S.Icon>
             <ArrowTurnDownRight />
           </S.Icon>
         )}
         <S.Comment>{comment}</S.Comment>
-      </S.CommentRight>
+      </S.CommentLeft>
 
-      <S.CommentLeft>
+      <S.CommentRight>
         <S.Post>
           <S.PostIcon>
             <ArrowTurnDownRight />
@@ -39,7 +39,7 @@ export default function CommentCard({ commentData }: CommentCardProps) {
           <S.PostTitle>{post.title}</S.PostTitle>
         </S.Post>
         <S.CommentCreatedAt>{formatDayAsSlashYYMMDD(createdAt)}</S.CommentCreatedAt>
-      </S.CommentLeft>
+      </S.CommentRight>
     </S.CommentCard>
   );
 }

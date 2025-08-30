@@ -12,7 +12,7 @@ export const CommentCard = styled.div`
   padding: 2.4rem 3.2rem;
 `;
 
-export const CommentRight = styled.div`
+export const CommentLeft = styled.div`
   display: flex;
   width: 29.6rem;
   gap: 1.2rem;
@@ -32,7 +32,7 @@ export const Comment = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const CommentLeft = styled.div`
+export const CommentRight = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
@@ -46,7 +46,6 @@ export const CommentLeft = styled.div`
 export const Post = styled.div`
   display: flex;
   align-items: center;
-
 
   gap: 0.8rem;
 `;
