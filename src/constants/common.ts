@@ -1,7 +1,7 @@
 import Graph from '@/assets/icons/graph.svg';
 import HandHeart from '@/assets/icons/handheart.svg';
 import Smile from '@/assets/icons/smile.svg';
-import { DeployEnv, SelectOption } from '@/types/common';
+import { DeployEnv, SelectOption, TableHeaderItem } from '@/types/common';
 
 /* ---------- 기본 URL/환경 ---------- */
 export const BASE_URL = 'https://cogroom.com';
@@ -117,6 +117,28 @@ export const QUICK_DATE_SELECT = [
   { label: '최근 30일', value: 30 },
   { label: '최근 90일', value: 90 },
 ];
+
+/* ---------- 테이블 헤더 ---------- */
+export const USER_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
+  { label: '회원 번호', mode: 'fix', width: '12rem', align: 'center' },
+  { label: '프로필', mode: 'fix', width: '12rem', align: 'center' },
+  { label: '회원 정보', mode: 'expand', align: 'left' },
+  { label: '가입일', mode: 'fix', width: '12rem', align: 'center' },
+] as const;
+
+export const CONTENTS_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
+  { label: '카테고리', mode: 'fix', width: '20.8rem', align: 'center' },
+  { label: '질문 내용', mode: 'expand', align: 'center' },
+  { label: '난이도', mode: 'fix', width: '12rem', align: 'center' },
+] as const;
+
+export const DAILY_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
+  { label: '작성자', mode: 'fix', width: '12rem', align: 'center' },
+  { label: '카테고리', mode: 'fix', width: '20.8rem', align: 'center' },
+  { label: '질문 내용', mode: 'expand', align: 'center' },
+  { label: '난이도', mode: 'fix', width: '12rem', align: 'center' },
+  { label: '업데이트일', mode: 'fix', width: '12rem', align: 'center' },
+] as const;
 
 /* ---------- 회원가입/탈퇴 스텝 ---------- */
 export const SIGNUP_STEP = {
