@@ -24,9 +24,9 @@ export default function CommentCard({ commentData }: CommentCardProps) {
     <S.CommentCard>
       <S.CommentLeft>
         {parentId && (
-          <S.Icon>
+          <S.CommentIcon>
             <ArrowTurnDownRight />
-          </S.Icon>
+          </S.CommentIcon>
         )}
         <S.Comment>{comment}</S.Comment>
       </S.CommentLeft>

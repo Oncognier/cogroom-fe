@@ -14,18 +14,20 @@ export const CommentCard = styled.div`
 
 export const CommentLeft = styled.div`
   display: flex;
-  width: 29.6rem;
+  align-items: center;
+  max-width: 29.6rem;
   gap: 1.2rem;
 
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
-export const Icon = styled.div`
+export const CommentIcon = styled.div`
   width: 2.4rem;
   height: 2.4rem;
 `;
 
 export const Comment = styled.p`
+  max-width: 26rem;
   ${({ theme }) => theme.typography.body2.medium};
   white-space: nowrap;
   overflow: hidden;
