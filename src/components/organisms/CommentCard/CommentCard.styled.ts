@@ -35,7 +35,8 @@ export const Comment = styled.p`
 export const CommentLeft = styled.div`
   display: flex;
   align-items: center;
-  width: 40.4rem;
+  justify-content: end;
+  max-width: 40.4rem;
 
   gap: 0.8rem;
 
@@ -46,6 +47,7 @@ export const Post = styled.div`
   display: flex;
   align-items: center;
 
+
   gap: 0.8rem;
 `;
 
@@ -55,7 +57,7 @@ export const PostIcon = styled.div`
 `;
 
 export const PostTitle = styled.p`
-  width: 25rem;
+  max-width: 25rem;
   ${({ theme }) => theme.typography.label1.regular};
 
   white-space: nowrap;
