@@ -39,19 +39,6 @@ export const TableWrapper = styled.div`
   width: 100%;
 `;
 
-export const UserTable = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  width: 100%;
-`;
-
-export const UserTableHeader = styled.div`
-  display: flex;
-
-  width: 100%;
-`;
-
 export const PaginationButton = styled.div`
   display: flex;
   justify-content: center;

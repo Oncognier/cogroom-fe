@@ -13,12 +13,12 @@ import { Select } from '@/components/molecules/Select/Select';
 import SelectDate from '@/components/molecules/SelectDate/SelectDate';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
-import { CATEGORY_SELECT_OPTIONS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
+import Table from '@/components/organisms/Table/Table';
+import { CATEGORY_SELECT_OPTIONS, DAILY_TABLE_HEADER_ITEMS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetMemberDailyQuestions from '@/hooks/api/admin/useGetMemberDailyQuestions';
 import { MemberDailyFormFields } from '@/types/form';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
-import DailyTableHeader from './_components/DailyTableHeader/DailyTableHeader';
 import * as S from './page.styled';
 import DailyListRow from '../../../_components/DailyListRow/DailyListRow';
 
@@ -59,10 +59,18 @@ export default function MemberDaily() {
   const isAllSelected =
     currentPageContentIds.length > 0 && currentPageContentIds.every((id) => selectedIds.includes(id));
 
-  const onSubmit = (data: MemberDailyFormFields) => {
-    setFilterValues(data);
+  const onSubmit = (form: MemberDailyFormFields) => {
+    setFilterValues(form);
     setCurrentPage(0);
     setSelectedIds([]);
+  };
+
+  const handleToggleAll = (checked: boolean) => {
+    setSelectedIds(checked ? currentPageContentIds : []);
+  };
+
+  const handleToggleOne = (id: number, checked: boolean) => {
+    setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
   };
 
   if (isLoading) return <Loading />;
@@ -151,29 +159,22 @@ export default function MemberDaily() {
           />
         </S.FilterHeader>
 
-        <S.MemberDailyTable>
-          <DailyTableHeader
-            checked={isAllSelected}
-            onCheckToggle={(ck) => setSelectedIds(ck ? currentPageContentIds : [])}
-          />
-
-          {contents.length === 0 ? (
-            <EmptyState icon={<ScriptX />} />
-          ) : (
-            contents.map((d) => (
-              <DailyListRow
-                key={d.assignedQuestionId}
-                daily={d}
-                checked={selectedIds.includes(d.assignedQuestionId)}
-                onCheckToggle={(ck) =>
-                  setSelectedIds((prev) =>
-                    ck ? [...prev, d.assignedQuestionId] : prev.filter((id) => id !== d.assignedQuestionId),
-                  )
-                }
-              />
-            ))
-          )}
-        </S.MemberDailyTable>
+        <Table
+          checked={isAllSelected}
+          onCheckToggle={handleToggleAll}
+          headerItems={DAILY_TABLE_HEADER_ITEMS}
+          isEmpty={contents.length === 0}
+          emptyState={<EmptyState icon={<ScriptX />} />}
+        >
+          {contents.map((d) => (
+            <DailyListRow
+              key={d.assignedQuestionId}
+              daily={d}
+              checked={selectedIds.includes(d.assignedQuestionId)}
+              onCheckToggle={(ck) => handleToggleOne(d.assignedQuestionId, ck)}
+            />
+          ))}
+        </Table>
       </ScrollXWrapper>
 
       <S.PaginationWrapper>

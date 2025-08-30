@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
-type CheckboxSize = 'nm' | 'sm';
+export type CheckboxSize = 'nm' | 'sm';
 
 export interface CheckboxStyleProps {
   round?: boolean;
