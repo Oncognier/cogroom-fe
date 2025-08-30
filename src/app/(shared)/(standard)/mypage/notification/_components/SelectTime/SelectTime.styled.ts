@@ -7,25 +7,6 @@ export const SelectAlarm = styled.div`
   width: 100%;
 `;
 
-export const Text = styled.p`
-  ${({ theme }) => theme.typography.label1.semibold};
-`;
-
-export const DropdownPanel = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-
-  width: 100%;
-`;
-
-export const AlarmPopup = styled.div`
-  position: absolute;
-  top: calc(100% + 0.8rem);
-  right: 0;
-  z-index: 20;
-`;
-
 export const InputContainer = styled.div<{ disabled?: boolean }>`
   display: flex;
   justify-content: space-between;
@@ -42,6 +23,10 @@ export const InputContainer = styled.div<{ disabled?: boolean }>`
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
 `;
 
+export const Text = styled.p`
+  ${({ theme }) => theme.typography.label1.semibold};
+`;
+
 export const Icon = styled.div`
   display: flex;
   justify-content: center;
@@ -49,4 +34,11 @@ export const Icon = styled.div`
 
   width: 2.4rem;
   height: 2.4rem;
+`;
+
+export const AlarmPopup = styled.div`
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  right: 0;
+  z-index: 20;
 `;
