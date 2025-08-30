@@ -65,6 +65,14 @@ export default function MemberDaily() {
     setSelectedIds([]);
   };
 
+  const handleToggleAll = (checked: boolean) => {
+    setSelectedIds(checked ? currentPageContentIds : []);
+  };
+
+  const handleToggleOne = (id: number, checked: boolean) => {
+    setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
+  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -153,7 +161,7 @@ export default function MemberDaily() {
 
         <Table
           checked={isAllSelected}
-          onCheckToggle={(ck) => setSelectedIds(ck ? currentPageContentIds : [])}
+          onCheckToggle={handleToggleAll}
           headerItems={DAILY_TABLE_HEADER_ITEMS}
           isEmpty={contents.length === 0}
           emptyState={<EmptyState icon={<ScriptX />} />}
@@ -163,11 +171,7 @@ export default function MemberDaily() {
               key={d.assignedQuestionId}
               daily={d}
               checked={selectedIds.includes(d.assignedQuestionId)}
-              onCheckToggle={(ck) =>
-                setSelectedIds((prev) =>
-                  ck ? [...prev, d.assignedQuestionId] : prev.filter((id) => id !== d.assignedQuestionId),
-                )
-              }
+              onCheckToggle={(ck) => handleToggleOne(d.assignedQuestionId, ck)}
             />
           ))}
         </Table>

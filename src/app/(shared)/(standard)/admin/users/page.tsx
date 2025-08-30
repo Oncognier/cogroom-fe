@@ -55,6 +55,14 @@ export default function Users() {
     setSelectedIds([]);
   };
 
+  const handleToggleAll = (checked: boolean) => {
+    setSelectedIds(checked ? currentPageMemberIds : []);
+  };
+
+  const handleToggleOne = (id: number, checked: boolean) => {
+    setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
+  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -102,7 +110,7 @@ export default function Users() {
 
           <Table
             checked={isAllSelected}
-            onCheckToggle={(checked) => setSelectedIds(checked ? currentPageMemberIds : [])}
+            onCheckToggle={handleToggleAll}
             headerItems={USER_TABLE_HEADER_ITEMS}
             isEmpty={members.length === 0}
             emptyState={<EmptyState icon={<ScriptX />} />}
@@ -112,11 +120,7 @@ export default function Users() {
                 key={member.memberId}
                 member={member}
                 checked={selectedIds.includes(member.memberId)}
-                onCheckToggle={(ck) =>
-                  setSelectedIds((prev) =>
-                    ck ? [...prev, member.memberId] : prev.filter((id) => id !== member.memberId),
-                  )
-                }
+                onCheckToggle={(ck) => handleToggleOne(member.memberId, ck)}
               />
             ))}
           </Table>
