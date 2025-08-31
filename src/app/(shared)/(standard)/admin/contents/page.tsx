@@ -17,8 +17,8 @@ import Table from '@/components/organisms/Table/Table';
 import { CATEGORY_SELECT_OPTIONS, CONTENTS_TABLE_HEADER_ITEMS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetDailyQuestions from '@/hooks/api/admin/useGetDailyQuestions';
 
+import DailyListRow from './_components/DailyListRow/DailyListRow';
 import * as S from './page.styled';
-import DailyListRow from '../_components/DailyListRow/DailyListRow';
 
 type DailyContentsFilterForm = {
   category: number[];
