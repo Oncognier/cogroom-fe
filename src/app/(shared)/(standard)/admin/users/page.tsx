@@ -1,40 +1,35 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
-import SelectDate from '@/components/molecules/SelectDate/SelectDate';
+import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
 import { USER_TABLE_HEADER_ITEMS } from '@/constants/common';
 import { useDeleteMemberMutation } from '@/hooks/api/admin/useDeleteMember';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
+import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 import UserListRow from './_components/UserListRow/UserListRow';
 import * as S from './page.styled';
 
 export default function Users() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const { updateSearchParams, getSearchParam, getSearchParamAsDate } = useUrlSearchParams();
 
-  const [draftKeyword, setDraftKeyword] = useState('');
-  const [draftStartDate, setDraftStartDate] = useState<Date | null>(null);
-  const [draftEndDate, setDraftEndDate] = useState<Date | null>(null);
-
-  const [keyword, setKeyword] = useState('');
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const { data, isLoading } = useGetMemberList({
     page: currentPage,
-    keyword,
-    startDate: formatDayAsDashYYYYMMDD(startDate),
-    endDate: formatDayAsDashYYYYMMDD(endDate),
+    keyword: getSearchParam('keyword') ?? '',
+    startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
+    endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
   const { deleteMember } = useDeleteMemberMutation();
@@ -43,16 +38,13 @@ export default function Users() {
   const totalPages = data?.totalPages ?? 1;
   const totalCount = data?.totalElements ?? 0;
 
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const currentPageMemberIds = useMemo(() => members.map((m) => m.memberId), [members]);
   const isAllSelected = currentPageMemberIds.length > 0 && currentPageMemberIds.every((id) => selectedIds.includes(id));
 
-  const handleSearch = () => {
-    setKeyword(draftKeyword);
-    setStartDate(draftStartDate);
-    setEndDate(draftEndDate);
-    setCurrentPage(0);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
     setSelectedIds([]);
+    updateSearchParams({ page: page + 1 });
   };
 
   const handleToggleAll = (checked: boolean) => {
@@ -63,39 +55,27 @@ export default function Users() {
     setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
   };
 
+  const urlPageNum = Number(getSearchParam('page') ?? 0);
+
+  useEffect(() => {
+    if (urlPageNum > 0) {
+      setCurrentPage(urlPageNum - 1);
+    }
+  }, [urlPageNum]);
+
   if (isLoading) return <Loading />;
 
   return (
     <S.UsersContainer>
       <ScrollXWrapper>
-        <S.FilterHeader>
-          <S.TotalMemberCount>전체 회원 ({totalCount.toLocaleString()})</S.TotalMemberCount>
-
-          <SelectDate
-            selectedStartDate={draftStartDate}
-            selectedEndDate={draftEndDate}
-            onStartDateChange={setDraftStartDate}
-            onEndDateChange={setDraftEndDate}
-          />
-
-          <S.SearchWrapper>
-            <Search
-              inputSize='sm'
-              placeholder='회원정보 검색'
-              interactionVariant='normal'
-              value={draftKeyword}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDraftKeyword(e.target.value)}
-            />
-          </S.SearchWrapper>
-
-          <OutlinedButton
-            size='sm'
-            color='primary'
-            label='검색하기'
-            interactionVariant='normal'
-            onClick={handleSearch}
-          />
-        </S.FilterHeader>
+        <SearchFilter
+          title={`전체 회원 (${totalCount.toLocaleString()})`}
+          fields={{
+            dateRange: {},
+            search: { placeholder: '회원정보 검색' },
+          }}
+          actions={[{ type: 'submit', label: '검색하기' }]}
+        />
 
         <S.TableWrapper>
           {selectedIds.length > 0 && (
@@ -132,10 +112,7 @@ export default function Users() {
           size='nm'
           currentPage={currentPage + 1}
           totalPages={totalPages}
-          onPageChange={(uiPage) => {
-            setCurrentPage(uiPage - 1);
-            setSelectedIds([]);
-          }}
+          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
         />
       </S.PaginationButton>
     </S.UsersContainer>

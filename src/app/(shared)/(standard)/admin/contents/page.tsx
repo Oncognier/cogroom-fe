@@ -1,53 +1,34 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useEffect, useMemo, useState } from 'react';
 
 import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
-import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import Search from '@/components/atoms/Search/Search';
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
-import { Select } from '@/components/molecules/Select/Select';
+import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
 import { CATEGORY_SELECT_OPTIONS, CONTENTS_TABLE_HEADER_ITEMS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetDailyQuestions from '@/hooks/api/admin/useGetDailyQuestions';
+import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 
 import * as S from './page.styled';
 import DailyListRow from '../_components/DailyListRow/DailyListRow';
 
-type DailyContentsFilterForm = {
-  category: number[];
-  level: string[];
-  keyword: string;
-};
-
 export default function Contents() {
   const router = useRouter();
+  const { updateSearchParams, getSearchParam, getSearchParamAsArray } = useUrlSearchParams();
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
-  const [filterValues, setFilterValues] = useState<DailyContentsFilterForm>({
-    category: [],
-    level: [],
-    keyword: '',
-  });
-
-  const { control, handleSubmit } = useForm<DailyContentsFilterForm>({
-    defaultValues: {
-      category: [],
-      level: [],
-      keyword: '',
-    },
-  });
 
   const { data, isLoading } = useGetDailyQuestions({
     page: currentPage,
-    ...filterValues,
+    category: getSearchParamAsArray('category').map(Number).filter(Boolean),
+    level: getSearchParamAsArray('level'),
+    keyword: getSearchParam('keyword') ?? '',
   });
 
   const contents = useMemo(() => data?.data ?? [], [data]);
@@ -67,88 +48,51 @@ export default function Contents() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setSelectedIds([]);
+    updateSearchParams({ page: page + 1 });
   };
 
-  const onSubmit = (formValues: DailyContentsFilterForm) => {
-    setFilterValues(formValues);
-    setCurrentPage(0);
-    setSelectedIds([]);
-  };
+  const urlPageNum = Number(getSearchParam('page') ?? 0);
+
+  useEffect(() => {
+    if (urlPageNum > 0) {
+      setCurrentPage(urlPageNum - 1);
+    }
+  }, [urlPageNum]);
 
   if (isLoading) return <Loading />;
 
   return (
     <S.ContentsContainer>
       <ScrollXWrapper>
-        <S.FilterHeader onSubmit={handleSubmit(onSubmit)}>
-          <S.Title>데일리 콘텐츠</S.Title>
-
-          <Controller
-            name='category'
-            control={control}
-            render={({ field }) => (
-              <S.SelectWrapper>
-                <Select
-                  inputSize='sm'
-                  placeholder='카테고리 선택'
-                  isMulti
-                  options={CATEGORY_SELECT_OPTIONS}
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              </S.SelectWrapper>
-            )}
-          />
-
-          <Controller
-            name='level'
-            control={control}
-            render={({ field }) => (
-              <S.SelectWrapper>
-                <Select
-                  inputSize='sm'
-                  placeholder='난이도 선택'
-                  isMulti
-                  options={LEVEL_SELECT_OPTIONS}
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              </S.SelectWrapper>
-            )}
-          />
-
-          <Controller
-            name='keyword'
-            control={control}
-            render={({ field }) => (
-              <S.SearchWrapper>
-                <Search
-                  inputSize='sm'
-                  placeholder='키워드 검색'
-                  interactionVariant='normal'
-                  value={field.value}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              </S.SearchWrapper>
-            )}
-          />
-
-          <OutlinedButton
-            size='sm'
-            color='primary'
-            label='검색하기'
-            interactionVariant='normal'
-            type='submit'
-          />
-
-          <SolidButton
-            size='sm'
-            color='primary'
-            label='추가하기'
-            interactionVariant='normal'
-            onClick={() => router.push('/admin/contents/create/daily')}
-          />
-        </S.FilterHeader>
+        <SearchFilter
+          title='데일리 콘텐츠'
+          fields={{
+            select: [
+              {
+                name: 'category',
+                placeholder: '카테고리 선택',
+                options: CATEGORY_SELECT_OPTIONS,
+                isMulti: true,
+              },
+              {
+                name: 'level',
+                placeholder: '난이도 선택',
+                options: LEVEL_SELECT_OPTIONS,
+                isMulti: true,
+              },
+            ],
+            search: { placeholder: '키워드 검색' },
+          }}
+          actions={[
+            { type: 'submit', label: '검색하기' },
+            {
+              type: 'button',
+              label: '추가하기',
+              variant: 'solid',
+              onClick: () => router.push('/admin/contents/create/daily'),
+            },
+          ]}
+        />
 
         <Table
           checked={isAllSelected}
