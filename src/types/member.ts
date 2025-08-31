@@ -1,4 +1,4 @@
-import { ApiResponse } from './api';
+import { ApiResponse, PaginationResult } from './api';
 
 export type MemberRole = 'USER' | 'ADMIN' | 'CONTENT_PROVIDER';
 
@@ -57,3 +57,28 @@ export interface CheckNicknameResponse extends ApiResponse {
 export interface WithdrawRequest {
   reason: string;
 }
+
+export interface UserCommentListRequest {
+  page?: number;
+  sort?: string;
+  category?: number[];
+  keyword?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface UserCommentListResponse extends ApiResponse {
+  result: PaginationResult<UserComment>;
+}
+
+export type UserComment = {
+  commentId: number;
+  comment: string;
+  parentId: number | null;
+  post: {
+    postId: number;
+    title: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};

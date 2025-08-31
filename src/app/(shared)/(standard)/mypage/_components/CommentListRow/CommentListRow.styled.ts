@@ -9,6 +9,10 @@ export const CommentListRow = styled.div`
 
   width: 100%;
   padding: 2.4rem 3.2rem;
+
+  cursor: pointer;
+
+  border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
 `;
 
 export const CommentLeft = styled.div`
@@ -74,6 +78,7 @@ export const PostTitle = styled.p`
 
 export const CommentCreatedAt = styled.p`
   width: 12rem;
+  text-align: center;
 
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};

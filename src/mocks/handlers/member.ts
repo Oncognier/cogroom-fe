@@ -5,6 +5,7 @@ import { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
 import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
+import { getCommentListSuccess } from '../data/member/getCommentListData';
 import { getUserDailySuccess } from '../data/member/getUserDailyData';
 import { getUserDashboardSuccess } from '../data/member/getUserDashboardData';
 import { getUserInfoSuccess } from '../data/member/getUserInfoData';
@@ -32,6 +33,12 @@ export const memberHandlers = [
 
   http.get(END_POINTS_V1.MEMBERS.DAILY, async () => {
     return new HttpResponse(JSON.stringify(getUserDailySuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.get(END_POINTS_V1.MEMBERS.COMMENTS, async () => {
+    return new HttpResponse(JSON.stringify(getCommentListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

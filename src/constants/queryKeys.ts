@@ -11,6 +11,7 @@ const MEMBER_QUERY_KEYS = {
   MEMBER_SUMMARY: ['member', 'summary'],
   MEMBER_DAILY: ['member', 'daily'],
   MEMBER_DASHBOARD: ['member', 'dashboard'],
+  MEMBER_COMMENTS: ['member', 'comments'],
 } as const;
 
 const DAILY_QUERY_KEYS = {
