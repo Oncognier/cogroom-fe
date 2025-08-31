@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 const WHEEL_H = '12rem';
 const ITEM_H = '36px';
 
-export const AlarmSelect = styled.div`
+export const TimeWheel = styled.div`
   position: relative;
   display: flex;
 `;

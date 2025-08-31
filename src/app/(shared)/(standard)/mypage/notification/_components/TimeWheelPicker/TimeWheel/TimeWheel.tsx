@@ -5,15 +5,15 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { formatToDigits } from '@/utils/formatText';
 
-import * as S from './TimeSelect.styled';
+import * as S from './TimeWheel.styled';
 
-interface AlarmSelectProps {
+interface TimeWheelProps {
   streakTime: string;
   onSelect: (hour: string, minute: string) => void;
   onClose: () => void;
 }
 
-export default function TimeSelect({ streakTime, onSelect, onClose }: AlarmSelectProps) {
+export default function TimeWheel({ streakTime, onSelect, onClose }: TimeWheelProps) {
   const convertTimeToWheelIndices = (time: string) => {
     const [hour, minute] = time.split(':');
     const meridiem = parseInt(hour) >= 12 ? 1 : 0;
@@ -88,7 +88,7 @@ export default function TimeSelect({ streakTime, onSelect, onClose }: AlarmSelec
   };
 
   return (
-    <S.AlarmSelect>
+    <S.TimeWheel>
       <S.Container>
         <S.TimeWrapper>
           <S.TextWrapper>
@@ -170,6 +170,6 @@ export default function TimeSelect({ streakTime, onSelect, onClose }: AlarmSelec
           />
         </S.ButtonWrapper>
       </S.Container>
-    </S.AlarmSelect>
+    </S.TimeWheel>
   );
 }

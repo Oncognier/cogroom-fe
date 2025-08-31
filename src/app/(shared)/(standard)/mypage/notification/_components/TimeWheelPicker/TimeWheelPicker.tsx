@@ -7,16 +7,16 @@ import ChevronUp from '@/assets/icons/chevronup.svg';
 import { useDropdown } from '@/hooks/useDropdown';
 import { formatToDigits } from '@/utils/formatText';
 
-import * as S from './SelectTime.styled';
-import AlarmSelect from './TimeSelect/TimeSelect';
+import TimeWheel from './TimeWheel/TimeWheel';
+import * as S from './TimeWheelPicker.styled';
 
-interface SelectAlarmProps {
+interface TimeWheelPickerProps {
   streakTime: string;
   disabled: boolean;
   onSelect: (hour: string, minute: string) => void;
 }
 
-export default function SelectAlarm({ streakTime, disabled, onSelect }: SelectAlarmProps) {
+export default function SelectAlarm({ streakTime, disabled, onSelect }: TimeWheelPickerProps) {
   const { isOpen, toggle, close, handleBlur, dropdownRef } = useDropdown();
 
   const [selectedStreakTime, setSelectedStreakTime] = useState(streakTime);
@@ -34,7 +34,7 @@ export default function SelectAlarm({ streakTime, disabled, onSelect }: SelectAl
   }, [disabled, close]);
 
   return (
-    <S.SelectAlarm>
+    <S.TimeWheelPicker>
       <S.InputContainer
         ref={dropdownRef}
         onClick={() => !disabled && toggle()}
@@ -46,7 +46,7 @@ export default function SelectAlarm({ streakTime, disabled, onSelect }: SelectAl
       </S.InputContainer>
       {isOpen && (
         <S.AlarmPopup>
-          <AlarmSelect
+          <TimeWheel
             streakTime={selectedStreakTime}
             onSelect={(hour, minute) => {
               setSelectedStreakTime(`${hour}:${minute}`);
@@ -56,6 +56,6 @@ export default function SelectAlarm({ streakTime, disabled, onSelect }: SelectAl
           />
         </S.AlarmPopup>
       )}
-    </S.SelectAlarm>
+    </S.TimeWheelPicker>
   );
 }

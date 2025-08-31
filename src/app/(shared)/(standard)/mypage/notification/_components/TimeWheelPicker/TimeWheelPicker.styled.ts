@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const SelectAlarm = styled.div`
+export const TimeWheelPicker = styled.div`
   position: relative;
   width: 100%;
 `;

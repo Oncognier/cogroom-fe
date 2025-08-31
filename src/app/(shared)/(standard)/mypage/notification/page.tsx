@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
-import SelectAlarm from './_components/SelectTime/SelectTime';
 import SettingGroup from './_components/SettingGroup/SettingGroup';
 import SettingItem from './_components/SettingGroup/SettingItem/SettingItem';
+import TimeWheelPicker from './_components/TimeWheelPicker/TimeWheelPicker';
 import * as S from './page.styled';
 
 export default function Notification() {
@@ -52,7 +52,7 @@ export default function Notification() {
           isActive={settings.streakReminderEnabled}
           onChange={() => toggle('streakReminderEnabled')}
         >
-          <SelectAlarm
+          <TimeWheelPicker
             streakTime={settings.streakReminderTime}
             disabled={!settings.streakReminderEnabled}
             onSelect={handleSelectStreakReminderTime}
