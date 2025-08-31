@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import BookmarkFill from '@/assets/icons/bookmark-fill.svg';
 import Bookmark from '@/assets/icons/bookmark.svg';
