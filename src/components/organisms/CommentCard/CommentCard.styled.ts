@@ -17,19 +17,20 @@ export const CommentLeft = styled.div`
   gap: 1.2rem;
 
   max-width: 29.6rem;
-
-  color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
 export const CommentIcon = styled.div`
   width: 2.4rem;
   height: 2.4rem;
+
+  color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
 export const Comment = styled.p`
   max-width: 26rem;
 
   ${({ theme }) => theme.typography.body2.medium};
+  color: ${({ theme }) => theme.semantic.label.normal};
 
   white-space: nowrap;
   overflow: hidden;
@@ -39,7 +40,7 @@ export const Comment = styled.p`
 export const CommentRight = styled.div`
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
   gap: 0.8rem;
 
   max-width: 40.4rem;
@@ -50,11 +51,14 @@ export const Post = styled.div`
   align-items: center;
 
   gap: 0.8rem;
+  color: ${({ theme }) => theme.semantic.label.alternative};
 `;
 
 export const PostIcon = styled.div`
   width: 1.8rem;
   height: 1.8rem;
+
+  color: ${({ theme }) => theme.semantic.label.alternative};
 `;
 
 export const PostTitle = styled.p`
