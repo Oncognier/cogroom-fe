@@ -2,6 +2,8 @@ import { ApiResponse } from './api';
 
 export type MemberRole = 'USER' | 'ADMIN' | 'CONTENT_PROVIDER';
 
+export type SortType = 'latest' | 'oldest';
+
 export type UserSummary = {
   nickname: string;
   imageUrl: string;
