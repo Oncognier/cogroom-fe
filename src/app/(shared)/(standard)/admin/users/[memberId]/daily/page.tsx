@@ -19,8 +19,8 @@ import useGetMemberDailyQuestions from '@/hooks/api/admin/useGetMemberDailyQuest
 import { MemberDailyFormFields } from '@/types/form';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
+import DailyListCard from './_components/DailyListCard/DailyListCard';
 import * as S from './page.styled';
-import DailyListRow from '../../../_components/DailyListRow/DailyListRow';
 
 export default function MemberDaily() {
   const memberId = String(useParams()?.memberId);
@@ -166,14 +166,16 @@ export default function MemberDaily() {
           isEmpty={contents.length === 0}
           emptyState={<EmptyState icon={<ScriptX />} />}
         >
-          {contents.map((d) => (
-            <DailyListRow
-              key={d.assignedQuestionId}
-              daily={d}
-              checked={selectedIds.includes(d.assignedQuestionId)}
-              onCheckToggle={(ck) => handleToggleOne(d.assignedQuestionId, ck)}
-            />
-          ))}
+          <S.RowWrapper>
+            {contents.map((d) => (
+              <DailyListCard
+                key={d.assignedQuestionId}
+                daily={d}
+                checked={selectedIds.includes(d.assignedQuestionId)}
+                onCheckToggle={(ck) => handleToggleOne(d.assignedQuestionId, ck)}
+              />
+            ))}
+          </S.RowWrapper>
         </Table>
       </ScrollXWrapper>
 

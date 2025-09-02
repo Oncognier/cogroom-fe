@@ -34,6 +34,15 @@ export const Title = styled.p`
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
+export const RowWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  width: 100%;
+  margin-top: 2.4rem;
+`;
+
 export const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;

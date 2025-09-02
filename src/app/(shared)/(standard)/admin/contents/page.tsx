@@ -14,8 +14,8 @@ import { CATEGORY_SELECT_OPTIONS, CONTENTS_TABLE_HEADER_ITEMS, LEVEL_SELECT_OPTI
 import useGetDailyQuestions from '@/hooks/api/admin/useGetDailyQuestions';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 
+import DailyListRow from './_components/DailyListRow/DailyListRow';
 import * as S from './page.styled';
-import DailyListRow from '../_components/DailyListRow/DailyListRow';
 
 export default function Contents() {
   const router = useRouter();
