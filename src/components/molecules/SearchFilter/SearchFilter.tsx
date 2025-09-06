@@ -112,7 +112,6 @@ export default function SearchFilter({ title, fields, actions, className }: Filt
 
   const renderButton = (action: FilterAction, index: number) => {
     const baseProps = {
-      key: index,
       size: 'sm' as const,
       label: action.label,
       interactionVariant: 'normal' as const,
@@ -122,6 +121,7 @@ export default function SearchFilter({ title, fields, actions, className }: Filt
     if (action.variant === 'solid') {
       return (
         <SolidButton
+          key={index}
           {...baseProps}
           color='primary'
           onClick={action.onClick}
@@ -131,6 +131,7 @@ export default function SearchFilter({ title, fields, actions, className }: Filt
 
     return (
       <OutlinedButton
+        key={index}
         {...baseProps}
         {...(action.type === 'submit' ? { type: 'submit' as const } : { onClick: action.onClick })}
       />
