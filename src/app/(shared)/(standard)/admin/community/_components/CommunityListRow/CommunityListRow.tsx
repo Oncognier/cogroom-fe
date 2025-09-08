@@ -1,17 +1,17 @@
 'use client';
 
+import ArrowTurnDownRight from '@/assets/icons/arrowturndownright.svg';
 import DotsVertical from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import { POST_CATEGORY_META } from '@/constants/common';
+import { Comment, CommentStatus } from '@/types/comment';
+import { Post, PostStatus } from '@/types/post';
 import { formatDayAsSlashYYMMDD, formatTimeAsHHmm } from '@/utils/date/formatDay';
-import ArrowTurnDownRight from '@/assets/icons/arrowturndownright.svg';
+import { formatToDigits, getDisplayName } from '@/utils/formatText';
 
 import * as S from './CommunityListRow.styled';
-import { Post, PostStatus } from '@/types/post';
-import { Comment, CommentStatus } from '@/types/comment';
-import { formatToDigits, getDisplayName } from '@/utils/formatText';
 
 export type CommunityListRowProps = { type: 'post'; post: Post } | { type: 'comment'; comment: Comment };
 
