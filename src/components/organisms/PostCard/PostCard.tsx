@@ -64,7 +64,7 @@ export default function PostCard({ post }: PostCardProps) {
                 <AvatarPerson
                   type='icon'
                   size='xsm'
-                  src={author.profileUrl}
+                  src={author.profileUrl || undefined}
                 />
                 <S.Nickname>{getDisplayName(author.displayName, author.isAnonymous)}</S.Nickname>
               </S.UserProfile>
@@ -73,19 +73,19 @@ export default function PostCard({ post }: PostCardProps) {
 
           <S.MetaRow>
             <MetaItem
-              count={likeCount}
+              count={likeCount || 0}
               icon={<Heart />}
               fillIcon={<HeartFill />}
               isActive={myStatus?.isLiked}
             />
             <MetaItem
-              count={commentCount}
+              count={commentCount || 0}
               icon={<Comment />}
               fillIcon={<CommentFill />}
               isActive={myStatus?.isCommented}
             />
             <MetaItem
-              count={saveCount}
+              count={saveCount || 0}
               icon={<Bookmark />}
               fillIcon={<BookmarkFill />}
               isActive={myStatus?.isSaved}
@@ -101,7 +101,7 @@ export default function PostCard({ post }: PostCardProps) {
             />
           )}
           <S.SideMeta>
-            <S.MetaText>조회수 {formatCountPlus(viewCount)}</S.MetaText>
+            <S.MetaText>조회수 {formatCountPlus(viewCount || 0)}</S.MetaText>
             <S.MetaText>{formatRelativeKorean(createdAt)}</S.MetaText>
           </S.SideMeta>
         </S.Aside>
