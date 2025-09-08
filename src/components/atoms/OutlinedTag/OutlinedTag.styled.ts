@@ -44,6 +44,7 @@ export const OutlinedTag = styled.span<OutlinedTagStyleProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
   padding: 0.3rem 1.1rem;
   border-radius: 9999px;
