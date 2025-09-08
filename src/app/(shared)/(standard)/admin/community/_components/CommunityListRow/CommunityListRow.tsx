@@ -77,9 +77,9 @@ export default function CommunityListRow(props: CommunityListRowProps) {
           <AvatarPerson
             type='image'
             size='xsm'
-            src={author.profileUrl || undefined}
+            src={author?.profileUrl || undefined}
           />
-          <S.Nickname>{getDisplayName(author.displayName, author.isAnonymous)}</S.Nickname>
+          <S.Nickname>{getDisplayName(author?.displayName || '', author?.isAnonymous || false)}</S.Nickname>
         </S.MemberInfoWrapper>
 
         <S.CreatedAt>

@@ -29,7 +29,7 @@ export interface Post {
   status: PostStatus;
   thumbnailUrl?: string;
   category: PostCategory;
-  author: PostAuthor;
+  author?: PostAuthor;
   myStatus?: PostMyStatus;
   viewCount?: number;
   likeCount?: number;
