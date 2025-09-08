@@ -1,4 +1,4 @@
-export const getCommentListSuccess = {
+export const getUserCommentListSuccess = {
   code: 'SUCCESS',
   message: '댓글 목록 조회에 성공했습니다.',
   result: {
