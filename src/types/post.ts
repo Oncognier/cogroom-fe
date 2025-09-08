@@ -26,7 +26,7 @@ export interface PostMyStatus {
 export interface Post {
   postId: number;
   title: string;
-  status: PostStatus;
+  status?: PostStatus;
   thumbnailUrl?: string;
   category: PostCategory;
   author?: PostAuthor;

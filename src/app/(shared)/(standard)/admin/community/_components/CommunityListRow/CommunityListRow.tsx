@@ -30,12 +30,12 @@ export default function CommunityListRow(props: CommunityListRowProps) {
   const tagColor = meta?.color;
   const tagLabel = meta?.label ?? category.name;
 
-  const isDestructiveStatus = (s: PostStatus | CommentStatus) => {
+  const isDestructiveStatus = (s?: PostStatus | CommentStatus) => {
     if (s === 'DELETED_BY_USER' || s === 'DELETED_BY_ADMIN' || s === 'USER_WITHDRAWN') return true;
     return false;
   };
 
-  const getStatusPrefix = (s: PostStatus | CommentStatus) => {
+  const getStatusPrefix = (s?: PostStatus | CommentStatus) => {
     if (s === 'DELETED_BY_USER' || s === 'DELETED_BY_ADMIN') return '(삭제됨) ';
     if (s === 'USER_WITHDRAWN') return '(탈퇴함) ';
     return '';
