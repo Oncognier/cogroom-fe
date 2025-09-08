@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction';
 
-type TextButtonColor = 'primary' | 'assistive';
+type TextButtonColor = 'primary' | 'assistive' | 'normal';
 type TextButtonSize = 'sm' | 'md' | 'lg';
 type TextButtonAlign = 'center' | 'space-between';
 
@@ -56,6 +56,12 @@ const colorStyles: Record<TextButtonColor, (theme: Theme) => SerializedStyles> =
       color: ${theme.semantic.label.assistive};
     }
   `,
+  normal: (theme) => css`
+    color: ${theme.semantic.label.normal};
+    &:disabled {
+      color: ${theme.semantic.label.assistive};
+    }
+  `,
 };
 
 const sizeStyles: Record<TextButtonSize, (theme: Theme) => SerializedStyles> = {
@@ -73,6 +79,7 @@ const sizeStyles: Record<TextButtonSize, (theme: Theme) => SerializedStyles> = {
 const getInteractionColor = (theme: Theme, color: TextButtonColor) => {
   if (color === 'primary') return theme.semantic.primary.normal;
   if (color === 'assistive') return theme.semantic.label.alternative;
+  if (color === 'normal') return theme.semantic.label.normal;
   return theme.semantic.interaction.inactive;
 };
 
