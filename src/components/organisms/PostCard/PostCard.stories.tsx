@@ -17,6 +17,7 @@ export const Default: Story = {
       postId: 1,
       title: '코그룸 커뮤니티 첫 글',
       category: { categoryId: 1, name: '사색/고민' },
+      thumbnailUrl: null,
       author: {
         authorId: 10,
         displayName: '코그니어 1',
@@ -40,6 +41,7 @@ export const AnonymousAuthor: Story = {
       postId: 2,
       title: '익명으로 남기는 한 줄',
       category: { categoryId: 2, name: '데일리 공유' },
+      thumbnailUrl: null,
       author: {
         authorId: 0,
         displayName: '어떤 사용자',
@@ -63,6 +65,7 @@ export const NoAuthor: Story = {
       postId: 3,
       title: '작성자 정보가 없는 포스트',
       category: { categoryId: 3, name: '칼럼' },
+      thumbnailUrl: null,
       myStatus: { isLiked: false, isCommented: false, isSaved: false },
       viewCount: 42,
       likeCount: 0,

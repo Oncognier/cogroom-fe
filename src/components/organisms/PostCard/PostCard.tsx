@@ -50,7 +50,7 @@ export default function PostCard({ post }: PostCardProps) {
       <S.ThumbnailWrapper>
         <Thumbnail
           ratio='16_10'
-          src={thumbnailUrl}
+          src={thumbnailUrl || undefined}
           radius
         />
       </S.ThumbnailWrapper>
