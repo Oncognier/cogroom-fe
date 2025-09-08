@@ -1,13 +1,13 @@
 import { useRouter } from 'next/navigation';
 
 import ArrowTurnDownRight from '@/assets/icons/arrowturndownright.svg';
-import type { Comment } from '@/types/comment';
+import type { UserComment } from '@/types/member';
 import { formatDayAsSlashYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './CommentListRow.styled';
 
 type CommentListRowProps = {
-  commentData: Comment;
+  commentData: UserComment;
 };
 
 export default function CommentListRow({ commentData }: CommentListRowProps) {
@@ -15,13 +15,12 @@ export default function CommentListRow({ commentData }: CommentListRowProps) {
 
   const { comment, parentId, post, createdAt } = commentData;
 
-  // TODO: CommentListRow onClick
   const handleClick = () => {
     router.push(`/post/${post.postId}`);
   };
 
   return (
-    <S.CommentListRow>
+    <S.CommentListRow onClick={handleClick}>
       <S.CommentLeft>
         {parentId && (
           <S.CommentIcon>

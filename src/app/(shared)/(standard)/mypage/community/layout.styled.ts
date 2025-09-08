@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 export const CommunityLayout = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: 2.4rem;
 
   width: 100%;
 `;

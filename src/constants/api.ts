@@ -50,8 +50,8 @@ export const END_POINTS_V1 = {
     DAILY: `${BASE_PATH_V1.MEMBERS}/me/daily`,
     ORDERS: `${BASE_PATH_V1.MEMBERS}/orders`,
     WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
+    COMMENTS: `${BASE_PATH_V1.MEMBERS}/me/comments`,
   },
-
   DAILY: {
     QUESTIONS: `${BASE_PATH_V1.DAILY}/questions`,
     ANSWERS: `${BASE_PATH_V1.DAILY}/answers`,
