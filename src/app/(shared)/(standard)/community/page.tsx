@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import { DEFAULT_COMMUNITY_MAIN_BANNER, DEFAULT_OG_THUMBNAIL } from '@/constants/image';
 
+import CommunityActions from './_components/CommunityActions';
+import CommunityDescription from './_components/CommunityDescription';
 import * as S from './page.styled';
 
 export const metadata: Metadata = {
@@ -38,6 +41,8 @@ export default function Community() {
           { name: '커뮤니티', href: '/community' },
         ]}
       />
+      <CommunityDescription />
+      <CommunityActions />
       <a
         href='https://oncognier.com/community'
         target='_blank'
