@@ -1,32 +1,40 @@
-export type PostCategory = {
+export type PostStatus = 'ACTIVE' | 'DELETED_BY_USER' | 'DELETED_BY_ADMIN' | 'USER_WITHDRAWN';
+
+export interface PostSummary {
+  postId: number;
+  title: string;
+}
+
+export interface PostCategory {
   categoryId: number;
   name: string;
-};
+}
 
-export type PostAuthor = {
-  authorId: number;
-  displayName: string;
+export interface PostAuthor {
+  authorId: number | null;
+  displayName: string | null;
   isAnonymous: boolean;
-  profileUrl: string;
-};
+  profileUrl: string | null;
+}
 
-export type PostStatus = {
+export interface PostMyStatus {
   isLiked: boolean;
   isCommented: boolean;
   isSaved: boolean;
-};
+}
 
-export type Post = {
+export interface Post {
   postId: number;
   title: string;
+  status?: PostStatus;
   thumbnailUrl?: string;
   category: PostCategory;
   author?: PostAuthor;
-  myStatus: PostStatus;
-  viewCount: number;
-  likeCount: number;
-  commentCount: number;
-  saveCount: number;
+  myStatus?: PostMyStatus;
+  viewCount?: number;
+  likeCount?: number;
+  commentCount?: number;
+  saveCount?: number;
   createdAt: string;
   updatedAt: string;
-};
+}

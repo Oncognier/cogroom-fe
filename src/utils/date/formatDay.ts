@@ -28,6 +28,11 @@ export const formatDayAsYYYYMM = createDateFormatter((date) => {
   return `${date.getFullYear()}년 ${formatToDigits(date.getMonth() + 1, 2)}월`;
 });
 
+// HH:mm 형식으로 포맷팅 (예: 13:32)
+export const formatTimeAsHHmm = createDateFormatter((date) => {
+  return `${formatToDigits(date.getHours(), 2)}:${formatToDigits(date.getMinutes(), 2)}`;
+});
+
 // 요일 반환 (월~일)
 export const formatWeekday = createDateFormatter((date) => {
   const idx = date.getDay();

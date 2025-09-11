@@ -45,6 +45,7 @@ export const SolidTag = styled.span<SolidTagStyleProps>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
   padding: 0.4rem 1.2rem;
   border-radius: ${({ round }) => (round ? '9999px' : '0.8rem')};
