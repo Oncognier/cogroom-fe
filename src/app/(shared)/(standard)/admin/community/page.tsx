@@ -1,3 +1,7 @@
+'use client';
+
+import { redirect } from 'next/navigation';
+
 export default function Community() {
-  return <div>Community</div>;
+  redirect('/admin/community/posts');
 }
