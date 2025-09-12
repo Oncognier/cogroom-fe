@@ -8,7 +8,7 @@ import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction
 
 type BrandColors = keyof Pick<typeof brandColors, 'kakao' | 'naver'>;
 
-type SolidButtonColor = 'primary' | BrandColors;
+type SolidButtonColor = 'primary' | 'assistive' | BrandColors;
 type SolidButtonSize = 'sm' | 'md' | 'lg';
 type SolidButtonAlign = 'center' | 'space-between';
 
@@ -65,6 +65,10 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
   primary: (theme) => css`
     background-color: ${theme.semantic.primary.normal};
     color: ${theme.semantic.static.white};
+  `,
+  assistive: (theme) => css`
+    background-color: ${theme.semantic.background.elevated.normal};
+    color: ${theme.semantic.background.elevated.alternative};
   `,
   kakao: (theme) => css`
     background-color: ${theme.brandColors.kakao};
