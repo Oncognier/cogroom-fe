@@ -86,7 +86,7 @@ export default function Comments() {
                 isMulti: true,
               },
             ],
-            search: { placeholder: '댓글 내용 입력' },
+            search: [{ name: 'content', placeholder: '댓글 내용 입력' }],
           }}
           actions={[{ type: 'submit', label: '검색하기' }]}
         />
