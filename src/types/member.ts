@@ -62,7 +62,7 @@ export interface WithdrawRequest {
 export interface UserCommunityRequest {
   page?: number;
   sort?: string;
-  category?: number[];
+  categoryId?: number;
   keyword?: string;
   startDate?: string;
   endDate?: string;
