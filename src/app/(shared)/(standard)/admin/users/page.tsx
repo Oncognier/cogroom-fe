@@ -69,7 +69,8 @@ export default function Users() {
     <S.UsersContainer>
       <ScrollXWrapper>
         <SearchFilter
-          title={`전체 회원 (${totalCount.toLocaleString()})`}
+          totalTitle='전체 회원'
+          total={totalCount}
           fields={{
             dateRange: {},
             search: { placeholder: '회원정보 검색' },

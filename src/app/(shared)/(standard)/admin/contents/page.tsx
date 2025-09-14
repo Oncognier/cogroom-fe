@@ -4,7 +4,9 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
 import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
+import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ScriptX from '@/assets/icons/script-x.svg';
+import IconButton from '@/components/atoms/IconButton/IconButton';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
@@ -64,35 +66,46 @@ export default function Contents() {
   return (
     <S.ContentsContainer>
       <ScrollXWrapper>
-        <SearchFilter
-          title='데일리 콘텐츠'
-          fields={{
-            select: [
+        <S.FilterHeader>
+          <S.PageSwitcher>
+            <S.PageTitle>데일리 콘텐츠</S.PageTitle>
+            <IconButton
+              size='4rem'
+              variant='normal'
+              interactionVariant='normal'
+            >
+              <ChevronDown />
+            </IconButton>
+          </S.PageSwitcher>
+          <SearchFilter
+            fields={{
+              select: [
+                {
+                  name: 'category',
+                  placeholder: '카테고리 선택',
+                  options: CATEGORY_SELECT_OPTIONS,
+                  isMulti: true,
+                },
+                {
+                  name: 'level',
+                  placeholder: '난이도 선택',
+                  options: LEVEL_SELECT_OPTIONS,
+                  isMulti: true,
+                },
+              ],
+              search: { placeholder: '키워드 검색' },
+            }}
+            actions={[
+              { type: 'submit', label: '검색하기' },
               {
-                name: 'category',
-                placeholder: '카테고리 선택',
-                options: CATEGORY_SELECT_OPTIONS,
-                isMulti: true,
+                type: 'button',
+                label: '추가하기',
+                variant: 'solid',
+                onClick: () => router.push('/admin/contents/create/daily'),
               },
-              {
-                name: 'level',
-                placeholder: '난이도 선택',
-                options: LEVEL_SELECT_OPTIONS,
-                isMulti: true,
-              },
-            ],
-            search: { placeholder: '키워드 검색' },
-          }}
-          actions={[
-            { type: 'submit', label: '검색하기' },
-            {
-              type: 'button',
-              label: '추가하기',
-              variant: 'solid',
-              onClick: () => router.push('/admin/contents/create/daily'),
-            },
-          ]}
-        />
+            ]}
+          />
+        </S.FilterHeader>
 
         <Table
           checked={isAllSelected}

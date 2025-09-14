@@ -9,6 +9,7 @@ import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { Select } from '@/components/molecules/Select/Select';
 import SelectDate from '@/components/molecules/SelectDate/SelectDate';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
+import { formatCountPlus } from '@/utils/formatText';
 
 import * as S from './SearchFilter.styled';
 
@@ -42,13 +43,14 @@ export interface FilterValues {
 }
 
 interface FilterProps {
-  title?: string;
+  totalTitle?: string;
+  total?: number;
   fields: FilterFieldConfig;
   actions: FilterAction[];
   className?: string;
 }
 
-export default function SearchFilter({ title, fields, actions, className }: FilterProps) {
+export default function SearchFilter({ totalTitle, total, fields, actions, className }: FilterProps) {
   const { updateSearchParams, getAllSearchParams } = useUrlSearchParams();
 
   const convertArrayValue = useCallback(
@@ -139,63 +141,65 @@ export default function SearchFilter({ title, fields, actions, className }: Filt
   };
 
   return (
-    <S.FilterContainer
-      className={className}
-      onSubmit={handleSubmit(handleFormSubmit)}
-    >
-      {title && <S.Title>{title}</S.Title>}
+    <S.SearchFilter>
+      {totalTitle && <S.Title>{`${totalTitle} (${formatCountPlus(total, 10000)})`}</S.Title>}
 
-      {fields.select?.map((selectField, index) => (
-        <Controller
-          key={`select-${index}`}
-          name={selectField.name}
-          control={control}
-          render={({ field }) => {
-            const selectValue = Array.isArray(field.value) ? field.value : field.value ? [field.value] : [];
-            return (
+      <S.FilterContainer
+        className={className}
+        onSubmit={handleSubmit(handleFormSubmit)}
+      >
+        {fields.select?.map((selectField, index) => (
+          <Controller
+            key={`select-${index}`}
+            name={selectField.name}
+            control={control}
+            render={({ field }) => {
+              const selectValue = Array.isArray(field.value) ? field.value : field.value ? [field.value] : [];
+              return (
+                <S.FieldWrapper>
+                  <Select
+                    inputSize='sm'
+                    placeholder={selectField.placeholder}
+                    isMulti={selectField.isMulti}
+                    options={selectField.options}
+                    value={selectValue}
+                    onChange={field.onChange}
+                  />
+                </S.FieldWrapper>
+              );
+            }}
+          />
+        ))}
+
+        {fields.dateRange && (
+          <SelectDate
+            selectedStartDate={(watch(fields.dateRange.startDateName || 'startDate') as Date) || null}
+            selectedEndDate={(watch(fields.dateRange.endDateName || 'endDate') as Date) || null}
+            onStartDateChange={(date) => setValue(fields.dateRange!.startDateName || 'startDate', date)}
+            onEndDateChange={(date) => setValue(fields.dateRange!.endDateName || 'endDate', date)}
+          />
+        )}
+
+        {fields.search && (
+          <Controller
+            name={fields.search.name || 'keyword'}
+            control={control}
+            render={({ field }) => (
               <S.FieldWrapper>
-                <Select
+                <Search
                   inputSize='sm'
-                  placeholder={selectField.placeholder}
-                  isMulti={selectField.isMulti}
-                  options={selectField.options}
-                  value={selectValue}
-                  onChange={field.onChange}
+                  placeholder={fields.search!.placeholder}
+                  interactionVariant='normal'
+                  value={String(field.value || '')}
+                  onChange={(e) => field.onChange(e.target.value)}
                 />
               </S.FieldWrapper>
-            );
-          }}
-        />
-      ))}
+            )}
+          />
+        )}
 
-      {fields.dateRange && (
-        <SelectDate
-          selectedStartDate={(watch(fields.dateRange.startDateName || 'startDate') as Date) || null}
-          selectedEndDate={(watch(fields.dateRange.endDateName || 'endDate') as Date) || null}
-          onStartDateChange={(date) => setValue(fields.dateRange!.startDateName || 'startDate', date)}
-          onEndDateChange={(date) => setValue(fields.dateRange!.endDateName || 'endDate', date)}
-        />
-      )}
-
-      {fields.search && (
-        <Controller
-          name={fields.search.name || 'keyword'}
-          control={control}
-          render={({ field }) => (
-            <S.FieldWrapper>
-              <Search
-                inputSize='sm'
-                placeholder={fields.search!.placeholder}
-                interactionVariant='normal'
-                value={String(field.value || '')}
-                onChange={(e) => field.onChange(e.target.value)}
-              />
-            </S.FieldWrapper>
-          )}
-        />
-      )}
-
-      {actions.map((action, index) => renderButton(action, index))}
-    </S.FilterContainer>
+        {actions.map((action, index) => renderButton(action, index))}
+      </S.FilterContainer>
+    </S.SearchFilter>
   );
 }
