@@ -74,7 +74,7 @@ export default function Saves() {
     <S.UserSave>
       <S.FilterHeader>
         <SearchFilter
-          totalTitle='전체 댓글'
+          totalTitle='전체 글'
           total={UserSaveData?.totalElements}
           fields={{
             dateRange: {},
@@ -86,7 +86,7 @@ export default function Saves() {
                 isMulti: true,
               },
             ],
-            search: { placeholder: '댓글 내용 입력' },
+            search: { placeholder: '글 제목 입력' },
           }}
           actions={[{ type: 'submit', label: '검색하기' }]}
         />
