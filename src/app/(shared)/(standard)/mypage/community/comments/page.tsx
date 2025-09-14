@@ -74,7 +74,8 @@ export default function Comments() {
     <S.UserComment>
       <S.FilterHeader>
         <SearchFilter
-          title={`전체 댓글 (${data?.totalElements})`}
+          totalTitle='전체 댓글'
+          total={data?.totalElements}
           fields={{
             dateRange: {},
             select: [

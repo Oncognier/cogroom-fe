@@ -12,24 +12,19 @@ export const ContentsContainer = styled.div`
 
 export const FilterHeader = styled.form`
   display: flex;
-  gap: 1.2rem;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.8rem;
 
   width: 100%;
-  padding: 0.8rem 0;
 `;
 
-export const SearchWrapper = styled.div`
-  width: 20.3rem;
+export const PageSwitcher = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
 `;
 
-export const SelectWrapper = styled.div`
-  width: 20.3rem;
-`;
-
-export const Title = styled.p`
-  flex: 1;
-
+export const PageTitle = styled.div`
   ${({ theme }) => theme.typography.heading1.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
