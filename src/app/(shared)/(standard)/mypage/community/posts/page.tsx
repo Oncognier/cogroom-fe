@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
+import Checkbox from '@/components/atoms/Checkbox/Checkbox';
+import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
@@ -17,9 +20,6 @@ import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './page.styled';
-import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 
 export default function Posts() {
   const router = useRouter();
@@ -38,11 +38,12 @@ export default function Posts() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
+  const totalPages = UserPostsData?.totalPages ?? 1;
+  const urlPageNum = Number(getSearchParam('page') ?? 0);
+
   const handleGoToCommunity = () => {
     router.push('/community');
   };
-
-  const totalPages = UserPostsData?.totalPages ?? 1;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -54,8 +55,6 @@ export default function Posts() {
     setSort(newSort);
     updateSearchParams({ sort: newSort });
   };
-
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   const handleSelectAll = () => {
     const allPostIds = UserPostsData?.data.map((post) => post.postId) || [];
@@ -73,10 +72,6 @@ export default function Posts() {
       setCurrentPage(urlPageNum - 1);
     }
   }, [urlPageNum]);
-
-  useEffect(() => {
-    console.log(UserPostsData, 'UserPostsData');
-  }, [UserPostsData]);
 
   if (isLoading) return <Loading />;
 
