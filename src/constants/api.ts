@@ -53,6 +53,7 @@ export const END_POINTS_V1 = {
     WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
     POSTS: `${BASE_PATH_V1.MEMBERS}/me/posts`,
     COMMENTS: `${BASE_PATH_V1.MEMBERS}/me/comments`,
+    SAVES: `${BASE_PATH_V1.MEMBERS}/me/posts/saves`,
   },
   DAILY: {
     QUESTIONS: `${BASE_PATH_V1.DAILY}/questions`,
