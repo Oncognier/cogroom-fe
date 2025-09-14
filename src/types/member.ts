@@ -76,6 +76,10 @@ export interface UserCommentListResponse extends ApiResponse {
   result: PaginationResult<UserComment>;
 }
 
+export interface UserSaveListResponse extends ApiResponse {
+  result: PaginationResult<Post>;
+}
+
 export type UserComment = {
   commentId: number;
   comment: string;
