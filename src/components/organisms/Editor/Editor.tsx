@@ -60,6 +60,7 @@ export default function Editor({
       }),
       CharacterCount.configure({
         limit: 50000,
+        mode: 'textSize',
       }),
     ],
     content: value,

@@ -92,7 +92,7 @@ export const InputGroup = styled.div`
   gap: 0.8rem;
 `;
 
-export const Input = styled.textarea`
+export const Input = styled.textarea<{ $readOnly?: boolean }>`
   width: 100%;
   overflow-y: auto;
   height: 2rem;
@@ -104,6 +104,7 @@ export const Input = styled.textarea`
 
   ${({ theme }) => theme.typography.label1.regular}
   color: ${({ theme }) => theme.semantic.label.normal};
+  cursor: ${({ $readOnly }) => ($readOnly ? 'default' : 'text')};
 
   ::placeholder {
     color: ${({ theme }) => theme.semantic.label.alternative};
