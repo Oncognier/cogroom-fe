@@ -13,6 +13,7 @@ const MEMBER_QUERY_KEYS = {
   MEMBER_DASHBOARD: ['member', 'dashboard'],
   MEMBER_POSTS: ['member', 'posts'],
   MEMBER_COMMENTS: ['member', 'comments'],
+  MEMBER_SAVES: ['member', 'saves'],
 } as const;
 
 const DAILY_QUERY_KEYS = {
