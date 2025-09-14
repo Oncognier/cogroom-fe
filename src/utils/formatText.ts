@@ -19,7 +19,9 @@ export const formatToDigits = (num: number, digits: number): string => {
  * formatCountPlus(1000);              // "999+"
  * formatCountPlus(12345, 10000);      // "9,999+"
  */
-export function formatCountPlus(value: number, threshold = 1000): string {
+export function formatCountPlus(value?: number, threshold = 1000): string {
+  if (value == null) return '';
+
   const safe = Number.isFinite(value) ? Math.max(0, Math.floor(value)) : 0;
 
   if (safe >= threshold) {
