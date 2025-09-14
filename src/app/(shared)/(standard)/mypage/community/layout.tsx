@@ -30,6 +30,11 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
               href: '/mypage/community/likes',
               state: pathname === '/mypage/community/likes' ? 'active' : 'default',
             },
+            {
+              label: '저장',
+              href: '/mypage/community/saves',
+              state: pathname === '/mypage/community/saves' ? 'active' : 'default',
+            },
           ]}
           size='sm'
           interactionVariant='normal'
