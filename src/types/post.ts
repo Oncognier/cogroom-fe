@@ -38,3 +38,15 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
 }
+
+export type CreatePostRequest = {
+  title: string;
+  categoryId: number;
+  content: string;
+  isAnonymous: boolean;
+  imageUrlList: string[];
+};
+
+export interface CreatePostResponse {
+  result: Post;
+}

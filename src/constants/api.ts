@@ -12,6 +12,7 @@ const BASE_PATH_V1 = {
   CONTENTS: `${API_V1}/contents`,
   FILE: `${API_V1}/files`,
   STREAKS: `${API_V1}/streaks`,
+  POSTS: `${API_V1}/posts`,
 
   ADMIN: `${API_V1}/admin`,
 } as const;
@@ -74,6 +75,9 @@ export const END_POINTS_V1 = {
   STREAKS: {
     CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
     DAILY_STREAK: `${BASE_PATH_V1.STREAKS}/daily-streak`,
+  },
+  POSTS: {
+    CREATE: `${BASE_PATH_V1.POSTS}`,
   },
 
   ADMIN: {
