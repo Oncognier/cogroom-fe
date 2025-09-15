@@ -97,6 +97,9 @@ export const END_POINTS_V1 = {
       QUESTIONS_EDIT: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
       QUESTIONS_DELETE: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
     },
+    COMMUNITY: {
+      POSTS: `${BASE_PATH_V1.ADMIN}/community/posts`,
+    },
     CONTENTS: {
       CONTENTS: `${BASE_PATH_V1.ADMIN}/contents`,
       CONTENTS_STATUS: `${BASE_PATH_V1.ADMIN}/contents/status`,

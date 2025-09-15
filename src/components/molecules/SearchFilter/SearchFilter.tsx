@@ -15,9 +15,9 @@ import * as S from './SearchFilter.styled';
 
 export interface FilterFieldConfig {
   search?: {
+    name: string;
     placeholder: string;
-    name?: string;
-  };
+  }[];
   select?: {
     name: string;
     placeholder: string;
@@ -57,7 +57,6 @@ export default function SearchFilter({ totalTitle, total, fields, actions, class
     (key: string, value: string[]) => {
       const selectField = fields.select?.find((s) => s.name === key);
       if (!selectField) return value;
-
       return value.map((v) => {
         const option = selectField.options.find((opt) => String(opt.value) === v);
         return option ? option.value : v;
@@ -71,10 +70,8 @@ export default function SearchFilter({ totalTitle, total, fields, actions, class
       if (key.includes('Date') && value) {
         return new Date(value);
       }
-
       const selectField = fields.select?.find((s) => s.name === key);
       if (!selectField || !value) return value;
-
       const option = selectField.options.find((opt) => String(opt.value) === value);
       return option ? option.value : value;
     },
@@ -87,12 +84,10 @@ export default function SearchFilter({ totalTitle, total, fields, actions, class
 
     Object.keys(urlParams).forEach((key) => {
       const value = urlParams[key];
-
       if (Array.isArray(value)) {
         mergedValues[key] = convertArrayValue(key, value);
         return;
       }
-
       mergedValues[key] = convertSingleValue(key, value);
     });
 
@@ -180,23 +175,26 @@ export default function SearchFilter({ totalTitle, total, fields, actions, class
           />
         )}
 
-        {fields.search && (
-          <Controller
-            name={fields.search.name || 'keyword'}
-            control={control}
-            render={({ field }) => (
-              <S.FieldWrapper>
-                <Search
-                  inputSize='sm'
-                  placeholder={fields.search!.placeholder}
-                  interactionVariant='normal'
-                  value={String(field.value || '')}
-                  onChange={(e) => field.onChange(e.target.value)}
-                />
-              </S.FieldWrapper>
-            )}
-          />
-        )}
+        {fields.search?.map((searchField, index) => {
+          return (
+            <Controller
+              key={`search-${index}`}
+              name={searchField.name}
+              control={control}
+              render={({ field }) => (
+                <S.FieldWrapper>
+                  <Search
+                    inputSize='sm'
+                    placeholder={searchField.placeholder}
+                    interactionVariant='normal'
+                    value={String(field.value ?? '')}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                </S.FieldWrapper>
+              )}
+            />
+          );
+        })}
 
         {actions.map((action, index) => renderButton(action, index))}
       </S.FilterContainer>

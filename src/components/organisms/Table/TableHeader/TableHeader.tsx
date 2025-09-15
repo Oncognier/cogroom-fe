@@ -7,21 +7,30 @@ import { TableHeaderItem } from '@/types/common';
 import * as S from './TableHeader.styled';
 
 export interface TableHeaderProps {
-  checked: boolean;
-  onCheckToggle: (checked: boolean) => void;
+  showSelection?: boolean;
+  checked?: boolean;
+  onCheckToggle?: (checked: boolean) => void;
   headerItems: TableHeaderItem[];
   checkboxSize?: CheckboxSize;
 }
 
-export default function TableHeader({ checked, onCheckToggle, headerItems, checkboxSize = 'nm' }: TableHeaderProps) {
+export default function TableHeader({
+  showSelection = true,
+  checked,
+  onCheckToggle,
+  headerItems,
+  checkboxSize = 'nm',
+}: TableHeaderProps) {
   return (
     <S.TableHeader>
-      <Checkbox
-        size={checkboxSize}
-        isChecked={checked}
-        onToggle={onCheckToggle}
-        interactionVariant='normal'
-      />
+      {showSelection && onCheckToggle && (
+        <Checkbox
+          size={checkboxSize}
+          isChecked={checked}
+          onToggle={onCheckToggle}
+          interactionVariant='normal'
+        />
+      )}
       {headerItems.map((item, idx) => (
         <S.Label
           key={idx}

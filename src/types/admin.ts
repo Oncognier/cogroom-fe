@@ -2,6 +2,7 @@ import { RoleKey } from '@/constants/common';
 import { ApiResponse, PaginationResult } from '@/types/api';
 
 import { MemberRole } from './member';
+import { Post } from './post';
 
 export interface MemberListRequest {
   page?: number;
@@ -56,6 +57,19 @@ export interface DailyQuestion {
 
 export interface DailyQuestionsResponse extends ApiResponse {
   result: PaginationResult<DailyQuestion>;
+}
+
+export interface PostListRequest {
+  page?: number;
+  category?: number[];
+  nickname?: string;
+  title?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface PostListResponse extends ApiResponse {
+  result: PaginationResult<Post>;
 }
 
 export interface ChangeMemberRoleRequest {

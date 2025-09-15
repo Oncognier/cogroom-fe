@@ -38,6 +38,7 @@ const ADMIN_QUERY_KEYS = {
   ADMIN_MEMBER_LIST: ['admin', 'member_list'],
   ADMIN_DAILY_LIST: ['admin', 'daily_list'],
   ADMIN_MEMBER_DAILY: ['admin', 'daily'],
+  POST_LIST: ['admin', 'post_list'],
 } as const;
 
 export { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS, DAILY_QUERY_KEYS, STREAK_QUERY_KEYS, POST_QUERY_KEYS, ADMIN_QUERY_KEYS };
