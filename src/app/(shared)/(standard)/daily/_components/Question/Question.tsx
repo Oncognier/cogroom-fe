@@ -18,9 +18,18 @@ interface QuestionProps {
   question: string;
   answer?: string;
   hasAnswered: boolean;
+  hideSubmitButton?: boolean;
+  readOnlyMode?: boolean;
 }
 
-export default function Question({ assignedQuestionId, question, answer, hasAnswered }: QuestionProps) {
+export default function Question({
+  assignedQuestionId,
+  question,
+  answer,
+  hasAnswered,
+  hideSubmitButton = false,
+  readOnlyMode = false,
+}: QuestionProps) {
   const [isAnswered, setIsAnswered] = useState<boolean>(!!answer);
   const isFirstAnswer = useRef<boolean>(hasAnswered);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -95,7 +104,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
       </S.QuestionWrapper>
       <S.Form>
         <S.InputGroup>
-          {isAnswered && (
+          {isAnswered && !readOnlyMode && (
             <S.AnswerStamp>
               <CheckCircle />
             </S.AnswerStamp>
@@ -104,20 +113,28 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
             ref={textareaRef}
             value={answerValue}
             placeholder='음... 나는'
+            readOnly={readOnlyMode}
+            $readOnly={readOnlyMode}
             onChange={(e) => {
-              setAnswerValue(e.target.value);
+              if (!readOnlyMode) {
+                setAnswerValue(e.target.value);
+              }
             }}
           />
         </S.InputGroup>
 
         <S.SubmitGroup>
-          <S.CountValue
-            isHundredOver={isOverLimit}
-            isShaking={isShaking}
-          >
-            {answerValue.length}/{DAILY_MAX_LENGTH - 1}
-          </S.CountValue>
-          <S.Button onClick={isAnswered ? handleEdit : handleSubmit}>{isAnswered ? '수정하기' : '제출하기'}</S.Button>
+          {!readOnlyMode && (
+            <S.CountValue
+              isHundredOver={isOverLimit}
+              isShaking={isShaking}
+            >
+              {answerValue.length}/{DAILY_MAX_LENGTH - 1}
+            </S.CountValue>
+          )}
+          {!hideSubmitButton && (
+            <S.Button onClick={isAnswered ? handleEdit : handleSubmit}>{isAnswered ? '수정하기' : '제출하기'}</S.Button>
+          )}
         </S.SubmitGroup>
       </S.Form>
     </S.QuestionCard>

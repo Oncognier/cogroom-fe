@@ -15,3 +15,9 @@ export const Title = styled.p`
   text-align: center;
   white-space: pre-line;
 `;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+`;
