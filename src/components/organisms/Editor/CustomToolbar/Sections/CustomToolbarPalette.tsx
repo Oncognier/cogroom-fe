@@ -4,6 +4,7 @@ import type { Editor } from '@tiptap/react';
 
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ImageIcon from '@/assets/icons/image.svg';
+import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 
 import type { PopupType } from '../CustomToolbar';
 import * as S from '../CustomToolbar.styled';
@@ -29,50 +30,32 @@ export default function CustomToolbarPalette({
   selectedFont,
   onSelectFont,
 }: Props) {
+  const { uploadToS3 } = useUploadFileToS3Mutation({
+    onSuccess: (accessUrls) => {
+      editor
+        .chain()
+        .focus()
+        .setCustomImage({
+          src: accessUrls[0],
+          width: 300,
+          height: 200,
+        })
+        .run();
+      closePopups();
+    },
+  });
+
   const handleImageUpload = () => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = 'image/*';
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    input.onchange = (e: any) => {
-      const file = e.target.files?.[0];
+    input.onchange = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
       if (!file) return;
 
-      if (file.type.startsWith('image/')) {
-        const img = new Image();
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d')!;
-
-          const maxWidth = 800;
-          const ratio = Math.min(maxWidth / img.width, maxWidth / img.height);
-          canvas.width = img.width * ratio;
-          canvas.height = img.height * ratio;
-
-          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-          const resizedDataUrl = canvas.toDataURL('image/jpeg', 1.0);
-
-          editor
-            .chain()
-            .focus()
-            .setCustomImage({
-              src: resizedDataUrl,
-              width: canvas.width,
-              height: canvas.height,
-            })
-            .run();
-
-          closePopups();
-        };
-
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (reader.result) img.src = reader.result as string;
-        };
-        reader.readAsDataURL(file);
-      }
+      uploadToS3({ files: [file] });
     };
 
     input.click();
@@ -81,64 +64,76 @@ export default function CustomToolbarPalette({
   return (
     <S.ToolbarGroup>
       {/* 이미지 업로드 */}
-      <S.ImageUpload onClick={handleImageUpload}>
+      <S.ImageUpload
+        type='button'
+        onClick={handleImageUpload}
+      >
         <ImageIcon />
       </S.ImageUpload>
 
       <S.Divider />
 
       {/* 본문/타이포 */}
-      <S.DropdownButton
-        onClick={() => togglePopup('typography')}
-        isActive={activePopup === 'typography'}
-      >
-        본문 <ChevronDown />
-      </S.DropdownButton>
-      {activePopup === 'typography' && (
-        <PopupWrapper onClose={closePopups}>
-          <TypographyPopup
-            editor={editor}
-            onClose={closePopups}
-          />
-        </PopupWrapper>
-      )}
+      <S.DropdownWrapper>
+        <S.DropdownButton
+          type='button'
+          onClick={() => togglePopup('typography')}
+          isActive={activePopup === 'typography'}
+        >
+          본문 <ChevronDown />
+        </S.DropdownButton>
+        {activePopup === 'typography' && (
+          <PopupWrapper onClose={closePopups}>
+            <TypographyPopup
+              editor={editor}
+              onClose={closePopups}
+            />
+          </PopupWrapper>
+        )}
+      </S.DropdownWrapper>
 
       <S.Divider />
 
       {/* 폰트 */}
-      <S.DropdownButton
-        onClick={() => togglePopup('font')}
-        isActive={activePopup === 'font'}
-      >
-        {selectedFont} <ChevronDown />
-      </S.DropdownButton>
-      {activePopup === 'font' && (
-        <PopupWrapper onClose={closePopups}>
-          <FontPopup
-            editor={editor}
-            onClose={closePopups}
-            onSelect={onSelectFont}
-          />
-        </PopupWrapper>
-      )}
+      <S.DropdownWrapper>
+        <S.DropdownButton
+          type='button'
+          onClick={() => togglePopup('font')}
+          isActive={activePopup === 'font'}
+        >
+          {selectedFont} <ChevronDown />
+        </S.DropdownButton>
+        {activePopup === 'font' && (
+          <PopupWrapper onClose={closePopups}>
+            <FontPopup
+              editor={editor}
+              onClose={closePopups}
+              onSelect={onSelectFont}
+            />
+          </PopupWrapper>
+        )}
+      </S.DropdownWrapper>
 
       <S.Divider />
 
       {/* 색상 */}
-      <S.DropdownButton
-        onClick={() => togglePopup('color')}
-        isActive={activePopup === 'color'}
-      >
-        색상 <ChevronDown />
-      </S.DropdownButton>
-      {activePopup === 'color' && (
-        <PopupWrapper onClose={closePopups}>
-          <ColorPopup
-            editor={editor}
-            onClose={closePopups}
-          />
-        </PopupWrapper>
-      )}
+      <S.DropdownWrapper>
+        <S.DropdownButton
+          type='button'
+          onClick={() => togglePopup('color')}
+          isActive={activePopup === 'color'}
+        >
+          색상 <ChevronDown />
+        </S.DropdownButton>
+        {activePopup === 'color' && (
+          <PopupWrapper onClose={closePopups}>
+            <ColorPopup
+              editor={editor}
+              onClose={closePopups}
+            />
+          </PopupWrapper>
+        )}
+      </S.DropdownWrapper>
     </S.ToolbarGroup>
   );
 }

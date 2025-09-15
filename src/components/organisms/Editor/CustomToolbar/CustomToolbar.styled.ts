@@ -25,6 +25,12 @@ export const ToolbarGroup = styled.div`
   gap: 0.8rem;
 `;
 
+export const DropdownWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
 export const InlineGroup = styled.div`
   display: flex;
   align-items: center;

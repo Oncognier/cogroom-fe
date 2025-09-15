@@ -14,6 +14,42 @@ export const EditorWrapper = styled.div`
   width: 100%;
   height: 100%;
 
+  ul {
+    padding-left: 1em;
+    margin: 0 0 0.5rem 0;
+  }
+  ul li {
+    padding-left: 0.5em;
+    text-indent: 0;
+  }
+  ul li::marker {
+    content: '•';
+    color: ${({ theme }) => theme.semantic.static.black};
+    margin-right: 0.5em; /* 점과 글자 사이 간격 */
+  }
+
+  /* 번호 리스트 */
+  ol {
+    padding-left: 1em;
+    counter-reset: item;
+
+    margin: 0 0 1em 0;
+  }
+  ol li {
+    counter-increment: item;
+    padding-left: 0.5em; /* 글자와 점 사이 간격 */
+    text-indent: 0;
+  }
+  ol li::marker {
+    content: counter(item) '.';
+    color: ${({ theme }) => theme.semantic.static.black};
+    margin-right: 0.5em; /* 숫자와 글자 사이 간격 */
+  }
+
+  li {
+    margin: 0.25em 0;
+  }
+
   .ProseMirror {
     font-family:
       system-ui,
@@ -49,61 +85,6 @@ export const EditorWrapper = styled.div`
       float: left;
       height: 0;
       pointer-events: none;
-    }
-
-    ul,
-    ol {
-      padding-left: 0;
-      list-style: none;
-      counter-reset: item;
-    }
-
-    li {
-      display: flex;
-      margin-bottom: 0.4rem;
-
-      /* p 태그의 text-align에 따라 li 정렬 */
-      &:has(p[style*='text-align: center']) {
-        justify-content: center;
-      }
-
-      &:has(p[style*='text-align: right']) {
-        justify-content: flex-end;
-      }
-    }
-
-    /* 상위 요소의 text-align에 따른 리스트 정렬 */
-    ul[style*='text-align: center'],
-    ol[style*='text-align: center'] {
-      li {
-        justify-content: center;
-      }
-    }
-
-    ul[style*='text-align: right'],
-    ol[style*='text-align: right'] {
-      li {
-        justify-content: flex-end;
-      }
-    }
-
-    ul li::before {
-      content: '•';
-      margin-right: 0.5em;
-      flex-shrink: 0;
-    }
-
-    ol li::before {
-      counter-increment: item;
-      content: counter(item) '.';
-      margin-right: 0.5em;
-      flex-shrink: 0;
-    }
-
-    p {
-      &:last-child {
-        margin-bottom: 0;
-      }
     }
 
     h1,

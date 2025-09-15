@@ -37,7 +37,7 @@ type FontPreviewProps = {
 
 export const PopupContainer = styled.div`
   position: absolute;
-  top: calc(100% + 1rem);
+  top: calc(100% + 1.5rem);
   left: 50%;
   transform: translateX(-50%);
   padding: 2rem;

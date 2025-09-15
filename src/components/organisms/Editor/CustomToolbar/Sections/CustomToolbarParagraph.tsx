@@ -22,50 +22,46 @@ export default function CustomToolbarParagraph({ editor, closePopups }: Props) {
   };
 
   const toggleBulletList = () => {
-    const currentAlign = editor.state.selection.$from.parent.attrs?.textAlign;
     editor.chain().focus().toggleBulletList().run();
-    if (currentAlign && currentAlign !== 'left') {
-      editor.chain().focus().setTextAlign(currentAlign).run();
-    }
-    closePopups();
   };
 
   const toggleOrderedList = () => {
-    const currentAlign = editor.state.selection.$from.parent.attrs?.textAlign;
     editor.chain().focus().toggleOrderedList().run();
-    if (currentAlign && currentAlign !== 'left') {
-      editor.chain().focus().setTextAlign(currentAlign).run();
-    }
     closePopups();
   };
 
   return (
     <S.ParagraphGroup>
       <S.ToolbarButton
+        type='button'
         onClick={() => setAlign('left')}
         isActive={editor.isActive({ textAlign: 'left' })}
       >
         <ArrangeLeft />
       </S.ToolbarButton>
       <S.ToolbarButton
+        type='button'
         onClick={() => setAlign('center')}
         isActive={editor.isActive({ textAlign: 'center' })}
       >
         <ArrangeMiddle />
       </S.ToolbarButton>
       <S.ToolbarButton
+        type='button'
         onClick={() => setAlign('right')}
         isActive={editor.isActive({ textAlign: 'right' })}
       >
         <ArrangeRight />
       </S.ToolbarButton>
       <S.ToolbarButton
+        type='button'
         onClick={toggleBulletList}
         isActive={editor.isActive('bulletList')}
       >
         <List />
       </S.ToolbarButton>
       <S.ToolbarButton
+        type='button'
         onClick={toggleOrderedList}
         isActive={editor.isActive('orderedList')}
       >

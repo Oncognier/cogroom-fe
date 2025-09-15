@@ -19,21 +19,24 @@ type Props = {
 export default function CustomToolbarUtilities({ editor, activePopup, togglePopup, closePopups }: Props) {
   return (
     <S.UtilitiesGroup>
-      <S.ToolbarButton
-        onClick={() => togglePopup('link')}
-        isActive={activePopup === 'link'}
-      >
-        <LinkIcon />
-      </S.ToolbarButton>
+      <S.DropdownWrapper>
+        <S.ToolbarButton
+          type='button'
+          onClick={() => togglePopup('link')}
+          isActive={activePopup === 'link'}
+        >
+          <LinkIcon />
+        </S.ToolbarButton>
 
-      {activePopup === 'link' && (
-        <PopupWrapper onClose={closePopups}>
-          <LinkPopup
-            editor={editor}
-            onClose={closePopups}
-          />
-        </PopupWrapper>
-      )}
+        {activePopup === 'link' && (
+          <PopupWrapper onClose={closePopups}>
+            <LinkPopup
+              editor={editor}
+              onClose={closePopups}
+            />
+          </PopupWrapper>
+        )}
+      </S.DropdownWrapper>
     </S.UtilitiesGroup>
   );
 }

@@ -3,12 +3,6 @@
 import type { Editor } from '@tiptap/react';
 import { useState } from 'react';
 
-import ChevronDown from '@/assets/icons/chevrondown.svg';
-import ImageIcon from '@/assets/icons/image.svg';
-import Link from '@/assets/icons/upload.svg';
-import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
-import { useAlertModalStore } from '@/stores/useModalStore';
-
 import * as S from './CustomToolbar.styled';
 import CustomToolbarInline from './Sections/CustomToolbarInline';
 import CustomToolbarPalette from './Sections/CustomToolbarPalette';
@@ -24,21 +18,6 @@ type CustomToolbarProps = {
 export default function CustomToolbar({ editor }: CustomToolbarProps) {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
   const [selectedFont, setSelectedFont] = useState<string>('기본서체');
-  const { open: openAlert } = useAlertModalStore();
-
-  const { uploadToS3 } = useUploadFileToS3Mutation({
-    onSuccess: (accessUrls) => {
-      editor
-        .chain()
-        .focus()
-        .setCustomImage({
-          src: accessUrls[0],
-          width: 300,
-          height: 200,
-        })
-        .run();
-    },
-  });
 
   const togglePopup = (popup: PopupType) => {
     setActivePopup((prev) => (prev === popup ? null : popup));

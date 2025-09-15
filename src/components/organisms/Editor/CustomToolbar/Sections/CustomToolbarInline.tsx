@@ -35,24 +35,28 @@ export default function CustomToolbarInline({ editor, closePopups }: Props) {
   return (
     <S.InlineGroup>
       <S.ToolbarButton
+        type='button'
         onClick={handleBold}
         isActive={editor.isActive('bold')}
       >
         <Bold />
       </S.ToolbarButton>
       <S.ToolbarButton
+        type='button'
         onClick={handleItalic}
         isActive={editor.isActive('italic')}
       >
         <Italic />
       </S.ToolbarButton>
       <S.ToolbarButton
+        type='button'
         onClick={handleUnderline}
         isActive={editor.isActive('underline')}
       >
         <Underline />
       </S.ToolbarButton>
       <S.ToolbarButton
+        type='button'
         onClick={handleStrike}
         isActive={editor.isActive('strike')}
       >

@@ -1,9 +1,12 @@
 'use client';
 
+import BulletList from '@tiptap/extension-bullet-list';
 import CharacterCount from '@tiptap/extension-character-count';
 import Color from '@tiptap/extension-color';
 import FontFamily from '@tiptap/extension-font-family';
 import { Link } from '@tiptap/extension-link';
+import ListItem from '@tiptap/extension-list-item';
+import OrderedList from '@tiptap/extension-ordered-list';
 import Placeholder from '@tiptap/extension-placeholder';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { TextStyle } from '@tiptap/extension-text-style';
@@ -67,30 +70,6 @@ export default function Editor({
     editable: !readonly,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
-    },
-    editorProps: {
-      handleKeyDown(view, event) {
-        if (!editor) return false;
-        if (event.key === 'Tab') {
-          if (event.shiftKey) {
-            editor.chain().focus().liftListItem('listItem').run();
-          } else {
-            editor.chain().focus().sinkListItem('listItem').run();
-          }
-          return true;
-        }
-
-        if (event.key === 'Enter') {
-          const { state } = view;
-          const { $from } = state.selection;
-          if ($from.parent.content.size === 0 && $from.parent.type.name === 'listItem') {
-            editor.chain().focus().liftListItem('listItem').run();
-            return true;
-          }
-        }
-
-        return false;
-      },
     },
   });
 
