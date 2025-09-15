@@ -93,7 +93,7 @@ export default function Contents() {
                   isMulti: true,
                 },
               ],
-              search: { placeholder: '키워드 검색' },
+              search: [{ name: 'keyword', placeholder: '키워드 검색' }],
             }}
             actions={[
               { type: 'submit', label: '검색하기' },

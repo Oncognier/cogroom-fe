@@ -10,7 +10,7 @@ export const ContentsContainer = styled.div`
   width: 100%;
 `;
 
-export const FilterHeader = styled.form`
+export const FilterHeader = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
