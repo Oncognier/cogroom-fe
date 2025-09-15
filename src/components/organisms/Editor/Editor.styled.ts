@@ -6,27 +6,41 @@ type EditorWrapperProps = {
   height: number;
 };
 
-export const EditorWrapper = styled.div<EditorWrapperProps>`
+export const EditorWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
   width: 100%;
   height: 100%;
-  border: 0.1rem solid ${({ theme }) => theme.semantic.line.normal};
-  border-radius: 0.8rem;
-  overflow: hidden;
-  font-family:
-    Pretendard Variable,
-    -apple-system,
-    BlinkMacSystemFont,
-    system-ui,
-    sans-serif;
-  background: ${({ theme }) => theme.semantic.background.normal.normal};
 
   .ProseMirror {
-    padding: 2rem;
-    min-height: ${({ height }) => height - 80}px;
-    font-size: 1.4rem;
-    line-height: 1.4;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      'Noto Sans',
+      'Apple SD Gothic Neo',
+      'Malgun Gothic',
+      '맑은 고딕',
+      'Nanum Gothic',
+      sans-serif !important;
+
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    letter-spacing: 0.0057em;
+    font-weight: 400;
+
+    height: 100%;
+    border-radius: 1.2rem;
     color: ${({ theme }) => theme.semantic.label.normal};
-    background: ${({ theme }) => theme.semantic.background.normal.normal};
+    background-color: ${({ theme }) => theme.semantic.static.white};
+
+    overflow: hidden;
     outline: none;
 
     &.is-editor-empty:first-child::before {
@@ -36,24 +50,6 @@ export const EditorWrapper = styled.div<EditorWrapperProps>`
       height: 0;
       pointer-events: none;
     }
-
-    /* ul {
-      padding-left: 1.5rem !important;
-
-      li {
-        list-style-type: disc;
-        ::marker {
-          text-align: inherit;
-        }
-      }
-    }
-
-    ol {
-      padding-left: 1.5rem !important;
-      li {
-        list-style-type: decimal;
-      }
-    } */
 
     ul,
     ol {
@@ -175,6 +171,14 @@ export const EditorWrapper = styled.div<EditorWrapperProps>`
   }
 `;
 
-export const EditorContent = styled.div`
+export const EditorContent = styled.div<EditorWrapperProps>`
   min-height: 300px;
+  height: ${({ height }) => `${height}px`};
+  padding: 1.2rem 1.6rem;
+  border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
+  border-radius: 1.2rem;
+
+  & > div {
+    height: 100%;
+  }
 `;

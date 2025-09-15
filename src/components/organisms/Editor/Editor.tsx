@@ -98,12 +98,9 @@ export default function Editor({
   }
 
   return (
-    <S.EditorWrapper
-      className={className}
-      height={height}
-    >
+    <S.EditorWrapper className={className}>
       <CustomToolbar editor={editor} />
-      <S.EditorContent>
+      <S.EditorContent height={height}>
         <EditorContent editor={editor} />
       </S.EditorContent>
     </S.EditorWrapper>
