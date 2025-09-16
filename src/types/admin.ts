@@ -62,7 +62,7 @@ export interface DailyQuestionsResponse extends ApiResponse {
 
 export interface PostListRequest {
   page?: number;
-  category?: number[];
+  categoryId?: number[];
   nickname?: string;
   title?: string;
   startDate?: string;

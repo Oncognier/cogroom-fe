@@ -15,13 +15,13 @@ import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import * as S from './page.styled';
 import CommunityListRow from '../_components/CommunityListRow/CommunityListRow';
 
-export default function AdminCommunityPostsPage() {
+export default function AdminPosts() {
   const { updateSearchParams, getSearchParam, getSearchParamAsArray } = useUrlSearchParams();
 
   const urlPageNum = Number(getSearchParam('page') ?? 1);
   const [currentPage, setCurrentPage] = useState(Math.max(0, urlPageNum - 1));
 
-  const category = useMemo(
+  const categoryId = useMemo(
     () => getSearchParamAsArray('category').map(Number).filter(Boolean),
     [getSearchParamAsArray],
   );
@@ -32,7 +32,7 @@ export default function AdminCommunityPostsPage() {
 
   const { data, isLoading } = useGetPostList({
     page: currentPage,
-    category,
+    categoryId,
     title,
     nickname,
     startDate,
@@ -58,7 +58,7 @@ export default function AdminCommunityPostsPage() {
   return (
     <S.Posts>
       <SearchFilter
-        totalTitle='전체'
+        totalTitle='전체 글'
         total={totalCount}
         fields={{
           select: [
@@ -71,8 +71,8 @@ export default function AdminCommunityPostsPage() {
           ],
           dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
           search: [
-            { name: 'title', placeholder: '제목 검색' },
-            { name: 'nickname', placeholder: '작성자 검색' },
+            { name: 'nickname', placeholder: '닉네임 검색' },
+            { name: 'title', placeholder: '글 제목 입력' },
           ],
         }}
         actions={[{ type: 'submit', label: '검색하기' }]}
