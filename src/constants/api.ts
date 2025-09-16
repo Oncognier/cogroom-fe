@@ -54,6 +54,8 @@ export const END_POINTS_V1 = {
     WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
     POSTS: `${BASE_PATH_V1.MEMBERS}/me/posts`,
     COMMENTS: `${BASE_PATH_V1.MEMBERS}/me/comments`,
+    LIKESPOSTS: `${BASE_PATH_V1.MEMBERS}/me/likes/posts`,
+    LIKESCOMMENTS: `${BASE_PATH_V1.MEMBERS}/me/likes/comments`,
     SAVES: `${BASE_PATH_V1.MEMBERS}/me/posts/saves`,
     PROFILE: (memberId: string) => `${BASE_PATH_V1.MEMBERS}/${memberId}/profile`,
   },
