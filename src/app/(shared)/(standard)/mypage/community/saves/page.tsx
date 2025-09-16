@@ -27,7 +27,7 @@ export default function Saves() {
   const { data: UserSaveData, isLoading } = useGetUserSaveList({
     page: currentPage,
     sort,
-    category: getSearchParamAsArray('category').map(Number).filter(Boolean),
+    categoryId: Number(getSearchParamAsArray('categoryId')) || undefined,
     keyword: getSearchParam('keyword') ?? '',
     startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
