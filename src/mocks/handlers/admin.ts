@@ -6,14 +6,14 @@ import { ChangeMemberRoleRequest, CreateDailyQuestionsRequest, DeleteMemberReque
 import { changeMemberRoleSuccess } from '../data/admin/changeMemberRoleData';
 import { createDailyQuestionsError, createDailyQuestionsSuccess } from '../data/admin/createDailyQuestionsData';
 import { deleteMemberError, deleteMemberSuccess } from '../data/admin/deleteMemberData';
+import { getAdminCommentListSuccess } from '../data/admin/getAdminCommentListData';
+import { getAdminPostListSuccess } from '../data/admin/getAdminPostListData';
 import { getDailyQuestionsSuccess } from '../data/admin/getDailyQuestionsData';
 import {
   getMemberDailyQuestionsError,
   getMemberDailyQuestionsSuccess,
 } from '../data/admin/getMemberDailyQuestionsData';
 import { getMemberListSuccess } from '../data/admin/getMemberListData';
-import { getAdminPostListSuccess } from '../data/admin/getAdminPostListData';
-import { getAdminCommentListSuccess } from '../data/admin/getAdminCommentListData';
 
 export const adminHandlers = [
   http.get(END_POINTS_V1.ADMIN.MEMBERS.LIST, async () => {

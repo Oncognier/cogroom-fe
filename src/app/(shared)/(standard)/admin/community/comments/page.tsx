@@ -8,17 +8,12 @@ import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
-import {
-  ADMIN_COMMENTS_TABLE_HEADER_ITEMS,
-  ADMIN_POSTS_TABLE_HEADER_ITEMS,
-  POST_CATEGORY_SELECT_OPTIONS,
-} from '@/constants/common';
-import useGetPostList from '@/hooks/api/admin/useGetAdminPostList';
+import { ADMIN_COMMENTS_TABLE_HEADER_ITEMS, POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
+import useGetAdminCommentList from '@/hooks/api/admin/useGetAdminCommentList';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 
 import * as S from './page.styled';
 import CommunityListRow from '../_components/CommunityListRow/CommunityListRow';
-import useGetAdminCommentList from '@/hooks/api/admin/useGetAdminCommentList';
 
 export default function AdminComments() {
   const { updateSearchParams, getSearchParam, getSearchParamAsArray } = useUrlSearchParams();

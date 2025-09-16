@@ -1,9 +1,9 @@
 import { RoleKey } from '@/constants/common';
 import { ApiResponse, PaginationResult } from '@/types/api';
 
+import { Comment } from './comment';
 import { MemberRole } from './member';
 import { Post } from './post';
-import { Comment } from './comment';
 
 export interface MemberListRequest {
   page?: number;
