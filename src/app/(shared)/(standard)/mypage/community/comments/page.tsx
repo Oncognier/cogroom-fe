@@ -11,7 +11,7 @@ import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import { CATEGORY_SELECT_OPTIONS } from '@/constants/common';
-import useGetUserCommentList from '@/hooks/api/member/useGetUserCommentList';
+import useGetUserComment from '@/hooks/api/member/useGetUserComment';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -24,7 +24,7 @@ export default function Comments() {
   const [sort, setSort] = useState<SortType>('latest');
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data, isLoading } = useGetUserCommentList({
+  const { data, isLoading } = useGetUserComment({
     page: currentPage,
     sort,
     categoryId: Number(getSearchParamAsArray('categoryId')) || undefined,

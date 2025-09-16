@@ -11,7 +11,7 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { CATEGORY_SELECT_OPTIONS } from '@/constants/common';
-import useGetUserSaveList from '@/hooks/api/member/useGetUserSaveList';
+import useGetUserSave from '@/hooks/api/member/useGetUserSave';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -24,7 +24,7 @@ export default function Saves() {
   const [sort, setSort] = useState<SortType>('latest');
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data: UserSaveData, isLoading } = useGetUserSaveList({
+  const { data: UserSaveData, isLoading } = useGetUserSave({
     page: currentPage,
     sort,
     categoryId: Number(getSearchParamAsArray('categoryId')) || undefined,

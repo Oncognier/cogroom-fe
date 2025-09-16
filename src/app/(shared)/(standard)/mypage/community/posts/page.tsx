@@ -14,7 +14,7 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
-import useGetUserPostList from '@/hooks/api/member/useGetUserPostList';
+import useGetUserPost from '@/hooks/api/member/useGetUserPost';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -29,7 +29,7 @@ export default function Posts() {
   const [isEdit, setIsEdit] = useState(false);
   const [selectedPostIds, setSelectedPostIds] = useState<number[]>([]);
 
-  const { data: UserPostsData, isLoading } = useGetUserPostList({
+  const { data: UserPostsData, isLoading } = useGetUserPost({
     page: currentPage,
     sort,
     categoryId: Number(getSearchParamAsArray('categoryId')) || undefined,
