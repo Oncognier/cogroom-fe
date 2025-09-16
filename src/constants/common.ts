@@ -147,6 +147,13 @@ export const ADMIN_POSTS_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
   { label: '작성일시', mode: 'fix', width: '10rem', align: 'center' },
 ] as const;
 
+export const ADMIN_COMMENTS_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
+  { label: '고유번호', mode: 'fix', width: '9rem', align: 'center' },
+  { label: '댓글 내용', mode: 'expand', align: 'center' },
+  { label: '작성자', mode: 'fix', width: '10rem', align: 'center' },
+  { label: '작성일시', mode: 'fix', width: '10rem', align: 'center' },
+] as const;
+
 /* ---------- 회원가입/탈퇴 스텝 ---------- */
 export const SIGNUP_STEP = {
   CHECK_ORIGINAL_EMAIL: 'CHECK_ORIGINAL_EMAIL',
