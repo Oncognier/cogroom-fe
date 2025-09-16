@@ -10,6 +10,7 @@ import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
 import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
+import { DEFAULT_THUMBNAIL } from '@/constants/image';
 import type { Post } from '@/types/post';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
 import { formatCountPlus, getDisplayName } from '@/utils/formatText';
@@ -50,7 +51,7 @@ export default function PostCard({ post }: PostCardProps) {
       <S.ThumbnailWrapper>
         <Thumbnail
           ratio='16_10'
-          src={thumbnailUrl || undefined}
+          src={thumbnailUrl || DEFAULT_THUMBNAIL}
           radius
         />
       </S.ThumbnailWrapper>
