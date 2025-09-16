@@ -3,6 +3,7 @@ import { ApiResponse, PaginationResult } from '@/types/api';
 
 import { MemberRole } from './member';
 import { Post } from './post';
+import { Comment } from './comment';
 
 export interface MemberListRequest {
   page?: number;
@@ -70,6 +71,19 @@ export interface PostListRequest {
 
 export interface PostListResponse extends ApiResponse {
   result: PaginationResult<Post>;
+}
+
+export interface AdminCommentListRequest {
+  page?: number;
+  categoryId?: number[];
+  nickname?: string;
+  content?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface AdminCommentListResponse extends ApiResponse {
+  result: PaginationResult<Comment>;
 }
 
 export interface ChangeMemberRoleRequest {
