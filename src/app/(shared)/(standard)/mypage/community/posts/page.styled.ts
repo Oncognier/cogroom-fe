@@ -14,7 +14,7 @@ export const FilterHeader = styled.div`
   gap: 0.8rem;
 `;
 
-export const listControlsWrapper = styled.div`
+export const ListControlsWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 

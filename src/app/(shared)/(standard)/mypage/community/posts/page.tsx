@@ -106,7 +106,7 @@ export default function Posts() {
           actions={[{ type: 'submit', label: '검색하기' }]}
         />
 
-        <S.listControlsWrapper>
+        <S.ListControlsWrapper>
           {!isEdit ? (
             <OutlinedButton
               label='선택'
@@ -150,7 +150,7 @@ export default function Posts() {
             sort={sort}
             onClick={handleSortChange}
           />
-        </S.listControlsWrapper>
+        </S.ListControlsWrapper>
       </S.FilterHeader>
 
       <S.PostList>
