@@ -51,6 +51,7 @@ export const END_POINTS_V1 = {
     DAILY: `${BASE_PATH_V1.MEMBERS}/me/daily`,
     ORDERS: `${BASE_PATH_V1.MEMBERS}/orders`,
     WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
+    POSTS: `${BASE_PATH_V1.MEMBERS}/me/posts`,
     COMMENTS: `${BASE_PATH_V1.MEMBERS}/me/comments`,
   },
   DAILY: {

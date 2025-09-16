@@ -9,10 +9,11 @@ import {
   UserDailyResponse,
   UserDashboardResponse,
   UserInfoResponse,
+  UserCommunityRequest,
   UserSummaryResponse,
   WithdrawRequest,
-  UserCommentListRequest,
   UserCommentListResponse,
+  UserPostListResponse,
 } from '@/types/member';
 
 import { axiosInstance } from './axios/axiosInstance';
@@ -40,7 +41,15 @@ const getUserDaily = async () => {
   return data.result;
 };
 
-const getCommentList = async (params: UserCommentListRequest) => {
+const getUserPostList = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getUserCommentList = async (params: UserCommunityRequest) => {
   const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS, {
     params,
   });
@@ -88,7 +97,8 @@ export const memberApi = {
   getUserDashboard,
   getUserInfo,
   getUserDaily,
-  getCommentList,
+  getUserPostList,
+  getUserCommentList,
   editUserInfo,
   checkNickname,
   withdraw,
