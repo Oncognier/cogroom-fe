@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-import { DEFAULT_THUMBNAIL } from '@/constants/image';
-
 import * as S from './Thumbnail.styled';
 import type { ThumbnailStyleProps } from './Thumbnail.styled';
 
