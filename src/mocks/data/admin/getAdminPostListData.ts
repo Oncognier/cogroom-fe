@@ -1,4 +1,4 @@
-export const getPostListSuccess = {
+export const getAdminPostListSuccess = {
   code: 'SUCCESS',
   message: '어드민 게시글 리스트 조회에 성공했습니다.',
   result: {

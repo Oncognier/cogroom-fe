@@ -60,7 +60,7 @@ export interface DailyQuestionsResponse extends ApiResponse {
   result: PaginationResult<DailyQuestion>;
 }
 
-export interface PostListRequest {
+export interface AdminPostListRequest {
   page?: number;
   categoryId?: number[];
   nickname?: string;
@@ -69,7 +69,7 @@ export interface PostListRequest {
   endDate?: string;
 }
 
-export interface PostListResponse extends ApiResponse {
+export interface AdminPostListResponse extends ApiResponse {
   result: PaginationResult<Post>;
 }
 

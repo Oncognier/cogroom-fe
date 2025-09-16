@@ -12,7 +12,7 @@ import {
   getMemberDailyQuestionsSuccess,
 } from '../data/admin/getMemberDailyQuestionsData';
 import { getMemberListSuccess } from '../data/admin/getMemberListData';
-import { getPostListSuccess } from '../data/admin/getPostListData';
+import { getAdminPostListSuccess } from '../data/admin/getAdminPostListData';
 import { getAdminCommentListSuccess } from '../data/admin/getAdminCommentListData';
 
 export const adminHandlers = [
@@ -43,7 +43,7 @@ export const adminHandlers = [
   }),
 
   http.get(END_POINTS_V1.ADMIN.COMMUNITY.POSTS, async () => {
-    return new HttpResponse(JSON.stringify(getPostListSuccess), {
+    return new HttpResponse(JSON.stringify(getAdminPostListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

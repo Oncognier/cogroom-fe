@@ -9,7 +9,7 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
 import { ADMIN_POSTS_TABLE_HEADER_ITEMS, POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
-import useGetPostList from '@/hooks/api/admin/useGetPostList';
+import useGetPostList from '@/hooks/api/admin/useGetAdminPostList';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 
 import * as S from './page.styled';

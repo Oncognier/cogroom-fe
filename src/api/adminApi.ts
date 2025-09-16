@@ -10,8 +10,8 @@ import {
   MemberDailyQuestionsResponse,
   DailyQuestionsResponse,
   ChangeMemberRoleRequest,
-  PostListRequest,
-  PostListResponse,
+  AdminPostListRequest,
+  AdminPostListResponse,
   AdminCommentListRequest,
   AdminCommentListResponse,
 } from '@/types/admin';
@@ -43,8 +43,8 @@ const getDailyQuestions = async (params: DailyQuestionsRequest) => {
   return data.result;
 };
 
-const getPostList = async (params: PostListRequest) => {
-  const { data } = await axiosInstance.get<PostListResponse>(END_POINTS_V1.ADMIN.COMMUNITY.POSTS, {
+const getAdminPostList = async (params: AdminPostListRequest) => {
+  const { data } = await axiosInstance.get<AdminPostListResponse>(END_POINTS_V1.ADMIN.COMMUNITY.POSTS, {
     params,
   });
 
@@ -95,7 +95,7 @@ export const adminApi = {
   getMemberList,
   getMemberDailyQuestions,
   getDailyQuestions,
-  getPostList,
+  getAdminPostList,
   getAdminCommentList,
   changeMemberRole,
   deleteMember,
