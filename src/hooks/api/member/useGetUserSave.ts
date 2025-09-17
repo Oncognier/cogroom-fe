@@ -7,6 +7,6 @@ import { UserCommunityRequest } from '@/types/member';
 export default function useGetUserSave(params: UserCommunityRequest) {
   return useQuery({
     queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SAVES, params],
-    queryFn: () => memberApi.getUserSave(params),
+    queryFn: () => memberApi.getUserSavePost(params),
   });
 }
