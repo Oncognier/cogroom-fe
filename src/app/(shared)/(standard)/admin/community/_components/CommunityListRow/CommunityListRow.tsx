@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import ArrowTurnDownRight from '@/assets/icons/arrowturndownright.svg';
 import DotsVertical from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
@@ -24,6 +26,7 @@ const DROPDOWN_OPTIONS: DropdownOption[] = [{ label: '삭제하기', value: 'DEL
 export default function CommunityListRow(props: CommunityListRowProps) {
   const { open } = useAlertModalStore();
 
+  const router = useRouter();
   const isPost = props.type === 'post';
 
   const id = isPost ? props.post.postId : props.comment.commentId;
@@ -33,6 +36,7 @@ export default function CommunityListRow(props: CommunityListRowProps) {
   const createdAt = isPost ? props.post.createdAt : props.comment.createdAt;
   const author = isPost ? props.post.author : props.comment.author;
   const parentTitle = !isPost ? props.comment.post.title : undefined;
+  const parentPostId = !isPost ? props.comment.post.postId : undefined;
 
   const meta = POST_CATEGORY_META?.[category.name as keyof typeof POST_CATEGORY_META];
   const tagColor = meta?.color;
@@ -64,19 +68,32 @@ export default function CommunityListRow(props: CommunityListRowProps) {
     close();
   };
 
+  const handleGoToPost = () => {
+    const targetPostId = isPost ? id : parentPostId;
+    if (!targetPostId) return;
+    router.push(`/community/post/${targetPostId}`);
+  };
+
+  const handleGoToMember = () => {
+    router.push(`/admin/users?keyword=${author?.displayName}`);
+  };
+
   return (
     <S.CommunityListRow>
       <S.UniqueId>{formatToDigits(id, 6)}</S.UniqueId>
 
       <S.ContentWrapper>
         <S.TitleWrapper>
-          <S.Title $destructive={destructive}>
+          <S.Title
+            $destructive={destructive}
+            onClick={isPost ? handleGoToPost : undefined}
+          >
             {prefix}
             {mainTitle}
           </S.Title>
 
           {parentTitle && (
-            <S.PostContent>
+            <S.PostContent onClick={handleGoToPost}>
               <S.Icon>
                 <ArrowTurnDownRight />
               </S.Icon>
@@ -93,7 +110,7 @@ export default function CommunityListRow(props: CommunityListRowProps) {
       </S.ContentWrapper>
 
       <S.MetaInfoWrapper>
-        <S.MemberInfoWrapper>
+        <S.MemberInfoWrapper onClick={handleGoToMember}>
           <AvatarPerson
             type='image'
             size='xsm'

@@ -43,12 +43,16 @@ export const Title = styled.p<{ $destructive?: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  cursor: pointer;
 `;
 
 export const PostContent = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
+
+  cursor: pointer;
 `;
 
 export const Icon = styled.div`
@@ -80,6 +84,8 @@ export const MemberInfoWrapper = styled.div`
   gap: 0.6rem;
 
   width: 10rem;
+
+  cursor: pointer;
 `;
 
 export const Nickname = styled.p`
