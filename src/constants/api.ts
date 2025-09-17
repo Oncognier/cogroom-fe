@@ -81,6 +81,8 @@ export const END_POINTS_V1 = {
   },
   POSTS: {
     CREATE: `${BASE_PATH_V1.POSTS}`,
+    DELETE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+  },
   COMMENTS: {
     DELETE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
   },
