@@ -81,7 +81,10 @@ export default function PostPage() {
           isMine={post.isMine}
           isAdmin={userSummary?.memberRole === 'ADMIN'}
         />
-        <PostContent content={post.content} />
+        <PostContent
+          content={post.content}
+          daily={post.daily}
+        />
         <PostLikesSaved
           postId={postId}
           likeCount={post.likeCount}
