@@ -10,6 +10,7 @@ import { POST_CATEGORY_META } from '@/constants/common';
 import { useDeleteCommentMutation } from '@/hooks/api/comment/useDeleteComment';
 import { useDeletePostMutation } from '@/hooks/api/post/useDeletePost';
 import { useDropdown } from '@/hooks/useDropdown';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { Comment, CommentStatus } from '@/types/comment';
 import { DropdownOption } from '@/types/common';
 import { Post, PostStatus } from '@/types/post';
@@ -23,8 +24,7 @@ export type CommunityListRowProps = { type: 'post'; post: Post } | { type: 'comm
 const DROPDOWN_OPTIONS: DropdownOption[] = [{ label: '삭제하기', value: 'DELETE', color: 'default' }];
 
 export default function CommunityListRow(props: CommunityListRowProps) {
-  const { deletePost } = useDeletePostMutation();
-  const { deleteComment } = useDeleteCommentMutation();
+  const { open } = useAlertModalStore();
 
   const isPost = props.type === 'post';
 
@@ -54,13 +54,11 @@ export default function CommunityListRow(props: CommunityListRowProps) {
   const handleDropdownSelect = (values: Array<string | number>) => {
     const v = values[0];
     if (v === 'DELETE') {
-      if (isPost) {
-        deletePost({ postId: String(id) });
-      } else {
-        deleteComment({ commentId: String(id) });
-      }
-      close();
+      const targetType = isPost ? 'post' : 'comment';
+      open('communityDelete', { type: targetType, id });
     }
+
+    close();
   };
 
   return (
