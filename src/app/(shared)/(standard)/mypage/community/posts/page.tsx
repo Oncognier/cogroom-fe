@@ -32,7 +32,7 @@ export default function Posts() {
   const { data: UserPostsData, isLoading } = useGetUserPost({
     page: currentPage,
     sort,
-    categoryId: Number(getSearchParamAsArray('categoryId')) || undefined,
+    categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
     keyword: getSearchParam('keyword') ?? '',
     startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
@@ -92,7 +92,7 @@ export default function Posts() {
           totalTitle='전체 글'
           total={UserPostsData?.totalElements}
           fields={{
-            dateRange: {},
+            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
               {
                 name: 'categoryId',

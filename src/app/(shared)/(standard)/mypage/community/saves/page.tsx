@@ -10,7 +10,7 @@ import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
-import { CATEGORY_SELECT_OPTIONS } from '@/constants/common';
+import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserSave from '@/hooks/api/member/useGetUserSave';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
@@ -27,7 +27,7 @@ export default function Saves() {
   const { data: UserSaveData, isLoading } = useGetUserSave({
     page: currentPage,
     sort,
-    categoryId: Number(getSearchParamAsArray('categoryId')) || undefined,
+    categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
     keyword: getSearchParam('keyword') ?? '',
     startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
@@ -77,13 +77,14 @@ export default function Saves() {
           totalTitle='전체 글'
           total={UserSaveData?.totalElements}
           fields={{
-            dateRange: {},
+            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
               {
-                name: 'category',
+                name: 'categoryId',
                 placeholder: '카테고리 선택',
-                options: CATEGORY_SELECT_OPTIONS,
+                options: POST_CATEGORY_SELECT_OPTIONS,
                 isMulti: true,
+
               },
             ],
             search: [{ name: 'keyword', placeholder: '글 제목 입력' }],

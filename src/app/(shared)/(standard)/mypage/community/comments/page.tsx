@@ -27,7 +27,7 @@ export default function Comments() {
   const { data, isLoading } = useGetUserComment({
     page: currentPage,
     sort,
-    categoryId: Number(getSearchParamAsArray('categoryId')) || undefined,
+    categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
     keyword: getSearchParam('keyword') ?? '',
     startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
@@ -77,7 +77,7 @@ export default function Comments() {
           totalTitle='전체 댓글'
           total={data?.totalElements}
           fields={{
-            dateRange: {},
+            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
               {
                 name: 'category',
