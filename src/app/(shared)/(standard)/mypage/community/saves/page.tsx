@@ -84,7 +84,6 @@ export default function Saves() {
                 placeholder: '카테고리 선택',
                 options: POST_CATEGORY_SELECT_OPTIONS,
                 isMulti: true,
-
               },
             ],
             search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
