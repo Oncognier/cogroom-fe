@@ -1,7 +1,8 @@
 'use client';
 
 import { Node, mergeAttributes } from '@tiptap/core';
-import { ReactNodeViewRenderer, NodeViewWrapper } from '@tiptap/react';
+import { Node as ProseMirrorNode } from '@tiptap/pm/model';
+import { ReactNodeViewRenderer, NodeViewWrapper, Editor } from '@tiptap/react';
 
 import ResizableImage from './ResizableImage';
 
@@ -19,18 +20,29 @@ export interface CustomImageOptions {
   HTMLAttributes: Record<string, unknown>;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CustomImageComponent = ({ node, updateAttributes, editor, getPos }: any) => {
+interface CustomImageComponentProps {
+  node: ProseMirrorNode;
+  updateAttributes: (attributes: Record<string, unknown>) => void;
+  editor: Editor;
+  getPos: () => number | undefined;
+}
+
+const CustomImageComponent = ({ node, updateAttributes, editor, getPos }: CustomImageComponentProps) => {
   const handleResize = (width: number, height: number) => {
     updateAttributes({ width, height });
   };
 
-  // Get current text alignment
   const getCurrentTextAlign = () => {
-    const { from } = editor.state.selection;
-    const resolvedPos = editor.state.doc.resolve(getPos());
-    const attrs = resolvedPos.parent?.attrs;
-    return attrs?.textAlign || 'left';
+    const pos = getPos();
+    if (pos === undefined) return 'left';
+
+    try {
+      const resolvedPos = editor.state.doc.resolve(pos);
+      const attrs = resolvedPos.parent?.attrs;
+      return attrs?.textAlign || 'left';
+    } catch {
+      return 'left';
+    }
   };
 
   return (
