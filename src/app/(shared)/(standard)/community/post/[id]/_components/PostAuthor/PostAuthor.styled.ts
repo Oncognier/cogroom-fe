@@ -19,6 +19,12 @@ export const AuthorInfo = styled.div`
   align-items: center;
 `;
 
+export const AvatarWrapper = styled.div<{ $isClickable: boolean }>`
+  * {
+    cursor: ${({ $isClickable }) => ($isClickable ? 'pointer' : 'default')} !important;
+  }
+`;
+
 export const PostUserName = styled.span`
   ${({ theme }) => theme.typography.label2.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};

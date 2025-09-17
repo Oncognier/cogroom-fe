@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
-import { useAlertModalStore } from '@/stores/useModalStore';
+import { useAlertModalStore, useSimpleModalStore } from '@/stores/useModalStore';
 import { getDisplayName } from '@/utils/formatText';
 
 import * as S from './PostAuthor.styled';
@@ -23,9 +23,9 @@ interface PostAuthorProps {
 
 export default function PostAuthor({ author, postId, isMine = false, isAdmin = false }: PostAuthorProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { open: openAlert } = useAlertModalStore();
+  const { open: openSimpleModal } = useSimpleModalStore();
 
   const canEdit = isMine && !author.isAnonymous; // 익명 게시글은 수정 불가
   const canDelete = isMine || isAdmin;
@@ -67,17 +67,30 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
     });
   };
 
+  const handleAvatarClick = () => {
+    if (!author.isAnonymous) {
+      openSimpleModal('userProfile', {
+        memberId: author.authorId.toString(),
+      });
+    }
+  };
+
   // 메뉴 표시 조건: 수정 가능하거나 삭제 가능한 경우
   const shouldShowMenu = canEdit || canDelete;
 
   return (
     <S.PostAuthorWrapper>
       <S.AuthorInfo>
-        <AvatarPerson
-          type='icon'
-          size='md'
-          src={author.profileUrl || undefined}
-        />
+        <S.AvatarWrapper
+          onClick={handleAvatarClick}
+          $isClickable={!author.isAnonymous}
+        >
+          <AvatarPerson
+            type='icon'
+            size='md'
+            src={author.profileUrl || undefined}
+          />
+        </S.AvatarWrapper>
         <S.PostUserName>{getDisplayName(author.displayName, author.isAnonymous)}</S.PostUserName>
       </S.AuthorInfo>
 

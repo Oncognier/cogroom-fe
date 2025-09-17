@@ -27,6 +27,17 @@ export interface UserInfoResponse extends ApiResponse {
   result: UserInfo;
 }
 
+export type UserProfile = {
+  memberId: number;
+  nickname: string;
+  profileUrl?: string;
+  description?: string;
+};
+
+export interface UserProfileResponse extends ApiResponse {
+  result: UserProfile;
+}
+
 export interface EditUserInfoRequest extends UserInfo {}
 
 export type UserDaily = {
