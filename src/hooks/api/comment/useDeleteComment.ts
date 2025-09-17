@@ -2,10 +2,10 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { commentApi } from '@/api/commentApis';
 import { ADMIN_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
-import { HTTPError } from '@/api/axios/errors/HTTPError';
 
 export const useDeleteCommentMutation = () => {
   const queryClient = useQueryClient();
