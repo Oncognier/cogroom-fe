@@ -1,9 +1,7 @@
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
-import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
-import IconButton from '@/components/atoms/IconButton/IconButton';
 import { useAlertModalStore, useSimpleModalStore } from '@/stores/useModalStore';
 import { getDisplayName } from '@/utils/formatText';
 
@@ -27,7 +25,7 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
   const { open: openAlert } = useAlertModalStore();
   const { open: openSimpleModal } = useSimpleModalStore();
 
-  const canEdit = isMine && !author.isAnonymous; // 익명 게시글은 수정 불가
+  const canEdit = isMine && !author.isAnonymous;
   const canDelete = isMine || isAdmin;
 
   const handleMenuClick = () => {

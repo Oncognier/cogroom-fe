@@ -85,6 +85,7 @@ export const END_POINTS_V1 = {
   POSTS: {
     LIST: `${BASE_PATH_V1.POSTS}`,
     POST_CREATE: `${BASE_PATH_V1.POSTS}`,
+    POST_UPDATE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
     POST_DETAIL: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
     POST_LIKE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/likes`,
     POST_SAVE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/saves`,
