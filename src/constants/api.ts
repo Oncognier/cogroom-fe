@@ -99,6 +99,7 @@ export const END_POINTS_V1 = {
     },
     COMMUNITY: {
       POSTS: `${BASE_PATH_V1.ADMIN}/community/posts`,
+      COMMENTS: `${BASE_PATH_V1.ADMIN}/community/comments`,
     },
     CONTENTS: {
       CONTENTS: `${BASE_PATH_V1.ADMIN}/contents`,

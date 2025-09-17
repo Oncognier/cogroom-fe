@@ -6,13 +6,14 @@ import { ChangeMemberRoleRequest, CreateDailyQuestionsRequest, DeleteMemberReque
 import { changeMemberRoleSuccess } from '../data/admin/changeMemberRoleData';
 import { createDailyQuestionsError, createDailyQuestionsSuccess } from '../data/admin/createDailyQuestionsData';
 import { deleteMemberError, deleteMemberSuccess } from '../data/admin/deleteMemberData';
+import { getAdminCommentListSuccess } from '../data/admin/getAdminCommentListData';
+import { getAdminPostListSuccess } from '../data/admin/getAdminPostListData';
 import { getDailyQuestionsSuccess } from '../data/admin/getDailyQuestionsData';
 import {
   getMemberDailyQuestionsError,
   getMemberDailyQuestionsSuccess,
 } from '../data/admin/getMemberDailyQuestionsData';
 import { getMemberListSuccess } from '../data/admin/getMemberListData';
-import { getPostListSuccess } from '../data/admin/getPostListData';
 
 export const adminHandlers = [
   http.get(END_POINTS_V1.ADMIN.MEMBERS.LIST, async () => {
@@ -42,7 +43,13 @@ export const adminHandlers = [
   }),
 
   http.get(END_POINTS_V1.ADMIN.COMMUNITY.POSTS, async () => {
-    return new HttpResponse(JSON.stringify(getPostListSuccess), {
+    return new HttpResponse(JSON.stringify(getAdminPostListSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  http.get(END_POINTS_V1.ADMIN.COMMUNITY.COMMENTS, async () => {
+    return new HttpResponse(JSON.stringify(getAdminCommentListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

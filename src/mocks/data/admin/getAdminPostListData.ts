@@ -1,6 +1,6 @@
-export const getPostListSuccess = {
+export const getAdminPostListSuccess = {
   code: 'SUCCESS',
-  message: '회원 리스트 조회에 성공했습니다.',
+  message: '어드민 게시글 리스트 조회에 성공했습니다.',
   result: {
     totalPages: 1,
     totalElements: 3,
