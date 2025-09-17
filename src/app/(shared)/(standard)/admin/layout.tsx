@@ -38,7 +38,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {
               label: '커뮤니티',
               href: '/admin/community/posts',
-              state: getAdminTabState(pathname, '/admin/community/posts', role),
+              state: getAdminTabState(pathname, '/admin/community', role),
             },
             {
               label: '콘텐츠 관리',
