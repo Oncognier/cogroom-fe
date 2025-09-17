@@ -5,8 +5,13 @@ import DotsVertical from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
+import { DropdownList } from '@/components/molecules/DropdownList/DropdownList';
 import { POST_CATEGORY_META } from '@/constants/common';
+import { useDeleteCommentMutation } from '@/hooks/api/comment/useDeleteComment';
+import { useDeletePostMutation } from '@/hooks/api/post/useDeletePost';
+import { useDropdown } from '@/hooks/useDropdown';
 import { Comment, CommentStatus } from '@/types/comment';
+import { DropdownOption } from '@/types/common';
 import { Post, PostStatus } from '@/types/post';
 import { formatDayAsSlashYYMMDD, formatTimeAsHHmm } from '@/utils/date/formatDay';
 import { formatToDigits, getDisplayName } from '@/utils/formatText';
@@ -15,7 +20,12 @@ import * as S from './CommunityListRow.styled';
 
 export type CommunityListRowProps = { type: 'post'; post: Post } | { type: 'comment'; comment: Comment };
 
+const DROPDOWN_OPTIONS: DropdownOption[] = [{ label: '삭제하기', value: 'DELETE', color: 'default' }];
+
 export default function CommunityListRow(props: CommunityListRowProps) {
+  const { deletePost } = useDeletePostMutation();
+  const { deleteComment } = useDeleteCommentMutation();
+
   const isPost = props.type === 'post';
 
   const id = isPost ? props.post.postId : props.comment.commentId;
@@ -30,19 +40,28 @@ export default function CommunityListRow(props: CommunityListRowProps) {
   const tagColor = meta?.color;
   const tagLabel = meta?.label ?? category.name;
 
-  const isDestructiveStatus = (s?: PostStatus | CommentStatus) => {
-    if (s === 'DELETED_BY_USER' || s === 'DELETED_BY_ADMIN' || s === 'USER_WITHDRAWN') return true;
-    return false;
-  };
+  const isDestructiveStatus = (s?: PostStatus | CommentStatus) =>
+    s === 'DELETED_BY_USER' || s === 'DELETED_BY_ADMIN' || s === 'USER_WITHDRAWN';
 
-  const getStatusPrefix = (s?: PostStatus | CommentStatus) => {
-    if (s === 'DELETED_BY_USER' || s === 'DELETED_BY_ADMIN') return '(삭제됨) ';
-    if (s === 'USER_WITHDRAWN') return '(탈퇴함) ';
-    return '';
-  };
+  const getStatusPrefix = (s?: PostStatus | CommentStatus) =>
+    s === 'DELETED_BY_USER' || s === 'DELETED_BY_ADMIN' ? '(삭제됨) ' : s === 'USER_WITHDRAWN' ? '(탈퇴함) ' : '';
 
   const destructive = isDestructiveStatus(status);
   const prefix = getStatusPrefix(status);
+
+  const { isOpen, toggle, close, handleBlur, dropdownRef } = useDropdown();
+
+  const handleDropdownSelect = (values: Array<string | number>) => {
+    const v = values[0];
+    if (v === 'DELETE') {
+      if (isPost) {
+        deletePost({ postId: String(id) });
+      } else {
+        deleteComment({ commentId: String(id) });
+      }
+      close();
+    }
+  };
 
   return (
     <S.CommunityListRow>
@@ -88,14 +107,33 @@ export default function CommunityListRow(props: CommunityListRowProps) {
           {formatTimeAsHHmm(createdAt)}
         </S.CreatedAt>
 
-        <IconButton
-          size='3rem'
-          variant='normal'
-          interactionVariant='normal'
-          aria-label='더보기'
+        <S.DropdownContainer
+          ref={dropdownRef}
+          onBlur={handleBlur}
+          tabIndex={-1}
         >
-          <DotsVertical />
-        </IconButton>
+          <IconButton
+            size='3rem'
+            variant='normal'
+            interactionVariant='normal'
+            aria-label='더보기'
+            aria-haspopup='menu'
+            aria-expanded={isOpen}
+            onClick={toggle}
+          >
+            <DotsVertical />
+          </IconButton>
+
+          <S.DropdownWrapper>
+            {isOpen && (
+              <DropdownList
+                options={DROPDOWN_OPTIONS}
+                selectedValues={[]}
+                onSelect={handleDropdownSelect}
+              />
+            )}
+          </S.DropdownWrapper>
+        </S.DropdownContainer>
       </S.MetaInfoWrapper>
     </S.CommunityListRow>
   );
