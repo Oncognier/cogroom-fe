@@ -66,7 +66,7 @@ export const PostIcon = styled.div`
 `;
 
 export const PostTitle = styled.p`
-  max-width: 25rem;
+  width: 25rem;
 
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
