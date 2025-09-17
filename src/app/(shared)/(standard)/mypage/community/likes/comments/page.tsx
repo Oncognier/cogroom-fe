@@ -34,11 +34,8 @@ export default function LikesComments() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const handleGoToCommunity = () => {
-    router.push('/community');
-  };
-
   const totalPages = UserLikeCommentData?.totalPages ?? 1;
+  const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -51,7 +48,9 @@ export default function LikesComments() {
     updateSearchParams({ sort: newSort });
   };
 
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
+  const handleGoToCommunity = () => {
+    router.push('/community');
+  };
 
   useEffect(() => {
     if (urlPageNum > 0) {
