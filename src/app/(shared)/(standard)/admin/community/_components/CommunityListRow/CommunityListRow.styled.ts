@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 export const CommunityListRow = styled.div`
   display: flex;
   align-items: center;
-  gap: 8.1rem;
+  justify-content: space-between;
 
   width: 100%;
   padding: 2.4rem 3.2rem;
@@ -13,7 +13,7 @@ export const CommunityListRow = styled.div`
 `;
 
 export const UniqueId = styled.p`
-  width: 8rem;
+  width: 9rem;
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.alternative};
 
@@ -25,7 +25,7 @@ export const ContentWrapper = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  width: 100%;
+  width: 49.8rem;
 `;
 
 export const TitleWrapper = styled.div`
@@ -43,12 +43,16 @@ export const Title = styled.p<{ $destructive?: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  cursor: pointer;
 `;
 
 export const PostContent = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
+
+  cursor: pointer;
 `;
 
 export const Icon = styled.div`
@@ -80,6 +84,8 @@ export const MemberInfoWrapper = styled.div`
   gap: 0.6rem;
 
   width: 10rem;
+
+  cursor: pointer;
 `;
 
 export const Nickname = styled.p`
@@ -93,4 +99,16 @@ export const CreatedAt = styled.p`
 
   width: 10rem;
   text-align: center;
+`;
+
+export const DropdownContainer = styled.div`
+  position: relative;
+`;
+
+export const DropdownWrapper = styled.div`
+  position: absolute;
+  left: -12rem;
+  bottom: -6rem;
+
+  width: 15rem;
 `;

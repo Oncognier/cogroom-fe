@@ -13,6 +13,7 @@ const BASE_PATH_V1 = {
   FILE: `${API_V1}/files`,
   STREAKS: `${API_V1}/streaks`,
   POSTS: `${API_V1}/posts`,
+  COMMENTS: `${API_V1}/comments`,
 
   ADMIN: `${API_V1}/admin`,
 } as const;
@@ -84,6 +85,10 @@ export const END_POINTS_V1 = {
     POST_DETAIL: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
     POST_LIKE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/likes`,
     POST_SAVE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/saves`,
+    DELETE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+  },
+  COMMENTS: {
+    DELETE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
   },
 
   ADMIN: {
@@ -100,6 +105,10 @@ export const END_POINTS_V1 = {
       QUESTIONS_CREATE: `${BASE_PATH_V1.ADMIN}/daily/questions`,
       QUESTIONS_EDIT: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
       QUESTIONS_DELETE: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
+    },
+    COMMUNITY: {
+      POSTS: `${BASE_PATH_V1.ADMIN}/community/posts`,
+      COMMENTS: `${BASE_PATH_V1.ADMIN}/community/comments`,
     },
     CONTENTS: {
       CONTENTS: `${BASE_PATH_V1.ADMIN}/contents`,

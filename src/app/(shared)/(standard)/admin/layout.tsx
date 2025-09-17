@@ -36,11 +36,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <TabBarList
           items={[
             {
+              label: '커뮤니티',
+              href: '/admin/community/posts',
+              state: getAdminTabState(pathname, '/admin/community', role),
+            },
+            {
               label: '콘텐츠 관리',
               href: '/admin/contents',
               state: getAdminTabState(pathname, '/admin/contents', role),
             },
-
             {
               label: '회원관리',
               href: '/admin/users',
@@ -50,12 +54,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               label: '결제관리',
               href: '/admin/payments',
               state: getAdminTabState(pathname, '/admin/payments', role),
-            },
-
-            {
-              label: '커뮤니티',
-              href: '/admin/community',
-              state: getAdminTabState(pathname, '/admin/community', role),
             },
           ]}
           size='md'

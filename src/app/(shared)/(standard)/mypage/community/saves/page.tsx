@@ -86,7 +86,7 @@ export default function Saves() {
                 isMulti: true,
               },
             ],
-            search: { placeholder: '글 제목 입력' },
+            search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
           }}
           actions={[{ type: 'submit', label: '검색하기' }]}
         />

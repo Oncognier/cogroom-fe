@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const ContentsContainer = styled.div`
+export const CommunityLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
@@ -10,10 +10,9 @@ export const ContentsContainer = styled.div`
   width: 100%;
 `;
 
-export const FilterHeader = styled.div`
+export const NavigationHeader = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  justify-content: space-between;
 
   width: 100%;
 `;
@@ -29,10 +28,8 @@ export const PageTitle = styled.div`
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
-export const PaginationWrapper = styled.div`
+export const NavButtonWrapper = styled.div`
   display: flex;
-  justify-content: center;
-
-  width: 100%;
-  padding: 2.4rem 0;
+  align-items: center;
+  gap: 0.8rem;
 `;

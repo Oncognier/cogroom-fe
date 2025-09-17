@@ -10,6 +10,10 @@ import {
   MemberDailyQuestionsResponse,
   DailyQuestionsResponse,
   ChangeMemberRoleRequest,
+  AdminPostListRequest,
+  AdminPostListResponse,
+  AdminCommentListRequest,
+  AdminCommentListResponse,
 } from '@/types/admin';
 import { ApiResponse } from '@/types/api';
 
@@ -33,6 +37,22 @@ const getMemberDailyQuestions = async ({ memberId, params }: { memberId: string;
 
 const getDailyQuestions = async (params: DailyQuestionsRequest) => {
   const { data } = await axiosInstance.get<DailyQuestionsResponse>(END_POINTS_V1.ADMIN.DAILY.QUESTIONS, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getAdminPostList = async (params: AdminPostListRequest) => {
+  const { data } = await axiosInstance.get<AdminPostListResponse>(END_POINTS_V1.ADMIN.COMMUNITY.POSTS, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getAdminCommentList = async (params: AdminCommentListRequest) => {
+  const { data } = await axiosInstance.get<AdminCommentListResponse>(END_POINTS_V1.ADMIN.COMMUNITY.COMMENTS, {
     params,
   });
 
@@ -75,6 +95,8 @@ export const adminApi = {
   getMemberList,
   getMemberDailyQuestions,
   getDailyQuestions,
+  getAdminPostList,
+  getAdminCommentList,
   changeMemberRole,
   deleteMember,
   createDailyQuestions,

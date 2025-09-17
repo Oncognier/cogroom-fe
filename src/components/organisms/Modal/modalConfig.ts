@@ -2,6 +2,7 @@ import type { ModalMap } from '@/types/modal';
 
 import Alert, { AlertProps } from './Alert/Alert';
 import ChangeRole, { ChangeRoleProps } from './ChangeRole/ChangeRole';
+import CommunityDelete, { CommunityDeleteProps } from './CommunityDelete/CommunityDelete';
 import DailyShare, { DailyShareProps } from './Daily/DailyShare/DailyShare';
 import DailyFirstAnswer, { DailyFirstAnswerProps } from './Daily/FirstAnswer/DailyFirstAnswer';
 import DailyAnswerPost, { DailyAnswerPostProps } from './Daily/Post/DailyAnswerPost';
@@ -29,6 +30,7 @@ export type AlertModalProps = {
   alert: AlertProps;
   dailyFirstAnswer: DailyFirstAnswerProps;
   changeRole: ChangeRoleProps;
+  communityDelete: CommunityDeleteProps;
 };
 
 export type SimpleModalProps = {
@@ -50,6 +52,7 @@ export const AlertModalRegistry = {
   alert: { Component: Alert, disableOutsideClick: false },
   dailyFirstAnswer: { Component: DailyFirstAnswer, disableOutsideClick: false },
   changeRole: { Component: ChangeRole, disableOutsideClick: false },
+  communityDelete: { Component: CommunityDelete, disableOutsideClick: false },
 } satisfies ModalMap<AlertModalProps>;
 
 export const SimpleModalRegistry = {

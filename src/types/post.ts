@@ -49,7 +49,7 @@ export type CreatePostRequest = {
   imageUrlList: string[];
 };
 
-export interface CreatePostResponse {
+export interface CreatePostResponse extends ApiResponse {
   result: Post;
 }
 
