@@ -1,13 +1,13 @@
 import { useRouter } from 'next/navigation';
 
 import ArrowTurnDownRight from '@/assets/icons/arrowturndownright.svg';
-import type { UserComment } from '@/types/member';
+import { Comment } from '@/types/comment';
 import { formatDayAsSlashYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './CommentListRow.styled';
 
 type CommentListRowProps = {
-  commentData: UserComment;
+  commentData: Comment;
 };
 
 export default function CommentListRow({ commentData }: CommentListRowProps) {

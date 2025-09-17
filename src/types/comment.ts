@@ -12,6 +12,7 @@ export interface CommentAuthor {
 export type Comment = {
   commentId: number;
   comment: string;
+  parentId?: number;
   status: CommentStatus;
   post: PostSummary;
   category: PostCategory;
