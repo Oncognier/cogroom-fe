@@ -79,7 +79,10 @@ export const END_POINTS_V1 = {
     DAILY_STREAK: `${BASE_PATH_V1.STREAKS}/daily-streak`,
   },
   POSTS: {
-    CREATE: `${BASE_PATH_V1.POSTS}`,
+    POST_CREATE: `${BASE_PATH_V1.POSTS}`,
+    POST_DETAIL: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+    POST_LIKE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/likes`,
+    POST_SAVE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/saves`,
   },
 
   ADMIN: {

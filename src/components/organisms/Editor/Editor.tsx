@@ -30,17 +30,17 @@ export type EditorProps = {
 const addListStyles = (html: string): string => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-  
-  doc.querySelectorAll('ul').forEach(ul => {
+
+  doc.querySelectorAll('ul').forEach((ul) => {
     ul.style.listStyleType = 'disc';
     ul.style.paddingLeft = '1.5rem';
   });
-  
-  doc.querySelectorAll('ol').forEach(ol => {
+
+  doc.querySelectorAll('ol').forEach((ol) => {
     ol.style.listStyleType = 'decimal';
     ol.style.paddingLeft = '1.5rem';
   });
-  
+
   return doc.body.innerHTML;
 };
 
