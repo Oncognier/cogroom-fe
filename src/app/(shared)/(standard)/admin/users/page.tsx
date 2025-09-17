@@ -73,7 +73,7 @@ export default function Users() {
           total={totalCount}
           fields={{
             dateRange: {},
-            search: [{ name: 'user-info', placeholder: '회원정보 검색' }],
+            search: [{ name: 'keyword', placeholder: '회원정보 검색' }],
           }}
           actions={[{ type: 'submit', label: '검색하기' }]}
         />
