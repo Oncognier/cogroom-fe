@@ -14,6 +14,7 @@ const MEMBER_QUERY_KEYS = {
   MEMBER_POSTS: ['member', 'posts'],
   MEMBER_COMMENTS: ['member', 'comments'],
   MEMBER_SAVES: ['member', 'saves'],
+  PROFILE: ['member', 'profile'],
 } as const;
 
 const DAILY_QUERY_KEYS = {

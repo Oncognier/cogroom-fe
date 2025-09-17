@@ -10,6 +10,8 @@ import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Notify from './Notify/Notify';
 import Signup, { SignupProps } from './Signup/Signup';
+import SimpleModal from './templates/SimpleModal/SimpleModal';
+import UserProfileModal, { UserProfileModalProps } from './UserProfile/UserProfileModal';
 import Withdraw from './Withdraw/Withdraw';
 
 export type AppModalProps = {
@@ -29,6 +31,10 @@ export type AlertModalProps = {
   changeRole: ChangeRoleProps;
 };
 
+export type SimpleModalProps = {
+  userProfile: UserProfileModalProps;
+};
+
 export const AppModalRegistry = {
   login: { Component: Login, disableOutsideClick: false },
   signup: { Component: Signup, disableOutsideClick: true },
@@ -45,3 +51,7 @@ export const AlertModalRegistry = {
   dailyFirstAnswer: { Component: DailyFirstAnswer, disableOutsideClick: false },
   changeRole: { Component: ChangeRole, disableOutsideClick: false },
 } satisfies ModalMap<AlertModalProps>;
+
+export const SimpleModalRegistry = {
+  userProfile: { Component: UserProfileModal, Wrapper: SimpleModal, disableOutsideClick: false },
+} satisfies ModalMap<SimpleModalProps>;

@@ -15,6 +15,7 @@ import {
   UserCommentListResponse,
   UserPostListResponse,
   UserSaveListResponse,
+  UserProfileResponse,
 } from '@/types/member';
 
 import { axiosInstance } from './axios/axiosInstance';
@@ -32,6 +33,12 @@ const getUserDashboard = async () => {
 
 const getUserInfo = async () => {
   const { data } = await axiosInstance.get<UserInfoResponse>(END_POINTS_V1.MEMBERS.INFO);
+
+  return data.result;
+};
+
+const getUserProfile = async (memberId: string) => {
+  const { data } = await axiosInstance.get<UserProfileResponse>(END_POINTS_V1.MEMBERS.PROFILE(memberId));
 
   return data.result;
 };
@@ -105,6 +112,7 @@ export const memberApi = {
   getUserSummary,
   getUserDashboard,
   getUserInfo,
+  getUserProfile,
   getUserDaily,
   getUserPostList,
   getUserCommentList,

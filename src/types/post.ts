@@ -1,3 +1,5 @@
+import { ApiResponse } from './api';
+
 export type PostStatus = 'ACTIVE' | 'DELETED_BY_USER' | 'DELETED_BY_ADMIN' | 'USER_WITHDRAWN';
 
 export interface PostSummary {
@@ -49,4 +51,38 @@ export type CreatePostRequest = {
 
 export interface CreatePostResponse {
   result: Post;
+}
+
+export interface PostResponse extends ApiResponse {
+  result: {
+    postId: number;
+    title: string;
+    content: string;
+    viewCount: number;
+    likeCount: number;
+    commentCount: number;
+    saveCount: number;
+    createdAt: string;
+    updatedAt: string;
+    isMine: boolean;
+    isAnonymous: boolean;
+    category: {
+      categoryId: number;
+      name: string;
+    };
+    author: {
+      authorId: number;
+      displayName: string;
+      isAnonymous: boolean;
+      profileUrl: string | null;
+    };
+    myStatus: {
+      isLiked: boolean;
+      isSaved: boolean;
+    };
+    daily: {
+      question: string;
+      answer: string;
+    } | null;
+  };
 }
