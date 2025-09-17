@@ -56,7 +56,15 @@ const getUserPost = async (params: UserCommunityRequest) => {
   return data.result;
 };
 
-const getUserComment = async (params: UserCommunityRequest) => {
+const deleteUserPost = async (postList: number[]) => {
+  const { data } = await axiosInstance.delete<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS, {
+    data: { postList },
+  });
+
+  return data.result;
+};
+
+const getUserCommentList = async (params: UserCommunityRequest) => {
   const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS, {
     params,
   });
@@ -130,10 +138,11 @@ export const memberApi = {
   getUserProfile,
   getUserDaily,
   getUserPost,
-  getUserComment,
   getUserLikePost,
   getUserLikeComment,
   getUserSavePost,
+  deleteUserPost,
+  getUserCommentList,
   editUserInfo,
   checkNickname,
   withdraw,
