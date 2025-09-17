@@ -7,8 +7,6 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import { DropdownList } from '@/components/molecules/DropdownList/DropdownList';
 import { POST_CATEGORY_META } from '@/constants/common';
-import { useDeleteCommentMutation } from '@/hooks/api/comment/useDeleteComment';
-import { useDeletePostMutation } from '@/hooks/api/post/useDeletePost';
 import { useDropdown } from '@/hooks/useDropdown';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { Comment, CommentStatus } from '@/types/comment';
@@ -54,6 +52,11 @@ export default function CommunityListRow(props: CommunityListRowProps) {
   const handleDropdownSelect = (values: Array<string | number>) => {
     const v = values[0];
     if (v === 'DELETE') {
+      if (destructive) {
+        if (isPost) open('alert', { message: '이미 삭제된 게시글입니다.' });
+        else open('alert', { message: '이미 삭제된 댓글입니다.' });
+        return;
+      }
       const targetType = isPost ? 'post' : 'comment';
       open('communityDelete', { type: targetType, id });
     }
