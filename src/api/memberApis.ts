@@ -14,7 +14,6 @@ import {
   WithdrawRequest,
   UserCommentListResponse,
   UserPostListResponse,
-  UserSaveListResponse,
   UserProfileResponse,
 } from '@/types/member';
 
@@ -81,8 +80,8 @@ const getUserLikeComment = async (params: UserCommunityRequest) => {
   return data.result;
 };
 
-const getUserSave = async (params: UserCommunityRequest) => {
-  const { data } = await axiosInstance.get<UserSaveListResponse>(END_POINTS_V1.MEMBERS.SAVES, {
+const getUserSavePost = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.SAVES, {
     params,
   });
 
@@ -134,7 +133,7 @@ export const memberApi = {
   getUserComment,
   getUserLikePost,
   getUserLikeComment,
-  getUserSave,
+  getUserSavePost,
   editUserInfo,
   checkNickname,
   withdraw,
