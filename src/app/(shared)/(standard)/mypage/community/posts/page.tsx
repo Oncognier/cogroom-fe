@@ -14,8 +14,10 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
+import useDeleteUserPost from '@/hooks/api/member/useDeleteUserPosts';
 import useGetUserPost from '@/hooks/api/member/useGetUserPost';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
@@ -24,6 +26,8 @@ import * as S from './page.styled';
 export default function Posts() {
   const router = useRouter();
   const { updateSearchParams, getSearchParam, getSearchParamAsDate, getSearchParamAsArray } = useUrlSearchParams();
+  const { open } = useAlertModalStore();
+
   const [sort, setSort] = useState<SortType>('latest');
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
   const [isEdit, setIsEdit] = useState(false);
@@ -40,6 +44,16 @@ export default function Posts() {
 
   const totalPages = UserPostsData?.totalPages ?? 1;
   const urlPageNum = Number(getSearchParam('page') ?? 0);
+
+  const { mutate: deleteUserPost } = useDeleteUserPost(selectedPostIds);
+
+  const handleDeletePosts = () => {
+    if (selectedPostIds.length === 0) {
+      open('alert', { message: '삭제할 항목을 선택해주세요' });
+      return;
+    }
+    deleteUserPost();
+  };
 
   const handleGoToCommunity = () => {
     router.push('/community');
@@ -138,7 +152,7 @@ export default function Posts() {
 
               <OutlinedButton
                 label='삭제'
-                onClick={() => {}}
+                onClick={handleDeletePosts}
                 color='destructive'
                 size='sm'
                 interactionVariant='normal'
