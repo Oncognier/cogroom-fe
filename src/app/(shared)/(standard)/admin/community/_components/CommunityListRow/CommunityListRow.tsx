@@ -74,6 +74,10 @@ export default function CommunityListRow(props: CommunityListRowProps) {
     router.push(`/community/post/${targetPostId}`);
   };
 
+  const handleGoToMember = () => {
+    router.push(`/admin/users?keyword=${author?.displayName}`);
+  };
+
   return (
     <S.CommunityListRow>
       <S.UniqueId>{formatToDigits(id, 6)}</S.UniqueId>
@@ -106,7 +110,7 @@ export default function CommunityListRow(props: CommunityListRowProps) {
       </S.ContentWrapper>
 
       <S.MetaInfoWrapper>
-        <S.MemberInfoWrapper>
+        <S.MemberInfoWrapper onClick={handleGoToMember}>
           <AvatarPerson
             type='image'
             size='xsm'
