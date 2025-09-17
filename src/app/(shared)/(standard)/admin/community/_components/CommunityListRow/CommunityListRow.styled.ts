@@ -94,3 +94,15 @@ export const CreatedAt = styled.p`
   width: 10rem;
   text-align: center;
 `;
+
+export const DropdownContainer = styled.div`
+  position: relative;
+`;
+
+export const DropdownWrapper = styled.div`
+  position: absolute;
+  left: -12rem;
+  bottom: -6rem;
+
+  width: 15rem;
+`;

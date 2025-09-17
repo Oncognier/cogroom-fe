@@ -1,3 +1,5 @@
+import { ApiResponse } from './api';
+
 export type PostStatus = 'ACTIVE' | 'DELETED_BY_USER' | 'DELETED_BY_ADMIN' | 'USER_WITHDRAWN';
 
 export interface PostSummary {
@@ -47,6 +49,6 @@ export type CreatePostRequest = {
   imageUrlList: string[];
 };
 
-export interface CreatePostResponse {
+export interface CreatePostResponse extends ApiResponse {
   result: Post;
 }

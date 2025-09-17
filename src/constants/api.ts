@@ -13,6 +13,7 @@ const BASE_PATH_V1 = {
   FILE: `${API_V1}/files`,
   STREAKS: `${API_V1}/streaks`,
   POSTS: `${API_V1}/posts`,
+  COMMENTS: `${API_V1}/comments`,
 
   ADMIN: `${API_V1}/admin`,
 } as const;
@@ -80,6 +81,10 @@ export const END_POINTS_V1 = {
   },
   POSTS: {
     CREATE: `${BASE_PATH_V1.POSTS}`,
+    DELETE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+  },
+  COMMENTS: {
+    DELETE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
   },
 
   ADMIN: {
