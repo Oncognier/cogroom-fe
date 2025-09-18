@@ -1,8 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { postApi } from '@/api/postApis';
 import { useAlertModalStore } from '@/stores/useModalStore';
+import { POST_QUERY_KEYS } from '@/constants/queryKeys';
 
 interface TogglePostSaveParams {
   postId: string;
@@ -11,10 +12,14 @@ interface TogglePostSaveParams {
 
 export const useTogglePostSave = () => {
   const { open: openAlert } = useAlertModalStore();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ postId, isSaved }: TogglePostSaveParams) => {
       return isSaved ? postApi.unsavePost(postId) : postApi.savePost(postId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST_LIST] });
     },
     onError: (error: HTTPError) => {
       switch (error.code) {
