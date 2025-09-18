@@ -1,8 +1,6 @@
 import { useState } from 'react';
 
-import BookmarkFillIcon from '@/assets/icons/bookmark-fill.svg';
 import BookmarkIcon from '@/assets/icons/bookmark.svg';
-import HeartFillIcon from '@/assets/icons/heart-fill.svg';
 import HeartIcon from '@/assets/icons/heart.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
@@ -75,11 +73,11 @@ export default function PostLikesSaved({
       <S.IconTextWrapper>
         <IconButton
           size='4rem'
-          variant='solid'
+          variant={isLiked ? 'solid' : 'outlined'}
           interactionVariant='normal'
           onClick={handleLikeClick}
         >
-          <S.IconMargin>{isLiked ? <HeartFillIcon /> : <HeartIcon />}</S.IconMargin>
+          <HeartIcon />
         </IconButton>
 
         <S.CountText>{formatCountPlus(likeCount)}</S.CountText>
@@ -88,11 +86,11 @@ export default function PostLikesSaved({
       <S.IconTextWrapper>
         <IconButton
           size='4rem'
-          variant='outlined'
+          variant={isSaved ? 'solid' : 'outlined'}
           interactionVariant='normal'
           onClick={handleSaveClick}
         >
-          <S.BookmarkIcon>{isSaved ? <BookmarkFillIcon /> : <BookmarkIcon />}</S.BookmarkIcon>
+          <BookmarkIcon />
         </IconButton>
 
         <S.CountText>{formatCountPlus(saveCount)}</S.CountText>
