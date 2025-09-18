@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
 
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
-import { DEFAULT_COMMUNITY_MAIN_BANNER, DEFAULT_OG_THUMBNAIL } from '@/constants/image';
+import { DEFAULT_OG_THUMBNAIL } from '@/constants/image';
 
 import CommunityActions from './_components/CommunityActions';
 import CommunityDescription from './_components/CommunityDescription';
+import PostList from './_components/PostList/PostList';
 import * as S from './page.styled';
 
 export const metadata: Metadata = {
@@ -43,24 +42,7 @@ export default function Community() {
       />
       <CommunityDescription />
       <CommunityActions />
-      <a
-        href='https://oncognier.com/community'
-        target='_blank'
-      >
-        <S.BannerWrapper>
-          <Image
-            src={DEFAULT_COMMUNITY_MAIN_BANNER}
-            alt='community banner'
-            fill
-            quality={100}
-          />
-          <S.BannerTitleWrapper>
-            <S.BannerTitle>서로 안아주기</S.BannerTitle>
-            <S.BannerTitle>더욱 알아가기</S.BannerTitle>
-            <S.BannerTitle>진짜 대화하기</S.BannerTitle>
-          </S.BannerTitleWrapper>
-        </S.BannerWrapper>
-      </a>
+      <PostList />
     </S.ContentContainer>
   );
 }
