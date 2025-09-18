@@ -7,6 +7,6 @@ import { UserCommunityRequest } from '@/types/member';
 export default function useGetUserComment(params: UserCommunityRequest) {
   return useQuery({
     queryKey: [...MEMBER_QUERY_KEYS.MEMBER_COMMENTS, params],
-    queryFn: () => memberApi.getUserComment(params),
+    queryFn: () => memberApi.getUserCommentList(params),
   });
 }
