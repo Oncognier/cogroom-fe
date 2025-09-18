@@ -12,6 +12,8 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { useEffect } from 'react';
 
+import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
+
 import { CustomImage } from './CustomImage';
 import CustomToolbar from './CustomToolbar/CustomToolbar';
 import * as S from './Editor.styled';
@@ -50,6 +52,14 @@ export default function Editor({
   readonly = false,
   className,
 }: EditorProps) {
+  const { uploadToS3 } = useUploadFileToS3Mutation({
+    onSuccess: (accessUrls) => {
+      if (accessUrls.length > 0 && editor) {
+        editor.chain().focus().setCustomImage({ src: accessUrls[0] }).run();
+      }
+    },
+  });
+
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -90,14 +100,35 @@ export default function Editor({
   });
 
   useEffect(() => {
+    if (!editor) return;
+
+    const handleDrop = async (event: DragEvent) => {
+      event.preventDefault();
+
+      const files = event.dataTransfer?.files;
+      if (!files || files.length === 0) return;
+
+      const file = files[0];
+      if (!file.type.startsWith('image/')) return;
+
+      uploadToS3({ files: [file] });
+    };
+
+    const dom = editor.view.dom;
+    dom.addEventListener('drop', handleDrop);
+
+    return () => {
+      dom.removeEventListener('drop', handleDrop);
+    };
+  }, [editor, uploadToS3]);
+
+  useEffect(() => {
     if (editor && value !== editor.getHTML()) {
       editor.commands.setContent(value);
     }
   }, [editor, value]);
 
-  if (!editor) {
-    return null;
-  }
+  if (!editor) return null;
 
   return (
     <S.EditorWrapper className={className}>

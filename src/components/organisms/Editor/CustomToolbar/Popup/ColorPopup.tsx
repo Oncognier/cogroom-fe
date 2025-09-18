@@ -14,18 +14,12 @@ type ColorPopupProps = {
 };
 
 const colorPalette = [
-  ['transparent', '#FFFFFF', '#F4F4F5'],
+  ['transparent', semantic.static.white, semantic.static.black],
   [palette.neutral[98], palette.neutral[95], palette.neutral[80], palette.neutral[60], palette.neutral[40]],
-  [palette.red[90], palette.red[70], palette.red[50], palette.red[30], palette.red[10]],
   [palette.blue[90], palette.blue[70], palette.blue[50], palette.blue[30], palette.blue[10]],
   [palette.green[90], palette.green[70], palette.green[50], palette.green[30], palette.green[10]],
-  [
-    semantic.accent.lightBlue,
-    semantic.accent.cyan,
-    semantic.accent.pink,
-    semantic.accent.purple,
-    semantic.accent.violet,
-  ],
+  [palette.red[90], palette.red[70], palette.red[50], palette.red[30], palette.red[10]],
+  [palette.orange[90], palette.orange[70], palette.orange[50], palette.orange[30], palette.orange[10]],
 ];
 
 export default function ColorPopup({ editor, onClose }: ColorPopupProps) {
