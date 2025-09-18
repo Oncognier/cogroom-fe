@@ -7,6 +7,8 @@ export const PostCard = styled.div`
   gap: 2.2rem;
 
   width: 100%;
+
+  cursor: pointer;
 `;
 
 export const ThumbnailWrapper = styled.div`
@@ -45,6 +47,8 @@ export const UserProfile = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6rem;
+
+  width: fit-content;
 `;
 
 export const Nickname = styled.p`
@@ -73,8 +77,13 @@ export const MetaRow = styled.div`
 export const Aside = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1.2rem;
   flex-shrink: 0;
+
+  height: 100%;
+
+  cursor: default;
 `;
 
 export const SideMeta = styled.div`
