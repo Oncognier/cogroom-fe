@@ -11,11 +11,13 @@ import * as S from './CommunityDelete.styled';
 export interface CommunityDeleteProps {
   type: 'post' | 'comment';
   id: number;
+  onConfirm?: () => void;
 }
 
-export default function CommunityDelete({ type, id }: CommunityDeleteProps) {
+export default function CommunityDelete({ type, id, onConfirm }: CommunityDeleteProps) {
   const { close } = useAlertModalStore();
-  const { deletePost } = useDeletePostMutation();
+
+  const { deletePost } = useDeletePostMutation(onConfirm);
   const { deleteComment } = useDeleteCommentMutation();
 
   const isPost = type === 'post';

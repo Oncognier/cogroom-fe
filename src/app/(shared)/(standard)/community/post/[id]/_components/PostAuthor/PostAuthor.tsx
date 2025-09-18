@@ -1,8 +1,14 @@
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 
+import { postApi } from '@/api/postApis';
+import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import IconButton from '@/components/atoms/IconButton/IconButton';
+import { DropdownList } from '@/components/molecules/DropdownList/DropdownList';
+import { useDropdown } from '@/hooks/useDropdown';
 import { useAlertModalStore, useSimpleModalStore } from '@/stores/useModalStore';
+import { DropdownOption } from '@/types/common';
 import { getDisplayName } from '@/utils/formatText';
 
 import * as S from './PostAuthor.styled';
@@ -20,49 +26,54 @@ interface PostAuthorProps {
 }
 
 export default function PostAuthor({ author, postId, isMine = false, isAdmin = false }: PostAuthorProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const { open: openAlert } = useAlertModalStore();
   const { open: openSimpleModal } = useSimpleModalStore();
 
-  const canEdit = isMine && !author.isAnonymous;
-  const canDelete = isMine || isAdmin;
+  const { isOpen, toggle, close, handleBlur, dropdownRef } = useDropdown();
 
-  const handleMenuClick = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleEdit = () => {
-    setIsMenuOpen(false);
-    router.push(`/community/write?edit=${postId}`);
-  };
-
-  const handleDelete = () => {
-    setIsMenuOpen(false);
-
-    if (isAdmin) {
-      deletePost();
-    } else {
+  const forceDeleteMutation = useMutation({
+    mutationFn: postApi.deletePost,
+    onSuccess: () => {
       openAlert('alert', {
-        message: '글을 지울까요?',
-        type: 'confirm',
-        onConfirm: deletePost,
-        onCancel: () => {},
-        confirmText: '지우기',
-        cancelText: '안 지울래요',
+        message: '글이 삭제되었습니다.',
+        onConfirm: () => router.push('/community'),
       });
+    },
+    onError: () => {
+      openAlert('alert', { message: '글 삭제에 실패했습니다.' });
+    },
+  });
+
+  const getDropdownOptions = (): DropdownOption[] => {
+    const options: DropdownOption[] = [];
+
+    if (isMine) {
+      options.push({ label: '수정하기', value: 'EDIT', color: 'default' });
+      options.push({ label: '삭제하기', value: 'DELETE', color: 'default' });
+    } else if (isAdmin) {
+      options.push({ label: '강제로 삭제', value: 'FORCE_DELETE', color: 'red' });
     }
+
+    return options;
   };
 
-  const deletePost = () => {
-    // TODO: 삭제 API 호출
-    // console.log('게시글 삭제:', postId);
+  const handleDropdownSelect = (values: Array<string | number>) => {
+    const value = values[0];
 
-    openAlert('alert', {
-      message: '글이 삭제되었습니다.',
-      type: 'alert',
-      onConfirm: () => router.push('/community'),
-    });
+    if (value === 'EDIT') {
+      router.push(`/community/write?edit=${postId}`);
+    } else if (value === 'DELETE') {
+      openAlert('communityDelete', {
+        type: 'post',
+        id: Number(postId),
+        onConfirm: () => router.push('/community'),
+      });
+    } else if (value === 'FORCE_DELETE') {
+      forceDeleteMutation.mutate({ postId });
+    }
+
+    close();
   };
 
   const handleAvatarClick = () => {
@@ -73,8 +84,8 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
     }
   };
 
-  // 메뉴 표시 조건: 수정 가능하거나 삭제 가능한 경우
-  const shouldShowMenu = canEdit || canDelete;
+  // 메뉴 표시 조건: 작성자 본인이거나 관리자인 경우
+  const shouldShowMenu = isMine || isAdmin;
 
   return (
     <S.PostAuthorWrapper>
@@ -92,28 +103,37 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
         <S.PostUserName>{getDisplayName(author.displayName, author.isAnonymous)}</S.PostUserName>
       </S.AuthorInfo>
 
-      {/* 일시 히든처리, 공용 컴포넌트 업로드 시 변경 예정 */}
-      {/* {shouldShowMenu && (
-        <S.MenuContainer ref={menuRef}>
+      {shouldShowMenu && (
+        <S.MenuContainer
+          ref={dropdownRef}
+          onBlur={handleBlur}
+          tabIndex={-1}
+        >
           <IconButton
             size='4rem'
             variant='normal'
             interactionVariant='normal'
-            onClick={handleMenuClick}
+            onClick={toggle}
+            aria-label='더보기'
+            aria-haspopup='menu'
+            aria-expanded={isOpen}
           >
             <S.DotsIcon>
               <DotsVerticalIcon />
             </S.DotsIcon>
           </IconButton>
 
-          {isMenuOpen && (
-            <S.Menu>
-              {canEdit && <S.MenuItem onClick={handleEdit}>수정하기</S.MenuItem>}
-              {canDelete && <S.MenuItem onClick={handleDelete}>삭제하기</S.MenuItem>}
-            </S.Menu>
+          {isOpen && (
+            <S.MenuDropdownWrapper>
+              <DropdownList
+                options={getDropdownOptions()}
+                selectedValues={[]}
+                onSelect={handleDropdownSelect}
+              />
+            </S.MenuDropdownWrapper>
           )}
         </S.MenuContainer>
-      )} */}
+      )}
     </S.PostAuthorWrapper>
   );
 }
