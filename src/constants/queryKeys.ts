@@ -34,6 +34,7 @@ const STREAK_QUERY_KEYS = {
 const POST_QUERY_KEYS = {
   POST: ['post'],
   POST_CREATE: ['post', 'create'],
+  POST_LIST: ['post', 'list'],
 } as const;
 
 const ADMIN_QUERY_KEYS = {

@@ -1,4 +1,4 @@
-import { ApiResponse } from './api';
+import { ApiResponse, CursorPaginationResult } from './api';
 
 export type PostStatus = 'ACTIVE' | 'DELETED_BY_USER' | 'DELETED_BY_ADMIN' | 'USER_WITHDRAWN';
 
@@ -85,4 +85,13 @@ export interface PostResponse extends ApiResponse {
       answer: string;
     } | null;
   };
+}
+
+export interface PostListRequest {
+  categoryId?: number;
+  cursor: number | null;
+}
+
+export interface PostListResponse extends ApiResponse {
+  result: CursorPaginationResult<Post>;
 }
