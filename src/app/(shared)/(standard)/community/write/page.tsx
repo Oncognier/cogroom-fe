@@ -43,6 +43,7 @@ export default function CommunityWrite() {
             showAnonymous={logic.showAnonymous}
             onAnonymousToggle={(checked: boolean) => logic.methods.setValue('isAnonymous', checked)}
             control={logic.methods.control}
+            isAnonymousDisabled={logic.isAnonymousDisabled}
           />
 
           <TitleInput

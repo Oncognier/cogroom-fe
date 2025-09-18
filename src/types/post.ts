@@ -57,6 +57,7 @@ export type UpdatePostRequest = {
   title: string;
   categoryId: number;
   content: string;
+  isAnonymous: boolean;
   imageUrlList: string[];
   deleteUrlList: string[];
 };

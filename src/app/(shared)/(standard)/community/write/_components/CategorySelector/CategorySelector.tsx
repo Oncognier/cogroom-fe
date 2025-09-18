@@ -14,10 +14,12 @@ export default function CategorySelector({
   showAnonymous,
   onAnonymousToggle,
   control,
+  isAnonymousDisabled = false,
 }: Omit<CategorySelectorProps, 'value'> & {
   showAnonymous: boolean;
   onAnonymousToggle: (checked: boolean) => void;
   control: FormControl;
+  isAnonymousDisabled?: boolean;
 }) {
   return (
     <S.CategoryBox>
@@ -67,10 +69,13 @@ export default function CategorySelector({
                   size='nm'
                   isChecked={field.value}
                   onToggle={(checked) => {
-                    field.onChange(checked);
-                    onAnonymousToggle(checked);
+                    if (!isAnonymousDisabled) {
+                      field.onChange(checked);
+                      onAnonymousToggle(checked);
+                    }
                   }}
                   interactionVariant='normal'
+                  isDisabled={isAnonymousDisabled}
                   name='isAnonymous'
                 />
                 <S.CheckboxName>익명</S.CheckboxName>

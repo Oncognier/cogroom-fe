@@ -31,7 +31,7 @@ const createPost = async ({ title, categoryId, content, isAnonymous, imageUrlLis
 
 const updatePost = async (
   postId: string,
-  { title, categoryId, content, imageUrlList, deleteUrlList }: UpdatePostRequest,
+  { title, categoryId, content, isAnonymous, imageUrlList, deleteUrlList }: UpdatePostRequest,
 ) => {
   const { data } = await axiosInstance.patch<UpdatePostRequest, AxiosResponse<UpdatePostResponse>>(
     END_POINTS_V1.POSTS.POST_UPDATE(postId),
@@ -39,6 +39,7 @@ const updatePost = async (
       title,
       categoryId,
       content,
+      isAnonymous,
       imageUrlList,
       deleteUrlList,
     },

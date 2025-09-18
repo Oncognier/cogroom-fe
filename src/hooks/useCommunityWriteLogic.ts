@@ -119,6 +119,7 @@ export const useCommunityWriteLogic = (): UseCommunityWriteLogicReturn => {
         title: formData.title,
         categoryId: categoryId,
         content: formData.content,
+        isAnonymous: finalIsAnonymous,
         imageUrlList: imageUrlList,
         deleteUrlList: deleteUrlList,
       });
@@ -193,6 +194,10 @@ export const useCommunityWriteLogic = (): UseCommunityWriteLogicReturn => {
   const showAnonymous =
     (isEditMode && existingPost?.daily && isDailyCategory) || (!!dailyData?.answer && isDaily && isDailyCategory);
 
+  // 데일리 공유 익명 글 수정 시 익명 체크박스 비활성화
+  const isAnonymousDisabled =
+    isEditMode && existingPost?.category.categoryId === 1 && existingPost?.author?.isAnonymous === true;
+
   const dailyQuestionProps = (() => {
     if (isEditMode && existingPost?.daily && isDailyCategory) {
       return {
@@ -240,5 +245,6 @@ export const useCommunityWriteLogic = (): UseCommunityWriteLogicReturn => {
     isEditMode,
     isLoadingPost,
     showAnonymous,
+    isAnonymousDisabled,
   };
 };

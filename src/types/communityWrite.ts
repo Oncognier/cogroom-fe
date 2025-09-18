@@ -51,4 +51,5 @@ export interface UseCommunityWriteLogicReturn {
   isEditMode: boolean;
   isLoadingPost: boolean;
   showAnonymous: boolean;
+  isAnonymousDisabled: boolean;
 }

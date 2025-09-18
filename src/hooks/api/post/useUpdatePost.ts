@@ -22,6 +22,7 @@ export const useUpdatePostMutation = () => {
       title: string;
       categoryId: number;
       content: string;
+      isAnonymous: boolean;
       imageUrlList: string[];
       deleteUrlList: string[];
     }) => postApi.updatePost(postId, updateData),
@@ -29,7 +30,10 @@ export const useUpdatePostMutation = () => {
       queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST] });
       queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST, postId] });
 
-      router.push(`/community/post/${postId}`);
+      openAlert('alert', {
+        message: '수정되었어요!',
+        onConfirm: () => router.push(`/community/post/${postId}`),
+      });
     },
     onError: (error: HTTPError) => {
       switch (error.code) {
