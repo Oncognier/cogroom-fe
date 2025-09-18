@@ -1,4 +1,5 @@
 import { formatCountPlus } from '@/utils/formatText';
+
 import * as S from './MetaItem.styled';
 
 type MetaItemProps = {

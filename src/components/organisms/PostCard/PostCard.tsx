@@ -1,7 +1,6 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useSimpleModalStore } from '@/stores/useModalStore';
 
 import BookmarkFill from '@/assets/icons/bookmark-fill.svg';
 import Bookmark from '@/assets/icons/bookmark.svg';
@@ -14,11 +13,12 @@ import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
 import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
 import { DEFAULT_THUMBNAIL } from '@/constants/image';
+import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
+import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
+import { useSimpleModalStore } from '@/stores/useModalStore';
 import type { Post } from '@/types/post';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
 import { formatCountPlus, getDisplayName } from '@/utils/formatText';
-import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
-import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
 
 import MetaItem from './MetaItem/MetaItem';
 import * as S from './PostCard.styled';
