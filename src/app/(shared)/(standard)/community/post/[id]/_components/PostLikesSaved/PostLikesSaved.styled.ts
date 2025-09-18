@@ -7,6 +7,8 @@ export const PostLikeSavedWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 1.2rem;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
 `;
 
 export const IconMargin = styled.svg`
