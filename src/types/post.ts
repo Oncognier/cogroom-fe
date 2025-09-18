@@ -53,6 +53,19 @@ export interface CreatePostResponse extends ApiResponse {
   result: Post;
 }
 
+export type UpdatePostRequest = {
+  title: string;
+  categoryId: number;
+  content: string;
+  isAnonymous: boolean;
+  imageUrlList: string[];
+  deleteUrlList: string[];
+};
+
+export interface UpdatePostResponse {
+  result: Post;
+}
+
 export interface PostResponse extends ApiResponse {
   result: {
     postId: number;

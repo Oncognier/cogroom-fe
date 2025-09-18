@@ -2,7 +2,15 @@ import type { AxiosResponse } from 'axios';
 
 import { END_POINTS_V1 } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
-import { CreatePostRequest, CreatePostResponse, PostListRequest, PostListResponse, PostResponse } from '@/types/post';
+import {
+  CreatePostRequest,
+  CreatePostResponse,
+  PostListRequest,
+  PostListResponse,
+  PostResponse,
+  UpdatePostRequest,
+  UpdatePostResponse,
+} from '@/types/post';
 
 import { axiosInstance } from './axios/axiosInstance';
 
@@ -15,6 +23,25 @@ const createPost = async ({ title, categoryId, content, isAnonymous, imageUrlLis
       content,
       isAnonymous,
       imageUrlList,
+    },
+  );
+
+  return data.result;
+};
+
+const updatePost = async (
+  postId: string,
+  { title, categoryId, content, isAnonymous, imageUrlList, deleteUrlList }: UpdatePostRequest,
+) => {
+  const { data } = await axiosInstance.patch<UpdatePostRequest, AxiosResponse<UpdatePostResponse>>(
+    END_POINTS_V1.POSTS.POST_UPDATE(postId),
+    {
+      title,
+      categoryId,
+      content,
+      isAnonymous,
+      imageUrlList,
+      deleteUrlList,
     },
   );
 
@@ -67,6 +94,7 @@ const deletePost = async ({ postId }: { postId: string }) => {
 
 export const postApi = {
   createPost,
+  updatePost,
   getPost,
   getPostList,
   togglePostLike,
