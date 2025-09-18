@@ -7,7 +7,7 @@ import { postApi } from '@/api/postApis';
 import { ADMIN_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
-export const useDeletePostMutation = () => {
+export const useDeletePostMutation = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
   const { open } = useAlertModalStore();
 
@@ -16,7 +16,10 @@ export const useDeletePostMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [...ADMIN_QUERY_KEYS.POST_LIST] });
       // TODO: 게시글 목록 조회도 캐시 무효화 (추후 Optimistic Update로 개선)
-      open('alert', { message: '글이 삭제되었습니다.' });
+      open('alert', {
+        message: '글이 삭제되었습니다.',
+        onConfirm: onSuccessCallback,
+      });
     },
     onError: (error: HTTPError) => {
       switch (error.code) {

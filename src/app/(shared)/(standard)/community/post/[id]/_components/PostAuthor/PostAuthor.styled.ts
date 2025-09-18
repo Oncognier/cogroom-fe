@@ -50,3 +50,12 @@ export const Menu = styled.div`
   overflow: hidden;
   z-index: 10;
 `;
+
+export const MenuDropdownWrapper = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+
+  width: 15rem;
+`;
