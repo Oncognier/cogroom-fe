@@ -22,7 +22,7 @@ const commonStyles = (theme: Theme) => css`
   border: 1px solid transparent;
   background-color: transparent;
   color: ${theme.semantic.label.normal};
-  padding: 0.7rem;
+  padding: 1rem;
 
   &:hover {
     cursor: pointer;
@@ -55,6 +55,7 @@ const variantStyles: Record<IconButtonVariant, (theme: Theme) => SerializedStyle
   outlined: (theme) => css`
     background-color: ${theme.palette.common[0]};
     border-color: ${theme.semantic.line.normal};
+    color: ${theme.semantic.label.alternative};
   `,
 
   solid: (theme) => css`
