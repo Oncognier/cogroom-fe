@@ -18,22 +18,22 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
             {
               label: '작성글',
               href: '/mypage/community/posts',
-              state: pathname === '/mypage/community/posts' ? 'active' : 'default',
+              state: pathname.startsWith('/mypage/community/posts') ? 'active' : 'default',
             },
             {
               label: '댓글',
               href: '/mypage/community/comments',
-              state: pathname === '/mypage/community/comments' ? 'active' : 'default',
+              state: pathname.startsWith('/mypage/community/comments') ? 'active' : 'default',
             },
             {
               label: '좋아요',
               href: '/mypage/community/likes',
-              state: pathname === '/mypage/community/likes' ? 'active' : 'default',
+              state: pathname.startsWith('/mypage/community/likes') ? 'active' : 'default',
             },
             {
               label: '저장',
               href: '/mypage/community/saves',
-              state: pathname === '/mypage/community/saves' ? 'active' : 'default',
+              state: pathname.startsWith('/mypage/community/saves') ? 'active' : 'default',
             },
           ]}
           size='sm'

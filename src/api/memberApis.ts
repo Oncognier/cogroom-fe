@@ -14,7 +14,6 @@ import {
   WithdrawRequest,
   UserCommentListResponse,
   UserPostListResponse,
-  UserSaveListResponse,
   UserProfileResponse,
 } from '@/types/member';
 
@@ -49,7 +48,7 @@ const getUserDaily = async () => {
   return data.result;
 };
 
-const getUserPostList = async (params: UserCommunityRequest) => {
+const getUserPost = async (params: UserCommunityRequest) => {
   const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS, {
     params,
   });
@@ -57,7 +56,7 @@ const getUserPostList = async (params: UserCommunityRequest) => {
   return data.result;
 };
 
-const getUserCommentList = async (params: UserCommunityRequest) => {
+const getUserComment = async (params: UserCommunityRequest) => {
   const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS, {
     params,
   });
@@ -65,8 +64,24 @@ const getUserCommentList = async (params: UserCommunityRequest) => {
   return data.result;
 };
 
-const getUserSaveList = async (params: UserCommunityRequest) => {
-  const { data } = await axiosInstance.get<UserSaveListResponse>(END_POINTS_V1.MEMBERS.SAVES, {
+const getUserLikePost = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getUserLikeComment = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getUserSavePost = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.SAVES, {
     params,
   });
 
@@ -114,9 +129,11 @@ export const memberApi = {
   getUserInfo,
   getUserProfile,
   getUserDaily,
-  getUserPostList,
-  getUserCommentList,
-  getUserSaveList,
+  getUserPost,
+  getUserComment,
+  getUserLikePost,
+  getUserLikeComment,
+  getUserSavePost,
   editUserInfo,
   checkNickname,
   withdraw,

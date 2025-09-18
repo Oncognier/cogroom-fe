@@ -4,9 +4,9 @@ import { memberApi } from '@/api/memberApis';
 import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
 import { UserCommunityRequest } from '@/types/member';
 
-export default function useGetUserSaveList(params: UserCommunityRequest) {
+export default function useGetUserLikeComment(params: UserCommunityRequest) {
   return useQuery({
-    queryKey: [...MEMBER_QUERY_KEYS.MEMBER_SAVES, params],
-    queryFn: () => memberApi.getUserSaveList(params),
+    queryKey: [...MEMBER_QUERY_KEYS.MEMBER_COMMENTS, params],
+    queryFn: () => memberApi.getUserLikeComment(params),
   });
 }

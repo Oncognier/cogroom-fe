@@ -1,4 +1,5 @@
 import { ApiResponse, PaginationResult } from './api';
+import { Comment } from './comment';
 import { Post } from './post';
 
 export type MemberRole = 'USER' | 'ADMIN' | 'CONTENT_PROVIDER';
@@ -73,7 +74,7 @@ export interface WithdrawRequest {
 export interface UserCommunityRequest {
   page?: number;
   sort?: string;
-  categoryId?: number;
+  categoryId?: number[];
   keyword?: string;
   startDate?: string;
   endDate?: string;
@@ -84,21 +85,5 @@ export interface UserPostListResponse extends ApiResponse {
 }
 
 export interface UserCommentListResponse extends ApiResponse {
-  result: PaginationResult<UserComment>;
+  result: PaginationResult<Comment>;
 }
-
-export interface UserSaveListResponse extends ApiResponse {
-  result: PaginationResult<Post>;
-}
-
-export type UserComment = {
-  commentId: number;
-  comment: string;
-  parentId: number | null;
-  post: {
-    postId: number;
-    title: string;
-  };
-  createdAt: string;
-  updatedAt: string;
-};
