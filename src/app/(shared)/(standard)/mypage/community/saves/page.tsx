@@ -24,7 +24,7 @@ export default function Saves() {
   const [sort, setSort] = useState<SortType>('latest');
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data: UserSaveData, isLoading } = useGetUserSave({
+  const { data: userSaveData, isLoading } = useGetUserSave({
     page: currentPage,
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
@@ -33,7 +33,7 @@ export default function Saves() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = UserSaveData?.totalPages ?? 1;
+  const totalPages = userSaveData?.totalPages ?? 1;
   const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   const handlePageChange = (page: number) => {
@@ -59,7 +59,7 @@ export default function Saves() {
 
   if (isLoading) return <Loading />;
 
-  if (!UserSaveData)
+  if (userSaveData?.data.length === 0)
     return (
       <EmptyState
         icon={<MessageCircleX />}
@@ -74,7 +74,7 @@ export default function Saves() {
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 글'
-          total={UserSaveData?.totalElements}
+          total={userSaveData?.totalElements}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
@@ -99,7 +99,7 @@ export default function Saves() {
       </S.FilterHeader>
 
       <S.SaveList>
-        {UserSaveData?.data.map((post) => (
+        {userSaveData?.data.map((post) => (
           <PostCard
             key={post.postId}
             post={post}

@@ -73,7 +73,7 @@ const getUserCommentList = async (params: UserCommunityRequest) => {
 };
 
 const getUserLikePost = async (params: UserCommunityRequest) => {
-  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS, {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS_LIKE, {
     params,
   });
 
@@ -81,7 +81,7 @@ const getUserLikePost = async (params: UserCommunityRequest) => {
 };
 
 const getUserLikeComment = async (params: UserCommunityRequest) => {
-  const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS, {
+  const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS_LIKE, {
     params,
   });
 

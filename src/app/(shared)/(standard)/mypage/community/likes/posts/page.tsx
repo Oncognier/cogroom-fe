@@ -12,7 +12,7 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
-import useGetUserSaveList from '@/hooks/api/member/useGetUserSave';
+import useGetUserLikePost from '@/hooks/api/member/useGetUserLikePost';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -25,7 +25,7 @@ export default function LikesPosts() {
   const [sort, setSort] = useState<SortType>('latest');
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data: UserSaveData, isLoading } = useGetUserSaveList({
+  const { data: userLikeData, isLoading } = useGetUserLikePost({
     page: currentPage,
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
@@ -34,7 +34,7 @@ export default function LikesPosts() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = UserSaveData?.totalPages ?? 1;
+  const totalPages = userLikeData?.totalPages ?? 1;
   const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   const handlePageChange = (page: number) => {
@@ -60,22 +60,12 @@ export default function LikesPosts() {
 
   if (isLoading) return <Loading />;
 
-  if (!UserSaveData)
-    return (
-      <EmptyState
-        icon={<MessageCircleX />}
-        description='꼭 마음에 담아두고 싶던 글이 있나요?'
-        buttonLabel='글 보러가기'
-        buttonAction={handleGoToCommunity}
-      />
-    );
-
   return (
     <S.UserSave>
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 글'
-          total={UserSaveData?.totalElements}
+          total={userLikeData?.totalElements}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
@@ -119,23 +109,34 @@ export default function LikesPosts() {
         </S.ListControlsWrapper>
       </S.FilterHeader>
 
-      <S.SaveList>
-        {UserSaveData?.data.map((post) => (
-          <PostCard
-            key={post.postId}
-            post={post}
-          />
-        ))}
-      </S.SaveList>
-
-      <S.Pagination>
-        <NumberPagination
-          size='nm'
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
-          onPageChange={(page) => handlePageChange(page - 1)}
+      {userLikeData?.data.length === 0 ? (
+        <EmptyState
+          icon={<MessageCircleX />}
+          description='꼭 마음에 담아두고 싶던 글이 있나요?'
+          buttonLabel='글 보러가기'
+          buttonAction={handleGoToCommunity}
         />
-      </S.Pagination>
+      ) : (
+        <>
+          <S.SaveList>
+            {userLikeData?.data.map((post) => (
+              <PostCard
+                key={post.postId}
+                post={post}
+              />
+            ))}
+          </S.SaveList>
+
+          <S.Pagination>
+            <NumberPagination
+              size='nm'
+              currentPage={currentPage + 1}
+              totalPages={totalPages}
+              onPageChange={(page) => handlePageChange(page - 1)}
+            />
+          </S.Pagination>
+        </>
+      )}
     </S.UserSave>
   );
 }

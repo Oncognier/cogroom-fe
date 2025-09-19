@@ -12,14 +12,12 @@ export const PostAuthorWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
 `;
 
-export const AuthorInfo = styled.div`
+export const AuthorInfo = styled.div<{ $isClickable: boolean }>`
   display: flex;
   flex-direction: row;
   gap: 0.6rem;
   align-items: center;
-`;
 
-export const AvatarWrapper = styled.div<{ $isClickable: boolean }>`
   * {
     cursor: ${({ $isClickable }) => ($isClickable ? 'pointer' : 'default')} !important;
   }

@@ -91,6 +91,8 @@ export const MemberInfoWrapper = styled.div`
 export const Nickname = styled.p`
   ${({ theme }) => theme.typography.label2.regular};
   color: ${({ theme }) => theme.semantic.label.normal};
+
+  text-align: center;
 `;
 
 export const CreatedAt = styled.p`

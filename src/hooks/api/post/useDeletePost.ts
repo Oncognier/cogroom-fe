@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { postApi } from '@/api/postApis';
-import { ADMIN_QUERY_KEYS } from '@/constants/queryKeys';
+import { ADMIN_QUERY_KEYS, POST_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
 export const useDeletePostMutation = (onSuccessCallback?: () => void) => {
@@ -13,9 +13,13 @@ export const useDeletePostMutation = (onSuccessCallback?: () => void) => {
 
   const mutation = useMutation({
     mutationFn: postApi.deletePost,
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
+      const postId = variables?.postId;
+
       queryClient.invalidateQueries({ queryKey: [...ADMIN_QUERY_KEYS.POST_LIST] });
-      // TODO: 게시글 목록 조회도 캐시 무효화 (추후 Optimistic Update로 개선)
+      queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST_LIST] });
+      queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST, postId] });
+
       open('alert', {
         message: '글이 삭제되었습니다.',
         onConfirm: onSuccessCallback,

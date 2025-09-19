@@ -50,3 +50,12 @@ export function getDisplayName(nickname: string | null, isAnonymous: boolean): s
   }
   return nickname;
 }
+
+// isAnonymous === true → "(익명) 홍길동"
+// isAnonymous === false → "홍길동"
+export function getAdminDisplayName(nickname: string, isAnonymous: boolean): string {
+  if (isAnonymous) {
+    return `(익명) ${nickname}`;
+  }
+  return nickname;
+}

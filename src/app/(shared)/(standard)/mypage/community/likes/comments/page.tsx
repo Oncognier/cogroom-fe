@@ -25,7 +25,7 @@ export default function LikesComments() {
   const [sort, setSort] = useState<SortType>('latest');
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data: UserLikeCommentData, isLoading } = useGetUserLikeComment({
+  const { data: userLikeCommentData, isLoading } = useGetUserLikeComment({
     page: currentPage,
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
@@ -34,7 +34,7 @@ export default function LikesComments() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = UserLikeCommentData?.totalPages ?? 1;
+  const totalPages = userLikeCommentData?.totalPages ?? 1;
   const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   const handlePageChange = (page: number) => {
@@ -60,22 +60,12 @@ export default function LikesComments() {
 
   if (isLoading) return <Loading />;
 
-  if (!UserLikeCommentData)
-    return (
-      <EmptyState
-        icon={<MessageCircleX />}
-        description='꼭 마음에 담아두고 싶던 글이 있나요?'
-        buttonLabel='글 보러가기'
-        buttonAction={handleGoToCommunity}
-      />
-    );
-
   return (
     <S.UserSave>
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 댓글'
-          total={UserLikeCommentData?.totalElements}
+          total={userLikeCommentData?.totalElements}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
@@ -119,23 +109,34 @@ export default function LikesComments() {
         </S.ListControlsWrapper>
       </S.FilterHeader>
 
-      <S.SaveList>
-        {UserLikeCommentData?.data.map((comment) => (
-          <CommentListRow
-            key={comment.commentId}
-            commentData={comment}
-          />
-        ))}
-      </S.SaveList>
-
-      <S.Pagination>
-        <NumberPagination
-          size='nm'
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
-          onPageChange={(page) => handlePageChange(page - 1)}
+      {userLikeCommentData?.data.length === 0 ? (
+        <EmptyState
+          icon={<MessageCircleX />}
+          description='꼭 마음에 담아두고 싶던 글이 있나요?'
+          buttonLabel='글 보러가기'
+          buttonAction={handleGoToCommunity}
         />
-      </S.Pagination>
+      ) : (
+        <>
+          <S.SaveList>
+            {userLikeCommentData?.data.map((comment) => (
+              <CommentListRow
+                key={comment.commentId}
+                commentData={comment}
+              />
+            ))}
+          </S.SaveList>
+
+          <S.Pagination>
+            <NumberPagination
+              size='nm'
+              currentPage={currentPage + 1}
+              totalPages={totalPages}
+              onPageChange={(page) => handlePageChange(page - 1)}
+            />
+          </S.Pagination>
+        </>
+      )}
     </S.UserSave>
   );
 }

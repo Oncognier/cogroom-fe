@@ -13,10 +13,10 @@ const MEMBER_QUERY_KEYS = {
   MEMBER_DASHBOARD: ['member', 'dashboard'],
   MEMBER_POSTS: ['member', 'posts'],
   MEMBER_COMMENTS: ['member', 'comments'],
-  MEMBER_SAVES: ['member', 'saves'],
+  MEMBER_SAVES: ['member', 'posts', 'saves'],
+  MEMBER_LIKESPOSTS: ['member', 'posts', 'likes'],
+  MEMBER_LIKESCOMMENTS: ['member', 'comments', 'likes'],
   PROFILE: ['member', 'profile'],
-  MEMBER_LIKESPOSTS: ['member', 'likes', 'posts'],
-  MEMBER_LIKESCOMMENTS: ['member', 'likes', 'comments'],
 } as const;
 
 const DAILY_QUERY_KEYS = {

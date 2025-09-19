@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import BookmarkIcon from '@/assets/icons/bookmark.svg';
 import HeartIcon from '@/assets/icons/heart.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
@@ -17,55 +15,18 @@ interface PostLikesSavedProps {
   isSaved: boolean;
 }
 
-export default function PostLikesSaved({
-  postId,
-  likeCount: initialLikeCount,
-  isLiked: initialIsLiked,
-  saveCount: initialSaveCount,
-  isSaved: initialIsSaved,
-}: PostLikesSavedProps) {
-  const [likeCount, setLikeCount] = useState(initialLikeCount);
-  const [isLiked, setIsLiked] = useState(initialIsLiked);
-  const [saveCount, setSaveCount] = useState(initialSaveCount);
-  const [isSaved, setIsSaved] = useState(initialIsSaved);
-
+export default function PostLikesSaved({ postId, likeCount, isLiked, saveCount, isSaved }: PostLikesSavedProps) {
   const togglePostLikeMutation = useTogglePostLike();
   const togglePostSaveMutation = useTogglePostSave();
 
   const handleLikeClick = () => {
-    const newIsLiked = !isLiked;
-    const newLikeCount = newIsLiked ? likeCount + 1 : likeCount - 1;
-
-    setIsLiked(newIsLiked);
-    setLikeCount(newLikeCount);
-
-    togglePostLikeMutation.mutate(
-      { postId, isLiked },
-      {
-        onError: () => {
-          setIsLiked(!newIsLiked);
-          setLikeCount(newIsLiked ? likeCount : likeCount + 1);
-        },
-      },
-    );
+    if (togglePostLikeMutation.isPending) return;
+    togglePostLikeMutation.mutate({ postId, isLiked });
   };
 
   const handleSaveClick = () => {
-    const newIsSaved = !isSaved;
-    const newSaveCount = newIsSaved ? saveCount + 1 : saveCount - 1;
-
-    setIsSaved(newIsSaved);
-    setSaveCount(newSaveCount);
-
-    togglePostSaveMutation.mutate(
-      { postId, isSaved },
-      {
-        onError: () => {
-          setIsSaved(!newIsSaved);
-          setSaveCount(newIsSaved ? saveCount : saveCount + 1);
-        },
-      },
-    );
+    if (togglePostSaveMutation.isPending) return;
+    togglePostSaveMutation.mutate({ postId, isSaved });
   };
 
   return (
@@ -76,10 +37,11 @@ export default function PostLikesSaved({
           variant={isLiked ? 'solid' : 'outlined'}
           interactionVariant='normal'
           onClick={handleLikeClick}
+          isDisabled={togglePostLikeMutation.isPending}
+          aria-busy={togglePostLikeMutation.isPending}
         >
           <HeartIcon />
         </IconButton>
-
         <S.CountText>{formatCountPlus(likeCount)}</S.CountText>
       </S.IconTextWrapper>
 
@@ -89,10 +51,11 @@ export default function PostLikesSaved({
           variant={isSaved ? 'solid' : 'outlined'}
           interactionVariant='normal'
           onClick={handleSaveClick}
+          isDisabled={togglePostSaveMutation.isPending}
+          aria-busy={togglePostSaveMutation.isPending}
         >
           <BookmarkIcon />
         </IconButton>
-
         <S.CountText>{formatCountPlus(saveCount)}</S.CountText>
       </S.IconTextWrapper>
     </S.PostLikeSavedWrapper>
