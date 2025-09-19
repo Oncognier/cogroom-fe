@@ -7,10 +7,10 @@ import { DAILY_MAX_LENGTH } from '@/constants/common';
 import { DEFAULT_QUESTION_BACKGROUND } from '@/constants/image';
 import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
-import { useTextLimiter } from '@/hooks/useTextLimiter';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore, useAlertModalStore } from '@/stores/useModalStore';
 
+import InputCount from './_components/InputCount';
 import * as S from './Question.styled';
 
 interface QuestionProps {
@@ -40,12 +40,7 @@ export default function Question({
   const { open } = useAppModalStore();
   const { open: openAlertModal } = useAlertModalStore();
 
-  const {
-    value: answerValue,
-    setValue: setAnswerValue,
-    isShaking,
-    isOverLimit,
-  } = useTextLimiter(DAILY_MAX_LENGTH, answer ?? '');
+  const [answerValue, setAnswerValue] = useState<string>(answer ?? '');
 
   const handleInput = () => {
     const el = textareaRef.current;
@@ -125,12 +120,11 @@ export default function Question({
 
         <S.SubmitGroup>
           {!readOnlyMode && (
-            <S.CountValue
-              isHundredOver={isOverLimit}
-              isShaking={isShaking}
-            >
-              {answerValue.length}/{DAILY_MAX_LENGTH - 1}
-            </S.CountValue>
+            <InputCount
+              maxLength={DAILY_MAX_LENGTH}
+              value={answerValue}
+              onChange={setAnswerValue}
+            />
           )}
           {!hideSubmitButton && (
             <S.Button onClick={isAnswered ? handleEdit : handleSubmit}>{isAnswered ? '수정하기' : '제출하기'}</S.Button>
