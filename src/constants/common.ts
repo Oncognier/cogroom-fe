@@ -174,7 +174,7 @@ export type WithdrawStep = (typeof WITHDRAW_STEP)[keyof typeof WITHDRAW_STEP];
 /* ---------- UI/기능 관련 ---------- */
 export const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
 export const PAGINATION_VISIBLE_RANGE = 5;
-export const DAILY_MAX_LENGTH = 101;
+export const DAILY_MAX_LENGTH = 201;
 
 export const SPRITE_WIDTH = 257;
 export const FRAME_COUNT = 9;
