@@ -89,17 +89,15 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
 
   return (
     <S.PostAuthorWrapper>
-      <S.AuthorInfo>
-        <S.AvatarWrapper
-          onClick={handleAvatarClick}
-          $isClickable={!author.isAnonymous}
-        >
-          <AvatarPerson
-            type='icon'
-            size='md'
-            src={author.profileUrl || undefined}
-          />
-        </S.AvatarWrapper>
+      <S.AuthorInfo
+        onClick={handleAvatarClick}
+        $isClickable={!author.isAnonymous}
+      >
+        <AvatarPerson
+          type='icon'
+          size='md'
+          src={author.profileUrl || undefined}
+        />
         <S.PostUserName>{getDisplayName(author.displayName, author.isAnonymous)}</S.PostUserName>
       </S.AuthorInfo>
 
