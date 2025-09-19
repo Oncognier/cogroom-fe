@@ -15,7 +15,7 @@ export const useDeleteCommentMutation = () => {
     mutationFn: commentApi.deleteComment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [...ADMIN_QUERY_KEYS.COMMENT_LIST] });
-      // TODO: 댓글 목록 조회도 캐시 무효화 (추후 Optimistic Update로 개선)
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
       open('alert', { message: '댓글이 삭제되었습니다.' });
     },
 

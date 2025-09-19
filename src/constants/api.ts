@@ -92,7 +92,12 @@ export const END_POINTS_V1 = {
     DELETE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
   },
   COMMENTS: {
+    CREATE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/comments`,
+    LIST: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/comments`,
+    UPDATE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
     DELETE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
+    LIKE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
+    DELETE_LIKE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
   },
 
   ADMIN: {
