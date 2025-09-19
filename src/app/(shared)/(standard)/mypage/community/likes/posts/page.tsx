@@ -34,7 +34,6 @@ export default function LikesPosts() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = UserSaveData?.totalPages ?? 1;
   const totalPages = userLikeData?.totalPages ?? 1;
   const urlPageNum = Number(getSearchParam('page') ?? 0);
 
@@ -61,22 +60,11 @@ export default function LikesPosts() {
 
   if (isLoading) return <Loading />;
 
-  if (!UserSaveData)
-    return (
-      <EmptyState
-        icon={<MessageCircleX />}
-        description='꼭 마음에 담아두고 싶던 글이 있나요?'
-        buttonLabel='글 보러가기'
-        buttonAction={handleGoToCommunity}
-      />
-    );
-
   return (
     <S.UserSave>
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 글'
-          total={UserSaveData?.totalElements}
           total={userLikeData?.totalElements}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
@@ -121,23 +109,34 @@ export default function LikesPosts() {
         </S.ListControlsWrapper>
       </S.FilterHeader>
 
-      <S.SaveList>
-        {UserSaveData?.data.map((post) => (
-          <PostCard
-            key={post.postId}
-            post={post}
-          />
-        ))}
-      </S.SaveList>
-
-      <S.Pagination>
-        <NumberPagination
-          size='nm'
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
-          onPageChange={(page) => handlePageChange(page - 1)}
+      {userLikeData?.data.length === 0 ? (
+        <EmptyState
+          icon={<MessageCircleX />}
+          description='꼭 마음에 담아두고 싶던 글이 있나요?'
+          buttonLabel='글 보러가기'
+          buttonAction={handleGoToCommunity}
         />
-      </S.Pagination>
+      ) : (
+        <>
+          <S.SaveList>
+            {userLikeData?.data.map((post) => (
+              <PostCard
+                key={post.postId}
+                post={post}
+              />
+            ))}
+          </S.SaveList>
+
+          <S.Pagination>
+            <NumberPagination
+              size='nm'
+              currentPage={currentPage + 1}
+              totalPages={totalPages}
+              onPageChange={(page) => handlePageChange(page - 1)}
+            />
+          </S.Pagination>
+        </>
+      )}
     </S.UserSave>
   );
 }

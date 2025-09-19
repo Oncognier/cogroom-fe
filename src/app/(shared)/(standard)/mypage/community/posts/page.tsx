@@ -34,7 +34,7 @@ export default function Posts() {
   const [selectedPostIds, setSelectedPostIds] = useState<number[]>([]);
   const { mutate: deleteUserPost } = useDeleteUserPost(selectedPostIds);
 
-  const { data: UserPostsData, isLoading } = useGetUserPost({
+  const { data: userPostsData, isLoading } = useGetUserPost({
     page: currentPage,
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
@@ -43,7 +43,7 @@ export default function Posts() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = UserPostsData?.totalPages ?? 1;
+  const totalPages = userPostsData?.totalPages ?? 1;
   const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   const handlePageChange = (page: number) => {
@@ -66,8 +66,8 @@ export default function Posts() {
   };
 
   const handleSelectAll = () => {
-    const allPostIds = UserPostsData?.data.map((post) => post.postId) || [];
-    const allSelected = UserPostsData?.data.every((post) => selectedPostIds.includes(post.postId)) || false;
+    const allPostIds = userPostsData?.data.map((post) => post.postId) || [];
+    const allSelected = userPostsData?.data.every((post) => selectedPostIds.includes(post.postId)) || false;
 
     if (allSelected) {
       setSelectedPostIds([]);
@@ -96,7 +96,7 @@ export default function Posts() {
 
   if (isLoading) return <Loading />;
 
-  if (!UserPostsData)
+  if (userPostsData?.data.length === 0)
     return (
       <EmptyState
         icon={<MessageCircleX />}
@@ -111,7 +111,7 @@ export default function Posts() {
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 글'
-          total={UserPostsData?.totalElements}
+          total={userPostsData?.totalElements}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
@@ -138,7 +138,7 @@ export default function Posts() {
             />
           ) : (
             <S.ListSelectButtonWrapper>
-              {UserPostsData?.data.length === selectedPostIds.length ? (
+              {userPostsData?.data.length === selectedPostIds.length ? (
                 <SolidButton
                   label='전체 취소'
                   onClick={handleSelectAll}
@@ -175,7 +175,7 @@ export default function Posts() {
       </S.FilterHeader>
 
       <S.PostList>
-        {UserPostsData.data.map((post, index) => {
+        {userPostsData?.data.map((post, index) => {
           return (
             <S.PostCardWrapper key={index}>
               {isEdit && (
