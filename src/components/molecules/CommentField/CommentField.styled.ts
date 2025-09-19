@@ -7,11 +7,15 @@ export const Wrapper = styled.div`
   height: 18rem;
   border-radius: 1.2rem;
   background-color: ${({ theme }) => theme.semantic.static.white};
-  border: 1px solid ${({ theme }) => theme.semantic.background.elevated.alternative};
+  border: 1px solid ${({ theme }) => theme.palette.blue[80]};
   padding: 1.2rem 1.6rem;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+
+  &:focus-within {
+    border: 1px solid ${({ theme }) => theme.semantic.background.elevated.alternative};
+  }
 `;
 
 export const TextareaContainer = styled.div`
