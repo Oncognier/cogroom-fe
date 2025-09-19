@@ -1,7 +1,7 @@
 import { ApiResponse, CursorPaginationResult } from './api';
 import { PostCategory, PostSummary } from './post';
 
-export type CommentStatus = 'ACTIVE' | 'DELETED_BY_USER' | 'DELETED_BY_ADMIN' | 'USER_WITHDRAWN';
+export type CommentStatus = 'ACTIVE' | 'DELETED_BY_USER' | 'DELETED_BY_ADMIN' | 'USER_WITHDRAWN' | 'HIDDEN_BY_ADMIN';
 
 export interface CommentAuthor {
   authorId: number;
