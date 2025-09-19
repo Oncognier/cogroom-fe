@@ -11,6 +11,7 @@ interface CommentListProps {
   postId: string;
   isLoading?: boolean;
   isAdmin?: boolean;
+  isPostAnonymous?: boolean;
   onCommentUpdated?: () => void;
 }
 
@@ -19,6 +20,7 @@ export default function CommentList({
   postId,
   isLoading = false,
   isAdmin = false,
+  isPostAnonymous = false,
   onCommentUpdated,
 }: CommentListProps) {
   if (isLoading) {
@@ -42,6 +44,7 @@ export default function CommentList({
             postId={postId}
             isMine={comment.isMine || false}
             isAdmin={isAdmin}
+            isPostAnonymous={isPostAnonymous}
             onCommentUpdated={onCommentUpdated}
           />
         ))}

@@ -29,6 +29,7 @@ interface CommentItemProps {
   isAdmin?: boolean;
   isMine?: boolean;
   isChild?: boolean;
+  isPostAnonymous?: boolean;
   onCommentUpdated?: () => void;
 }
 
@@ -38,6 +39,7 @@ export default function CommentItem({
   isMine = false,
   isAdmin = false,
   isChild = false,
+  isPostAnonymous = false,
   onCommentUpdated,
 }: CommentItemProps) {
   const [likeCount, setLikeCount] = useState(comment.likeCount);
@@ -269,6 +271,7 @@ export default function CommentItem({
             postId={postId}
             placeholder='댓글을 입력해주세요'
             parentId={comment.commentId}
+            showAnonymousCheckbox={isPostAnonymous}
             onSuccess={handleReplySuccess}
           />
         </S.ReplyFieldContainer>
@@ -289,6 +292,7 @@ export default function CommentItem({
                 isMine={childComment.isMine}
                 isAdmin={isAdmin}
                 isChild={true}
+                isPostAnonymous={isPostAnonymous}
                 onCommentUpdated={onCommentUpdated}
               />
             </S.ChildrenContainer>

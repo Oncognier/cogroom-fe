@@ -12,9 +12,10 @@ import * as S from './PostComments.styled';
 interface PostCommentsProps {
   postId: string;
   commentCount: number;
+  isPostAnonymous: boolean;
 }
 
-export default function PostComments({ postId, commentCount }: PostCommentsProps) {
+export default function PostComments({ postId, commentCount, isPostAnonymous }: PostCommentsProps) {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage, refetch } = useGetComments(postId);
   const { data: userSummary } = useGetUserSummaryQuery();
 
@@ -44,6 +45,7 @@ export default function PostComments({ postId, commentCount }: PostCommentsProps
         <CommentField
           postId={postId}
           onSuccess={handleCommentUpdated}
+          showAnonymousCheckbox={isPostAnonymous}
         />
       </S.CommentsTopWrapper>
 
@@ -52,6 +54,7 @@ export default function PostComments({ postId, commentCount }: PostCommentsProps
         postId={postId}
         isLoading={isLoading && comments.length === 0}
         isAdmin={userSummary?.memberRole === 'ADMIN'}
+        isPostAnonymous={isPostAnonymous}
         onCommentUpdated={handleCommentUpdated}
       />
 

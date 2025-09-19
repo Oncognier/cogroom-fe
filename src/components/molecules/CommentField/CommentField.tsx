@@ -2,6 +2,7 @@
 
 import { useState, useCallback, ChangeEvent } from 'react';
 
+import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useCreateComment } from '@/hooks/api/comment/useCreateComment';
 import { useUpdateComment } from '@/hooks/api/comment/useUpdateComment';
@@ -17,6 +18,7 @@ interface CommentFieldProps {
   mentionedList?: number[];
   disabled?: boolean;
   onSuccess?: () => void;
+  showAnonymousCheckbox?: boolean;
   // 수정 모드용 props
   isEdit?: boolean;
   commentId?: string;
@@ -28,17 +30,19 @@ export default function CommentField({
   postId,
   placeholder = '댓글을 입력해주세요',
   maxLength = 1000,
-  isAnonymous = false,
+  isAnonymous,
   parentId,
   mentionedList = [],
   disabled = false,
   onSuccess,
+  showAnonymousCheckbox = false,
   isEdit = false,
   commentId,
   initialContent = '',
   onCancel,
 }: CommentFieldProps) {
   const [content, setContent] = useState(initialContent);
+  const [localIsAnonymous, setLocalIsAnonymous] = useState(false);
   const { createComment, isLoading: createLoading } = useCreateComment(postId);
   const updateCommentMutation = useUpdateComment();
 
@@ -60,7 +64,7 @@ export default function CommentField({
             commentId,
             data: {
               content: content.trim(),
-              isAnonymous,
+              isAnonymous: localIsAnonymous,
               mentionedList,
             },
           },
@@ -75,7 +79,7 @@ export default function CommentField({
         createComment(
           {
             content: content.trim(),
-            isAnonymous,
+            isAnonymous: localIsAnonymous,
             parentId,
             mentionedList,
           },
@@ -94,7 +98,7 @@ export default function CommentField({
     commentId,
     updateCommentMutation,
     createComment,
-    isAnonymous,
+    localIsAnonymous,
     parentId,
     mentionedList,
     onSuccess,
@@ -129,6 +133,18 @@ export default function CommentField({
               interactionVariant='normal'
               onClick={onCancel}
             />
+          )}
+          {showAnonymousCheckbox && (
+            <S.CheckboxWrapper>
+              <Checkbox
+                size='nm'
+                isChecked={localIsAnonymous}
+                onToggle={setLocalIsAnonymous}
+                interactionVariant='normal'
+                name='commentAnonymous'
+              />
+              <S.CheckboxLabel>익명</S.CheckboxLabel>
+            </S.CheckboxWrapper>
           )}
           <SolidButton
             label={isEdit ? '수정하기' : '입력'}

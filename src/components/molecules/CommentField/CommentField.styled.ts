@@ -59,8 +59,20 @@ export const CharTotalCounter = styled.span`
   color: ${({ theme }) => theme.semantic.label.assistive};
 `;
 
+export const CheckboxWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.6rem;
+`;
+
+export const CheckboxLabel = styled.span`
+  ${({ theme }) => theme.typography.label1.regular};
+  color: ${({ theme }) => theme.semantic.label.normal};
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
-  gap: 0.8rem;
+  gap: 1.5rem;
   align-items: center;
 `;
