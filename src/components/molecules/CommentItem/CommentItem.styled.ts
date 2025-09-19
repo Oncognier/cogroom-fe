@@ -26,6 +26,8 @@ export const CommentCotent = styled.div<{ $isChild: boolean; $isActive: boolean 
   ${({ theme }) => theme.typography.body1.regular};
   background-color: ${({ theme, $isActive }) => ($isActive ? theme.palette.blue[99] : theme.palette.coolNeutral[99])};
   color: ${({ theme, $isActive }) => ($isActive ? theme.semantic.label.normal : theme.palette.coolNeutral[70])};
+  white-space: pre-wrap;
+  word-wrap: break-word;
 
   border-radius: 2rem;
 `;
