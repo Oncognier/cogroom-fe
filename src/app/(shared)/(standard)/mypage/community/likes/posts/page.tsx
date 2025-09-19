@@ -12,7 +12,7 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
-import useGetUserSaveList from '@/hooks/api/member/useGetUserSave';
+import useGetUserLikePost from '@/hooks/api/member/useGetUserLikePost';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -25,7 +25,7 @@ export default function LikesPosts() {
   const [sort, setSort] = useState<SortType>('latest');
   const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data: UserSaveData, isLoading } = useGetUserSaveList({
+  const { data: userLikeData, isLoading } = useGetUserLikePost({
     page: currentPage,
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
@@ -35,6 +35,7 @@ export default function LikesPosts() {
   });
 
   const totalPages = UserSaveData?.totalPages ?? 1;
+  const totalPages = userLikeData?.totalPages ?? 1;
   const urlPageNum = Number(getSearchParam('page') ?? 0);
 
   const handlePageChange = (page: number) => {
@@ -76,6 +77,7 @@ export default function LikesPosts() {
         <SearchFilter
           totalTitle='전체 글'
           total={UserSaveData?.totalElements}
+          total={userLikeData?.totalElements}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
