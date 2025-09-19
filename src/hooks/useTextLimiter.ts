@@ -1,22 +1,24 @@
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useEffect, useMemo } from 'react';
 
 import { useShake } from './useShake';
 
-export function useTextLimiter(maxLength: number, initialValue: string = '') {
-  const [value, setValue] = useState(initialValue);
+export function useTextLimiter(maxLength: number, value: string, onChange: (limitedValue: string) => void) {
   const { isShaking, triggerShake } = useShake();
 
   useEffect(() => {
     if (value.length > maxLength) {
-      setValue(value.slice(0, maxLength));
+      const limitedValue = value.slice(0, maxLength);
       triggerShake();
+      onChange(limitedValue);
     }
-  }, [value, maxLength, triggerShake]);
+  }, [value, maxLength, triggerShake, onChange]);
+
+  const isOverLimit = useMemo(() => value.length >= maxLength, [value, maxLength]);
 
   return {
-    value,
-    setValue,
     isShaking,
-    isOverLimit: value.length >= maxLength,
+    isOverLimit,
   };
 }
