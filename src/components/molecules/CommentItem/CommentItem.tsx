@@ -187,7 +187,7 @@ export default function CommentItem({
             />
           </S.AvatarWrapper>
 
-          <S.AuthorName 
+          <S.AuthorName
             $isActive={comment.status === 'ACTIVE'}
             $isClickable={!comment.author.isAnonymous}
             onClick={handleAvatarClick}
