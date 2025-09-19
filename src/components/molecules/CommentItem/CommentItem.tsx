@@ -187,7 +187,13 @@ export default function CommentItem({
             />
           </S.AvatarWrapper>
 
-          <S.AuthorName $isActive={comment.status === 'ACTIVE'}>{getAuthorName()}</S.AuthorName>
+          <S.AuthorName 
+            $isActive={comment.status === 'ACTIVE'}
+            $isClickable={!comment.author.isAnonymous}
+            onClick={handleAvatarClick}
+          >
+            {getAuthorName()}
+          </S.AuthorName>
           {comment.status === 'ACTIVE' && <S.CommentTime>{formatRelativeKorean(comment.createdAt)}</S.CommentTime>}
         </S.AuthorInfo>
 

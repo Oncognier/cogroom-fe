@@ -60,9 +60,10 @@ export const AuthorDetails = styled.div`
   gap: 0.2rem;
 `;
 
-export const AuthorName = styled.span<{ $isActive: boolean }>`
+export const AuthorName = styled.span<{ $isActive: boolean; $isClickable?: boolean }>`
   ${({ theme }) => theme.typography.label2.semibold};
   color: ${({ theme, $isActive }) => ($isActive ? theme.semantic.label.normal : theme.semantic.label.alternative)};
+  cursor: ${({ $isClickable }) => ($isClickable ? 'pointer' : 'default')};
 `;
 
 export const CommentTime = styled.span`
