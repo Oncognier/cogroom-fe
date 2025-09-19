@@ -92,7 +92,10 @@ export default function PostPage() {
           saveCount={post.saveCount}
           isSaved={post.myStatus.isSaved}
         />
-        <PostComments commentCount={post.commentCount} />
+        <PostComments
+          postId={postId}
+          commentCount={post.commentCount}
+        />
       </S.PostSectionsWrapper>
     </S.PostPageContainer>
   );

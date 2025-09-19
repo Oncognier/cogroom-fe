@@ -1,0 +1,144 @@
+'use client';
+
+import { useState, useCallback, ChangeEvent } from 'react';
+
+import SolidButton from '@/components/atoms/SolidButton/SolidButton';
+import { useCreateComment } from '@/hooks/api/comment/useCreateComment';
+import { useUpdateComment } from '@/hooks/api/comment/useUpdateComment';
+
+import * as S from './CommentField.styled';
+
+interface CommentFieldProps {
+  postId: string;
+  placeholder?: string;
+  maxLength?: number;
+  isAnonymous?: boolean;
+  parentId?: number;
+  mentionedList?: number[];
+  disabled?: boolean;
+  onSuccess?: () => void;
+  // 수정 모드용 props
+  isEdit?: boolean;
+  commentId?: string;
+  initialContent?: string;
+  onCancel?: () => void;
+}
+
+export default function CommentField({
+  postId,
+  placeholder = '댓글을 입력해주세요',
+  maxLength = 1000,
+  isAnonymous = false,
+  parentId,
+  mentionedList = [],
+  disabled = false,
+  onSuccess,
+  isEdit = false,
+  commentId,
+  initialContent = '',
+  onCancel,
+}: CommentFieldProps) {
+  const [content, setContent] = useState(initialContent);
+  const { createComment, isLoading: createLoading } = useCreateComment(postId);
+  const updateCommentMutation = useUpdateComment();
+
+  const handleContentChange = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement>) => {
+      const value = e.target.value;
+      if (value.length <= maxLength) {
+        setContent(value);
+      }
+    },
+    [maxLength],
+  );
+
+  const handleSubmit = useCallback(() => {
+    if (content.trim()) {
+      if (isEdit && commentId) {
+        updateCommentMutation.mutate(
+          {
+            commentId,
+            data: {
+              content: content.trim(),
+              isAnonymous,
+              mentionedList,
+            },
+          },
+          {
+            onSuccess: () => {
+              setContent('');
+              onSuccess?.();
+            },
+          },
+        );
+      } else {
+        createComment(
+          {
+            content: content.trim(),
+            isAnonymous,
+            parentId,
+            mentionedList,
+          },
+          {
+            onSuccess: () => {
+              setContent('');
+              onSuccess?.();
+            },
+          },
+        );
+      }
+    }
+  }, [
+    content,
+    isEdit,
+    commentId,
+    updateCommentMutation,
+    createComment,
+    isAnonymous,
+    parentId,
+    mentionedList,
+    onSuccess,
+  ]);
+
+  const isLoading = isEdit ? updateCommentMutation.isPending : createLoading;
+  const isSubmitDisabled = disabled || isLoading || !content.trim();
+
+  return (
+    <S.Wrapper>
+      <S.TextareaContainer>
+        <S.Textarea
+          value={content}
+          onChange={handleContentChange}
+          placeholder={placeholder}
+          disabled={disabled || isLoading}
+        />
+      </S.TextareaContainer>
+
+      <S.BottomSection>
+        <S.CounterWrapper>
+          <S.CharCurrentCounter>{content.length} /</S.CharCurrentCounter>
+          <S.CharTotalCounter>{maxLength.toLocaleString()}</S.CharTotalCounter>
+        </S.CounterWrapper>
+
+        <S.ButtonWrapper>
+          {isEdit && onCancel && (
+            <SolidButton
+              label='취소'
+              size='sm'
+              color='assistive'
+              interactionVariant='normal'
+              onClick={onCancel}
+            />
+          )}
+          <SolidButton
+            label={isEdit ? '수정하기' : '입력'}
+            size='sm'
+            interactionVariant='normal'
+            onClick={handleSubmit}
+            isDisabled={isSubmitDisabled}
+          />
+        </S.ButtonWrapper>
+      </S.BottomSection>
+    </S.Wrapper>
+  );
+}
