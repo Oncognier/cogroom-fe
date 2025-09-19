@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { postApi } from '@/api/postApis';
-import { POST_QUERY_KEYS } from '@/constants/queryKeys';
+import { MEMBER_QUERY_KEYS, POST_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
 interface TogglePostLikeParams {
@@ -18,8 +18,12 @@ export const useTogglePostLike = () => {
     mutationFn: ({ postId, isLiked }: TogglePostLikeParams) => {
       return isLiked ? postApi.unlikePost(postId) : postApi.togglePostLike(postId);
     },
-    onSuccess: () => {
+    onSuccess: (_data, variables) => {
+      const postId = variables?.postId;
+
       queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST_LIST] });
+      queryClient.invalidateQueries({ queryKey: [...MEMBER_QUERY_KEYS.MEMBER_POSTS] });
+      queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST, postId] });
     },
     onError: (error: HTTPError) => {
       switch (error.code) {
