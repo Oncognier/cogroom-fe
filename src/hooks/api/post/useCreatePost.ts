@@ -18,7 +18,10 @@ export const useCreatePostMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [...POST_QUERY_KEYS.POST] });
 
-      router.push(`/community`);
+      openAlert('alert', {
+        message: '작성되었어요!',
+        onConfirm: () => router.push(`/community`),
+      });
     },
     onError: (error: HTTPError) => {
       switch (error.code) {

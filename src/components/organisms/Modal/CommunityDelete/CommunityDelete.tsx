@@ -37,7 +37,7 @@ export default function CommunityDelete({ type, id, onConfirm }: CommunityDelete
 
   return (
     <S.CommunityDelete>
-      <S.Title>{isPost ? '글을 삭제하시겠습니까?' : '댓글을 삭제하시겠습니까?'}</S.Title>
+      <S.Title>{isPost ? '글을 지울까요?' : '댓글을 삭제하시겠어요?'}</S.Title>
 
       <S.ButtonWrapper>
         <OutlinedButton
