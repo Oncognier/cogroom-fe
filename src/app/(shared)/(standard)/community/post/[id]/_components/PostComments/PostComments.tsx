@@ -25,8 +25,7 @@ export default function PostComments({ postId, commentCount, isPostAnonymous }: 
         return page.data;
       }) ?? [];
 
-    // createdAt 기준 내림차순 처리함.
-    return result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    return result;
   }, [data]);
 
   const { observerRef } = useScroll({
