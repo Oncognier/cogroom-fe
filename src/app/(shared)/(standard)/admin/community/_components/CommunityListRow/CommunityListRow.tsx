@@ -15,7 +15,7 @@ import { Comment, CommentStatus } from '@/types/comment';
 import { DropdownOption } from '@/types/common';
 import { Post, PostStatus } from '@/types/post';
 import { formatDayAsSlashYYMMDD, formatTimeAsHHmm } from '@/utils/date/formatDay';
-import { formatToDigits, getDisplayName } from '@/utils/formatText';
+import { formatToDigits, getAdminDisplayName } from '@/utils/formatText';
 
 import * as S from './CommunityListRow.styled';
 
@@ -116,7 +116,7 @@ export default function CommunityListRow(props: CommunityListRowProps) {
             size='xsm'
             src={author?.profileUrl || undefined}
           />
-          <S.Nickname>{getDisplayName(author?.displayName || '', author?.isAnonymous || false)}</S.Nickname>
+          <S.Nickname>{getAdminDisplayName(author?.displayName || '', author?.isAnonymous || false)}</S.Nickname>
         </S.MemberInfoWrapper>
 
         <S.CreatedAt>
