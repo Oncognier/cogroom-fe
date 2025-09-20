@@ -4,6 +4,7 @@ import { isServer, QueryCache, QueryClient, QueryClientProvider } from '@tanstac
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { globalErrorHandler } from '@/utils/api/globalErrorHandler';
+import { HTTPError } from '@/api/axios/errors/HTTPError';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -12,7 +13,12 @@ function makeQueryClient() {
     }),
     defaultOptions: {
       queries: {
-        retry: 2,
+        retry: (failureCount, error) => {
+          if (error instanceof HTTPError) {
+            if (error.statusCode === 401) return false;
+          }
+          return failureCount < 2;
+        },
         throwOnError: false,
       },
       mutations: {
