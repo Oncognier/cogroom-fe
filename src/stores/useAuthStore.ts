@@ -1,13 +1,17 @@
 import { create } from 'zustand';
 
+type AuthStatus = 'unknown' | 'authenticated' | 'unauthenticated';
+
 interface AuthState {
-  isLoggedIn: boolean;
-  setLoggedIn: () => void;
-  setLoggedOut: () => void;
+  status: AuthStatus;
+  setAuthenticated: () => void;
+  setUnauthenticated: () => void;
+  reset: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  isLoggedIn: false,
-  setLoggedIn: () => set({ isLoggedIn: true }),
-  setLoggedOut: () => set({ isLoggedIn: false }),
+  status: 'unknown',
+  setAuthenticated: () => set({ status: 'authenticated' }),
+  setUnauthenticated: () => set({ status: 'unauthenticated' }),
+  reset: () => set({ status: 'unknown' }),
 }));
