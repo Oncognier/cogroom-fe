@@ -39,3 +39,11 @@ export const UserIconWrapper = styled.div`
 
   height: 2.6rem;
 `;
+
+export const SkeletonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+
+  padding: 0 1rem;
+`;
