@@ -34,7 +34,7 @@ export default function Question({
   const isFirstAnswer = useRef<boolean>(hasAnswered);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { isLoggedIn } = useAuthStore();
+  const status = useAuthStore((s) => s.status);
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
   const { editDailyAnswer } = useEditDailyAnswerMutation();
   const { open } = useAppModalStore();
@@ -51,7 +51,7 @@ export default function Question({
   };
 
   const handleSubmit = () => {
-    if (!isLoggedIn) {
+    if (status === 'unauthenticated') {
       open('login');
       return;
     }
@@ -66,7 +66,7 @@ export default function Question({
   };
 
   const handleEdit = () => {
-    if (!isLoggedIn) {
+    if (status === 'unauthenticated') {
       open('login');
       return;
     }

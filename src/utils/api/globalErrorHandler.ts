@@ -9,7 +9,7 @@ export const globalErrorHandler = (error: unknown) => {
 
   const { code, statusCode } = error;
 
-  const { setLoggedOut } = useAuthStore.getState();
+  const { setUnauthenticated } = useAuthStore.getState();
 
   if (
     code === ERROR_CODE.REFRESH_TOKEN_EMPTY_ERROR ||
@@ -24,7 +24,7 @@ export const globalErrorHandler = (error: unknown) => {
       }
     }
 
-    setLoggedOut();
+    setUnauthenticated();
   }
 
   if (code === ERROR_CODE.FORBIDDEN_ERROR) {

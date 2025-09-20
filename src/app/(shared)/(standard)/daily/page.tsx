@@ -19,7 +19,7 @@ import * as S from './page.styled';
 
 export default function Daily() {
   const { open } = useAppModalStore();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const status = useAuthStore((s) => s.status);
 
   const { data: dailyData, isLoading: isDailyLoading } = useGetDailyQuestionsQuery();
   const { data: streakCalendarData, isLoading: isCalendarLoading } = useGetStreakCalendarQuery();
@@ -31,7 +31,7 @@ export default function Daily() {
   if (isLoading) return <Loading />;
 
   const handleShare = () => {
-    if (!isLoggedIn) {
+    if (status === 'unauthenticated') {
       open('login');
       return;
     }
