@@ -1,6 +1,6 @@
 'use client';
 
-import * as S from './page.styled';
+import * as S from './AdminGuard.styled';
 
 export default function AdminGuard() {
   return (
