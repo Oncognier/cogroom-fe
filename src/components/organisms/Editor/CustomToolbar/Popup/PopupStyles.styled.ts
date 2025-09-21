@@ -16,6 +16,8 @@ type TypographyTextProps = {
 
 type ColorCircleProps = {
   color: string;
+  isSelected?: boolean;
+  needsBorder?: boolean;
 };
 
 type CustomColorInputProps = {
@@ -159,12 +161,21 @@ export const ColorRow = styled.div`
 export const ColorCircle = styled.button<ColorCircleProps>`
   width: 2.8rem;
   height: 2.8rem;
-  border: 0.1rem solid ${({ theme }) => theme.semantic.line.normal};
+  border: ${({ theme, isSelected, needsBorder }) => {
+    if (isSelected) return `0.2rem solid ${theme.semantic.primary.normal}`;
+    if (needsBorder) return `0.1rem solid ${theme.semantic.line.normal}`;
+    return 'none';
+  }};
   border-radius: 50%;
   background-color: ${({ color }) => (color === 'transparent' ? '#FFFFFF' : color)};
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
+  transform: ${({ isSelected }) => (isSelected ? 'scale(1.1)' : 'scale(1)')};
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   ${({ color }) =>
     color === 'transparent' &&
@@ -195,7 +206,10 @@ export const CustomColorSection = styled.div`
 export const CustomColorInput = styled.input<CustomColorInputProps>`
   width: 2.8rem;
   height: 2.8rem;
-  border: 0.1rem solid ${({ theme }) => theme.semantic.line.normal};
+  border: ${({ theme, color }) => {
+    if (color === 'transparent' || color === '#FFFFFF') return `0.1rem solid ${theme.semantic.line.normal}`;
+    return 'none';
+  }};
   cursor: pointer;
   background-color: ${({ color, theme }) => (color ? color : theme.semantic.static.black)};
   border-radius: 50%;
@@ -222,6 +236,24 @@ export const CustomColorValue = styled.span`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.semantic.label.normal};
   min-width: 6rem;
+`;
+
+export const HexInput = styled.input`
+  ${({ theme }) => theme.typography.label1.medium};
+  color: ${({ theme }) => theme.semantic.label.normal};
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 6.5rem;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.semantic.label.assistive};
+  }
 `;
 
 export const LinkForm = styled.div`

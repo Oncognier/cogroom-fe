@@ -30,6 +30,8 @@ export default function CustomToolbarPalette({
   selectedFont,
   onSelectFont,
 }: Props) {
+  const currentColor = editor.getAttributes('textStyle').color || '#000000';
+
   const { uploadToS3 } = useUploadFileToS3Mutation({
     onSuccess: (accessUrls) => {
       editor
@@ -123,13 +125,18 @@ export default function CustomToolbarPalette({
           onClick={() => togglePopup('color')}
           isActive={activePopup === 'color'}
         >
-          색상 <ChevronDown />
+          <S.ColorButtonContent>
+            {currentColor ? <S.ColorIndicator color={currentColor} /> : '색상'}
+
+            <ChevronDown />
+          </S.ColorButtonContent>
         </S.DropdownButton>
         {activePopup === 'color' && (
           <PopupWrapper onClose={closePopups}>
             <ColorPopup
               editor={editor}
               onClose={closePopups}
+              currentColor={currentColor}
             />
           </PopupWrapper>
         )}
