@@ -1,5 +1,6 @@
 'use client';
 
+import { MemberRole } from '@/types/member';
 import styled from '@emotion/styled';
 
 export const RightNav = styled.div`
@@ -14,7 +15,7 @@ export const NavLogin = styled.div`
   height: 2.6rem;
 `;
 
-export const UserWrapper = styled.div<{ memberRole?: string }>`
+export const UserWrapper = styled.div<{ memberRole?: MemberRole }>`
   display: flex;
   align-items: center;
   gap: 0.8rem;

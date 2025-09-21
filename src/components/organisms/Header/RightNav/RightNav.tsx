@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Bell from '@/assets/icons/bell.svg';
 import Search from '@/assets/icons/search.svg';
@@ -9,27 +10,34 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { ROLE_LABELS } from '@/constants/common';
 import useGetUserSummaryQuery from '@/hooks/api/member/useGetUserSummary';
 import { useAuthStore } from '@/stores/useAuthStore';
-
-import * as S from './RightNav.styled';
 import { useAppModalStore } from '@/stores/useModalStore';
 import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
-import { useEffect } from 'react';
+import * as S from './RightNav.styled';
 
 export default function RightNav() {
   const router = useRouter();
   const { open } = useAppModalStore();
+
   const { isSuccess, isError, data } = useGetUserSummaryQuery();
+
+  const status = useAuthStore((s) => s.status);
+  const role = useAuthStore((s) => s.role);
   const setAuthenticated = useAuthStore((s) => s.setAuthenticated);
   const setUnauthenticated = useAuthStore((s) => s.setUnauthenticated);
-  const status = useAuthStore((s) => s.status);
 
   useEffect(() => {
-    if (isSuccess) setAuthenticated();
-    else if (isError) setUnauthenticated();
-  }, [isSuccess, isError, data, setAuthenticated, setUnauthenticated]);
+    if (isSuccess && data?.memberRole) {
+      if (status !== 'authenticated' || role !== data.memberRole) {
+        setAuthenticated(data.memberRole);
+      }
+    } else if (isError) {
+      if (status !== 'unauthenticated' || role !== null) {
+        setUnauthenticated();
+      }
+    }
+  }, [isSuccess, isError, data?.memberRole, status, role, setAuthenticated, setUnauthenticated]);
 
-  const userRole = data?.memberRole;
-  const userRoleLabel = userRole && ROLE_LABELS[userRole];
+  const roleLabel = role !== null ? ROLE_LABELS[role] : undefined;
 
   if (status === 'unknown') {
     return (
@@ -93,9 +101,9 @@ export default function RightNav() {
           <Bell />
         </IconButton>
 
-        {userRole !== 'USER' && userRoleLabel ? (
+        {role !== 'USER' && roleLabel ? (
           <S.UserWrapper
-            memberRole={userRole}
+            memberRole={role || undefined}
             onClick={() => router.push('/mypage')}
           >
             <S.UserIconWrapper>
@@ -105,7 +113,7 @@ export default function RightNav() {
                 src={data?.imageUrl}
               />
             </S.UserIconWrapper>
-            {userRoleLabel}
+            {roleLabel}
           </S.UserWrapper>
         ) : (
           <AvatarPerson

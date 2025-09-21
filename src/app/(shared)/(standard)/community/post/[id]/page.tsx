@@ -1,16 +1,16 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
-import useGetUserSummaryQuery from '@/hooks/api/member/useGetUserSummary';
 import { useGetPost } from '@/hooks/api/post/useGetPost';
-import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
+import { useAppModalStore } from '@/stores/useModalStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import PostAuthor from './_components/PostAuthor/PostAuthor';
 import PostComments from './_components/PostComments/PostComments';
@@ -33,7 +33,7 @@ export default function PostPage() {
   const router = useRouter();
   const { open } = useAppModalStore();
   const { data: post, isLoading, error } = useGetPost(postId);
-  const { data: userSummary } = useGetUserSummaryQuery();
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   if (isLoading) return <Loading />;
 
@@ -75,7 +75,7 @@ export default function PostPage() {
           author={post!.author}
           postId={postId}
           isMine={post!.isMine}
-          isAdmin={userSummary?.memberRole === 'ADMIN'}
+          isAdmin={isAdmin}
         />
         <PostContent
           content={post!.content}

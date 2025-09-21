@@ -1,17 +1,36 @@
 import { create } from 'zustand';
+import type { MemberRole } from '@/types/member';
 
-type AuthStatus = 'unknown' | 'authenticated' | 'unauthenticated';
+export type AuthStatus = 'unknown' | 'authenticated' | 'unauthenticated';
 
 interface AuthState {
   status: AuthStatus;
-  setAuthenticated: () => void;
+  role: MemberRole | null;
+
+  isAuthenticated: boolean;
+  isAdmin: boolean;
+  isContentProvider: boolean;
+
+  setAuthenticated: (role: MemberRole) => void;
   setUnauthenticated: () => void;
   reset: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   status: 'unknown',
-  setAuthenticated: () => set({ status: 'authenticated' }),
-  setUnauthenticated: () => set({ status: 'unauthenticated' }),
-  reset: () => set({ status: 'unknown' }),
+  role: null,
+
+  get isAuthenticated() {
+    return get().isAuthenticated;
+  },
+  get isAdmin() {
+    return get().role === 'ADMIN';
+  },
+  get isContentProvider() {
+    return get().role === 'CONTENT_PROVIDER';
+  },
+
+  setAuthenticated: (role) => set({ status: 'authenticated', role }),
+  setUnauthenticated: () => set({ status: 'unauthenticated', role: null }),
+  reset: () => set({ status: 'unknown', role: null }),
 }));
