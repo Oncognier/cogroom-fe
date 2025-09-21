@@ -1,16 +1,12 @@
 'use client';
 
-import { isServer, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { isServer, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
-import { globalErrorHandler } from '@/utils/api/globalErrorHandler';
 
 function makeQueryClient() {
   return new QueryClient({
-    queryCache: new QueryCache({
-      onError: globalErrorHandler,
-    }),
     defaultOptions: {
       queries: {
         retry: (failureCount, error) => {
@@ -19,11 +15,11 @@ function makeQueryClient() {
           }
           return failureCount < 2;
         },
-        throwOnError: false,
+        throwOnError: true,
       },
       mutations: {
-        onError: globalErrorHandler,
         retry: false,
+        throwOnError: true,
       },
     },
   });
