@@ -15,19 +15,22 @@ import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
 import { DEFAULT_THUMBNAIL } from '@/constants/image';
 import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
 import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
-import { useSimpleModalStore } from '@/stores/useModalStore';
+import { useAppModalStore, useSimpleModalStore } from '@/stores/useModalStore';
 import type { Post } from '@/types/post';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
 import { formatCountPlus, getDisplayName } from '@/utils/formatText';
 
 import MetaItem from './MetaItem/MetaItem';
 import * as S from './PostCard.styled';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 type PostCardProps = { post: Post };
 
 export default function PostCard({ post }: PostCardProps) {
   const router = useRouter();
+  const { open: openAppModal } = useAppModalStore();
   const { open: openSimpleModal } = useSimpleModalStore();
+  const status = useAuthStore((s) => s.status);
 
   const {
     postId,
@@ -53,7 +56,13 @@ export default function PostCard({ post }: PostCardProps) {
   const togglePostLikeMutation = useTogglePostLike();
   const togglePostSaveMutation = useTogglePostSave();
 
-  const handleCardClick = () => router.push(`/community/post/${postId}`);
+  const handleCardClick = () => {
+    if (status === 'authenticated') {
+      router.push(`/community/post/${postId}`);
+      return;
+    }
+    openAppModal('login');
+  };
 
   const stop = (e: React.SyntheticEvent) => e.stopPropagation();
 
