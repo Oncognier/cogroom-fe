@@ -13,9 +13,16 @@ import PostEditor from './_components/PostEditor/PostEditor';
 import TitleInput from './_components/TitleInput/TitleInput';
 import * as S from './page.styled';
 import CommunityDescription from '../_components/CommunityDescription';
+import { useAuthStore } from '@/stores/useAuthStore';
+import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
 
 export default function CommunityWrite() {
   const logic = useCommunityWriteLogic();
+  const status = useAuthStore((s) => s.status);
+
+  if (status === 'unauthenticated') {
+    return <AuthGuard />;
+  }
 
   // 수정 모드에서 기존 데이터를 로딩 중일 때
   if (logic.isEditMode && logic.isLoadingPost) {
