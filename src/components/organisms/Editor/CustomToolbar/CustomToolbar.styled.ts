@@ -8,6 +8,10 @@ type ButtonProps = {
   isActive?: boolean;
 };
 
+type ColorIndicatorProps = {
+  color: string;
+};
+
 export const CustomToolbar = styled.div`
   display: flex;
   justify-content: center;
@@ -115,4 +119,19 @@ export const MediaIcon = styled.div`
   background: ${({ theme }) => theme.semantic.label.normal};
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m21 16-4-4-6 6-4-4-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v11z'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3C/svg%3E")
     center/contain no-repeat;
+`;
+
+export const ColorButtonContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+`;
+
+export const ColorIndicator = styled.div<ColorIndicatorProps>`
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: ${({ color }) => color};
+  border: 0.1rem solid ${({ theme }) => theme.semantic.line.normal};
+  flex-shrink: 0;
 `;
