@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
@@ -94,14 +94,9 @@ export default function SearchFilter({ totalTitle, total, fields, actions, class
     return mergedValues;
   }, [getAllSearchParams, convertArrayValue, convertSingleValue]);
 
-  const { control, handleSubmit, watch, setValue, reset } = useForm<FilterValues>({
+  const { control, handleSubmit, watch, setValue } = useForm<FilterValues>({
     defaultValues: getInitialValues(),
   });
-
-  useEffect(() => {
-    const urlValues = getInitialValues();
-    reset(urlValues);
-  }, [reset, getInitialValues]);
 
   const handleFormSubmit = (formValues: FilterValues) => {
     updateSearchParams(formValues);
