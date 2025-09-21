@@ -5,11 +5,11 @@ import { STREAK_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function useGetStreakCalendarQuery() {
-  const status = useAuthStore((s) => s.status);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   return useQuery({
     queryKey: [...STREAK_QUERY_KEYS.STREAK_CALENDAR],
     queryFn: () => streakApi.getStreakCalendar(),
-    enabled: status === 'authenticated',
+    enabled: isAuthenticated,
   });
 }

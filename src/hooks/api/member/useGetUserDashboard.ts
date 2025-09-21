@@ -5,11 +5,11 @@ import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function useGetUserDashboardQuery() {
-  const status = useAuthStore((s) => s.status);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   return useQuery({
     queryKey: [...MEMBER_QUERY_KEYS.MEMBER_DASHBOARD],
     queryFn: memberApi.getUserDashboard,
-    enabled: status === 'authenticated',
+    enabled: isAuthenticated,
   });
 }

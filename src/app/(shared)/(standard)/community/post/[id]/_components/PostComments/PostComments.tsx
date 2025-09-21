@@ -4,10 +4,10 @@ import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/In
 import CommentField from '@/components/molecules/CommentField/CommentField';
 import CommentList from '@/components/molecules/CommentList/CommentList';
 import { useGetComments } from '@/hooks/api/comment/useGetComments';
-import useGetUserSummaryQuery from '@/hooks/api/member/useGetUserSummary';
 import useScroll from '@/hooks/useScroll';
 
 import * as S from './PostComments.styled';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 interface PostCommentsProps {
   postId: string;
@@ -17,7 +17,7 @@ interface PostCommentsProps {
 
 export default function PostComments({ postId, commentCount, isPostAnonymous }: PostCommentsProps) {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage, refetch } = useGetComments(postId);
-  const { data: userSummary } = useGetUserSummaryQuery();
+  const isAdmin = useAuthStore((s) => s.isAdmin);
 
   const comments = useMemo(() => {
     const result =
@@ -52,7 +52,7 @@ export default function PostComments({ postId, commentCount, isPostAnonymous }: 
         comments={comments}
         postId={postId}
         isLoading={isLoading && comments.length === 0}
-        isAdmin={userSummary?.memberRole === 'ADMIN'}
+        isAdmin={isAdmin}
         isPostAnonymous={isPostAnonymous}
         onCommentUpdated={handleCommentUpdated}
       />

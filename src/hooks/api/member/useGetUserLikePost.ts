@@ -6,11 +6,11 @@ import { UserCommunityRequest } from '@/types/member';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function useGetUserLikePost(params: UserCommunityRequest) {
-  const status = useAuthStore((s) => s.status);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   return useQuery({
     queryKey: [...MEMBER_QUERY_KEYS.MEMBER_POSTS, params],
     queryFn: () => memberApi.getUserLikePost(params),
-    enabled: status === 'authenticated',
+    enabled: isAuthenticated,
   });
 }

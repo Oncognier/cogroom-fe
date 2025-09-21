@@ -30,7 +30,7 @@ export default function PostCard({ post }: PostCardProps) {
   const router = useRouter();
   const { open: openAppModal } = useAppModalStore();
   const { open: openSimpleModal } = useSimpleModalStore();
-  const status = useAuthStore((s) => s.status);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   const {
     postId,
@@ -57,7 +57,7 @@ export default function PostCard({ post }: PostCardProps) {
   const togglePostSaveMutation = useTogglePostSave();
 
   const handleCardClick = () => {
-    if (status === 'authenticated') {
+    if (isAuthenticated) {
       router.push(`/community/post/${postId}`);
       return;
     }
