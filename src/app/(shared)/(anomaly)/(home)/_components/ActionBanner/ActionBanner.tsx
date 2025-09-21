@@ -7,13 +7,13 @@ import * as S from './ActionBanner.styled';
 
 export default function ActionBanner() {
   const { open } = useAppModalStore();
-  const status = useAuthStore((s) => s.status);
+  const isUnauth = useAuthStore((s) => s.isUnauth());
 
   const handleClick = () => {
     open('login');
   };
 
-  if (status !== 'authenticated') return null;
+  if (!isUnauth) return null;
 
   return (
     <S.Container>

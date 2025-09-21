@@ -12,9 +12,9 @@ interface NavItemProps extends NavItemStyleProps {
 }
 
 export default function NavItem({ label, href, isActive }: NavItemProps) {
-  const status = useAuthStore((s) => s.status);
+  const isUnknown = useAuthStore((s) => s.isUnknown());
 
-  if (status === 'unknown') {
+  if (isUnknown) {
     return (
       <Skeleton
         width='4rem'
