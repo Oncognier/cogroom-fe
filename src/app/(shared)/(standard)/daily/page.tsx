@@ -28,7 +28,7 @@ export default function Daily() {
 
   const isLoading = isDailyLoading || isCalendarLoading || isDaysLoading || isAnsweredLoading;
 
-  if (isLoading) return <Loading />;
+  if (status === 'unknown' || isLoading) return <Loading />;
 
   const handleShare = () => {
     if (status === 'unauthenticated') {
