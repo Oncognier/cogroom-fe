@@ -13,12 +13,25 @@ import { useCurrentPageName } from '@/hooks/useCurrentPageName';
 import MyPageBreadcrumb from './_components/MyPageBreadcrumb/MyPageBreadcrumb';
 import Sidebar from './_components/Sidebar/Sidebar';
 import * as S from './layout.styled';
+import { useAuthStore } from '@/stores/useAuthStore';
+import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
+import Loading from '@/components/organisms/Loading/Loading';
 
 export default function MyPageLayout({ children }: { children: React.ReactNode }) {
   const { data: userSummary } = useGetUserSummary();
   const bottomSheet = useBottomSheet();
   const currentPageName = useCurrentPageName();
   const router = useRouter();
+  const status = useAuthStore((s) => s.status);
+
+  if (status === 'unauthenticated') {
+    return <AuthGuard />;
+  }
+
+  if (status === 'unknown') {
+    <Loading />;
+    //TODO: 스켈레톤 적용 시 여기는 없애고 컴포넌트 안에서 처리하기
+  }
 
   return (
     <S.MyPageLayout>
