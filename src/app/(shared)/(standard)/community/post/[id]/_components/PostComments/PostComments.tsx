@@ -5,9 +5,9 @@ import CommentField from '@/components/molecules/CommentField/CommentField';
 import CommentList from '@/components/molecules/CommentList/CommentList';
 import { useGetComments } from '@/hooks/api/comment/useGetComments';
 import useScroll from '@/hooks/useScroll';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import * as S from './PostComments.styled';
-import { useAuthStore } from '@/stores/useAuthStore';
 
 interface PostCommentsProps {
   postId: string;

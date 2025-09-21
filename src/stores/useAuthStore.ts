@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+
 import type { MemberRole } from '@/types/member';
 
 export type AuthStatus = 'unknown' | 'authenticated' | 'unauthenticated';

@@ -1,7 +1,6 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
-import { useMemo } from 'react';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
@@ -9,8 +8,8 @@ import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import { useGetPost } from '@/hooks/api/post/useGetPost';
-import { useAppModalStore } from '@/stores/useModalStore';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import PostAuthor from './_components/PostAuthor/PostAuthor';
 import PostComments from './_components/PostComments/PostComments';
@@ -37,24 +36,21 @@ export default function PostPage() {
 
   if (isLoading) return <Loading />;
 
-  const postErrorMessage = useMemo(() => {
-    if (error instanceof HTTPError && error.code) {
-      return POST_ERROR_MESSAGES[error.code];
+  if (error instanceof HTTPError && error.code) {
+    const postErrorMessage = POST_ERROR_MESSAGES[error.code];
+
+    if (postErrorMessage) {
+      const isForbidden = error.code === 'POST_FORBIDDEN_ERROR';
+
+      return (
+        <EmptyState
+          description={postErrorMessage}
+          icon={<MessageCircleX />}
+          buttonLabel={isForbidden ? '로그인 하러 가기' : '다른 글 보기'}
+          buttonAction={() => (isForbidden ? open('login') : router.push('/community'))}
+        />
+      );
     }
-    return undefined;
-  }, [error]);
-
-  if (postErrorMessage) {
-    const isForbidden = error instanceof HTTPError && error.code === 'POST_FORBIDDEN_ERROR';
-
-    return (
-      <EmptyState
-        description={postErrorMessage}
-        icon={<MessageCircleX />}
-        buttonLabel={isForbidden ? '로그인 하러 가기' : '다른 글 보기'}
-        buttonAction={() => (isForbidden ? open('login') : router.push('/community'))}
-      />
-    );
   }
 
   return (

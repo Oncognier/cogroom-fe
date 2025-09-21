@@ -1,9 +1,10 @@
 import Link from 'next/link';
 
+import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
+import { useAuthStore } from '@/stores/useAuthStore';
+
 import * as S from './NavItem.styled';
 import type { NavItemStyleProps } from './NavItem.styled';
-import { useAuthStore } from '@/stores/useAuthStore';
-import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
 
 interface NavItemProps extends NavItemStyleProps {
   label: string;

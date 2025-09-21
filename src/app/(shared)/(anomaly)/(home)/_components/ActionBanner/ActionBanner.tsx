@@ -1,7 +1,7 @@
 'use client';
 
-import { useAppModalStore } from '@/stores/useModalStore';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './ActionBanner.styled';
 

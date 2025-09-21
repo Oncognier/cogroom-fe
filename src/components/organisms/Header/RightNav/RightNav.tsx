@@ -1,17 +1,19 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
 import Bell from '@/assets/icons/bell.svg';
 import Search from '@/assets/icons/search.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
 import { ROLE_LABELS } from '@/constants/common';
 import useGetUserSummaryQuery from '@/hooks/api/member/useGetUserSummary';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
-import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
+
 import * as S from './RightNav.styled';
 
 export default function RightNav() {

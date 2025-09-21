@@ -5,17 +5,17 @@ import { useRouter } from 'next/navigation';
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import Setting from '@/assets/icons/setting.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
 import BottomSheet, { MyPageMenu } from '@/components/organisms/BottomSheet';
+import Loading from '@/components/organisms/Loading/Loading';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useBottomSheet } from '@/hooks/useBottomSheet';
 import { useCurrentPageName } from '@/hooks/useCurrentPageName';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import MyPageBreadcrumb from './_components/MyPageBreadcrumb/MyPageBreadcrumb';
 import Sidebar from './_components/Sidebar/Sidebar';
 import * as S from './layout.styled';
-import { useAuthStore } from '@/stores/useAuthStore';
-import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
-import Loading from '@/components/organisms/Loading/Loading';
 
 export default function MyPageLayout({ children }: { children: React.ReactNode }) {
   const { data: userSummary } = useGetUserSummary();

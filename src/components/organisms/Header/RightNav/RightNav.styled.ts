@@ -1,7 +1,8 @@
 'use client';
 
-import { MemberRole } from '@/types/member';
 import styled from '@emotion/styled';
+
+import { MemberRole } from '@/types/member';
 
 export const RightNav = styled.div`
   display: flex;

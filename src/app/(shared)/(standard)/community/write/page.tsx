@@ -4,8 +4,10 @@ import { FormProvider } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
+import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
 import Loading from '@/components/organisms/Loading/Loading';
 import { useCommunityWriteLogic } from '@/hooks/useCommunityWriteLogic';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import CategorySelector from './_components/CategorySelector/CategorySelector';
 import DailyQuestionCard from './_components/DailyQuestionCard/DailyQuestionCard';
@@ -13,8 +15,6 @@ import PostEditor from './_components/PostEditor/PostEditor';
 import TitleInput from './_components/TitleInput/TitleInput';
 import * as S from './page.styled';
 import CommunityDescription from '../_components/CommunityDescription';
-import { useAuthStore } from '@/stores/useAuthStore';
-import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
 
 export default function CommunityWrite() {
   const logic = useCommunityWriteLogic();

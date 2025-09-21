@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import { memberApi } from '@/api/memberApis';
 import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
-import { UserCommunityRequest } from '@/types/member';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { UserCommunityRequest } from '@/types/member';
 
 export default function useGetUserComment(params: UserCommunityRequest) {
   const isAuth = useAuthStore((s) => s.isAuth());
