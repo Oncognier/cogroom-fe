@@ -22,13 +22,14 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
   const bottomSheet = useBottomSheet();
   const currentPageName = useCurrentPageName();
   const router = useRouter();
-  const status = useAuthStore((s) => s.status);
+  const isUnauth = useAuthStore((s) => s.isUnauth());
+  const isUnknown = useAuthStore((s) => s.isUnknown());
 
-  if (status === 'unauthenticated') {
+  if (isUnauth) {
     return <AuthGuard />;
   }
 
-  if (status === 'unknown') {
+  if (isUnknown) {
     <Loading />;
     //TODO: 스켈레톤 적용 시 여기는 없애고 컴포넌트 안에서 처리하기
   }

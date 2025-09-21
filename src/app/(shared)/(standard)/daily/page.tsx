@@ -19,7 +19,8 @@ import * as S from './page.styled';
 
 export default function Daily() {
   const { open } = useAppModalStore();
-  const status = useAuthStore((s) => s.status);
+  const isUnauth = useAuthStore((s) => s.isUnauth());
+  const isUnknown = useAuthStore((s) => s.isUnknown());
 
   const { data: dailyData, isLoading: isDailyLoading } = useGetDailyQuestionsQuery();
   const { data: streakCalendarData, isLoading: isCalendarLoading } = useGetStreakCalendarQuery();
@@ -28,10 +29,10 @@ export default function Daily() {
 
   const isLoading = isDailyLoading || isCalendarLoading || isDaysLoading || isAnsweredLoading;
 
-  if (status === 'unknown' || isLoading) return <Loading />;
+  if (isUnknown || isLoading) return <Loading />;
 
   const handleShare = () => {
-    if (status === 'unauthenticated') {
+    if (isUnauth) {
       open('login');
       return;
     }

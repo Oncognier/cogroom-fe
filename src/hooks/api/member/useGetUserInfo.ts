@@ -5,11 +5,11 @@ import { MEMBER_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function useGetUserInfoQuery() {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const isAuth = useAuthStore((s) => s.isAuth());
 
   return useQuery({
     queryKey: [...MEMBER_QUERY_KEYS.MEMBER_INFO],
     queryFn: memberApi.getUserInfo,
-    enabled: isAuthenticated,
+    enabled: isAuth,
   });
 }

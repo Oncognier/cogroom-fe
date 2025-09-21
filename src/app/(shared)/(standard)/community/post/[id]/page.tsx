@@ -33,7 +33,7 @@ export default function PostPage() {
   const router = useRouter();
   const { open } = useAppModalStore();
   const { data: post, isLoading, error } = useGetPost(postId);
-  const isAdmin = useAuthStore((s) => s.isAdmin);
+  const isAdmin = useAuthStore((s) => s.isAdmin());
 
   if (isLoading) return <Loading />;
 

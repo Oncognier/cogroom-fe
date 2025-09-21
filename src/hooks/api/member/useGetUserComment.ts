@@ -6,11 +6,11 @@ import { UserCommunityRequest } from '@/types/member';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 export default function useGetUserComment(params: UserCommunityRequest) {
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const isAuth = useAuthStore((s) => s.isAuth());
 
   return useQuery({
     queryKey: [...MEMBER_QUERY_KEYS.MEMBER_COMMENTS, params],
     queryFn: () => memberApi.getUserCommentList(params),
-    enabled: isAuthenticated,
+    enabled: isAuth,
   });
 }

@@ -18,9 +18,9 @@ import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
 
 export default function CommunityWrite() {
   const logic = useCommunityWriteLogic();
-  const status = useAuthStore((s) => s.status);
+  const isUnauth = useAuthStore((s) => s.isUnauth());
 
-  if (status === 'unauthenticated') {
+  if (isUnauth) {
     return <AuthGuard />;
   }
 

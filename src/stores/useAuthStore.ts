@@ -7,9 +7,11 @@ interface AuthState {
   status: AuthStatus;
   role: MemberRole | null;
 
-  isAuthenticated: boolean;
-  isAdmin: boolean;
-  isContentProvider: boolean;
+  isUnknown: () => boolean;
+  isUnauth: () => boolean;
+  isAuth: () => boolean;
+  isAdmin: () => boolean;
+  isContentProvider: () => boolean;
 
   setAuthenticated: (role: MemberRole) => void;
   setUnauthenticated: () => void;
@@ -20,15 +22,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   status: 'unknown',
   role: null,
 
-  get isAuthenticated() {
-    return get().isAuthenticated;
-  },
-  get isAdmin() {
-    return get().role === 'ADMIN';
-  },
-  get isContentProvider() {
-    return get().role === 'CONTENT_PROVIDER';
-  },
+  isAuth: () => get().status === 'authenticated',
+  isUnauth: () => get().status === 'unauthenticated',
+  isUnknown: () => get().status === 'unknown',
+  isAdmin: () => get().role === 'ADMIN',
+  isContentProvider: () => get().role === 'CONTENT_PROVIDER',
 
   setAuthenticated: (role) => set({ status: 'authenticated', role }),
   setUnauthenticated: () => set({ status: 'unauthenticated', role: null }),

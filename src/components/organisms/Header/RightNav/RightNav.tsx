@@ -20,26 +20,23 @@ export default function RightNav() {
 
   const { isSuccess, isError, data } = useGetUserSummaryQuery();
 
-  const status = useAuthStore((s) => s.status);
+  const isUnauth = useAuthStore((s) => s.isUnauth());
+  const isUnknown = useAuthStore((s) => s.isUnknown());
   const role = useAuthStore((s) => s.role);
   const setAuthenticated = useAuthStore((s) => s.setAuthenticated);
   const setUnauthenticated = useAuthStore((s) => s.setUnauthenticated);
 
   useEffect(() => {
     if (isSuccess && data?.memberRole) {
-      if (status !== 'authenticated' || role !== data.memberRole) {
-        setAuthenticated(data.memberRole);
-      }
+      setAuthenticated(data.memberRole);
     } else if (isError) {
-      if (status !== 'unauthenticated' || role !== null) {
-        setUnauthenticated();
-      }
+      setUnauthenticated();
     }
-  }, [isSuccess, isError, data?.memberRole, status, role, setAuthenticated, setUnauthenticated]);
+  }, [isSuccess, isError, data?.memberRole, role, setAuthenticated, setUnauthenticated]);
 
   const roleLabel = role !== null ? ROLE_LABELS[role] : undefined;
 
-  if (status === 'unknown') {
+  if (isUnknown) {
     return (
       <S.SkeletonContainer>
         <Skeleton
@@ -61,7 +58,7 @@ export default function RightNav() {
     );
   }
 
-  if (status === 'unauthenticated') {
+  if (isUnauth) {
     return (
       <S.RightNav>
         <IconButton

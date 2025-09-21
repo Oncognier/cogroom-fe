@@ -17,7 +17,7 @@ interface PostCommentsProps {
 
 export default function PostComments({ postId, commentCount, isPostAnonymous }: PostCommentsProps) {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage, refetch } = useGetComments(postId);
-  const isAdmin = useAuthStore((s) => s.isAdmin);
+  const isAdmin = useAuthStore((s) => s.isAdmin());
 
   const comments = useMemo(() => {
     const result =
