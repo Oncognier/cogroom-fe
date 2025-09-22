@@ -96,16 +96,6 @@ export default function Posts() {
 
   if (isLoading) return <Loading />;
 
-  if (userPostsData?.data.length === 0)
-    return (
-      <EmptyState
-        icon={<MessageCircleX />}
-        description='코그니어 커뮤니티에 첫 글을 써 보세요!'
-        buttonLabel='커뮤니티 바로가기'
-        buttonAction={handleGoToCommunity}
-      />
-    );
-
   return (
     <S.UserPost>
       <S.FilterHeader>
@@ -128,43 +118,47 @@ export default function Posts() {
         />
 
         <S.ListControlsWrapper>
-          {!isEdit ? (
-            <OutlinedButton
-              label='선택'
-              onClick={() => setIsEdit(true)}
-              color='primary'
-              size='sm'
-              interactionVariant='normal'
-            />
-          ) : (
-            <S.ListSelectButtonWrapper>
-              {userPostsData?.data.length === selectedPostIds.length ? (
-                <SolidButton
-                  label='전체 취소'
-                  onClick={handleSelectAll}
+          {(userPostsData?.data?.length ?? 0) > 0 && (
+            <>
+              {!isEdit ? (
+                <OutlinedButton
+                  label='선택'
+                  onClick={() => setIsEdit(true)}
                   color='primary'
                   size='sm'
                   interactionVariant='normal'
                 />
               ) : (
-                <SolidButton
-                  type='button'
-                  label='전체 선택'
-                  onClick={handleSelectAll}
-                  color='primary'
-                  size='sm'
-                  interactionVariant='normal'
-                />
-              )}
+                <S.ListSelectButtonWrapper>
+                  {userPostsData?.data.length === selectedPostIds.length ? (
+                    <SolidButton
+                      label='전체 취소'
+                      onClick={handleSelectAll}
+                      color='primary'
+                      size='sm'
+                      interactionVariant='normal'
+                    />
+                  ) : (
+                    <SolidButton
+                      type='button'
+                      label='전체 선택'
+                      onClick={handleSelectAll}
+                      color='primary'
+                      size='sm'
+                      interactionVariant='normal'
+                    />
+                  )}
 
-              <OutlinedButton
-                label='삭제'
-                onClick={handleDeletePosts}
-                color='destructive'
-                size='sm'
-                interactionVariant='normal'
-              />
-            </S.ListSelectButtonWrapper>
+                  <OutlinedButton
+                    label='삭제'
+                    onClick={handleDeletePosts}
+                    color='destructive'
+                    size='sm'
+                    interactionVariant='normal'
+                  />
+                </S.ListSelectButtonWrapper>
+              )}
+            </>
           )}
 
           <SortButton
@@ -174,35 +168,41 @@ export default function Posts() {
         </S.ListControlsWrapper>
       </S.FilterHeader>
 
-      <S.PostList>
-        {userPostsData?.data.map((post, index) => {
-          return (
-            <S.PostCardWrapper key={index}>
-              {isEdit && (
-                <Checkbox
-                  isChecked={selectedPostIds.includes(post.postId)}
-                  onToggle={(checked) => handleTogglePostSelection(post.postId, checked)}
-                  size='sm'
-                  interactionVariant='normal'
-                />
-              )}
-              <PostCard
-                key={index}
-                post={post}
-              />
-            </S.PostCardWrapper>
-          );
-        })}
-      </S.PostList>
-
-      <S.Pagination>
-        <NumberPagination
-          size='nm'
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
-          onPageChange={(page) => handlePageChange(page - 1)}
+      {(userPostsData?.data?.length ?? 0) === 0 ? (
+        <EmptyState
+          icon={<MessageCircleX />}
+          description='코그니어 커뮤니티에 첫 글을 써 보세요!'
+          buttonLabel='커뮤니티 바로가기'
+          buttonAction={handleGoToCommunity}
         />
-      </S.Pagination>
+      ) : (
+        <>
+          <S.PostList>
+            {userPostsData!.data.map((post) => (
+              <S.PostCardWrapper key={post.postId}>
+                {isEdit && (
+                  <Checkbox
+                    isChecked={selectedPostIds.includes(post.postId)}
+                    onToggle={(checked) => handleTogglePostSelection(post.postId, checked)}
+                    size='sm'
+                    interactionVariant='normal'
+                  />
+                )}
+                <PostCard post={post} />
+              </S.PostCardWrapper>
+            ))}
+          </S.PostList>
+
+          <S.Pagination>
+            <NumberPagination
+              size='nm'
+              currentPage={currentPage + 1}
+              totalPages={totalPages}
+              onPageChange={(page) => handlePageChange(page - 1)}
+            />
+          </S.Pagination>
+        </>
+      )}
     </S.UserPost>
   );
 }

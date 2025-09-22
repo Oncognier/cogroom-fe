@@ -59,16 +59,6 @@ export default function Comments() {
 
   if (isLoading) return <Loading />;
 
-  if (data?.data.length === 0)
-    return (
-      <EmptyState
-        icon={<MessageCircleX />}
-        description='다른 코그니어 글에 댓글을 달아봐요'
-        buttonLabel='댓글 달러가기'
-        buttonAction={handleGoToCommunity}
-      />
-    );
-
   return (
     <S.UserComment>
       <S.FilterHeader>
@@ -98,23 +88,34 @@ export default function Comments() {
         </S.SortButtonWrapper>
       </S.FilterHeader>
 
-      <S.CommentList>
-        {data?.data.map((comment) => (
-          <CommentListRow
-            key={comment.commentId}
-            commentData={comment}
-          />
-        ))}
-      </S.CommentList>
-
-      <S.Pagination>
-        <NumberPagination
-          size='nm'
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
-          onPageChange={(page) => handlePageChange(page - 1)}
+      {data?.data.length === 0 ? (
+        <EmptyState
+          icon={<MessageCircleX />}
+          description='다른 코그니어 글에 댓글을 달아봐요'
+          buttonLabel='댓글 달러가기'
+          buttonAction={handleGoToCommunity}
         />
-      </S.Pagination>
+      ) : (
+        <>
+          <S.CommentList>
+            {data?.data.map((comment) => (
+              <CommentListRow
+                key={comment.commentId}
+                commentData={comment}
+              />
+            ))}
+          </S.CommentList>
+
+          <S.Pagination>
+            <NumberPagination
+              size='nm'
+              currentPage={currentPage + 1}
+              totalPages={totalPages}
+              onPageChange={(page) => handlePageChange(page - 1)}
+            />
+          </S.Pagination>
+        </>
+      )}
     </S.UserComment>
   );
 }

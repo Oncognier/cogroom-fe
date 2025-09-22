@@ -59,16 +59,6 @@ export default function Saves() {
 
   if (isLoading) return <Loading />;
 
-  if (userSaveData?.data.length === 0)
-    return (
-      <EmptyState
-        icon={<MessageCircleX />}
-        description='꼭 마음에 담아두고 싶던 글이 있나요?'
-        buttonLabel='글 보러가기'
-        buttonAction={handleGoToCommunity}
-      />
-    );
-
   return (
     <S.UserSave>
       <S.FilterHeader>
@@ -98,23 +88,34 @@ export default function Saves() {
         </S.SortButtonWrapper>
       </S.FilterHeader>
 
-      <S.SaveList>
-        {userSaveData?.data.map((post) => (
-          <PostCard
-            key={post.postId}
-            post={post}
-          />
-        ))}
-      </S.SaveList>
-
-      <S.Pagination>
-        <NumberPagination
-          size='nm'
-          currentPage={currentPage + 1}
-          totalPages={totalPages}
-          onPageChange={(page) => handlePageChange(page - 1)}
+      {(userSaveData?.data?.length ?? 0) === 0 ? (
+        <EmptyState
+          icon={<MessageCircleX />}
+          description='꼭 마음에 담아두고 싶던 글이 있나요?'
+          buttonLabel='글 보러가기'
+          buttonAction={handleGoToCommunity}
         />
-      </S.Pagination>
+      ) : (
+        <>
+          <S.SaveList>
+            {userSaveData!.data.map((post) => (
+              <PostCard
+                key={post.postId}
+                post={post}
+              />
+            ))}
+          </S.SaveList>
+
+          <S.Pagination>
+            <NumberPagination
+              size='nm'
+              currentPage={currentPage + 1}
+              totalPages={totalPages}
+              onPageChange={(page) => handlePageChange(page - 1)}
+            />
+          </S.Pagination>
+        </>
+      )}
     </S.UserSave>
   );
 }
