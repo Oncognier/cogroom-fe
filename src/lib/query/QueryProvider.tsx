@@ -5,44 +5,49 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { isAxiosError } from 'axios';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
+import { HTTP_STATUS_CODE } from '@/constants/api';
 
 function isNetworkError(err: unknown) {
   return isAxiosError(err) && !err.response;
+}
+
+function shouldRetry(failureCount: number, error: unknown) {
+  if (error instanceof HTTPError) {
+    const sc = error.statusCode;
+    if (
+      sc === HTTP_STATUS_CODE.UNAUTHORIZED ||
+      sc === HTTP_STATUS_CODE.FORBIDDEN ||
+      sc === HTTP_STATUS_CODE.NOT_FOUND ||
+      sc === HTTP_STATUS_CODE.CONFLICT
+    )
+      return false;
+  }
+
+  if (isNetworkError(error)) return failureCount < 1;
+
+  return failureCount < 2;
+}
+
+function shouldThrowError(err: unknown) {
+  if (err instanceof HTTPError) {
+    return err.statusCode >= HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR;
+  }
+  if (isNetworkError(err)) {
+    return true;
+  }
+  return false;
 }
 
 export function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        retry: (failureCount, error) => {
-          if (error instanceof HTTPError) {
-            if (error.statusCode === 401 || error.statusCode === 403) return false;
-          }
-          if (isNetworkError(error)) return failureCount < 1;
-          return failureCount < 2;
-        },
-
-        throwOnError: (err) => {
-          if (err instanceof HTTPError) {
-            return err.statusCode >= 500;
-          }
-          if (isNetworkError(err)) {
-            return true;
-          }
-          return false;
-        },
-
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
+        retry: shouldRetry,
+        throwOnError: shouldThrowError,
       },
-
       mutations: {
         retry: false,
-        throwOnError: (err) => {
-          if (err instanceof HTTPError) return err.statusCode >= 500;
-          if (isNetworkError(err)) return true;
-          return false;
-        },
+        throwOnError: shouldThrowError,
       },
     },
   });
