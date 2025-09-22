@@ -1,15 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
+import { useState } from 'react';
 import PostCard from './PostCard';
 
 const meta = {
   title: 'components/organisms/PostCard',
   component: PostCard,
   tags: ['autodocs'],
+  argTypes: {
+    isEdit: { control: 'boolean' },
+    isSelected: { control: 'boolean' },
+    onToggleSelect: { action: 'toggle-select' },
+  },
 } satisfies Meta<typeof PostCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+const nowISO = new Date().toISOString();
 
 export const Default: Story = {
   args: {
@@ -28,9 +35,11 @@ export const Default: Story = {
       likeCount: 3240,
       commentCount: 300,
       saveCount: 5,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: nowISO,
+      updatedAt: nowISO,
+      thumbnailUrl: '',
     },
+    isEdit: false,
   },
 };
 
@@ -51,9 +60,11 @@ export const AnonymousAuthor: Story = {
       likeCount: 14,
       commentCount: 14,
       saveCount: 14,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: nowISO,
+      updatedAt: nowISO,
+      thumbnailUrl: '',
     },
+    isEdit: false,
   },
 };
 
@@ -68,8 +79,46 @@ export const NoAuthor: Story = {
       likeCount: 0,
       commentCount: 0,
       saveCount: 0,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      createdAt: nowISO,
+      updatedAt: nowISO,
+      thumbnailUrl: '',
     },
+    isEdit: false,
+  },
+};
+
+export const EditMode: Story = {
+  args: {
+    post: {
+      postId: 4,
+      title: '편집 모드에서 선택 테스트',
+      category: { categoryId: 4, name: '자유' },
+      author: {
+        authorId: 11,
+        displayName: '코그니어 2',
+        isAnonymous: false,
+        profileUrl: '',
+      },
+      myStatus: { isLiked: false, isCommented: false, isSaved: false },
+      viewCount: 10,
+      likeCount: 0,
+      commentCount: 0,
+      saveCount: 0,
+      createdAt: nowISO,
+      updatedAt: nowISO,
+      thumbnailUrl: '',
+    },
+    isEdit: true,
+    isSelected: false,
+  },
+  render: (args) => {
+    const [selected, setSelected] = useState(args.isSelected ?? false);
+    return (
+      <PostCard
+        {...args}
+        isSelected={selected}
+        onToggleSelect={(checked) => setSelected(checked)}
+      />
+    );
   },
 };

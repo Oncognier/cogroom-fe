@@ -23,10 +23,16 @@ import { formatCountPlus, getDisplayName } from '@/utils/formatText';
 
 import MetaItem from './MetaItem/MetaItem';
 import * as S from './PostCard.styled';
+import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 
-type PostCardProps = { post: Post };
+interface PostCardProps {
+  post: Post;
+  isEdit?: boolean;
+  isSelected?: boolean;
+  onToggleSelect?: (checked: boolean) => void;
+}
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({ post, isEdit = false, isSelected = false, onToggleSelect }: PostCardProps) {
   const router = useRouter();
   const { open: openAppModal } = useAppModalStore();
   const { open: openSimpleModal } = useSimpleModalStore();
@@ -85,69 +91,80 @@ export default function PostCard({ post }: PostCardProps) {
 
   return (
     <S.PostCard onClick={handleCardClick}>
-      <S.ThumbnailWrapper>
-        <Thumbnail
-          ratio='16_10'
-          src={thumbnailUrl || DEFAULT_THUMBNAIL}
-          radius
+      {isEdit && (
+        <Checkbox
+          isChecked={!!isSelected}
+          onToggle={(checked) => onToggleSelect?.(checked)}
+          size='sm'
+          interactionVariant='normal'
         />
-      </S.ThumbnailWrapper>
+      )}
 
-      <S.Body>
-        <S.Main>
-          <S.MainHeader>
-            <S.Title>{title}</S.Title>
-            {author && (
-              <S.UserProfile onClick={handleProfile}>
-                <AvatarPerson
-                  type='icon'
-                  size='xsm'
-                  src={author.profileUrl || undefined}
-                />
-                <S.Nickname>{getDisplayName(author.displayName, author.isAnonymous)}</S.Nickname>
-              </S.UserProfile>
+      <S.CardContainer>
+        <S.ThumbnailWrapper>
+          <Thumbnail
+            ratio='16_10'
+            src={thumbnailUrl || DEFAULT_THUMBNAIL}
+            radius
+          />
+        </S.ThumbnailWrapper>
+
+        <S.Body>
+          <S.Main>
+            <S.MainHeader>
+              <S.Title>{title}</S.Title>
+              {author && (
+                <S.UserProfile onClick={handleProfile}>
+                  <AvatarPerson
+                    type='icon'
+                    size='xsm'
+                    src={author.profileUrl || undefined}
+                  />
+                  <S.Nickname>{getDisplayName(author.displayName, author.isAnonymous)}</S.Nickname>
+                </S.UserProfile>
+              )}
+            </S.MainHeader>
+
+            <S.MetaRow>
+              <MetaItem
+                count={likeCount}
+                icon={<Heart />}
+                fillIcon={<HeartFill />}
+                isActive={isLiked}
+                onClick={onToggleLike}
+                disabled={togglePostLikeMutation.isPending}
+              />
+              <MetaItem
+                count={commentCount || 0}
+                icon={<Comment />}
+                fillIcon={<CommentFill />}
+                isActive={false}
+              />
+              <MetaItem
+                count={saveCount}
+                icon={<Bookmark />}
+                fillIcon={<BookmarkFill />}
+                isActive={isSaved}
+                onClick={onToggleSave}
+                disabled={togglePostSaveMutation.isPending}
+              />
+            </S.MetaRow>
+          </S.Main>
+
+          <S.Aside onClick={stop}>
+            {categoryMeta && (
+              <SolidTag
+                label={categoryMeta.label}
+                color={categoryMeta.color}
+              />
             )}
-          </S.MainHeader>
-
-          <S.MetaRow>
-            <MetaItem
-              count={likeCount}
-              icon={<Heart />}
-              fillIcon={<HeartFill />}
-              isActive={isLiked}
-              onClick={onToggleLike}
-              disabled={togglePostLikeMutation.isPending}
-            />
-            <MetaItem
-              count={commentCount || 0}
-              icon={<Comment />}
-              fillIcon={<CommentFill />}
-              isActive={false}
-            />
-            <MetaItem
-              count={saveCount}
-              icon={<Bookmark />}
-              fillIcon={<BookmarkFill />}
-              isActive={isSaved}
-              onClick={onToggleSave}
-              disabled={togglePostSaveMutation.isPending}
-            />
-          </S.MetaRow>
-        </S.Main>
-
-        <S.Aside onClick={stop}>
-          {categoryMeta && (
-            <SolidTag
-              label={categoryMeta.label}
-              color={categoryMeta.color}
-            />
-          )}
-          <S.SideMeta>
-            <S.MetaText>조회수 {formatCountPlus(viewCountProp || 0)}</S.MetaText>
-            <S.MetaText>{formatRelativeKorean(createdAt)}</S.MetaText>
-          </S.SideMeta>
-        </S.Aside>
-      </S.Body>
+            <S.SideMeta>
+              <S.MetaText>조회수 {formatCountPlus(viewCountProp || 0)}</S.MetaText>
+              <S.MetaText>{formatRelativeKorean(createdAt)}</S.MetaText>
+            </S.SideMeta>
+          </S.Aside>
+        </S.Body>
+      </S.CardContainer>
     </S.PostCard>
   );
 }
