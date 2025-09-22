@@ -26,11 +26,3 @@ export const SaveList = styled.div`
   flex-direction: column;
   gap: 1.6rem;
 `;
-
-export const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 100%;
-  padding: 2.4rem 0;
-`;

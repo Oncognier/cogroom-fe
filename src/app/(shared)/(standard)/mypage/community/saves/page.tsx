@@ -1,17 +1,18 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
-import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
+import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserSave from '@/hooks/api/member/useGetUserSave';
+import useScroll from '@/hooks/useScroll';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -21,25 +22,25 @@ import * as S from './page.styled';
 export default function Saves() {
   const router = useRouter();
   const { updateSearchParams, getSearchParam, getSearchParamAsDate, getSearchParamAsArray } = useUrlSearchParams();
-  const [sort, setSort] = useState<SortType>('latest');
-  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data: userSaveData, isLoading } = useGetUserSave({
-    page: currentPage,
+  const [sort, setSort] = useState<SortType>('latest');
+
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserSave({
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
-    keyword: getSearchParam('keyword') ?? '',
-    startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
-    endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
+    keyword: getSearchParam('keyword') || undefined,
+    startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')) || undefined,
+    endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')) || undefined,
   });
 
-  const totalPages = userSaveData?.totalPages ?? 1;
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
+  const total = data?.pages[0].totalElements;
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    updateSearchParams({ page: page + 1 });
-  };
+  const posts = useMemo(() => (data?.pages ?? []).flatMap((p) => p.data ?? []), [data]);
+
+  const { observerRef } = useScroll({
+    nextPage: !!hasNextPage,
+    fetchNext: fetchNextPage,
+  });
 
   const handleSortChange = () => {
     const newSort = sort === 'latest' ? 'oldest' : 'latest';
@@ -51,12 +52,6 @@ export default function Saves() {
     router.push('/community');
   };
 
-  useEffect(() => {
-    if (urlPageNum > 0) {
-      setCurrentPage(urlPageNum - 1);
-    }
-  }, [urlPageNum]);
-
   if (isLoading) return <Loading />;
 
   return (
@@ -64,7 +59,7 @@ export default function Saves() {
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 글'
-          total={userSaveData?.totalElements}
+          total={total}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
@@ -88,7 +83,7 @@ export default function Saves() {
         </S.SortButtonWrapper>
       </S.FilterHeader>
 
-      {(userSaveData?.data?.length ?? 0) === 0 ? (
+      {posts.length === 0 ? (
         <EmptyState
           icon={<MessageCircleX />}
           description='꼭 마음에 담아두고 싶던 글이 있나요?'
@@ -98,7 +93,7 @@ export default function Saves() {
       ) : (
         <>
           <S.SaveList>
-            {userSaveData!.data.map((post) => (
+            {posts.map((post) => (
               <PostCard
                 key={post.postId}
                 post={post}
@@ -106,14 +101,11 @@ export default function Saves() {
             ))}
           </S.SaveList>
 
-          <S.Pagination>
-            <NumberPagination
-              size='nm'
-              currentPage={currentPage + 1}
-              totalPages={totalPages}
-              onPageChange={(page) => handlePageChange(page - 1)}
-            />
-          </S.Pagination>
+          <InfiniteScrollSentinel
+            observerRef={observerRef}
+            hasNextPage={!!hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         </>
       )}
     </S.UserSave>
