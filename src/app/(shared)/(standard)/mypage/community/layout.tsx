@@ -27,7 +27,7 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
             },
             {
               label: '좋아요',
-              href: '/mypage/community/likes',
+              href: '/mypage/community/likes/posts',
               state: pathname.startsWith('/mypage/community/likes') ? 'active' : 'default',
             },
             {
