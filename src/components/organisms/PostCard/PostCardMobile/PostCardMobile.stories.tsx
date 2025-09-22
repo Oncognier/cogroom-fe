@@ -84,7 +84,7 @@ export const EditMode: Story = {
     post: {
       postId: 104,
       title: '편집 모드에서 체크박스 선택 토글',
-      category: { categoryId: 4, name: '자유' },
+      category: { categoryId: 3, name: '칼럼' },
       myStatus: { isLiked: false, isCommented: false, isSaved: false },
       viewCount: 0,
       likeCount: 0,
