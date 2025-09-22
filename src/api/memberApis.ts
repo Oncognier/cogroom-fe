@@ -57,11 +57,9 @@ const getUserPost = async (params: UserCommunityRequest) => {
 };
 
 const deleteUserPost = async (postList: number[]) => {
-  const { data } = await axiosInstance.delete<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS, {
+  await axiosInstance.delete(END_POINTS_V1.MEMBERS.POSTS, {
     data: { postList },
   });
-
-  return data.result;
 };
 
 const getUserCommentList = async (params: UserCommunityRequest) => {
