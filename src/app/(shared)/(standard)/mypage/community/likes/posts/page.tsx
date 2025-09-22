@@ -1,18 +1,19 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
+import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserLikePost from '@/hooks/api/member/useGetUserLikePost';
+import useScroll from '@/hooks/useScroll';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -23,10 +24,8 @@ export default function LikesPosts() {
   const router = useRouter();
   const { updateSearchParams, getSearchParam, getSearchParamAsDate, getSearchParamAsArray } = useUrlSearchParams();
   const [sort, setSort] = useState<SortType>('latest');
-  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data: userLikeData, isLoading } = useGetUserLikePost({
-    page: currentPage,
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserLikePost({
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
     keyword: getSearchParam('keyword') ?? '',
@@ -34,38 +33,30 @@ export default function LikesPosts() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = userLikeData?.totalPages ?? 1;
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
+  const total = data?.pages?.[0]?.totalElements;
+  const posts = useMemo(() => (data?.pages ?? []).flatMap((p) => p.data ?? []), [data]);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    updateSearchParams({ page: page + 1 });
-  };
+  const { observerRef } = useScroll({
+    nextPage: !!hasNextPage,
+    fetchNext: fetchNextPage,
+  });
 
   const handleSortChange = () => {
-    const newSort = sort === 'latest' ? 'oldest' : 'latest';
-    setSort(newSort);
-    updateSearchParams({ sort: newSort });
+    const next = sort === 'latest' ? 'oldest' : 'latest';
+    setSort(next);
+    updateSearchParams({ sort: next });
   };
 
-  const handleGoToCommunity = () => {
-    router.push('/community');
-  };
-
-  useEffect(() => {
-    if (urlPageNum > 0) {
-      setCurrentPage(urlPageNum - 1);
-    }
-  }, [urlPageNum]);
+  const handleGoToCommunity = () => router.push('/community');
 
   if (isLoading) return <Loading />;
 
   return (
-    <S.UserSave>
+    <S.LikesPosts>
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 글'
-          total={userLikeData?.totalElements}
+          total={total}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
@@ -88,20 +79,17 @@ export default function LikesPosts() {
               color='primary'
               size='sm'
               interactionVariant='normal'
-              onClick={() => {
-                router.push('/mypage/community/likes/posts');
-              }}
+              onClick={() => router.push('/mypage/community/likes/posts')}
             />
             <SolidButton
               label='댓글'
               color='assistive'
               size='sm'
               interactionVariant='normal'
-              onClick={() => {
-                router.push('/mypage/community/likes/comments');
-              }}
+              onClick={() => router.push('/mypage/community/likes/comments')}
             />
           </S.SwitchLikeButtonWrapper>
+
           <SortButton
             sort={sort}
             onClick={handleSortChange}
@@ -109,7 +97,7 @@ export default function LikesPosts() {
         </S.ListControlsWrapper>
       </S.FilterHeader>
 
-      {userLikeData?.data.length === 0 ? (
+      {posts.length === 0 ? (
         <EmptyState
           icon={<MessageCircleX />}
           description='꼭 마음에 담아두고 싶던 글이 있나요?'
@@ -118,25 +106,22 @@ export default function LikesPosts() {
         />
       ) : (
         <>
-          <S.SaveList>
-            {userLikeData?.data.map((post) => (
+          <S.LikePostList>
+            {posts.map((post) => (
               <PostCard
                 key={post.postId}
                 post={post}
               />
             ))}
-          </S.SaveList>
+          </S.LikePostList>
 
-          <S.Pagination>
-            <NumberPagination
-              size='nm'
-              currentPage={currentPage + 1}
-              totalPages={totalPages}
-              onPageChange={(page) => handlePageChange(page - 1)}
-            />
-          </S.Pagination>
+          <InfiniteScrollSentinel
+            observerRef={observerRef}
+            hasNextPage={!!hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         </>
       )}
-    </S.UserSave>
+    </S.LikesPosts>
   );
 }
