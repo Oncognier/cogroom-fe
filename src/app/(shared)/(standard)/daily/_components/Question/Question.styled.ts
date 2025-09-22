@@ -75,6 +75,7 @@ export const Form = styled.div`
 
   max-width: 52rem;
   width: 100%;
+  height: 5.4rem;
   padding: 0.6rem 0.8rem 0.6rem 3.2rem;
 
   ${({ theme }) => theme.typography.body1.regular}

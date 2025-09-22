@@ -108,7 +108,6 @@ export default function Question({
             ref={textareaRef}
             value={answerValue}
             placeholder='음... 나는'
-            readOnly={readOnlyMode}
             $readOnly={readOnlyMode}
             onChange={(e) => {
               if (!readOnlyMode) {
