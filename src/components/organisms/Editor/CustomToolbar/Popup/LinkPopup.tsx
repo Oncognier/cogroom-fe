@@ -3,6 +3,7 @@
 import type { Editor } from '@tiptap/react';
 import { useState, useEffect } from 'react';
 
+import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Input from '@/components/molecules/Input/Input';
 
@@ -19,6 +20,12 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
   const [openInNewTab, setOpenInNewTab] = useState(false);
 
   useEffect(() => {
+    if (!editor?.state || !editor.getAttributes) return;
+
+    setUrl('');
+    setDisplayText('');
+    setOpenInNewTab(false);
+
     const { from, to } = editor.state.selection;
     const selectedText = editor.state.doc.textBetween(from, to);
 
@@ -26,8 +33,8 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
       setDisplayText(selectedText);
     }
 
-    const linkAttributes = editor.getAttributes('link');
-    if (linkAttributes.href) {
+    const linkAttributes = editor.getAttributes('customLink');
+    if (linkAttributes?.href) {
       setUrl(linkAttributes.href);
       setOpenInNewTab(linkAttributes.target === '_blank');
     }
@@ -42,34 +49,57 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
   };
 
   const handleApply = () => {
-    if (!url.trim()) return;
+    if (!url.trim() || !editor) return;
 
     let finalUrl = url.trim();
     if (!/^https?:\/\//i.test(finalUrl)) {
       finalUrl = 'https://' + finalUrl;
     }
 
+    const linkAttributes: { href: string; target?: string } = { href: finalUrl };
+    if (openInNewTab) {
+      linkAttributes.target = '_blank';
+    }
+
     if (displayText.trim()) {
-      const targetAttr = openInNewTab ? ' target="_blank"' : '';
-      editor.chain().focus().insertContent(`<a href="${finalUrl}"${targetAttr}>${displayText}</a>`).run();
-    } else {
-      editor.chain().focus().unsetLink().run();
-
-      const linkAttributes: { href: string; target?: string } = { href: finalUrl };
-      if (openInNewTab) {
-        linkAttributes.target = '_blank';
+      // 텍스트가 있는 경우, 텍스트를 먼저 삽입하고 링크 적용
+      if (editor.state?.selection) {
+        const { from, to } = editor.state.selection;
+        if (from === to) {
+          // 커서 위치에 텍스트 삽입 후 링크 적용
+          editor.chain().focus().insertContent(displayText).run();
+          setTimeout(() => {
+            const currentPos = editor.state.selection.from;
+            editor
+              .chain()
+              .focus()
+              .setTextSelection({ from: currentPos - displayText.length, to: currentPos })
+              .setCustomLink(linkAttributes)
+              .run();
+          }, 0);
+        } else {
+          // 이미 선택된 텍스트에 링크 적용
+          editor.chain().focus().setCustomLink(linkAttributes).run();
+        }
+      } else {
+        // state가 없는 경우 텍스트만 삽입
+        editor.chain().focus().insertContent(displayText).run();
       }
-
-      editor.chain().focus().setLink(linkAttributes).run();
+    } else {
+      // 텍스트가 없는 경우 선택된 영역에 링크만 적용
+      editor.chain().focus().setCustomLink(linkAttributes).run();
     }
 
     onClose();
   };
 
   const handleRemoveLink = () => {
-    editor.chain().focus().unsetLink().run();
+    if (!editor) return;
+    editor.chain().focus().unsetCustomLink().run();
     onClose();
   };
+
+  if (!editor) return null;
 
   return (
     <S.PopupContainer>
@@ -88,7 +118,7 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
           onChange={handleDisplayTextChange}
         />
 
-        {/* <S.CheckboxGroup>
+        <S.CheckboxGroup>
           <Checkbox
             size='nm'
             isChecked={openInNewTab}
@@ -96,7 +126,7 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
             onToggle={setOpenInNewTab}
           />
           <span>새창으로 열기</span>
-        </S.CheckboxGroup> */}
+        </S.CheckboxGroup>
 
         <S.LinkButtonGroup>
           <SolidButton
