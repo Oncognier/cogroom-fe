@@ -22,7 +22,7 @@ const POST_ERROR_MESSAGES: Record<string, string> = {
   POST_ALREADY_DELETED_ERROR: '이미 삭제된 게시물입니다',
   POST_NOT_FOUND_ERROR: '존재하지 않는 게시물입니다',
   POST_HIDDEN_ERROR: '숨김 처리된 게시물입니다',
-  POST_FORBIDDEN_ERROR: '회원만 열람할 수 있는 게시물입니다. 로그인 후 이용해 주세요.',
+  GUEST_ACCESS_FORBIDDEN_ERROR: '회원만 열람할 수 있는 게시물입니다. 로그인 후 이용해 주세요.',
 };
 
 export default function PostPage() {
@@ -40,7 +40,7 @@ export default function PostPage() {
     const postErrorMessage = POST_ERROR_MESSAGES[error.code];
 
     if (postErrorMessage) {
-      const isForbidden = error.code === 'POST_FORBIDDEN_ERROR';
+      const isForbidden = error.code === 'GUEST_ACCESS_FORBIDDEN_ERROR';
 
       return (
         <EmptyState
