@@ -4,7 +4,7 @@ import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useAppModalStore } from '@/stores/useModalStore';
 import { LineBreakTablet } from '@/styles/helpers/lineBreak';
 
-import * as S from './page.styled';
+import * as S from './AuthGuard.styled';
 
 export default function AuthGuard() {
   const { open } = useAppModalStore();

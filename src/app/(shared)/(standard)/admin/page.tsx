@@ -3,5 +3,5 @@
 import { redirect } from 'next/navigation';
 
 export default function Admin() {
-  redirect('/admin/community');
+  redirect('/admin/community/posts');
 }

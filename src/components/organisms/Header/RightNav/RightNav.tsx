@@ -8,8 +8,9 @@ import Search from '@/assets/icons/search.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
 import { ROLE_LABELS } from '@/constants/common';
-import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+import useGetUserSummaryQuery from '@/hooks/api/member/useGetUserSummary';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 
@@ -18,17 +19,67 @@ import * as S from './RightNav.styled';
 export default function RightNav() {
   const router = useRouter();
   const { open } = useAppModalStore();
-  const { data } = useGetUserSummary();
-  const setLoggedIn = useAuthStore((state) => state.setLoggedIn);
+
+  const { isSuccess, isError, data } = useGetUserSummaryQuery();
+
+  const isUnauth = useAuthStore((s) => s.isUnauth());
+  const isUnknown = useAuthStore((s) => s.isUnknown());
+  const role = useAuthStore((s) => s.role);
+  const setAuthenticated = useAuthStore((s) => s.setAuthenticated);
+  const setUnauthenticated = useAuthStore((s) => s.setUnauthenticated);
 
   useEffect(() => {
-    if (data) {
-      setLoggedIn();
+    if (isSuccess && data?.memberRole) {
+      setAuthenticated(data.memberRole);
+    } else if (isError) {
+      setUnauthenticated();
     }
-  }, [data, setLoggedIn]);
+  }, [isSuccess, isError, data?.memberRole, role, setAuthenticated, setUnauthenticated]);
 
-  const userRole = data?.memberRole;
-  const userRoleLabel = userRole && ROLE_LABELS[userRole];
+  const roleLabel = role !== null ? ROLE_LABELS[role] : undefined;
+
+  if (isUnknown) {
+    return (
+      <S.SkeletonContainer>
+        <Skeleton
+          width='4rem'
+          height='4rem'
+          borderRadius='0.6rem'
+        />
+        <Skeleton
+          width='4rem'
+          height='4rem'
+          borderRadius='0.6rem'
+        />
+        <Skeleton
+          width='4rem'
+          height='4rem'
+          borderRadius='0.6rem'
+        />
+      </S.SkeletonContainer>
+    );
+  }
+
+  if (isUnauth) {
+    return (
+      <S.RightNav>
+        <IconButton
+          size='4rem'
+          variant='normal'
+          interactionVariant='normal'
+        >
+          <Search />
+        </IconButton>
+        <OutlinedButton
+          label='코그룸 시작하기'
+          size='sm'
+          color='primary'
+          interactionVariant='normal'
+          onClick={() => open('login')}
+        />
+      </S.RightNav>
+    );
+  }
 
   return (
     <S.RightNav>
@@ -40,48 +91,38 @@ export default function RightNav() {
         <Search />
       </IconButton>
 
-      {data ? (
-        <S.NavLogin>
-          <IconButton
-            size='4rem'
-            variant='normal'
-            interactionVariant='normal'
-          >
-            <Bell />
-          </IconButton>
-
-          {userRole !== 'USER' && userRoleLabel ? (
-            <S.UserWrapper
-              memberRole={userRole}
-              onClick={() => router.push('/mypage')}
-            >
-              <S.UserIconWrapper>
-                <AvatarPerson
-                  type='icon'
-                  size='fillContainer'
-                  src={data.imageUrl}
-                />
-              </S.UserIconWrapper>
-              {userRoleLabel}
-            </S.UserWrapper>
-          ) : (
-            <AvatarPerson
-              type='icon'
-              size='fillContainer'
-              src={data.imageUrl}
-              onClick={() => router.push('/mypage')}
-            />
-          )}
-        </S.NavLogin>
-      ) : (
-        <OutlinedButton
-          label='코그룸 시작하기'
-          size='sm'
-          color='primary'
+      <S.NavLogin>
+        <IconButton
+          size='4rem'
+          variant='normal'
           interactionVariant='normal'
-          onClick={() => open('login')}
-        />
-      )}
+        >
+          <Bell />
+        </IconButton>
+
+        {role !== 'USER' && roleLabel ? (
+          <S.UserWrapper
+            memberRole={role || undefined}
+            onClick={() => router.push('/mypage')}
+          >
+            <S.UserIconWrapper>
+              <AvatarPerson
+                type='icon'
+                size='fillContainer'
+                src={data?.imageUrl}
+              />
+            </S.UserIconWrapper>
+            {roleLabel}
+          </S.UserWrapper>
+        ) : (
+          <AvatarPerson
+            type='icon'
+            size='fillContainer'
+            src={data?.imageUrl}
+            onClick={() => router.push('/mypage')}
+          />
+        )}
+      </S.NavLogin>
     </S.RightNav>
   );
 }

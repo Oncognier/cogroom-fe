@@ -66,10 +66,7 @@ const logout = async () => {
 };
 
 const reissueToken = async () => {
-  const response = await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN);
-
-  const accessToken = response.headers['authorization'];
-  return { accessToken };
+  await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE_TOKEN);
 };
 
 export const authApi = {

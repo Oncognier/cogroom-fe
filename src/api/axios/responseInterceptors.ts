@@ -2,6 +2,7 @@ import type { AxiosError, AxiosRequestConfig } from 'axios';
 
 import { authApi } from '@/api/authApis';
 import { ERROR_CODE, HTTP_STATUS_CODE } from '@/constants/api';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import { axiosInstance } from './axiosInstance';
 import { HTTPError } from './errors/HTTPError';
@@ -18,6 +19,7 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
   if (!error.response || !originalRequest) throw error;
 
   const { data, status } = error.response;
+  const { setUnauthenticated } = useAuthStore.getState();
 
   if (isPrefetch(originalRequest)) {
     return;
@@ -42,8 +44,11 @@ export const handleTokenError = async (error: AxiosError<ErrorResponseData>) => 
 
   if (
     status === HTTP_STATUS_CODE.UNAUTHORIZED &&
-    (data.code === ERROR_CODE.TOKEN_INVALID_ERROR || data.code === ERROR_CODE.TOKEN_BLACK_LIST_ERROR)
+    (data.code === ERROR_CODE.REFRESH_TOKEN_EMPTY_ERROR ||
+      data.code === ERROR_CODE.TOKEN_INVALID_ERROR ||
+      data.code === ERROR_CODE.TOKEN_BLACK_LIST_ERROR)
   ) {
+    setUnauthenticated();
     throw new HTTPError(status, data.message, data.code);
   }
 

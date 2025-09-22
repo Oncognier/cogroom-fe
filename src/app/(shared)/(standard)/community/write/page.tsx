@@ -4,8 +4,10 @@ import { FormProvider } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
+import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
 import Loading from '@/components/organisms/Loading/Loading';
 import { useCommunityWriteLogic } from '@/hooks/useCommunityWriteLogic';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import CategorySelector from './_components/CategorySelector/CategorySelector';
 import DailyQuestionCard from './_components/DailyQuestionCard/DailyQuestionCard';
@@ -16,6 +18,11 @@ import CommunityDescription from '../_components/CommunityDescription';
 
 export default function CommunityWrite() {
   const logic = useCommunityWriteLogic();
+  const isUnauth = useAuthStore((s) => s.isUnauth());
+
+  if (isUnauth) {
+    return <AuthGuard />;
+  }
 
   // 수정 모드에서 기존 데이터를 로딩 중일 때
   if (logic.isEditMode && logic.isLoadingPost) {

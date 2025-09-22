@@ -1,28 +1,27 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import TabBarList from '@/components/molecules/TabBarList/TabBarList';
+import AdminGuard from '@/components/organisms/AdminGuard/AdminGuard';
 import Loading from '@/components/organisms/Loading/Loading';
-import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 import { getAdminTabState } from './_utils/getAdminTabState';
 import * as S from './layout.styled';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { data, isLoading } = useGetUserSummary();
   const pathname = usePathname();
-  const router = useRouter();
+  const isUnknown = useAuthStore((s) => s.isUnknown());
+  const isAdmin = useAuthStore((s) => s.isAdmin());
+  const role = useAuthStore((s) => s.role);
 
-  if (isLoading) return <Loading />;
+  if (isUnknown) return <Loading />;
 
-  if (!data?.memberRole) {
-    router.push('/authguard');
-    return null;
+  if (!isAdmin || !role) {
+    return <AdminGuard />;
   }
-
-  const role = data?.memberRole;
 
   return (
     <S.AdminLayout>
