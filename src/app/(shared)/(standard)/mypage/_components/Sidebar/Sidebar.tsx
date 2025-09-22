@@ -7,18 +7,23 @@ import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './Sidebar.styled';
 import SidebarNavItem from './SidebarNavItem/SidebarNavItem';
 
 export default function Sidebar() {
-  const { data, isLoading, isError } = useGetUserSummary();
+  const { data } = useGetUserSummary();
   const { open } = useAppModalStore();
+  const isUnknown = useAuthStore((s) => s.isUnknown());
+  const isAdmin = useAuthStore((s) => s.isAdmin());
+  const isContentProvider = useAuthStore((s) => s.isContentProvider());
+
   const router = useRouter();
   const pathname = usePathname() || '/';
 
-  if (isLoading || isError) return null;
+  if (isUnknown) return null;
 
   return (
     <S.Sidebar>
@@ -48,7 +53,7 @@ export default function Sidebar() {
           />
         ))}
         <S.Logout onClick={() => open('logout')}>로그아웃</S.Logout>
-        {(data?.memberRole === 'ADMIN' || data?.memberRole === 'CONTENT_PROVIDER') && (
+        {(isAdmin || isContentProvider) && (
           <OutlinedButton
             size='sm'
             label='관리자모드'
