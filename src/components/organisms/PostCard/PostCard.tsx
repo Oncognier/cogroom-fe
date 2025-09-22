@@ -9,6 +9,7 @@ import Comment from '@/assets/icons/comment.svg';
 import HeartFill from '@/assets/icons/heart-fill.svg';
 import Heart from '@/assets/icons/heart.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
 import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
@@ -23,7 +24,6 @@ import { formatCountPlus, getDisplayName } from '@/utils/formatText';
 
 import MetaItem from './MetaItem/MetaItem';
 import * as S from './PostCard.styled';
-import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 
 interface PostCardProps {
   post: Post;

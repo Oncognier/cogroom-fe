@@ -8,22 +8,21 @@ import CommentFill from '@/assets/icons/comment-fill.svg';
 import Comment from '@/assets/icons/comment.svg';
 import HeartFill from '@/assets/icons/heart-fill.svg';
 import Heart from '@/assets/icons/heart.svg';
-import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
 import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
 import { DEFAULT_THUMBNAIL } from '@/constants/image';
 import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
 import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
-import { useAppModalStore, useSimpleModalStore } from '@/stores/useModalStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 import type { Post } from '@/types/post';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
-import { formatCountPlus, getDisplayName } from '@/utils/formatText';
+import { formatCountPlus } from '@/utils/formatText';
 
 import * as S from './PostCardMobile.styled';
 import MetaItem from '../MetaItem/MetaItem';
-import Checkbox from '@/components/atoms/Checkbox/Checkbox';
-import { useAuthStore } from '@/stores/useAuthStore';
 
 interface PostCardMobileProps {
   post: Post;

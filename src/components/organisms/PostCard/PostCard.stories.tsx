@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+
 import PostCard from './PostCard';
 
 const meta = {
