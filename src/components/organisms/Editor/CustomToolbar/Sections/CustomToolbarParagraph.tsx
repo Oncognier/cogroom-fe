@@ -17,10 +17,10 @@ type Props = {
 
 export default function CustomToolbarParagraph({ editor, closePopups }: Props) {
   const setAlign = (align: 'left' | 'center' | 'right') => {
-    editor.chain().focus().setTextAlign(align).run();
+    editor.chain().focus().setImageAlign(align).setTextAlign(align).run();
+
     closePopups();
   };
-
   const toggleBulletList = () => {
     editor.chain().focus().toggleBulletList().run();
   };
@@ -36,6 +36,7 @@ export default function CustomToolbarParagraph({ editor, closePopups }: Props) {
         type='button'
         onClick={() => setAlign('left')}
         isActive={editor.isActive({ textAlign: 'left' })}
+        title='왼쪽 정렬'
       >
         <ArrangeLeft />
       </S.ToolbarButton>
@@ -43,6 +44,7 @@ export default function CustomToolbarParagraph({ editor, closePopups }: Props) {
         type='button'
         onClick={() => setAlign('center')}
         isActive={editor.isActive({ textAlign: 'center' })}
+        title='가운데 정렬'
       >
         <ArrangeMiddle />
       </S.ToolbarButton>
@@ -50,6 +52,7 @@ export default function CustomToolbarParagraph({ editor, closePopups }: Props) {
         type='button'
         onClick={() => setAlign('right')}
         isActive={editor.isActive({ textAlign: 'right' })}
+        title='오른쪽 정렬'
       >
         <ArrangeRight />
       </S.ToolbarButton>
