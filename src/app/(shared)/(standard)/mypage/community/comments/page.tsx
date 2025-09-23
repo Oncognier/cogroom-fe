@@ -1,17 +1,18 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import CommentListRow from '@/app/(shared)/(standard)/mypage/_components/CommentListRow/CommentListRow';
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
-import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
+import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import { CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserComment from '@/hooks/api/member/useGetUserComment';
+import useScroll from '@/hooks/useScroll';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
@@ -22,10 +23,8 @@ export default function Comments() {
   const router = useRouter();
   const { updateSearchParams, getSearchParam, getSearchParamAsDate, getSearchParamAsArray } = useUrlSearchParams();
   const [sort, setSort] = useState<SortType>('latest');
-  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
 
-  const { data, isLoading } = useGetUserComment({
-    page: currentPage,
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserComment({
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
     keyword: getSearchParam('keyword') ?? '',
@@ -33,29 +32,22 @@ export default function Comments() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = data?.totalPages ?? 1;
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
+  const total = data?.pages?.[0]?.totalElements;
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    updateSearchParams({ page: page + 1 });
-  };
+  const comments = useMemo(() => (data?.pages ?? []).flatMap((p) => p.data ?? []), [data]);
+
+  const { observerRef } = useScroll({
+    nextPage: !!hasNextPage,
+    fetchNext: fetchNextPage,
+  });
 
   const handleSortChange = () => {
-    const newSort = sort === 'latest' ? 'oldest' : 'latest';
-    setSort(newSort);
-    updateSearchParams({ sort: newSort });
+    const next = sort === 'latest' ? 'oldest' : 'latest';
+    setSort(next);
+    updateSearchParams({ sort: next });
   };
 
-  const handleGoToCommunity = () => {
-    router.push('/community');
-  };
-
-  useEffect(() => {
-    if (urlPageNum > 0) {
-      setCurrentPage(urlPageNum - 1);
-    }
-  }, [urlPageNum]);
+  const handleGoToCommunity = () => router.push('/community');
 
   if (isLoading) return <Loading />;
 
@@ -64,12 +56,12 @@ export default function Comments() {
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 댓글'
-          total={data?.totalElements}
+          total={total}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
               {
-                name: 'category',
+                name: 'categoryId',
                 placeholder: '카테고리 선택',
                 options: CATEGORY_SELECT_OPTIONS,
                 isMulti: true,
@@ -88,7 +80,7 @@ export default function Comments() {
         </S.SortButtonWrapper>
       </S.FilterHeader>
 
-      {data?.data.length === 0 ? (
+      {comments.length === 0 ? (
         <EmptyState
           icon={<MessageCircleX />}
           description='다른 코그니어 글에 댓글을 달아봐요'
@@ -98,7 +90,7 @@ export default function Comments() {
       ) : (
         <>
           <S.CommentList>
-            {data?.data.map((comment) => (
+            {comments.map((comment) => (
               <CommentListRow
                 key={comment.commentId}
                 commentData={comment}
@@ -106,14 +98,11 @@ export default function Comments() {
             ))}
           </S.CommentList>
 
-          <S.Pagination>
-            <NumberPagination
-              size='nm'
-              currentPage={currentPage + 1}
-              totalPages={totalPages}
-              onPageChange={(page) => handlePageChange(page - 1)}
-            />
-          </S.Pagination>
+          <InfiniteScrollSentinel
+            observerRef={observerRef}
+            hasNextPage={!!hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         </>
       )}
     </S.UserComment>

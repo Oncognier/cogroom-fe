@@ -30,7 +30,7 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
   }
 
   if (isUnknown) {
-    <Loading />;
+    return <Loading />;
     //TODO: 스켈레톤 적용 시 여기는 없애고 컴포넌트 안에서 처리하기
   }
 

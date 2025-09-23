@@ -1,4 +1,4 @@
-import { ApiResponse, PaginationResult } from './api';
+import { ApiResponse, CursorPaginationResult } from './api';
 import { Comment } from './comment';
 import { Post } from './post';
 
@@ -72,18 +72,18 @@ export interface WithdrawRequest {
 }
 
 export interface UserCommunityRequest {
-  page?: number;
   sort?: string;
   categoryId?: number[];
   keyword?: string;
   startDate?: string;
   endDate?: string;
+  cursor?: number | null;
 }
 
 export interface UserPostListResponse extends ApiResponse {
-  result: PaginationResult<Post>;
+  result: CursorPaginationResult<Post>;
 }
 
 export interface UserCommentListResponse extends ApiResponse {
-  result: PaginationResult<Comment>;
+  result: CursorPaginationResult<Comment>;
 }

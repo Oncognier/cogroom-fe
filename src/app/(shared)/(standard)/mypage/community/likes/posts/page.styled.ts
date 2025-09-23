@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const UserSave = styled.div`
+export const LikesPosts = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
@@ -27,16 +27,8 @@ export const SwitchLikeButtonWrapper = styled.div`
   gap: 1.2rem;
 `;
 
-export const SaveList = styled.div`
+export const LikePostList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-`;
-
-export const Pagination = styled.div`
-  display: flex;
-  justify-content: center;
-
-  width: 100%;
-  padding: 2.4rem 0;
 `;
