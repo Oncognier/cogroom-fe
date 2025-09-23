@@ -178,18 +178,14 @@ export default function Posts() {
       ) : (
         <>
           <S.PostList>
-            {userPostsData!.data.map((post) => (
-              <S.PostCardWrapper key={post.postId}>
-                {isEdit && (
-                  <Checkbox
-                    isChecked={selectedPostIds.includes(post.postId)}
-                    onToggle={(checked) => handleTogglePostSelection(post.postId, checked)}
-                    size='sm'
-                    interactionVariant='normal'
-                  />
-                )}
-                <PostCard post={post} />
-              </S.PostCardWrapper>
+            {userPostsData?.data.map((post) => (
+              <PostCard
+                key={post.postId}
+                post={post}
+                isEdit={isEdit}
+                isSelected={selectedPostIds.includes(post.postId)}
+                onToggleSelect={(checked) => handleTogglePostSelection(post.postId, checked)}
+              />
             ))}
           </S.PostList>
 

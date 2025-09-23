@@ -35,12 +35,6 @@ export const PostList = styled.div`
   gap: 1.6rem;
 `;
 
-export const PostCardWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 2.2rem;
-`;
-
 export const Pagination = styled.div`
   display: flex;
   justify-content: center;

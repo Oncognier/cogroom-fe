@@ -4,6 +4,12 @@ import styled from '@emotion/styled';
 
 export const PostCard = styled.div`
   display: flex;
+  align-items: center;
+  gap: 2.2rem;
+`;
+
+export const CardContainer = styled.div`
+  display: flex;
   gap: 2.2rem;
 
   width: 100%;
