@@ -1,14 +1,13 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
-import Checkbox from '@/components/atoms/Checkbox/Checkbox';
+import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
@@ -16,6 +15,7 @@ import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useDeleteUserPost from '@/hooks/api/member/useDeleteUserPosts';
 import useGetUserPost from '@/hooks/api/member/useGetUserPost';
+import useScroll from '@/hooks/useScroll';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { SortType } from '@/types/member';
@@ -29,13 +29,11 @@ export default function Posts() {
   const { open } = useAlertModalStore();
 
   const [sort, setSort] = useState<SortType>('latest');
-  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
   const [isEdit, setIsEdit] = useState(false);
   const [selectedPostIds, setSelectedPostIds] = useState<number[]>([]);
   const { mutate: deleteUserPost } = useDeleteUserPost(selectedPostIds);
 
-  const { data: userPostsData, isLoading } = useGetUserPost({
-    page: currentPage,
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserPost({
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
     keyword: getSearchParam('keyword') ?? '',
@@ -43,37 +41,30 @@ export default function Posts() {
     endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
   });
 
-  const totalPages = userPostsData?.totalPages ?? 1;
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
+  const total = data?.pages?.[0]?.totalElements;
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    updateSearchParams({ page: page + 1 });
-  };
+  const posts = useMemo(() => (data?.pages ?? []).flatMap((p) => p.data ?? []), [data]);
+
+  const { observerRef } = useScroll({
+    nextPage: !!hasNextPage,
+    fetchNext: fetchNextPage,
+  });
 
   const handleSortChange = () => {
-    const newSort = sort === 'latest' ? 'oldest' : 'latest';
-    setSort(newSort);
-    updateSearchParams({ sort: newSort });
+    const next = sort === 'latest' ? 'oldest' : 'latest';
+    setSort(next);
+    updateSearchParams({ sort: next });
+    setSelectedPostIds([]);
   };
 
   const handleTogglePostSelection = (postId: number, checked: boolean) => {
-    if (checked) {
-      setSelectedPostIds((prev) => [...prev, postId]);
-    } else {
-      setSelectedPostIds((prev) => prev.filter((id) => id !== postId));
-    }
+    setSelectedPostIds((prev) => (checked ? [...prev, postId] : prev.filter((id) => id !== postId)));
   };
 
   const handleSelectAll = () => {
-    const allPostIds = userPostsData?.data.map((post) => post.postId) || [];
-    const allSelected = userPostsData?.data.every((post) => selectedPostIds.includes(post.postId)) || false;
-
-    if (allSelected) {
-      setSelectedPostIds([]);
-    } else {
-      setSelectedPostIds(allPostIds);
-    }
+    const loadedIds = posts.map((p) => p.postId);
+    const allSelected = loadedIds.length > 0 && loadedIds.every((id: number) => selectedPostIds.includes(id));
+    setSelectedPostIds(allSelected ? [] : loadedIds);
   };
 
   const handleDeletePosts = () => {
@@ -84,15 +75,7 @@ export default function Posts() {
     deleteUserPost();
   };
 
-  const handleGoToCommunity = () => {
-    router.push('/community');
-  };
-
-  useEffect(() => {
-    if (urlPageNum > 0) {
-      setCurrentPage(urlPageNum - 1);
-    }
-  }, [urlPageNum]);
+  const handleGoToCommunity = () => router.push('/community');
 
   if (isLoading) return <Loading />;
 
@@ -101,7 +84,7 @@ export default function Posts() {
       <S.FilterHeader>
         <SearchFilter
           totalTitle='전체 글'
-          total={userPostsData?.totalElements}
+          total={total}
           fields={{
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
@@ -118,19 +101,22 @@ export default function Posts() {
         />
 
         <S.ListControlsWrapper>
-          {(userPostsData?.data?.length ?? 0) > 0 && (
+          {posts.length > 0 && (
             <>
               {!isEdit ? (
                 <OutlinedButton
                   label='선택'
-                  onClick={() => setIsEdit(true)}
+                  onClick={() => {
+                    setIsEdit(true);
+                    setSelectedPostIds([]);
+                  }}
                   color='primary'
                   size='sm'
                   interactionVariant='normal'
                 />
               ) : (
                 <S.ListSelectButtonWrapper>
-                  {userPostsData?.data.length === selectedPostIds.length ? (
+                  {posts.length > 0 && posts.every((p) => selectedPostIds.includes(p.postId)) ? (
                     <SolidButton
                       label='전체 취소'
                       onClick={handleSelectAll}
@@ -168,7 +154,7 @@ export default function Posts() {
         </S.ListControlsWrapper>
       </S.FilterHeader>
 
-      {(userPostsData?.data?.length ?? 0) === 0 ? (
+      {posts.length === 0 ? (
         <EmptyState
           icon={<MessageCircleX />}
           description='코그니어 커뮤니티에 첫 글을 써 보세요!'
@@ -178,7 +164,7 @@ export default function Posts() {
       ) : (
         <>
           <S.PostList>
-            {userPostsData?.data.map((post) => (
+            {posts.map((post) => (
               <PostCard
                 key={post.postId}
                 post={post}
@@ -189,14 +175,11 @@ export default function Posts() {
             ))}
           </S.PostList>
 
-          <S.Pagination>
-            <NumberPagination
-              size='nm'
-              currentPage={currentPage + 1}
-              totalPages={totalPages}
-              onPageChange={(page) => handlePageChange(page - 1)}
-            />
-          </S.Pagination>
+          <InfiniteScrollSentinel
+            observerRef={observerRef}
+            hasNextPage={!!hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
         </>
       )}
     </S.UserPost>
