@@ -13,6 +13,7 @@ import useGetAdminCommentList from '@/hooks/api/admin/useGetAdminCommentList';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 
 import * as S from './page.styled';
+import ScrollXWrapper from '../../_components/ScrollXWrapper/ScrollXWrapper';
 import CommunityListRow from '../_components/CommunityListRow/CommunityListRow';
 
 export default function AdminComments() {
@@ -57,42 +58,44 @@ export default function AdminComments() {
 
   return (
     <S.AdminComments>
-      <SearchFilter
-        totalTitle='전체 댓글'
-        total={totalCount}
-        fields={{
-          select: [
-            {
-              name: 'category',
-              placeholder: '카테고리 선택',
-              options: POST_CATEGORY_SELECT_OPTIONS,
-              isMulti: true,
-            },
-          ],
-          dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
-          search: [
-            { name: 'nickname', placeholder: '닉네임 검색' },
-            { name: 'content', placeholder: '댓글 내용 입력' },
-          ],
-        }}
-        actions={[{ type: 'submit', label: '검색하기' }]}
-      />
+      <ScrollXWrapper>
+        <SearchFilter
+          totalTitle='전체 댓글'
+          total={totalCount}
+          fields={{
+            select: [
+              {
+                name: 'category',
+                placeholder: '카테고리 선택',
+                options: POST_CATEGORY_SELECT_OPTIONS,
+                isMulti: true,
+              },
+            ],
+            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+            search: [
+              { name: 'nickname', placeholder: '닉네임 검색' },
+              { name: 'content', placeholder: '댓글 내용 입력' },
+            ],
+          }}
+          actions={[{ type: 'submit', label: '검색하기' }]}
+        />
 
-      <Table
-        showSelection={false}
-        onCheckToggle={() => {}}
-        headerItems={ADMIN_COMMENTS_TABLE_HEADER_ITEMS}
-        isEmpty={comments.length === 0}
-        emptyState={<EmptyState icon={<ScriptX />} />}
-      >
-        {comments.map((comment) => (
-          <CommunityListRow
-            key={comment.commentId}
-            type='comment'
-            comment={comment}
-          />
-        ))}
-      </Table>
+        <Table
+          showSelection={false}
+          onCheckToggle={() => {}}
+          headerItems={ADMIN_COMMENTS_TABLE_HEADER_ITEMS}
+          isEmpty={comments.length === 0}
+          emptyState={<EmptyState icon={<ScriptX />} />}
+        >
+          {comments.map((comment) => (
+            <CommunityListRow
+              key={comment.commentId}
+              type='comment'
+              comment={comment}
+            />
+          ))}
+        </Table>
+      </ScrollXWrapper>
 
       <S.PaginationWrapper>
         <NumberPagination
