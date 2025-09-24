@@ -96,7 +96,7 @@ export default function AdminPosts() {
           ))}
         </Table>
       </ScrollXWrapper>
-      
+
       <S.PaginationWrapper>
         <NumberPagination
           size='nm'
