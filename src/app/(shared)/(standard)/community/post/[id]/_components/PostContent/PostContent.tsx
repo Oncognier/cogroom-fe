@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import dompurify from 'dompurify';
-import parse from 'html-react-parser';
+import parse, { DOMNode, domToReact, Element } from 'html-react-parser';
 
 import Question from '@/app/(shared)/(standard)/daily/_components/Question/Question';
 
@@ -30,7 +31,27 @@ export default function PostContent({ content, daily }: PostContentProps) {
           />
         </S.DailyCardWrapper>
       )}
-      <S.PostContentViewBox>{parse(dompurify.sanitize(content, { ADD_ATTR: ['style'] }))}</S.PostContentViewBox>
+
+      <S.PostContentViewBox>
+        {parse(content, {
+          replace: (domNode) => {
+            const element = domNode as Element;
+            if (element.type === 'tag' && element.name === 'a') {
+              const { class: className, target, ...rest } = element.attribs;
+
+              return (
+                <a
+                  {...rest}
+                  className={className}
+                  target={target}
+                >
+                  {domToReact(element.children as any)}
+                </a>
+              );
+            }
+          },
+        })}
+      </S.PostContentViewBox>
     </S.PostContentContainer>
   );
 }

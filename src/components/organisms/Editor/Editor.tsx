@@ -3,7 +3,6 @@
 import CharacterCount from '@tiptap/extension-character-count';
 import Color from '@tiptap/extension-color';
 import FontFamily from '@tiptap/extension-font-family';
-import { Link } from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import { TextAlign } from '@tiptap/extension-text-align';
 import { TextStyle } from '@tiptap/extension-text-style';
@@ -15,6 +14,7 @@ import { useEffect } from 'react';
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 
 import { CustomImage } from './CustomImage';
+import { CustomLink } from './CustomLink';
 import CustomToolbar from './CustomToolbar/CustomToolbar';
 import * as S from './Editor.styled';
 
@@ -66,10 +66,11 @@ export default function Editor({
       StarterKit,
       CustomImage,
       Color,
-      Link.configure({
+      CustomLink.configure({
         HTMLAttributes: {
           class: 'editor-link',
         },
+
         openOnClick: false,
         linkOnPaste: false,
         autolink: false,

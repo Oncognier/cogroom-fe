@@ -22,6 +22,13 @@ export const PostContentViewBox = styled.div`
     margin: 0.5rem 0 !important;
   }
 
+  a {
+    color: ${({ theme }) => theme.semantic.primary.normal};
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+  }
+
   span,
   div,
   p,

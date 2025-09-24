@@ -30,7 +30,7 @@ export default function CustomToolbarPalette({
   selectedFont,
   onSelectFont,
 }: Props) {
-  const currentColor = editor.getAttributes('textStyle').color || '#000000';
+  const currentColor = editor.getAttributes('textStyle').color;
 
   const { uploadToS3 } = useUploadFileToS3Mutation({
     onSuccess: (accessUrls) => {
