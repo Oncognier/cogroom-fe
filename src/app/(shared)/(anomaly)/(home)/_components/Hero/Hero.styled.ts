@@ -102,8 +102,6 @@ export const Icon = styled.div`
   transform: translateX(5px);
   transition: all 0.3s ease;
 
-  & > svg {
-    width: 1.2em;
-    height: 1.2em;
-  }
+  width: 1.2em;
+  height: 1.2em;
 `;
