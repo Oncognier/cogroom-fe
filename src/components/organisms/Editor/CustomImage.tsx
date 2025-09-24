@@ -1,6 +1,6 @@
 'use client';
 
-import { Node, mergeAttributes } from '@tiptap/core';
+import { Node, mergeAttributes, CommandProps } from '@tiptap/core';
 import { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import { ReactNodeViewRenderer, NodeViewWrapper, Editor } from '@tiptap/react';
 
@@ -9,7 +9,15 @@ import ResizableImage from './ResizableImage';
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     customImage: {
-      setCustomImage: (attributes: { src: string; alt?: string; width?: number; height?: number }) => ReturnType;
+      setCustomImage: (attributes: {
+        src: string;
+        alt?: string;
+        width?: number;
+        height?: number;
+        align?: 'left' | 'center' | 'right';
+      }) => ReturnType;
+
+      setImageAlign: (align: 'left' | 'center' | 'right') => ReturnType;
     };
   }
 }
@@ -27,40 +35,31 @@ interface CustomImageComponentProps {
   getPos: () => number | undefined;
 }
 
-const CustomImageComponent = ({ node, updateAttributes, editor, getPos }: CustomImageComponentProps) => {
+const CustomImageComponent = ({ node, updateAttributes }: CustomImageComponentProps) => {
   const handleResize = (width: number, height: number) => {
     updateAttributes({ width, height });
   };
 
-  const getCurrentTextAlign = () => {
-    const pos = getPos();
-    if (pos === undefined) return 'left';
-
-    try {
-      const resolvedPos = editor.state.doc.resolve(pos);
-      const attrs = resolvedPos.parent?.attrs;
-      return attrs?.textAlign || 'left';
-    } catch {
-      return 'left';
-    }
+  const getCurrentAlign = (): 'left' | 'center' | 'right' => {
+    return (node.attrs.align as 'left' | 'center' | 'right') || 'center';
   };
 
   return (
     <NodeViewWrapper
       as='div'
       style={{
-        textAlign: 'inherit',
+        textAlign: getCurrentAlign(),
         display: 'block',
         width: '100%',
       }}
     >
-      <div style={{ textAlign: 'inherit' }}>
+      <div style={{ textAlign: getCurrentAlign() }}>
         <ResizableImage
           src={node.attrs.src}
           alt={node.attrs.alt || ''}
           initialWidth={node.attrs.width || 300}
           initialHeight={node.attrs.height || 200}
-          textAlign={getCurrentTextAlign()}
+          textAlign={getCurrentAlign()}
           onResize={handleResize}
         />
       </div>
@@ -68,7 +67,7 @@ const CustomImageComponent = ({ node, updateAttributes, editor, getPos }: Custom
   );
 };
 
-export const CustomImage = Node.create({
+export const CustomImage = Node.create<CustomImageOptions>({
   name: 'customImage',
 
   group: 'block',
@@ -89,6 +88,13 @@ export const CustomImage = Node.create({
       height: {
         default: 200,
       },
+      align: {
+        default: 'left',
+        renderHTML: (attributes) => ({
+          'data-align': attributes.align,
+        }),
+        parseHTML: (element) => element.getAttribute('data-align') || 'left',
+      },
     };
   },
 
@@ -108,11 +114,30 @@ export const CustomImage = Node.create({
     return {
       setCustomImage:
         (attrs) =>
-        ({ commands }) => {
+        ({ commands }: CommandProps) => {
           return commands.insertContent({
             type: this.name,
             attrs,
           });
+        },
+
+      setImageAlign:
+        (align: 'left' | 'center' | 'right') =>
+        ({ state, tr }) => {
+          state.doc.descendants((node, pos) => {
+            if (node.type.name === 'customImage') {
+              tr.setNodeMarkup(pos, undefined, {
+                ...node.attrs,
+                align,
+              });
+            }
+          });
+
+          if (tr.docChanged) {
+            state.apply(tr);
+            return true;
+          }
+          return false;
         },
     };
   },
