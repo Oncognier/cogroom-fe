@@ -13,6 +13,7 @@ import useGetPostList from '@/hooks/api/admin/useGetAdminPostList';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 
 import * as S from './page.styled';
+import ScrollXWrapper from '../../_components/ScrollXWrapper/ScrollXWrapper';
 import CommunityListRow from '../_components/CommunityListRow/CommunityListRow';
 
 export default function AdminPosts() {
@@ -57,43 +58,45 @@ export default function AdminPosts() {
 
   return (
     <S.Posts>
-      <SearchFilter
-        totalTitle='전체 글'
-        total={totalCount}
-        fields={{
-          select: [
-            {
-              name: 'category',
-              placeholder: '카테고리 선택',
-              options: POST_CATEGORY_SELECT_OPTIONS,
-              isMulti: true,
-            },
-          ],
-          dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
-          search: [
-            { name: 'nickname', placeholder: '닉네임 검색' },
-            { name: 'title', placeholder: '글 제목 입력' },
-          ],
-        }}
-        actions={[{ type: 'submit', label: '검색하기' }]}
-      />
+      <ScrollXWrapper>
+        <SearchFilter
+          totalTitle='전체 글'
+          total={totalCount}
+          fields={{
+            select: [
+              {
+                name: 'category',
+                placeholder: '카테고리 선택',
+                options: POST_CATEGORY_SELECT_OPTIONS,
+                isMulti: true,
+              },
+            ],
+            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+            search: [
+              { name: 'nickname', placeholder: '닉네임 검색' },
+              { name: 'title', placeholder: '글 제목 입력' },
+            ],
+          }}
+          actions={[{ type: 'submit', label: '검색하기' }]}
+        />
 
-      <Table
-        showSelection={false}
-        onCheckToggle={() => {}}
-        headerItems={ADMIN_POSTS_TABLE_HEADER_ITEMS}
-        isEmpty={posts.length === 0}
-        emptyState={<EmptyState icon={<ScriptX />} />}
-      >
-        {posts.map((post) => (
-          <CommunityListRow
-            key={post.postId}
-            type='post'
-            post={post}
-          />
-        ))}
-      </Table>
-
+        <Table
+          showSelection={false}
+          onCheckToggle={() => {}}
+          headerItems={ADMIN_POSTS_TABLE_HEADER_ITEMS}
+          isEmpty={posts.length === 0}
+          emptyState={<EmptyState icon={<ScriptX />} />}
+        >
+          {posts.map((post) => (
+            <CommunityListRow
+              key={post.postId}
+              type='post'
+              post={post}
+            />
+          ))}
+        </Table>
+      </ScrollXWrapper>
+      
       <S.PaginationWrapper>
         <NumberPagination
           size='nm'
