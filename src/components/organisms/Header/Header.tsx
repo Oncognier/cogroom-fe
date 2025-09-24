@@ -3,7 +3,7 @@ import LeftNav from './LeftNav/LeftNav';
 import NavList from './NavList/NavList';
 import RightNav from './RightNav/RightNav';
 
-export default async function Header() {
+export default function Header() {
   return (
     <S.Header>
       <S.BorderWrapper>
