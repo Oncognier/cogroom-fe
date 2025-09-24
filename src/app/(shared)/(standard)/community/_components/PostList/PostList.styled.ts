@@ -13,6 +13,22 @@ export const PostList = styled.div`
 export const ButtonFilter = styled.div`
   display: flex;
   gap: 0.8rem;
+  flex-wrap: nowrap;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  & > * {
+    flex: 0 0 auto;
+  }
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 `;
 
 export const ListWrapper = styled.div`
