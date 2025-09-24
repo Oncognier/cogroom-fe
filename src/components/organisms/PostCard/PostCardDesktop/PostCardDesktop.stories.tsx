@@ -1,18 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 
-import PostCard from './PostCard';
+import PostCardDesktop from './PostCardDesktop';
 
 const meta = {
-  title: 'components/organisms/PostCard',
-  component: PostCard,
+  title: 'components/organisms/PostCardDesktop',
+  component: PostCardDesktop,
   tags: ['autodocs'],
   argTypes: {
     isEdit: { control: 'boolean' },
     isSelected: { control: 'boolean' },
     onToggleSelect: { action: 'toggle-select' },
   },
-} satisfies Meta<typeof PostCard>;
+} satisfies Meta<typeof PostCardDesktop>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -115,7 +115,7 @@ export const EditMode: Story = {
   render: (args) => {
     const [selected, setSelected] = useState(args.isSelected ?? false);
     return (
-      <PostCard
+      <PostCardDesktop
         {...args}
         isSelected={selected}
         onToggleSelect={(checked) => setSelected(checked)}

@@ -17,26 +17,14 @@ import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
 import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
-import type { Post } from '@/types/post';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
 import { formatCountPlus } from '@/utils/formatText';
 
 import * as S from './PostCardMobile.styled';
 import MetaItem from '../MetaItem/MetaItem';
+import { PostCardProps } from '../PostCard';
 
-interface PostCardMobileProps {
-  post: Post;
-  isEdit?: boolean;
-  isSelected?: boolean;
-  onToggleSelect?: (checked: boolean) => void;
-}
-
-export default function PostCardMobile({
-  post,
-  isEdit = false,
-  isSelected = false,
-  onToggleSelect,
-}: PostCardMobileProps) {
+export default function PostCardMobile({ post, isEdit = false, isSelected = false, onToggleSelect }: PostCardProps) {
   const { open: openAppModal } = useAppModalStore();
   const isAuth = useAuthStore((s) => s.isAuth());
   const router = useRouter();
