@@ -2,8 +2,6 @@
 
 import styled from '@emotion/styled';
 
-import ChevronRight from '@/assets/icons/chevronright.svg';
-
 export const Breadcrumb = styled.ol`
   display: flex;
   align-items: center;
@@ -24,7 +22,7 @@ export const BreadcrumbItem = styled.li`
   }
 `;
 
-export const BreadcrumbChevron = styled(ChevronRight)`
+export const Icon = styled.div`
   width: 16px;
   height: 16px;
   color: ${({ theme }) => theme.semantic.label.alternative};

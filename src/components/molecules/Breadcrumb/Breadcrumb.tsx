@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import ChevronRight from '@/assets/icons/chevronright.svg';
+
 import * as S from './Breadcrumb.styled';
 
 interface BreadcrumbItem {
@@ -19,7 +21,11 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         return (
           <S.BreadcrumbItem key={item.href}>
             {isLast ? <p>{item.name}</p> : <Link href={item.href}>{item.name}</Link>}
-            {!isLast && <S.BreadcrumbChevron />}
+            {!isLast && (
+              <S.Icon>
+                <ChevronRight />
+              </S.Icon>
+            )}
           </S.BreadcrumbItem>
         );
       })}
