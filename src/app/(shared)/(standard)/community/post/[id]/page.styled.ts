@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const PostPageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -9,6 +11,10 @@ export const PostPageContainer = styled.div`
   gap: 5rem;
 
   padding: 0rem 2rem;
+
+  ${mqMax.tablet} {
+    padding: 0;
+  }
 `;
 
 export const PostSectionsWrapper = styled.div`
@@ -16,6 +22,7 @@ export const PostSectionsWrapper = styled.div`
   flex-direction: column;
   gap: 4rem;
 
-  width: 79.8rem;
+  width: 100%;
+  max-width: 79.8rem;
   margin: 0 auto;
 `;
