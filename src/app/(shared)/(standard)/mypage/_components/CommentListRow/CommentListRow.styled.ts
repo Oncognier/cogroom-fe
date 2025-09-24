@@ -2,10 +2,12 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const CommentListRow = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: 2.2rem;
+  gap: 0.8rem;
 
   width: 100%;
   padding: 2.4rem 3.2rem;
@@ -13,6 +15,10 @@ export const CommentListRow = styled.div`
   cursor: pointer;
 
   border-bottom: 1px solid ${({ theme }) => theme.semantic.line.normal};
+
+  ${mqMax.desktop} {
+    flex-direction: column;
+  }
 `;
 
 export const CommentLeft = styled.div`
@@ -48,6 +54,17 @@ export const CommentRight = styled.div`
   gap: 0.8rem;
 
   max-width: 40.4rem;
+
+  ${mqMax.desktop} {
+    max-width: none;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  ${mqMax.tablet} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const Post = styled.div`
