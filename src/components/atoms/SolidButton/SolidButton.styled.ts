@@ -93,8 +93,6 @@ export const Icon = styled.div`
   justify-content: center;
   align-items: center;
 
-  & > svg {
-    width: 1.13em;
-    height: 1.13em;
-  }
+  width: 1.13em;
+  height: 1.13em;
 `;
