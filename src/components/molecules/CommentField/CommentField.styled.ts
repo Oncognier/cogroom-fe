@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const Wrapper = styled.div`
   width: 100%;
   height: 18rem;
@@ -20,7 +22,7 @@ export const Wrapper = styled.div`
 
 export const TextareaContainer = styled.div`
   width: 100%;
-  height: 100px;
+  height: 10rem;
   position: relative;
 `;
 

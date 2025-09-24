@@ -1,10 +1,10 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { commentApi } from '@/api/commentApis';
-import ArrowRightIcon from '@/assets/icons/arrowturndownright.svg';
+import ChevronRightIcon from '@/assets/icons/chevronright.svg';
 import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
 import HeartFill from '@/assets/icons/heart-fill.svg';
 import Heart from '@/assets/icons/heart.svg';
@@ -46,6 +46,11 @@ export default function CommentItem({
   const [isLiked, setIsLiked] = useState(comment.isLiked);
   const [showReplyField, setShowReplyField] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [showChildren, setShowChildren] = useState(false);
+  const [showFullContent, setShowFullContent] = useState(false);
+  const [isOverflowing, setIsOverflowing] = useState(false);
+
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const { open: openAlert } = useAlertModalStore();
   const { open: openSimpleModal } = useSimpleModalStore();
@@ -142,6 +147,33 @@ export default function CommentItem({
     setIsEditing(false);
   };
 
+  const handleToggleChildren = () => {
+    setShowChildren(!showChildren);
+  };
+
+  const handleToggleFullContent = () => {
+    setShowFullContent(!showFullContent);
+  };
+
+  useEffect(() => {
+    const checkOverflow = () => {
+      if (!contentRef.current || window.innerWidth > 768) {
+        setIsOverflowing(false);
+        return;
+      }
+
+      const element = contentRef.current;
+      setIsOverflowing(element.scrollHeight > element.clientHeight);
+    };
+
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+
+    return () => {
+      window.removeEventListener('resize', checkOverflow);
+    };
+  }, [comment.content, showFullContent]);
+
   const shouldShowMenu = isMine || isAdmin;
 
   const getCommentContent = () => {
@@ -174,8 +206,8 @@ export default function CommentItem({
 
   return (
     <S.CommentItemWrapper $isChild={isChild}>
-      <S.CommentHeader>
-        <S.AuthorInfo>
+      <S.CommentWrapper>
+        <S.CommentFirstBox>
           <S.AvatarWrapper
             onClick={handleAvatarClick}
             $isClickable={!comment.author.isAnonymous}
@@ -186,125 +218,144 @@ export default function CommentItem({
               src={comment.author.profileUrl || undefined}
             />
           </S.AvatarWrapper>
+        </S.CommentFirstBox>
 
-          <S.AuthorName
-            $isActive={comment.status === 'ACTIVE'}
-            $isClickable={!comment.author.isAnonymous}
-            onClick={handleAvatarClick}
-          >
-            {getAuthorName()}
-          </S.AuthorName>
-          {comment.status === 'ACTIVE' && <S.CommentTime>{formatRelativeKorean(comment.createdAt)}</S.CommentTime>}
-        </S.AuthorInfo>
+        <S.CommentSecondBox>
+          <S.AuthorInfoBox>
+            <S.NameBox>
+              <S.AuthorName
+                $isActive={comment.status === 'ACTIVE'}
+                $isClickable={!comment.author.isAnonymous}
+                onClick={handleAvatarClick}
+              >
+                {getAuthorName()}
+              </S.AuthorName>
+              {comment.status === 'ACTIVE' && <S.CommentTime>{formatRelativeKorean(comment.createdAt)}</S.CommentTime>}
+            </S.NameBox>
 
-        {shouldShowMenu && comment.status === 'ACTIVE' && (
-          <S.MenuContainer
-            ref={dropdownRef}
-            onBlur={handleBlur}
-            tabIndex={-1}
-          >
-            <IconButton
-              size='3.6rem'
-              variant='normal'
-              interactionVariant='normal'
-              onClick={toggle}
-              aria-label='더보기'
-              aria-haspopup='menu'
-              aria-expanded={isOpen}
-            >
-              <S.DotsIcon>
-                <DotsVerticalIcon />
-              </S.DotsIcon>
-            </IconButton>
+            {shouldShowMenu && comment.status === 'ACTIVE' && (
+              <S.MenuContainer
+                ref={dropdownRef}
+                onBlur={handleBlur}
+                tabIndex={-1}
+              >
+                <IconButton
+                  size='3.6rem'
+                  variant='normal'
+                  interactionVariant='normal'
+                  onClick={toggle}
+                  aria-label='더보기'
+                  aria-haspopup='menu'
+                  aria-expanded={isOpen}
+                >
+                  <S.DotsIcon>
+                    <DotsVerticalIcon />
+                  </S.DotsIcon>
+                </IconButton>
 
-            {isOpen && (
-              <S.MenuDropdownWrapper>
-                <DropdownList
-                  options={getDropdownOptions()}
-                  selectedValues={[]}
-                  onSelect={handleDropdownSelect}
-                />
-              </S.MenuDropdownWrapper>
+                {isOpen && (
+                  <S.MenuDropdownWrapper>
+                    <DropdownList
+                      options={getDropdownOptions()}
+                      selectedValues={[]}
+                      onSelect={handleDropdownSelect}
+                    />
+                  </S.MenuDropdownWrapper>
+                )}
+              </S.MenuContainer>
             )}
-          </S.MenuContainer>
-        )}
-      </S.CommentHeader>
+          </S.AuthorInfoBox>
 
-      <S.CommentContentWrapper>
-        {isEditing ? (
-          <S.EditFieldWrapper>
-            <CommentField
-              postId={postId}
-              placeholder='댓글을 수정해주세요'
-              isEdit={true}
-              commentId={comment.commentId.toString()}
-              initialContent={comment.content}
-              onSuccess={handleEditSuccess}
-              onCancel={handleEditCancel}
-            />
-          </S.EditFieldWrapper>
-        ) : (
-          <>
-            <S.CommentCotent
-              $isChild={isChild}
-              $isActive={comment.status === 'ACTIVE'}
-            >
-              {getCommentContent()}
-            </S.CommentCotent>
+          <S.CommentContentWrapper>
+            {isEditing ? (
+              <S.EditFieldWrapper>
+                <CommentField
+                  postId={postId}
+                  placeholder='댓글을 수정해주세요'
+                  isEdit={true}
+                  commentId={comment.commentId.toString()}
+                  initialContent={comment.content}
+                  onSuccess={handleEditSuccess}
+                  onCancel={handleEditCancel}
+                />
+              </S.EditFieldWrapper>
+            ) : (
+              <>
+                <S.CommentCotent
+                  $isChild={isChild}
+                  $isActive={comment.status === 'ACTIVE'}
+                  $showFullContent={showFullContent}
+                >
+                  <S.CommentInner
+                    ref={contentRef}
+                    $isChild={isChild}
+                    $isActive={comment.status === 'ACTIVE'}
+                    $showFullContent={showFullContent}
+                  >
+                    {getCommentContent()}
+                  </S.CommentInner>
+                  {comment.status === 'ACTIVE' && !showFullContent && isOverflowing && (
+                    <S.ShowMoreButton onClick={handleToggleFullContent}>자세히 보기</S.ShowMoreButton>
+                  )}
+                </S.CommentCotent>
+              </>
+            )}
+          </S.CommentContentWrapper>
+
+          <S.LikesWithReplyBox>
             {comment.status === 'ACTIVE' && (
               <S.LikeButton onClick={handleLikeClick}>
                 <S.LikeIcon $isLiked={isLiked}>{isLiked ? <HeartFill /> : <Heart />}</S.LikeIcon>
                 <S.LikeCount>{formatCountPlus(likeCount)}</S.LikeCount>
               </S.LikeButton>
             )}
-          </>
-        )}
-      </S.CommentContentWrapper>
 
-      {!isChild && !isEditing && comment.status === 'ACTIVE' && (
-        <S.CommentFooter>
-          <S.FooterButton onClick={handleReplyClick}>{showReplyField ? '취소하기' : '답글 달기'}</S.FooterButton>
-        </S.CommentFooter>
-      )}
+            {!isChild && !isEditing && comment.status === 'ACTIVE' && (
+              <S.FooterButton onClick={handleReplyClick}>{showReplyField ? '취소하기' : '답글 달기'}</S.FooterButton>
+            )}
+          </S.LikesWithReplyBox>
 
-      {showReplyField && !isEditing && comment.status === 'ACTIVE' && (
-        <S.ReplyFieldContainer>
-          <S.ArrowIcon>
-            <ArrowRightIcon />
-          </S.ArrowIcon>
+          {!isChild && comment.children && comment.children.length > 0 && (
+            <S.ReplyCountButton onClick={handleToggleChildren}>
+              답글 {comment.children.length}개
+              <S.ChevronIcon $isExpanded={showChildren}>
+                <ChevronRightIcon />
+              </S.ChevronIcon>
+            </S.ReplyCountButton>
+          )}
 
-          <CommentField
-            postId={postId}
-            placeholder='댓글을 입력해주세요'
-            parentId={comment.commentId}
-            showAnonymousCheckbox={isPostAnonymous}
-            onSuccess={handleReplySuccess}
-          />
-        </S.ReplyFieldContainer>
-      )}
-
-      {comment.children && comment.children.length > 0 && (
-        <S.ChilrenWrpper>
-          {comment.children.map((childComment) => (
-            <S.ChildrenContainer key={childComment.commentId}>
-              <S.ArrowIcon>
-                <ArrowRightIcon />
-              </S.ArrowIcon>
-
-              <CommentItem
-                key={childComment.commentId}
-                comment={childComment}
+          {showReplyField && !isEditing && comment.status === 'ACTIVE' && (
+            <S.ReplyFieldContainer>
+              <CommentField
                 postId={postId}
-                isMine={childComment.isMine}
-                isAdmin={isAdmin}
-                isChild={true}
-                isPostAnonymous={isPostAnonymous}
-                onCommentUpdated={onCommentUpdated}
+                placeholder='댓글을 입력해주세요'
+                parentId={comment.commentId}
+                showAnonymousCheckbox={isPostAnonymous}
+                onSuccess={handleReplySuccess}
               />
-            </S.ChildrenContainer>
-          ))}
-        </S.ChilrenWrpper>
-      )}
+            </S.ReplyFieldContainer>
+          )}
+
+          {comment.children && comment.children.length > 0 && showChildren && (
+            <S.ChilrenWrpper>
+              {comment.children.map((childComment) => (
+                <S.ChildrenContainer key={childComment.commentId}>
+                  <CommentItem
+                    key={childComment.commentId}
+                    comment={childComment}
+                    postId={postId}
+                    isMine={childComment.isMine}
+                    isAdmin={isAdmin}
+                    isChild={true}
+                    isPostAnonymous={isPostAnonymous}
+                    onCommentUpdated={onCommentUpdated}
+                  />
+                </S.ChildrenContainer>
+              ))}
+            </S.ChilrenWrpper>
+          )}
+        </S.CommentSecondBox>
+      </S.CommentWrapper>
     </S.CommentItemWrapper>
   );
 }
