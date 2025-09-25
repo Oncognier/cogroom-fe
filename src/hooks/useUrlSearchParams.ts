@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
+
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 export const useUrlSearchParams = () => {
