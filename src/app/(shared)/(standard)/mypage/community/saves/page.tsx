@@ -15,7 +15,6 @@ import useGetUserSave from '@/hooks/api/member/useGetUserSave';
 import useScroll from '@/hooks/useScroll';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { SortType } from '@/types/member';
-import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './page.styled';
 
@@ -28,9 +27,9 @@ export default function Saves() {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserSave({
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
-    keyword: getSearchParam('keyword') || undefined,
-    startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')) || undefined,
-    endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')) || undefined,
+    keyword: getSearchParam('keyword') ?? '',
+    startDate: getSearchParamAsDate('startDate') ?? undefined,
+    endDate: getSearchParamAsDate('endDate') ?? undefined,
   });
 
   const total = data?.pages[0].totalElements;

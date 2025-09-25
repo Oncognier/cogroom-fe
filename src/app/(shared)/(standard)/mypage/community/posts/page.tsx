@@ -19,7 +19,6 @@ import useScroll from '@/hooks/useScroll';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { SortType } from '@/types/member';
-import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 import * as S from './page.styled';
 
@@ -37,8 +36,8 @@ export default function Posts() {
     sort,
     categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
     keyword: getSearchParam('keyword') ?? '',
-    startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
-    endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
+    startDate: getSearchParamAsDate('startDate') ?? undefined,
+    endDate: getSearchParamAsDate('endDate') ?? undefined,
   });
 
   const total = data?.pages?.[0]?.totalElements;
