@@ -47,6 +47,12 @@ export const BottomSection = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
+
+  ${mqMax.tablet} {
+    flex-direction: column;
+    align-items: end;
+    gap: 1rem;
+  }
 `;
 
 export const CounterWrapper = styled.div`
