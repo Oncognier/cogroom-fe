@@ -4,6 +4,16 @@ import { useEffect, useState } from 'react';
 
 import { Comment } from '@/types/comment';
 
+const BLUE_LINE_CONSTANTS = {
+  MIN_HEIGHT: 50,
+  MIN_REPLY_FIELD_HEIGHT: 100,
+  AVATAR_OFFSET: 32,
+  REPLY_COUNT_BUTTON_OFFSET: 15,
+  WRAPPER_HEIGHT_MARGIN: 50,
+  UPDATE_DELAY: 50,
+  REPLY_FIELD_UPDATE_DELAY: 100,
+};
+
 interface UseBlueLineHeightProps {
   showChildren: boolean;
   showReplyField: boolean;
@@ -24,7 +34,7 @@ export const useBlueLineHeight = ({
   replyCountButtonRef,
 }: UseBlueLineHeightProps) => {
   const [lineHeight, setLineHeight] = useState(0);
-  const [replyFieldHeight, setReplyFieldHeight] = useState(14);
+  const [replyFieldHeight, setReplyFieldHeight] = useState(BLUE_LINE_CONSTANTS.MIN_REPLY_FIELD_HEIGHT);
   const [commentWrapperHeight, setCommentWrapperHeight] = useState(0);
 
   // CommentItemWrapper 높이를 측정하여 파란색 선의 높이를 계산
@@ -61,9 +71,8 @@ export const useBlueLineHeight = ({
 
       // 마지막 자식 댓글의 아바타 위치 계산 (자식 댓글 시작 지점 + 아바타 위치)
       const relativeTop = lastChildRect.top - containerRect.top;
-      const avatarOffset = 32; // 아바타 위치 조정값
 
-      setLineHeight(Math.max(relativeTop + avatarOffset, 50));
+      setLineHeight(Math.max(relativeTop + BLUE_LINE_CONSTANTS.AVATAR_OFFSET, BLUE_LINE_CONSTANTS.MIN_HEIGHT));
     } else {
       let totalHeight = 0;
       childrenRefs.current.forEach((el) => {
@@ -84,7 +93,7 @@ export const useBlueLineHeight = ({
     };
 
     // 댓글 내용이 변경되었을 때 약간의 지연 후 업데이트
-    const timeoutId = setTimeout(updateButtonPosition, 50);
+    const timeoutId = setTimeout(updateButtonPosition, BLUE_LINE_CONSTANTS.UPDATE_DELAY);
     return () => clearTimeout(timeoutId);
   }, [comment.content, showFullContent, showChildren, comment.children]);
 
@@ -98,11 +107,14 @@ export const useBlueLineHeight = ({
           const containerRect = commentWrapperRef.current.getBoundingClientRect();
           const replyFieldRect = (replyFieldContainer as HTMLElement).getBoundingClientRect();
           const relativeTop = replyFieldRect.top - containerRect.top;
-          const calculatedHeight = Math.max(relativeTop, 100); // 답글 필드 위치 + 여백
+          const calculatedHeight = Math.max(relativeTop, BLUE_LINE_CONSTANTS.MIN_REPLY_FIELD_HEIGHT);
           setReplyFieldHeight(calculatedHeight);
         } else {
           // 답글 필드가 아직 렌더링되지 않은 경우 기본값 사용
-          const calculatedHeight = Math.max(commentWrapperHeight - 50, 100);
+          const calculatedHeight = Math.max(
+            commentWrapperHeight - BLUE_LINE_CONSTANTS.WRAPPER_HEIGHT_MARGIN,
+            BLUE_LINE_CONSTANTS.MIN_REPLY_FIELD_HEIGHT,
+          );
           setReplyFieldHeight(calculatedHeight);
         }
       }
@@ -112,7 +124,7 @@ export const useBlueLineHeight = ({
 
     // showReplyField가 변경된 후 약간의 지연을 두고 다시 계산 (DOM 업데이트 대기)
     if (showReplyField) {
-      const timeoutId = setTimeout(updateReplyFieldHeight, 100);
+      const timeoutId = setTimeout(updateReplyFieldHeight, BLUE_LINE_CONSTANTS.REPLY_FIELD_UPDATE_DELAY);
       return () => clearTimeout(timeoutId);
     }
   }, [showReplyField, comment.content, showFullContent, commentWrapperHeight]);
@@ -123,10 +135,16 @@ export const useBlueLineHeight = ({
       const containerRect = commentWrapperRef.current.getBoundingClientRect();
       const buttonRect = replyCountButtonRef.current.getBoundingClientRect();
       const relativeTop = buttonRect.top - containerRect.top;
-      return Math.max(relativeTop - 15, 100);
+      return Math.max(
+        relativeTop - BLUE_LINE_CONSTANTS.REPLY_COUNT_BUTTON_OFFSET,
+        BLUE_LINE_CONSTANTS.MIN_REPLY_FIELD_HEIGHT,
+      );
     }
 
-    return Math.max(commentWrapperHeight - 50, 100);
+    return Math.max(
+      commentWrapperHeight - BLUE_LINE_CONSTANTS.WRAPPER_HEIGHT_MARGIN,
+      BLUE_LINE_CONSTANTS.MIN_REPLY_FIELD_HEIGHT,
+    );
   };
 
   return {
