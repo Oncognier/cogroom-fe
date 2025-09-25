@@ -33,6 +33,8 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButton
   color: ${theme.semantic.static.white};
   padding: 1.2rem 2.4rem;
 
+  white-space: nowrap;
+
   &:hover {
     cursor: pointer;
   }

@@ -32,6 +32,8 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: OutlinedBut
   color: ${theme.semantic.primary.normal};
   padding: 1.1rem 2.3rem;
 
+  white-space: nowrap;
+
   &:hover {
     cursor: pointer;
   }
