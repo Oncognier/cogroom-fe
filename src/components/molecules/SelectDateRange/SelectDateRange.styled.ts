@@ -2,11 +2,11 @@
 
 import styled from '@emotion/styled';
 
-interface SelectDateStyleProps {
+interface SelectDateRangeStyleProps {
   isOpen?: boolean;
 }
 
-export const SelectDateWrapper = styled.div`
+export const SelectDateRangeWrapper = styled.div`
   position: relative;
   width: 18rem;
 `;
@@ -17,7 +17,7 @@ export const DatePopup = styled.div`
   z-index: 20;
 `;
 
-export const InputContainer = styled.div<SelectDateStyleProps>`
+export const InputContainer = styled.div<SelectDateRangeStyleProps>`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -52,7 +52,7 @@ export const TriggerInput = styled.input`
   }
 `;
 
-export const IconWrapper = styled.div<SelectDateStyleProps>`
+export const IconWrapper = styled.div<SelectDateRangeStyleProps>`
   width: 1.6rem;
   height: 1.6rem;
 

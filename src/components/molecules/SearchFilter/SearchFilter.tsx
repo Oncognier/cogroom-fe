@@ -7,7 +7,7 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { Select } from '@/components/molecules/Select/Select';
-import SelectDate from '@/components/molecules/SelectDate/SelectDate';
+import SelectDateRange from '@/components/molecules/SelectDateRange/SelectDateRange';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { formatCountPlus } from '@/utils/formatText';
 
@@ -162,7 +162,7 @@ export default function SearchFilter({ totalTitle, total, fields, actions, class
         ))}
 
         {fields.dateRange && (
-          <SelectDate
+          <SelectDateRange  
             selectedStartDate={(watch(fields.dateRange.startDateName || 'startDate') as Date) || null}
             selectedEndDate={(watch(fields.dateRange.endDateName || 'endDate') as Date) || null}
             onStartDateChange={(date) => setValue(fields.dateRange!.startDateName || 'startDate', date)}

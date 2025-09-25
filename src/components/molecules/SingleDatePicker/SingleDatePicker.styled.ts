@@ -2,24 +2,11 @@
 
 import styled from '@emotion/styled';
 
-interface DatePickerStyleProps {
-  isOpen: boolean;
-  isSelected: boolean;
-}
-
-export const DatePicker = styled.div`
+export const SingleDatePicker = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  width: fit-content;
-
   gap: 1.6rem;
-  padding: 2.4rem;
-
-  border-radius: 1.6rem;
-  background-color: ${({ theme }) => theme.semantic.static.white};
-  box-shadow: ${({ theme }) => theme.shadow.normal};
 `;
 
 export const Heading = styled.div`
@@ -31,7 +18,6 @@ export const Heading = styled.div`
 
 export const HeadingIcon = styled.div`
   cursor: pointer;
-
   color: ${({ theme }) => theme.semantic.label.alternative};
   width: 1.6rem;
   height: 1.6rem;
@@ -55,12 +41,22 @@ export const WeekDay = styled.div`
 `;
 
 export const DateList = styled.div`
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.2rem;
+  place-items: center;
 `;
 
-export const DateItem = styled.div<Pick<DatePickerStyleProps, 'isSelected'>>`
+export const DateItem = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Date = styled.div<{
+  isSelected: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +65,6 @@ export const DateItem = styled.div<Pick<DatePickerStyleProps, 'isSelected'>>`
   height: 3rem;
   text-align: center;
   border-radius: 0.8rem;
-
   cursor: pointer;
 
   background-color: ${({ theme, isSelected }) => (isSelected ? theme.semantic.primary.normal : 'transparent')};

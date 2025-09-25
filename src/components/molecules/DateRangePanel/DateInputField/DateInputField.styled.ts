@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const DateSelectWrapper = styled.div`
+export const DateInputField = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;

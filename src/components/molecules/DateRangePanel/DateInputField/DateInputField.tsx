@@ -1,17 +1,17 @@
 import DateIcon from '@/assets/icons/date.svg';
 import { formatDayAsSlashYYMMDD } from '@/utils/date/formatDay';
 
-import * as S from './DateSelector.styled';
+import * as S from './DateInputField.styled';
 
-interface DateSelectorProps {
+interface DateInputFieldProps {
   label: string;
   selectedDate: Date | null;
   onClick: () => void;
 }
 
-export default function DateSelector({ label, selectedDate, onClick }: DateSelectorProps) {
+export default function DateInputField({ label, selectedDate, onClick }: DateInputFieldProps) {
   return (
-    <S.DateSelectWrapper>
+    <S.DateInputField>
       <S.DateLabel>{label}</S.DateLabel>
       <S.DateInputWrapper>
         <S.DateInput>{selectedDate ? formatDayAsSlashYYMMDD(selectedDate) : '년도 / 월 / 일'}</S.DateInput>
@@ -19,6 +19,6 @@ export default function DateSelector({ label, selectedDate, onClick }: DateSelec
           <DateIcon />
         </S.Icon>
       </S.DateInputWrapper>
-    </S.DateSelectWrapper>
+    </S.DateInputField>
   );
 }

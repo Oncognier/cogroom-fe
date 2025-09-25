@@ -10,7 +10,7 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import { Select } from '@/components/molecules/Select/Select';
-import SelectDate from '@/components/molecules/SelectDate/SelectDate';
+import SelectDateRange from '@/components/molecules/SelectDateRange/SelectDateRange';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
@@ -123,7 +123,7 @@ export default function MemberDaily() {
                 name='endDate'
                 control={control}
                 render={({ field: endField }) => (
-                  <SelectDate
+                  <SelectDateRange
                     selectedStartDate={startField.value}
                     selectedEndDate={endField.value}
                     onStartDateChange={startField.onChange}
