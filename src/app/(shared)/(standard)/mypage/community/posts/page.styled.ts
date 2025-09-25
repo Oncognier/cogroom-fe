@@ -3,12 +3,16 @@
 import styled from '@emotion/styled';
 
 export const UserPost = styled.div`
+  width: 100%;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
 `;
 
 export const FilterHeader = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
