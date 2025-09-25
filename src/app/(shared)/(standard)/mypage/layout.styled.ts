@@ -31,7 +31,7 @@ export const ContentLayout = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  flex: 1;
+  width: 100%;
 `;
 
 export const MobileContainer = styled.div`
