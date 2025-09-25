@@ -31,14 +31,16 @@ export default function CommunityWrite() {
 
   return (
     <S.Container>
-      <Breadcrumb
-        items={[
-          { name: '홈', href: '/' },
-          { name: '커뮤니티', href: '/community' },
-        ]}
-      />
+      <S.MobileGuard>
+        <Breadcrumb
+          items={[
+            { name: '홈', href: '/' },
+            { name: '커뮤니티', href: '/community' },
+          ]}
+        />
 
-      <CommunityDescription />
+        <CommunityDescription />
+      </S.MobileGuard>
 
       <FormProvider {...logic.methods}>
         <S.WriteForm onSubmit={logic.methods.handleSubmit(logic.onSubmit)}>
