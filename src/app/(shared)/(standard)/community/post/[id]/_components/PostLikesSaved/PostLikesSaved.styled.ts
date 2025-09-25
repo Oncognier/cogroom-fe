@@ -24,8 +24,6 @@ export const IconTextWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6rem;
-
-  width: 8.2rem;
 `;
 
 export const CountText = styled.span`

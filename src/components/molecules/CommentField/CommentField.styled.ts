@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const Wrapper = styled.div`
   width: 100%;
   height: 18rem;
@@ -20,7 +22,7 @@ export const Wrapper = styled.div`
 
 export const TextareaContainer = styled.div`
   width: 100%;
-  height: 100px;
+  height: 10rem;
   position: relative;
 `;
 
@@ -45,6 +47,12 @@ export const BottomSection = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
+
+  ${mqMax.tablet} {
+    flex-direction: column;
+    align-items: end;
+    gap: 1rem;
+  }
 `;
 
 export const CounterWrapper = styled.div`

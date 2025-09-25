@@ -14,11 +14,11 @@ type ColorIndicatorProps = {
 
 export const CustomToolbar = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 
   padding: 0 0.6rem;
-  gap: 0.8rem;
 `;
 
 export const ToolbarGroup = styled.div`
@@ -56,6 +56,7 @@ export const Divider = styled.div`
   height: 4.4rem;
   background-color: ${({ theme }) => theme.semantic.label.assistive};
   border-radius: 100%;
+  flex-shrink: 0;
 `;
 
 export const ImageUpload = styled.button<ButtonProps>`
