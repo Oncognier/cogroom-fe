@@ -1,26 +1,22 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
-
-import { commentApi } from '@/api/commentApis';
 import ChevronRightIcon from '@/assets/icons/chevronright.svg';
-import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
 import HeartFill from '@/assets/icons/heart-fill.svg';
 import Heart from '@/assets/icons/heart.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
-import IconButton from '@/components/atoms/IconButton/IconButton';
 import CommentField from '@/components/molecules/CommentField/CommentField';
-import { DropdownList } from '@/components/molecules/DropdownList/DropdownList';
 import { useDeleteCommentLike } from '@/hooks/api/comment/useDeleteCommentLike';
 import { useToggleCommentLike } from '@/hooks/api/comment/useToggleCommentLike';
-import { useDropdown } from '@/hooks/useDropdown';
-import { useAlertModalStore, useSimpleModalStore } from '@/stores/useModalStore';
+import { useBlueLineHeight } from '@/hooks/useBlueLineHeight';
+import { useCommentState } from '@/hooks/useCommentState';
+import { useSimpleModalStore } from '@/stores/useModalStore';
 import { Comment } from '@/types/comment';
-import { DropdownOption } from '@/types/common';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
 import { formatCountPlus, getDisplayName } from '@/utils/formatText';
 
+import { BlueLineElement, StaticBlueLine } from './_components/BlueLineElement';
+import CommentContent from './_components/CommentContent';
+import CommentDropdown from './_components/CommentDropdown';
 import * as S from './CommentItem.styled';
 
 interface CommentItemProps {
@@ -29,6 +25,7 @@ interface CommentItemProps {
   isAdmin?: boolean;
   isMine?: boolean;
   isChild?: boolean;
+  parentShowReplyField?: boolean;
   isPostAnonymous?: boolean;
   onCommentUpdated?: () => void;
 }
@@ -39,68 +36,47 @@ export default function CommentItem({
   isMine = false,
   isAdmin = false,
   isChild = false,
+  parentShowReplyField = false,
   isPostAnonymous = false,
   onCommentUpdated,
 }: CommentItemProps) {
-  const [likeCount, setLikeCount] = useState(comment.likeCount);
-  const [isLiked, setIsLiked] = useState(comment.isLiked);
-  const [showReplyField, setShowReplyField] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [showChildren, setShowChildren] = useState(false);
-  const [showFullContent, setShowFullContent] = useState(false);
-  const [isOverflowing, setIsOverflowing] = useState(false);
+  const {
+    likeCount,
+    isLiked,
+    showReplyField,
+    isEditing,
+    showChildren,
+    showFullContent,
+    isOverflowing,
+    setLikeCount,
+    setIsLiked,
+    setIsEditing,
+    contentRef,
+    childrenRefs,
+    replyCountButtonRef,
+    commentWrapperRef,
+    handleReplyClick,
+    handleReplySuccess,
+    handleEditSuccess,
+    handleEditCancel,
+    handleToggleChildren,
+    handleToggleFullContent,
+  } = useCommentState({ comment });
 
-  const contentRef = useRef<HTMLDivElement>(null);
+  const { lineHeight, replyFieldHeight, getReplyCountButtonHeight } = useBlueLineHeight({
+    showChildren,
+    showReplyField,
+    comment,
+    showFullContent,
+    commentWrapperRef,
+    childrenRefs,
+    replyCountButtonRef,
+  });
 
-  const { open: openAlert } = useAlertModalStore();
   const { open: openSimpleModal } = useSimpleModalStore();
-  const { isOpen, toggle, close, handleBlur, dropdownRef } = useDropdown();
 
   const toggleCommentLikeMutation = useToggleCommentLike();
   const deleteCommentLikeMutation = useDeleteCommentLike();
-
-  const forceDeleteMutation = useMutation({
-    mutationFn: commentApi.deleteComment,
-    onSuccess: () => {
-      openAlert('alert', { message: '댓글이 삭제되었습니다.' });
-      onCommentUpdated?.();
-    },
-    onError: () => {
-      openAlert('alert', { message: '댓글 삭제에 실패했습니다.' });
-    },
-  });
-
-  const getDropdownOptions = (): DropdownOption[] => {
-    const options: DropdownOption[] = [];
-
-    if (isMine) {
-      options.push({ label: '수정하기', value: 'EDIT', color: 'default' });
-      options.push({ label: '삭제하기', value: 'DELETE', color: 'default' });
-    } else if (isAdmin) {
-      options.push({ label: '강제로 삭제', value: 'FORCE_DELETE', color: 'red' });
-    }
-
-    return options;
-  };
-
-  const handleDropdownSelect = (values: Array<string | number>) => {
-    const value = values[0];
-
-    if (value === 'EDIT') {
-      setIsEditing(true);
-      setShowReplyField(false);
-    } else if (value === 'DELETE') {
-      openAlert('communityDelete', {
-        type: 'comment',
-        id: comment.commentId,
-        onConfirm: onCommentUpdated,
-      });
-    } else if (value === 'FORCE_DELETE') {
-      forceDeleteMutation.mutate({ commentId: comment.commentId.toString() });
-    }
-
-    close();
-  };
 
   const handleAvatarClick = () => {
     if (!comment.author.isAnonymous) {
@@ -108,6 +84,10 @@ export default function CommentItem({
         memberId: comment.author.authorId.toString(),
       });
     }
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
   };
 
   const handleLikeClick = () => {
@@ -129,65 +109,14 @@ export default function CommentItem({
     });
   };
 
-  const handleReplyClick = () => {
-    setShowReplyField(!showReplyField);
-  };
-
-  const handleReplySuccess = () => {
-    setShowReplyField(false);
+  const handleReplySuccessWithUpdate = () => {
+    handleReplySuccess();
     onCommentUpdated?.();
   };
 
-  const handleEditSuccess = () => {
-    setIsEditing(false);
+  const handleEditSuccessWithUpdate = () => {
+    handleEditSuccess();
     onCommentUpdated?.();
-  };
-
-  const handleEditCancel = () => {
-    setIsEditing(false);
-  };
-
-  const handleToggleChildren = () => {
-    setShowChildren(!showChildren);
-  };
-
-  const handleToggleFullContent = () => {
-    setShowFullContent(!showFullContent);
-  };
-
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (!contentRef.current || window.innerWidth > 768) {
-        setIsOverflowing(false);
-        return;
-      }
-
-      const element = contentRef.current;
-      setIsOverflowing(element.scrollHeight > element.clientHeight);
-    };
-
-    checkOverflow();
-    window.addEventListener('resize', checkOverflow);
-
-    return () => {
-      window.removeEventListener('resize', checkOverflow);
-    };
-  }, [comment.content, showFullContent]);
-
-  const shouldShowMenu = isMine || isAdmin;
-
-  const getCommentContent = () => {
-    switch (comment.status) {
-      case 'ACTIVE':
-        return comment.content;
-      case 'DELETED_BY_USER':
-      case 'DELETED_BY_ADMIN':
-        return '삭제된 댓글이에요';
-      case 'USER_WITHDRAWN':
-        return '댓글을 볼 수 없어요';
-      default:
-        return '댓글을 볼 수 없어요';
-    }
   };
 
   const getAuthorName = () => {
@@ -205,12 +134,27 @@ export default function CommentItem({
   };
 
   return (
-    <S.CommentItemWrapper $isChild={isChild}>
+    <S.CommentItemWrapper
+      $isChild={isChild}
+      ref={commentWrapperRef}
+    >
       <S.CommentWrapper>
         <S.CommentFirstBox>
+          {!isChild && comment.children && comment.children.length > 0 && !showChildren && (
+            <StaticBlueLine style={{ height: `${getReplyCountButtonHeight()}px` }} />
+          )}
+
+          {!isChild && showReplyField && <StaticBlueLine style={{ height: `${replyFieldHeight}px` }} />}
+
+          {!isChild && comment.children && comment.children.length > 0 && showChildren && !showReplyField && (
+            <BlueLineElement style={{ height: `${lineHeight - 60}px` }} />
+          )}
+
           <S.AvatarWrapper
             onClick={handleAvatarClick}
             $isClickable={!comment.author.isAnonymous}
+            $isChild={isChild}
+            $showReplyField={parentShowReplyField}
           >
             <AvatarPerson
               type='icon'
@@ -233,74 +177,29 @@ export default function CommentItem({
               {comment.status === 'ACTIVE' && <S.CommentTime>{formatRelativeKorean(comment.createdAt)}</S.CommentTime>}
             </S.NameBox>
 
-            {shouldShowMenu && comment.status === 'ACTIVE' && (
-              <S.MenuContainer
-                ref={dropdownRef}
-                onBlur={handleBlur}
-                tabIndex={-1}
-              >
-                <IconButton
-                  size='3.6rem'
-                  variant='normal'
-                  interactionVariant='normal'
-                  onClick={toggle}
-                  aria-label='더보기'
-                  aria-haspopup='menu'
-                  aria-expanded={isOpen}
-                >
-                  <S.DotsIcon>
-                    <DotsVerticalIcon />
-                  </S.DotsIcon>
-                </IconButton>
-
-                {isOpen && (
-                  <S.MenuDropdownWrapper>
-                    <DropdownList
-                      options={getDropdownOptions()}
-                      selectedValues={[]}
-                      onSelect={handleDropdownSelect}
-                    />
-                  </S.MenuDropdownWrapper>
-                )}
-              </S.MenuContainer>
+            {comment.status === 'ACTIVE' && (
+              <CommentDropdown
+                commentId={comment.commentId}
+                isMine={isMine}
+                isAdmin={isAdmin}
+                onEdit={handleEdit}
+                onCommentUpdated={onCommentUpdated}
+              />
             )}
           </S.AuthorInfoBox>
 
-          <S.CommentContentWrapper>
-            {isEditing ? (
-              <S.EditFieldWrapper>
-                <CommentField
-                  postId={postId}
-                  placeholder='댓글을 수정해주세요'
-                  isEdit={true}
-                  commentId={comment.commentId.toString()}
-                  initialContent={comment.content}
-                  onSuccess={handleEditSuccess}
-                  onCancel={handleEditCancel}
-                />
-              </S.EditFieldWrapper>
-            ) : (
-              <>
-                <S.CommentCotent
-                  $isChild={isChild}
-                  $isActive={comment.status === 'ACTIVE'}
-                  $showFullContent={showFullContent}
-                >
-                  <S.CommentInner
-                    ref={contentRef}
-                    $isChild={isChild}
-                    $isActive={comment.status === 'ACTIVE'}
-                    $showFullContent={showFullContent}
-                  >
-                    {getCommentContent()}
-                  </S.CommentInner>
-                  {comment.status === 'ACTIVE' && !showFullContent && isOverflowing && (
-                    <S.ShowMoreButton onClick={handleToggleFullContent}>자세히 보기</S.ShowMoreButton>
-                  )}
-                </S.CommentCotent>
-              </>
-            )}
-          </S.CommentContentWrapper>
+          <CommentContent
+            comment={comment}
+            postId={postId}
+            isChild={isChild}
+            isEditing={isEditing}
+            showFullContent={showFullContent}
+            isOverflowing={isOverflowing}
+            contentRef={contentRef}
+            onEditSuccess={handleEditSuccessWithUpdate}
+            onEditCancel={handleEditCancel}
+            onToggleFullContent={handleToggleFullContent}
+          />
 
           <S.LikesWithReplyBox>
             {comment.status === 'ACTIVE' && (
@@ -315,8 +214,11 @@ export default function CommentItem({
             )}
           </S.LikesWithReplyBox>
 
-          {!isChild && comment.children && comment.children.length > 0 && (
-            <S.ReplyCountButton onClick={handleToggleChildren}>
+          {!isChild && comment.children && comment.children.length > 0 && !showChildren && (
+            <S.ReplyCountButton
+              ref={replyCountButtonRef}
+              onClick={handleToggleChildren}
+            >
               답글 {comment.children.length}개
               <S.ChevronIcon $isExpanded={showChildren}>
                 <ChevronRightIcon />
@@ -325,21 +227,26 @@ export default function CommentItem({
           )}
 
           {showReplyField && !isEditing && comment.status === 'ACTIVE' && (
-            <S.ReplyFieldContainer>
+            <S.ReplyFieldContainer data-reply-field>
               <CommentField
                 postId={postId}
                 placeholder='댓글을 입력해주세요'
                 parentId={comment.commentId}
                 showAnonymousCheckbox={isPostAnonymous}
-                onSuccess={handleReplySuccess}
+                onSuccess={handleReplySuccessWithUpdate}
               />
             </S.ReplyFieldContainer>
           )}
 
           {comment.children && comment.children.length > 0 && showChildren && (
             <S.ChilrenWrpper>
-              {comment.children.map((childComment) => (
-                <S.ChildrenContainer key={childComment.commentId}>
+              {comment.children.map((childComment, index) => (
+                <S.ChildrenContainer
+                  key={childComment.commentId}
+                  ref={(el) => {
+                    childrenRefs.current[index] = el;
+                  }}
+                >
                   <CommentItem
                     key={childComment.commentId}
                     comment={childComment}
@@ -347,6 +254,7 @@ export default function CommentItem({
                     isMine={childComment.isMine}
                     isAdmin={isAdmin}
                     isChild={true}
+                    parentShowReplyField={showReplyField}
                     isPostAnonymous={isPostAnonymous}
                     onCommentUpdated={onCommentUpdated}
                   />

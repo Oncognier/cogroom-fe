@@ -54,12 +54,35 @@ export const CommentFirstBox = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  position: relative;
 `;
 
-export const AvatarWrapper = styled.div<{ $isClickable: boolean }>`
+export const AvatarWrapper = styled.div<{ $isClickable: boolean; $isChild?: boolean; $showReplyField?: boolean }>`
+  position: relative;
+
   * {
     cursor: ${({ $isClickable }) => ($isClickable ? 'pointer' : 'default')} !important;
   }
+
+  ${({ $isChild, $showReplyField, theme }) =>
+    $isChild &&
+    !$showReplyField &&
+    `
+    &::before {
+      content: '';
+      position: absolute;
+      left: -2.6rem;
+      top: 0.5rem;
+      width: 1.5rem;
+      height: 1rem;
+      background: transparent;
+      border-left: 2px solid ${theme.palette.blue[90]};
+      border-bottom: 2px solid ${theme.palette.blue[90]};
+      border-right: none;
+      border-radius: 0 0 0 1.5rem;
+      z-index: 1;
+    }
+  `}
 `;
 
 export const AuthorName = styled.span<{ $isActive: boolean; $isClickable?: boolean }>`
@@ -156,9 +179,7 @@ export const ChildrenContainer = styled.div`
   flex-direction: row;
   align-items: center;
   gap: 2.4rem;
-
   width: 100%;
-
   padding-top: 1.6rem;
 `;
 
@@ -193,9 +214,10 @@ export const CommentSecondBox = styled.div`
 export const AuthorInfoBox = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
-
   justify-content: space-between;
+
+  width: 100%;
+  height: 3.7rem;
 `;
 
 export const LikesWithReplyBox = styled.div`
