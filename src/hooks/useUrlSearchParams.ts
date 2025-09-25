@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
+import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
 export const useUrlSearchParams = () => {
   const router = useRouter();
@@ -24,7 +25,8 @@ export const useUrlSearchParams = () => {
             }
           });
         } else if (value instanceof Date) {
-          newSearchParams.set(key, value.toISOString());
+          const formattedDate = formatDayAsDashYYYYMMDD(value);
+          newSearchParams.set(key, formattedDate || value.toISOString());
         } else {
           newSearchParams.set(key, String(value));
         }
@@ -54,9 +56,14 @@ export const useUrlSearchParams = () => {
   );
 
   const getSearchParamAsDate = useCallback(
-    (key: string): Date | null => {
+    (key: string): string | null => {
       const value = searchParams?.get(key);
-      return value ? new Date(value) : null;
+      if (!value) return null;
+
+      const date = new Date(value);
+      const formattedDate = formatDayAsDashYYYYMMDD(date);
+
+      return formattedDate ? formattedDate : null;
     },
     [searchParams],
   );
