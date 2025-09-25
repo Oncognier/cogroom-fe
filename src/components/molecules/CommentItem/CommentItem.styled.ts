@@ -37,17 +37,15 @@ export const CommentInner = styled.div<{
   white-space: pre-wrap;
   word-wrap: break-word;
 
-  ${mqMax.tablet} {
-    ${({ $showFullContent }) =>
-      !$showFullContent &&
-      `
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 4; 
-      overflow: hidden;
-      text-overflow: ellipsis;
+  ${({ $showFullContent }) =>
+    !$showFullContent &&
+    `
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4; 
+    overflow: hidden;
+    text-overflow: ellipsis;
   `}
-  }
 `;
 
 export const CommentFirstBox = styled.div`
@@ -266,10 +264,6 @@ export const CollapseButton = styled.button`
   &:hover {
     color: ${({ theme }) => theme.semantic.label.normal};
   }
-
-  ${mqMin.tablet} {
-    display: none;
-  }
 `;
 
 export const ShowMoreButton = styled.button`
@@ -278,8 +272,4 @@ export const ShowMoreButton = styled.button`
 
   cursor: pointer;
   float: right;
-
-  ${mqMin.tablet} {
-    display: none;
-  }
 `;

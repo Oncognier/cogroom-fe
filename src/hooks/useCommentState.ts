@@ -24,7 +24,7 @@ export const useCommentState = ({ comment }: UseCommentStateProps) => {
 
   useEffect(() => {
     const checkOverflow = () => {
-      if (!contentRef.current || window.innerWidth > 768) {
+      if (!contentRef.current) {
         setIsOverflowing(false);
         return;
       }
