@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-export const DateSelect = styled.div`
+export const DateRangePanel = styled.div`
   position: relative;
   display: flex;
 `;
@@ -69,4 +69,22 @@ export const Popup = styled.div`
   left: 100%;
   margin-left: 16px;
   z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+
+  background-color: ${({ theme }) => theme.semantic.static.white};
+  ${({ theme }) => theme.shadow.normal};
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.9rem;
 `;

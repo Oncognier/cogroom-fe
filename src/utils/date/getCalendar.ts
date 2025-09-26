@@ -1,8 +1,8 @@
 import { formatDayAsDashYYYYMMDD } from './formatDay';
 
 // week의 시작일 반환
-function getStartOfWeek(input: Date | Date = new Date()): Date {
-  const start = input;
+function getStartOfWeek(input: Date = new Date()): Date {
+  const start = new Date(input);
   const jsDay = start.getDay();
   const isoDay = jsDay === 0 ? 7 : jsDay;
   start.setDate(start.getDate() - (isoDay - 1));
@@ -11,7 +11,7 @@ function getStartOfWeek(input: Date | Date = new Date()): Date {
 }
 
 // week의 종료일 반환
-function getEndOfWeek(input: Date | Date = new Date()): Date {
+function getEndOfWeek(input: Date = new Date()): Date {
   const end = getStartOfWeek(input);
   end.setDate(end.getDate() + 6);
   return end;
@@ -25,10 +25,9 @@ function addOneDay(date: Date): Date {
 }
 
 // 월 별로 Calendar 날짜 반환
-export function getCalendarMonthDateStrings(): string[] {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth();
+export function getCalendarMonthDateStrings(BaseDate: Date = new Date()): string[] {
+  const year = BaseDate.getFullYear();
+  const month = BaseDate.getMonth();
 
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
@@ -47,9 +46,9 @@ export function getCalendarMonthDateStrings(): string[] {
 }
 
 // 주 별로 Calendar 날짜 반환
-export function getCalendarWeekDateStrings(): string[] {
-  const start = getStartOfWeek();
-  const end = getEndOfWeek();
+export function getCalendarWeekDateStrings(BaseDate: Date = new Date()): string[] {
+  const start = getStartOfWeek(BaseDate);
+  const end = getEndOfWeek(BaseDate);
 
   const calendarWeekDates: string[] = [];
   let current = start;

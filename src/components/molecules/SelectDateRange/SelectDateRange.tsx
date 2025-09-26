@@ -4,23 +4,25 @@ import { useEffect, useState } from 'react';
 
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ChevronUp from '@/assets/icons/chevronup.svg';
-import DateSelect from '@/components/molecules/DateSelect/DateSelect';
+import DateRangePanel from '@/components/molecules/DateRangePanel/DateRangePanel';
 import { useDropdown } from '@/hooks/useDropdown';
 import { formatDateRangeLabel } from '@/utils/date/formatDay';
 
-import * as S from './SelectDate.styled';
+import * as S from './SelectDateRange.styled';
 
-export default function SelectDate({
-  selectedStartDate,
-  selectedEndDate,
-  onStartDateChange,
-  onEndDateChange,
-}: {
+interface SelectDateRangeProps {
   selectedStartDate: Date | null;
   selectedEndDate: Date | null;
   onStartDateChange: (date: Date | null) => void;
   onEndDateChange: (date: Date | null) => void;
-}) {
+}
+
+export default function SelectDateRange({
+  selectedStartDate,
+  selectedEndDate,
+  onStartDateChange,
+  onEndDateChange,
+}: SelectDateRangeProps) {
   const { isOpen, toggle } = useDropdown();
   const [draftStart, setDraftStart] = useState<Date | null>(selectedStartDate);
   const [draftEnd, setDraftEnd] = useState<Date | null>(selectedEndDate);
@@ -39,7 +41,7 @@ export default function SelectDate({
   };
 
   return (
-    <S.SelectDateWrapper>
+    <S.SelectDateRangeWrapper>
       <S.InputContainer
         isOpen={isOpen}
         onClick={toggle}
@@ -54,7 +56,7 @@ export default function SelectDate({
 
       {isOpen && (
         <S.DatePopup>
-          <DateSelect
+          <DateRangePanel
             selectedStartDate={draftStart}
             selectedEndDate={draftEnd}
             onStartDateChange={setDraftStart}
@@ -63,6 +65,6 @@ export default function SelectDate({
           />
         </S.DatePopup>
       )}
-    </S.SelectDateWrapper>
+    </S.SelectDateRangeWrapper>
   );
 }
