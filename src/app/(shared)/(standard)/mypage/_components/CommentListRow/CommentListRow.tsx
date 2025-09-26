@@ -31,12 +31,7 @@ export default function CommentListRow({ commentData }: CommentListRowProps) {
       </S.CommentLeft>
 
       <S.CommentRight>
-        <S.Post>
-          <S.PostIcon>
-            <ArrowTurnDownRight />
-          </S.PostIcon>
-          <S.PostTitle>{post.title}</S.PostTitle>
-        </S.Post>
+        <S.PostTitle>{post.title}</S.PostTitle>
         <S.CommentCreatedAt>{formatDayAsSlashYYMMDD(createdAt)}</S.CommentCreatedAt>
       </S.CommentRight>
     </S.CommentListRow>
