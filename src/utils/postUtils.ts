@@ -10,10 +10,8 @@ export const extractImageUrls = (htmlContent: string): string[] => {
   return Array.from(images).map((img) => {
     const originalFileName = img.getAttribute('data-original-filename');
 
-    if (originalFileName && img.src.includes('/temp/')) {
-      // S3 TEMP URL을 원본 파일명 기반 URL로 변환
-      const baseUrl = img.src.substring(0, img.src.lastIndexOf('/') + 1);
-      return baseUrl + originalFileName;
+    if (originalFileName && img.src.includes('/TEMP/')) {
+      return originalFileName;
     }
 
     return img.src;

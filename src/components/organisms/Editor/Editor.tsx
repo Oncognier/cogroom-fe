@@ -9,7 +9,7 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import { Underline } from '@tiptap/extension-underline';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 
@@ -25,7 +25,7 @@ export type EditorProps = {
   height?: number;
   readonly?: boolean;
   className?: string;
-  onImageUpload?: (originalFileName: string, s3Url: string) => void;
+  onImageUpload?: (s3Url: string) => void;
 };
 
 const addListStyles = (html: string): string => {
@@ -54,25 +54,23 @@ export default function Editor({
   className,
   onImageUpload,
 }: EditorProps) {
-  const imageFileMapRef = useRef<Map<string, string>>(new Map());
+  const imageFileMapRef = useRef<Set<string>>(new Set());
 
   const { uploadToS3 } = useUploadFileToS3Mutation({
-    onSuccess: (accessUrls, originalFileNames) => {
-      if (accessUrls.length > 0 && editor && originalFileNames) {
+    onSuccess: (accessUrls) => {
+      if (accessUrls.length > 0 && editor) {
         const s3Url = accessUrls[0];
-        const originalFileName = originalFileNames[0];
 
-        imageFileMapRef.current.set(s3Url, originalFileName);
+        imageFileMapRef.current.add(s3Url);
 
         editor
           .chain()
           .focus()
           .setCustomImage({
             src: s3Url,
-            'data-original-filename': originalFileName,
           })
           .run();
-        onImageUpload?.(originalFileName, s3Url);
+        onImageUpload?.(s3Url);
       }
     },
   });

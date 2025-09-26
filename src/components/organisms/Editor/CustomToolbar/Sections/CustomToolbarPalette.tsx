@@ -36,7 +36,6 @@ export default function CustomToolbarPalette({
     onSuccess: (accessUrls, originalFileNames) => {
       if (accessUrls.length > 0 && originalFileNames) {
         const s3Url = accessUrls[0];
-        const originalFileName = originalFileNames[0];
 
         editor
           .chain()
@@ -45,7 +44,7 @@ export default function CustomToolbarPalette({
             src: s3Url,
             width: 300,
             height: 200,
-            'data-original-filename': originalFileName,
+            'data-original-filename': s3Url,
           })
           .run();
         closePopups();
