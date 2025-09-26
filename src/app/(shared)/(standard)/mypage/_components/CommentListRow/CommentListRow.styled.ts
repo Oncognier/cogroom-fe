@@ -67,21 +67,6 @@ export const CommentRight = styled.div`
   }
 `;
 
-export const Post = styled.div`
-  display: flex;
-  align-items: center;
-
-  gap: 0.8rem;
-  color: ${({ theme }) => theme.semantic.label.alternative};
-`;
-
-export const PostIcon = styled.div`
-  width: 1.8rem;
-  height: 1.8rem;
-
-  color: ${({ theme }) => theme.semantic.label.alternative};
-`;
-
 export const PostTitle = styled.p`
   width: 25rem;
 
