@@ -72,7 +72,6 @@ export const EditorWrapper = styled.div`
     font-weight: 400;
 
     height: 100%;
-    border-radius: 1.2rem;
     color: ${({ theme }) => theme.semantic.label.normal};
     background-color: ${({ theme }) => theme.semantic.static.white};
 
@@ -156,9 +155,11 @@ export const EditorContent = styled.div<EditorWrapperProps>`
   min-height: 400px;
   height: ${({ height }) => `${height}px`};
   padding: 1.2rem 1.6rem;
+
   border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
   border-radius: 1.2rem;
   & > div {
     height: 100%;
+    padding-top: 2rem;
   }
 `;

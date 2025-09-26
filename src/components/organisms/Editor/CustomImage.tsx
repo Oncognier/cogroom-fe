@@ -131,20 +131,39 @@ export const CustomImage = Node.create<CustomImageOptions>({
 
       setImageAlign:
         (align: 'left' | 'center' | 'right') =>
-        ({ state, tr }) => {
-          state.doc.descendants((node, pos) => {
+        ({ state, tr, dispatch }) => {
+          const { selection } = state;
+          const imageNodes: { node: ProseMirrorNode; pos: number }[] = [];
+
+          // 선택 영역에서 모든 이미지 노드 찾기
+          state.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
             if (node.type.name === 'customImage') {
+              imageNodes.push({ node, pos });
+            }
+          });
+
+          // 선택된 이미지가 없으면 커서 위치 주변 확인
+          if (imageNodes.length === 0) {
+            const resolvedPos = state.doc.resolve(selection.from);
+            if (resolvedPos.parent.type.name === 'customImage') {
+              const parentPos = selection.from - resolvedPos.parentOffset - 1;
+              imageNodes.push({ node: resolvedPos.parent, pos: parentPos });
+            }
+          }
+
+          // 모든 이미지에 정렬 적용
+          if (imageNodes.length > 0) {
+            imageNodes.forEach(({ node, pos }) => {
               tr.setNodeMarkup(pos, undefined, {
                 ...node.attrs,
                 align,
               });
-            }
-          });
+            });
 
-          if (tr.docChanged) {
-            state.apply(tr);
+            if (dispatch) dispatch(tr);
             return true;
           }
+
           return false;
         },
     };
