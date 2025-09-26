@@ -5,19 +5,18 @@ import React, { useState, useMemo } from 'react';
 import ChevronLeft from '@/assets/icons/chevronleft.svg';
 import ChevronRight from '@/assets/icons/chevronright.svg';
 import { WEEK_DAYS } from '@/constants/common';
-import { formatDayAsYYYYMM } from '@/utils/date/formatDay';
+import { formatDayAsDashYYYYMMDD, formatDayAsYYYYMM } from '@/utils/date/formatDay';
 import { getCalendarMonthDateStrings } from '@/utils/date/getCalendar';
 
 import * as S from './SingleDatePicker.styled';
 
 interface SingleDatePickerProps {
-  onClose?: () => void;
   onSelect: (date: Date) => void;
   selectedDate: Date | null;
   initialDate?: Date;
 }
 
-export default function SingleDatePicker({ onClose, onSelect, selectedDate, initialDate }: SingleDatePickerProps) {
+export default function SingleDatePicker({ onSelect, selectedDate, initialDate }: SingleDatePickerProps) {
   const today = new Date();
   const [viewDate, setViewDate] = useState(selectedDate || initialDate || today);
 
@@ -26,7 +25,6 @@ export default function SingleDatePicker({ onClose, onSelect, selectedDate, init
   const handleDateClick = (date: Date) => {
     setViewDate(date);
     onSelect(date);
-    onClose?.();
   };
 
   const handlePrevMonth = () => {
@@ -55,10 +53,12 @@ export default function SingleDatePicker({ onClose, onSelect, selectedDate, init
         ))}
         {monthDates.map((dateStr) => {
           const currentDate = new Date(dateStr);
+          const isSelected = formatDayAsDashYYYYMMDD(selectedDate) === formatDayAsDashYYYYMMDD(currentDate);
+
           return (
             <S.DateItem key={dateStr}>
               <S.Date
-                isSelected={dateStr === selectedDate?.toDateString()}
+                isSelected={isSelected}
                 onClick={() => handleDateClick(currentDate)}
               >
                 {currentDate.getDate()}
