@@ -57,7 +57,9 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
 
         <S.MobileMenuButton onClick={bottomSheet.open}>
           <S.MobileMenuButtonText>{currentPageName}</S.MobileMenuButtonText>
-          <ChevronDown />
+          <S.MobileMenuButtonIcon>
+            <ChevronDown />
+          </S.MobileMenuButtonIcon>
         </S.MobileMenuButton>
       </S.MobileContainer>
 
