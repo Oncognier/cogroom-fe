@@ -112,7 +112,6 @@ export default function DateRangePanel({
           <S.Popup>
             <SingleDatePicker
               selectedDate={selectedStartDate}
-              onClose={() => setIsStartOpen(false)}
               onSelect={onStartDateChange}
             />
             <S.ButtonWrapper>
@@ -139,7 +138,6 @@ export default function DateRangePanel({
           <S.Popup>
             <SingleDatePicker
               selectedDate={selectedEndDate}
-              onClose={() => setIsEndOpen(false)}
               onSelect={onEndDateChange}
             />
             <S.ButtonWrapper>
