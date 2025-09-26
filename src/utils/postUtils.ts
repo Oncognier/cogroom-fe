@@ -1,11 +1,23 @@
 /**
  * HTML 콘텐츠에서 이미지 URL을 추출합니다.
+ * data-original-filename이 있으면 원본 파일명 기반 URL로 변환합니다.
  */
 export const extractImageUrls = (htmlContent: string): string[] => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlContent, 'text/html');
   const images = doc.querySelectorAll('img');
-  return Array.from(images).map((img) => img.src);
+
+  return Array.from(images).map((img) => {
+    const originalFileName = img.getAttribute('data-original-filename');
+
+    if (originalFileName && img.src.includes('/temp/')) {
+      // S3 TEMP URL을 원본 파일명 기반 URL로 변환
+      const baseUrl = img.src.substring(0, img.src.lastIndexOf('/') + 1);
+      return baseUrl + originalFileName;
+    }
+
+    return img.src;
+  });
 };
 
 /**

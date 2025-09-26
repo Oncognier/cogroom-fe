@@ -15,6 +15,7 @@ declare module '@tiptap/core' {
         width?: number;
         height?: number;
         align?: 'left' | 'center' | 'right';
+        'data-original-filename'?: string;
       }) => ReturnType;
 
       setImageAlign: (align: 'left' | 'center' | 'right') => ReturnType;
@@ -94,6 +95,13 @@ export const CustomImage = Node.create<CustomImageOptions>({
           'data-align': attributes.align,
         }),
         parseHTML: (element) => element.getAttribute('data-align') || 'left',
+      },
+      'data-original-filename': {
+        default: null,
+        renderHTML: (attributes) => ({
+          'data-original-filename': attributes['data-original-filename'],
+        }),
+        parseHTML: (element) => element.getAttribute('data-original-filename'),
       },
     };
   },

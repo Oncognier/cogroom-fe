@@ -153,8 +153,7 @@ export const EditorWrapper = styled.div`
 `;
 
 export const EditorContent = styled.div<EditorWrapperProps>`
-  min-height: 300px;
-  height: ${({ height }) => `${height}px`};
+  min-height: ${({ height }) => `${height}px`};
   padding: 1.2rem 1.6rem;
   border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
   border-radius: 1.2rem;

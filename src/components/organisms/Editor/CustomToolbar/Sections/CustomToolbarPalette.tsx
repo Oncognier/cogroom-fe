@@ -33,19 +33,29 @@ export default function CustomToolbarPalette({
   const currentColor = editor.getAttributes('textStyle').color;
 
   const { uploadToS3 } = useUploadFileToS3Mutation({
-    onSuccess: (accessUrls) => {
-      editor
-        .chain()
-        .focus()
-        .setCustomImage({
-          src: accessUrls[0],
-          width: 300,
-          height: 200,
-        })
-        .run();
-      closePopups();
+    onSuccess: (accessUrls, originalFileNames) => {
+      if (accessUrls.length > 0 && originalFileNames) {
+        const s3Url = accessUrls[0];
+        const originalFileName = originalFileNames[0];
+
+        editor
+          .chain()
+          .focus()
+          .setCustomImage({
+            src: s3Url,
+            width: 300,
+            height: 200,
+            'data-original-filename': originalFileName,
+          })
+          .run();
+        closePopups();
+      }
     },
   });
+
+  const processImageFile = (file: File) => {
+    uploadToS3({ files: [file] });
+  };
 
   const handleImageUpload = () => {
     const input = document.createElement('input');
@@ -57,7 +67,7 @@ export default function CustomToolbarPalette({
       const file = target.files?.[0];
       if (!file) return;
 
-      uploadToS3({ files: [file] });
+      processImageFile(file);
     };
 
     input.click();
@@ -85,7 +95,7 @@ export default function CustomToolbarPalette({
           본문 <ChevronDown />
         </S.DropdownButton>
         {activePopup === 'typography' && (
-          <PopupWrapper onClose={closePopups} popupType="typography">
+          <PopupWrapper onClose={closePopups}>
             <TypographyPopup
               editor={editor}
               onClose={closePopups}
@@ -106,7 +116,7 @@ export default function CustomToolbarPalette({
           {selectedFont} <ChevronDown />
         </S.DropdownButton>
         {activePopup === 'font' && (
-          <PopupWrapper onClose={closePopups} popupType="font">
+          <PopupWrapper onClose={closePopups}>
             <FontPopup
               editor={editor}
               onClose={closePopups}
@@ -132,7 +142,10 @@ export default function CustomToolbarPalette({
           </S.ColorButtonContent>
         </S.DropdownButton>
         {activePopup === 'color' && (
-          <PopupWrapper onClose={closePopups} popupType="color">
+          <PopupWrapper
+            onClose={closePopups}
+            popupType='color'
+          >
             <ColorPopup
               editor={editor}
               onClose={closePopups}

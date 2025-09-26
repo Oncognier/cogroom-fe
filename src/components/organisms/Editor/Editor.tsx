@@ -9,7 +9,7 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import { Underline } from '@tiptap/extension-underline';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 
@@ -25,6 +25,7 @@ export type EditorProps = {
   height?: number;
   readonly?: boolean;
   className?: string;
+  onImageUpload?: (originalFileName: string, s3Url: string) => void;
 };
 
 const addListStyles = (html: string): string => {
@@ -51,14 +52,34 @@ export default function Editor({
   height = 400,
   readonly = false,
   className,
+  onImageUpload,
 }: EditorProps) {
+  const imageFileMapRef = useRef<Map<string, string>>(new Map());
+
   const { uploadToS3 } = useUploadFileToS3Mutation({
-    onSuccess: (accessUrls) => {
-      if (accessUrls.length > 0 && editor) {
-        editor.chain().focus().setCustomImage({ src: accessUrls[0] }).run();
+    onSuccess: (accessUrls, originalFileNames) => {
+      if (accessUrls.length > 0 && editor && originalFileNames) {
+        const s3Url = accessUrls[0];
+        const originalFileName = originalFileNames[0];
+
+        imageFileMapRef.current.set(s3Url, originalFileName);
+
+        editor
+          .chain()
+          .focus()
+          .setCustomImage({
+            src: s3Url,
+            'data-original-filename': originalFileName,
+          })
+          .run();
+        onImageUpload?.(originalFileName, s3Url);
       }
     },
   });
+
+  const handleImageUpload = (file: File) => {
+    uploadToS3({ files: [file] });
+  };
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -112,7 +133,7 @@ export default function Editor({
       const file = files[0];
       if (!file.type.startsWith('image/')) return;
 
-      uploadToS3({ files: [file] });
+      handleImageUpload(file);
     };
 
     const dom = editor.view.dom;
@@ -121,7 +142,7 @@ export default function Editor({
     return () => {
       dom.removeEventListener('drop', handleDrop);
     };
-  }, [editor, uploadToS3]);
+  }, [editor, handleImageUpload]);
 
   useEffect(() => {
     if (editor && value !== editor.getHTML()) {

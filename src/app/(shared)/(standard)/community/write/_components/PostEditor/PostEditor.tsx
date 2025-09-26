@@ -8,7 +8,7 @@ import * as S from './PostEditor.styled';
 export default function PostEditor({
   control,
   onContentChange,
-  height = 800,
+  height = 600,
 }: PostEditorProps & {
   control: FormControl;
   onContentChange: (value: string) => void;
