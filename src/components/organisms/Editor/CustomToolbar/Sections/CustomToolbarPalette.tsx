@@ -82,7 +82,10 @@ export default function CustomToolbarPalette({
           onClick={() => togglePopup('typography')}
           isActive={activePopup === 'typography'}
         >
-          본문 <ChevronDown />
+          본문
+          <S.DropdownIcon isActive={activePopup === 'typography'}>
+            <ChevronDown />
+          </S.DropdownIcon>
         </S.DropdownButton>
         {activePopup === 'typography' && (
           <PopupWrapper onClose={closePopups}>
@@ -103,7 +106,10 @@ export default function CustomToolbarPalette({
           onClick={() => togglePopup('font')}
           isActive={activePopup === 'font'}
         >
-          {selectedFont} <ChevronDown />
+          {selectedFont}{' '}
+          <S.DropdownIcon isActive={activePopup === 'font'}>
+            <ChevronDown />
+          </S.DropdownIcon>
         </S.DropdownButton>
         {activePopup === 'font' && (
           <PopupWrapper onClose={closePopups}>
@@ -127,8 +133,9 @@ export default function CustomToolbarPalette({
         >
           <S.ColorButtonContent>
             {currentColor ? <S.ColorIndicator color={currentColor} /> : '색상'}
-
-            <ChevronDown />
+            <S.DropdownIcon isActive={activePopup === 'color'}>
+              <ChevronDown />
+            </S.DropdownIcon>
           </S.ColorButtonContent>
         </S.DropdownButton>
         {activePopup === 'color' && (
