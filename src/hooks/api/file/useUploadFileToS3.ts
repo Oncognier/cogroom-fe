@@ -30,7 +30,7 @@ export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props 
 
       return {
         accessUrls: presignedItems.map((item) => item.accessUrl),
-        originalFileNames: files.map(file => file.name)
+        originalFileNames: files.map((file) => file.name),
       };
     },
     onSuccess: ({ accessUrls, originalFileNames }) => {

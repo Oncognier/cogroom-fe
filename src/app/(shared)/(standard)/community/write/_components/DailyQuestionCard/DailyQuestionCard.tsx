@@ -40,7 +40,7 @@ export default function DailyQuestionCard({ question, answer, assignedQuestionId
           readOnlyMode={true}
         />
       </DesktopVersion>
-      
+
       <MobileVersion>
         <DailyQuestionCardMobile
           question={question}
