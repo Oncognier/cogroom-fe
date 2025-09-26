@@ -11,8 +11,8 @@ export default function TitleInput({ control, error }: { control: FormControl; e
       rules={{
         required: '제목을 입력해 주세요.',
         maxLength: {
-          value: 30,
-          message: '제목은 최대 30자까지 입력할 수 있어요.',
+          value: 50,
+          message: '제목은 최대 50자까지 입력할 수 있어요.',
         },
         validate: (value) => {
           // 허용 문자 정규식 (한글, 영문, 숫자, 특수문자, 이모지 포함)

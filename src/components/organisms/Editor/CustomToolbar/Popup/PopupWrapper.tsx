@@ -5,9 +5,10 @@ import { ReactNode, useEffect, useRef } from 'react';
 type PopupWrapperProps = {
   children: ReactNode;
   onClose: () => void;
+  popupType?: string;
 };
 
-export default function PopupWrapper({ children, onClose }: PopupWrapperProps) {
+export default function PopupWrapper({ children, onClose, popupType }: PopupWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

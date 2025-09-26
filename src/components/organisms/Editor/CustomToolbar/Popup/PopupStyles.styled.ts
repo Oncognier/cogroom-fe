@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 type MediaItemProps = {
   isActive?: boolean;
 };
@@ -37,7 +39,11 @@ type FontPreviewProps = {
   fontFamily: string;
 };
 
-export const PopupContainer = styled.div`
+type PopupContainerProps = {
+  popupType?: string;
+};
+
+export const PopupContainer = styled.div<PopupContainerProps>`
   position: absolute;
   top: calc(100% + 1.5rem);
   left: 50%;
@@ -49,6 +55,21 @@ export const PopupContainer = styled.div`
   border: 0.1rem solid ${({ theme }) => theme.semantic.line.normal};
   border-radius: 1.2rem;
   box-shadow: ${({ theme }) => theme.shadow.normal};
+
+  ${mqMax.tablet} {
+    ${({ popupType }) =>
+      popupType === 'color' &&
+      `
+      left: 90%;
+      transform: translateX(-90%);
+    `}
+    ${({ popupType }) =>
+      popupType === 'link' &&
+      `
+      left: 35%;
+      transform: translateX(-35%);
+    `}
+  }
 `;
 
 export const MediaGrid = styled.div`
@@ -261,6 +282,10 @@ export const LinkForm = styled.div`
   flex-direction: column;
   gap: 1.6rem;
   width: 36.7rem;
+
+  ${mqMax.tablet} {
+    width: 25rem;
+  }
 `;
 
 export const InputGroup = styled.div`

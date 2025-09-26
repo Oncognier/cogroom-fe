@@ -2,12 +2,24 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
   padding: 0rem 2rem;
   gap: 5rem;
+
+  ${mqMax.tablet} {
+    padding: 0;
+  }
+`;
+
+export const MobileGuard = styled.div`
+  ${mqMax.tablet} {
+    display: none;
+  }
 `;
 
 export const ContentSection = styled.div`

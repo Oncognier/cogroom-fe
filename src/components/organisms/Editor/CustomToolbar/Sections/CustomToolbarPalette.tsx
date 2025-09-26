@@ -33,19 +33,28 @@ export default function CustomToolbarPalette({
   const currentColor = editor.getAttributes('textStyle').color;
 
   const { uploadToS3 } = useUploadFileToS3Mutation({
-    onSuccess: (accessUrls) => {
-      editor
-        .chain()
-        .focus()
-        .setCustomImage({
-          src: accessUrls[0],
-          width: 300,
-          height: 200,
-        })
-        .run();
-      closePopups();
+    onSuccess: (accessUrls, originalFileNames) => {
+      if (accessUrls.length > 0 && originalFileNames) {
+        const s3Url = accessUrls[0];
+
+        editor
+          .chain()
+          .focus()
+          .setCustomImage({
+            src: s3Url,
+            width: 300,
+            height: 200,
+            'data-original-filename': s3Url,
+          })
+          .run();
+        closePopups();
+      }
     },
   });
+
+  const processImageFile = (file: File) => {
+    uploadToS3({ files: [file] });
+  };
 
   const handleImageUpload = () => {
     const input = document.createElement('input');
@@ -57,7 +66,7 @@ export default function CustomToolbarPalette({
       const file = target.files?.[0];
       if (!file) return;
 
-      uploadToS3({ files: [file] });
+      processImageFile(file);
     };
 
     input.click();
@@ -132,7 +141,10 @@ export default function CustomToolbarPalette({
           </S.ColorButtonContent>
         </S.DropdownButton>
         {activePopup === 'color' && (
-          <PopupWrapper onClose={closePopups}>
+          <PopupWrapper
+            onClose={closePopups}
+            popupType='color'
+          >
             <ColorPopup
               editor={editor}
               onClose={closePopups}

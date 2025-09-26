@@ -56,7 +56,7 @@ export const useUpdatePostMutation = () => {
           openAlert('alert', { message: '게시글 제목을 1자 이상 작성해주세요.' });
           break;
         case 'TITLE_SIZE_ERROR':
-          openAlert('alert', { message: '게시글 제목은 30자 이하여야 합니다.' });
+          openAlert('alert', { message: '게시글 제목은 50자 이하여야 합니다.' });
           break;
         case 'CATEGORY_WRITE_FORBIDDEN_ERROR':
           openAlert('alert', { message: '선택한 카테고리의 게시글을 작성할 수 있는 권한이 없습니다.' });

@@ -29,7 +29,10 @@ export default function CustomToolbarUtilities({ editor, activePopup, togglePopu
         </S.ToolbarButton>
 
         {activePopup === 'link' && (
-          <PopupWrapper onClose={closePopups}>
+          <PopupWrapper
+            onClose={closePopups}
+            popupType='link'
+          >
             <LinkPopup
               editor={editor}
               onClose={closePopups}

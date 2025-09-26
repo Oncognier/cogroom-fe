@@ -69,7 +69,7 @@ export default function ColorPopup({ editor, onClose, currentColor = '#000000' }
   };
 
   return (
-    <S.PopupContainer>
+    <S.PopupContainer popupType='color'>
       <S.ColorGrid>
         {colorPalette.map((row, rowIndex) => (
           <S.ColorRow key={rowIndex}>

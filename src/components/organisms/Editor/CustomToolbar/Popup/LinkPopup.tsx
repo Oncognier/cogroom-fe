@@ -102,7 +102,7 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
   if (!editor) return null;
 
   return (
-    <S.PopupContainer>
+    <S.PopupContainer popupType='link'>
       <S.LinkForm>
         <Input
           inputSize='sm'
