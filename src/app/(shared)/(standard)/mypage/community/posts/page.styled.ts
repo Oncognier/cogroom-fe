@@ -20,7 +20,6 @@ export const FilterHeader = styled.div`
 
 export const ListControlsWrapper = styled.div`
   display: flex;
-  flex-direction: row-reverse;
   justify-content: space-between;
 
   width: 100%;
