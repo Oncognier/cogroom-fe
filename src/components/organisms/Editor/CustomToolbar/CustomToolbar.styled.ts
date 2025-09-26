@@ -105,13 +105,13 @@ export const DropdownButton = styled.button<ButtonProps>`
 
   cursor: pointer;
   transition: all 0.2s ease;
+`;
 
-  svg {
-    width: 2rem;
-    height: 2rem;
-    transition: transform 0.2s ease;
-    transform: ${({ isActive }) => (isActive ? 'rotate(180deg)' : 'rotate(0deg)')};
-  }
+export const DropdownIcon = styled.div<ButtonProps>`
+  width: 2rem;
+  height: 2rem;
+  transition: transform 0.2s ease;
+  transform: ${({ isActive }) => (isActive ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
 export const MediaIcon = styled.div`
