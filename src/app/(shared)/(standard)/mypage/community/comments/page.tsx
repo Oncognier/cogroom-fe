@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import CommentListRow from '@/app/(shared)/(standard)/mypage/_components/CommentListRow/CommentListRow';
+import MyPageScrollXWrapper from '@/app/(shared)/(standard)/mypage/_components/MyPageScrollXWrapper/MyPageScrollXWrapper';
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
@@ -52,58 +53,60 @@ export default function Comments() {
 
   return (
     <S.UserComment>
-      <S.FilterHeader>
-        <SearchFilter
-          totalTitle='전체 댓글'
-          total={total}
-          fields={{
-            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
-            select: [
-              {
-                name: 'categoryId',
-                placeholder: '카테고리 선택',
-                options: CATEGORY_SELECT_OPTIONS,
-                isMulti: true,
-              },
-            ],
-            search: [{ name: 'keyword', placeholder: '댓글 내용 입력' }],
-          }}
-          actions={[{ type: 'submit', label: '검색하기' }]}
-        />
-
-        <S.SortButtonWrapper>
-          <SortButton
-            sort={sort}
-            onClick={handleSortChange}
+      <MyPageScrollXWrapper>
+        <S.FilterHeader>
+          <SearchFilter
+            totalTitle='전체 댓글'
+            total={total}
+            fields={{
+              dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+              select: [
+                {
+                  name: 'categoryId',
+                  placeholder: '카테고리 선택',
+                  options: CATEGORY_SELECT_OPTIONS,
+                  isMulti: true,
+                },
+              ],
+              search: [{ name: 'keyword', placeholder: '댓글 내용 입력' }],
+            }}
+            actions={[{ type: 'submit', label: '검색하기' }]}
           />
-        </S.SortButtonWrapper>
-      </S.FilterHeader>
 
-      {comments.length === 0 ? (
-        <EmptyState
-          icon={<MessageCircleX />}
-          description='다른 코그니어 글에 댓글을 달아봐요'
-          buttonLabel='댓글 달러가기'
-          buttonAction={handleGoToCommunity}
-        />
-      ) : (
-        <>
-          <S.CommentList>
-            {comments.map((comment) => (
-              <CommentListRow
-                key={comment.commentId}
-                commentData={comment}
-              />
-            ))}
-          </S.CommentList>
+          <S.SortButtonWrapper>
+            <SortButton
+              sort={sort}
+              onClick={handleSortChange}
+            />
+          </S.SortButtonWrapper>
+        </S.FilterHeader>
 
-          <InfiniteScrollSentinel
-            observerRef={observerRef}
-            hasNextPage={!!hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
+        {comments.length === 0 ? (
+          <EmptyState
+            icon={<MessageCircleX />}
+            description='다른 코그니어 글에 댓글을 달아봐요'
+            buttonLabel='댓글 달러가기'
+            buttonAction={handleGoToCommunity}
           />
-        </>
-      )}
+        ) : (
+          <>
+            <S.CommentList>
+              {comments.map((comment) => (
+                <CommentListRow
+                  key={comment.commentId}
+                  commentData={comment}
+                />
+              ))}
+            </S.CommentList>
+
+            <InfiniteScrollSentinel
+              observerRef={observerRef}
+              hasNextPage={!!hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+          </>
+        )}
+      </MyPageScrollXWrapper>
     </S.UserComment>
   );
 }

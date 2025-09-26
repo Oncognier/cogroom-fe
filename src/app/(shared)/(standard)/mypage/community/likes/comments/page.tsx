@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import CommentListRow from '@/app/(shared)/(standard)/mypage/_components/CommentListRow/CommentListRow';
+import MyPageScrollXWrapper from '@/app/(shared)/(standard)/mypage/_components/MyPageScrollXWrapper/MyPageScrollXWrapper';
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
@@ -52,75 +53,77 @@ export default function LikesComments() {
 
   return (
     <S.LikesComments>
-      <S.FilterHeader>
-        <SearchFilter
-          totalTitle='전체 댓글'
-          total={total}
-          fields={{
-            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
-            select: [
-              {
-                name: 'categoryId',
-                placeholder: '카테고리 선택',
-                options: POST_CATEGORY_SELECT_OPTIONS,
-                isMulti: true,
-              },
-            ],
-            search: [{ name: 'keyword', placeholder: '댓글 내용 입력' }],
-          }}
-          actions={[{ type: 'submit', label: '검색하기' }]}
-        />
-
-        <S.ListControlsWrapper>
-          <S.SwitchLikeButtonWrapper>
-            <SolidButton
-              label='포스팅'
-              color='assistive'
-              size='sm'
-              interactionVariant='normal'
-              onClick={() => router.push('/mypage/community/likes/posts')}
-            />
-            <SolidButton
-              label='댓글'
-              color='primary'
-              size='sm'
-              interactionVariant='normal'
-              onClick={() => router.push('/mypage/community/likes/comments')}
-            />
-          </S.SwitchLikeButtonWrapper>
-
-          <SortButton
-            sort={sort}
-            onClick={handleSortChange}
+      <MyPageScrollXWrapper>
+        <S.FilterHeader>
+          <SearchFilter
+            totalTitle='전체 댓글'
+            total={total}
+            fields={{
+              dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+              select: [
+                {
+                  name: 'categoryId',
+                  placeholder: '카테고리 선택',
+                  options: POST_CATEGORY_SELECT_OPTIONS,
+                  isMulti: true,
+                },
+              ],
+              search: [{ name: 'keyword', placeholder: '댓글 내용 입력' }],
+            }}
+            actions={[{ type: 'submit', label: '검색하기' }]}
           />
-        </S.ListControlsWrapper>
-      </S.FilterHeader>
 
-      {comments.length === 0 ? (
-        <EmptyState
-          icon={<MessageCircleX />}
-          description='꼭 마음에 담아두고 싶던 글이 있나요?'
-          buttonLabel='글 보러가기'
-          buttonAction={handleGoToCommunity}
-        />
-      ) : (
-        <>
-          <S.LikeCommentList>
-            {comments.map((comment) => (
-              <CommentListRow
-                key={comment.commentId}
-                commentData={comment}
+          <S.ListControlsWrapper>
+            <S.SwitchLikeButtonWrapper>
+              <SolidButton
+                label='포스팅'
+                color='assistive'
+                size='sm'
+                interactionVariant='normal'
+                onClick={() => router.push('/mypage/community/likes/posts')}
               />
-            ))}
-          </S.LikeCommentList>
+              <SolidButton
+                label='댓글'
+                color='primary'
+                size='sm'
+                interactionVariant='normal'
+                onClick={() => router.push('/mypage/community/likes/comments')}
+              />
+            </S.SwitchLikeButtonWrapper>
 
-          <InfiniteScrollSentinel
-            observerRef={observerRef}
-            hasNextPage={!!hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
+            <SortButton
+              sort={sort}
+              onClick={handleSortChange}
+            />
+          </S.ListControlsWrapper>
+        </S.FilterHeader>
+
+        {comments.length === 0 ? (
+          <EmptyState
+            icon={<MessageCircleX />}
+            description='꼭 마음에 담아두고 싶던 글이 있나요?'
+            buttonLabel='글 보러가기'
+            buttonAction={handleGoToCommunity}
           />
-        </>
-      )}
+        ) : (
+          <>
+            <S.LikeCommentList>
+              {comments.map((comment) => (
+                <CommentListRow
+                  key={comment.commentId}
+                  commentData={comment}
+                />
+              ))}
+            </S.LikeCommentList>
+
+            <InfiniteScrollSentinel
+              observerRef={observerRef}
+              hasNextPage={!!hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+          </>
+        )}
+      </MyPageScrollXWrapper>
     </S.LikesComments>
   );
 }
