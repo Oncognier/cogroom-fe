@@ -85,7 +85,7 @@ export default function CustomToolbarPalette({
           본문 <ChevronDown />
         </S.DropdownButton>
         {activePopup === 'typography' && (
-          <PopupWrapper onClose={closePopups}>
+          <PopupWrapper onClose={closePopups} popupType="typography">
             <TypographyPopup
               editor={editor}
               onClose={closePopups}
@@ -106,7 +106,7 @@ export default function CustomToolbarPalette({
           {selectedFont} <ChevronDown />
         </S.DropdownButton>
         {activePopup === 'font' && (
-          <PopupWrapper onClose={closePopups}>
+          <PopupWrapper onClose={closePopups} popupType="font">
             <FontPopup
               editor={editor}
               onClose={closePopups}
@@ -132,7 +132,7 @@ export default function CustomToolbarPalette({
           </S.ColorButtonContent>
         </S.DropdownButton>
         {activePopup === 'color' && (
-          <PopupWrapper onClose={closePopups}>
+          <PopupWrapper onClose={closePopups} popupType="color">
             <ColorPopup
               editor={editor}
               onClose={closePopups}

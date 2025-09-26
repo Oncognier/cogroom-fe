@@ -2,6 +2,7 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
 import { getInteraction } from '@/styles/helpers/interaction';
 
 type ButtonProps = {
@@ -19,6 +20,10 @@ export const CustomToolbar = styled.div`
   flex-wrap: wrap;
 
   padding: 0 0.6rem;
+
+  ${mqMax.tablet} {
+    padding: 0;
+  }
 `;
 
 export const ToolbarGroup = styled.div`
@@ -27,6 +32,11 @@ export const ToolbarGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
+
+  ${mqMax.tablet} {
+    gap: 0.4rem;
+    order: 1;
+  }
 `;
 
 export const DropdownWrapper = styled.div`
@@ -39,6 +49,10 @@ export const InlineGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 0.4rem;
+
+  ${mqMax.tablet} {
+    order: 2;
+  }
 `;
 
 export const ParagraphGroup = styled.div`
@@ -46,9 +60,33 @@ export const ParagraphGroup = styled.div`
   align-items: center;
 `;
 
+export const AlignmentGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  ${mqMax.tablet} {
+    order: 3;
+  }
+`;
+
+export const ListGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  ${mqMax.tablet} {
+    order: 4;
+  }
+`;
+
 export const UtilitiesGroup = styled.div`
   display: flex;
   align-items: center;
+
+  ${mqMax.tablet} {
+    order: 6;
+  }
 `;
 
 export const Divider = styled.div`
@@ -57,6 +95,10 @@ export const Divider = styled.div`
   background-color: ${({ theme }) => theme.semantic.label.assistive};
   border-radius: 100%;
   flex-shrink: 0;
+
+  ${mqMax.tablet} {
+    display: none;
+  }
 `;
 
 export const ImageUpload = styled.button<ButtonProps>`
@@ -86,6 +128,12 @@ export const ToolbarButton = styled.button<ButtonProps>`
   transition: all 0.2s ease;
 
   ${({ theme }) => getInteraction('strong', theme.semantic.background.elevated.alternative)(theme)};
+
+  ${mqMax.tablet} {
+    width: 4rem;
+    height: 4rem;
+    padding: 1rem;
+  }
 `;
 
 export const DropdownButton = styled.button<ButtonProps>`
@@ -107,10 +155,14 @@ export const DropdownButton = styled.button<ButtonProps>`
   transition: all 0.2s ease;
 
   svg {
-    width: 2rem;
-    height: 2rem;
+    width: 2rem !important;
+    height: 2rem !important;
     transition: transform 0.2s ease;
     transform: ${({ isActive }) => (isActive ? 'rotate(180deg)' : 'rotate(0deg)')};
+  }
+
+  ${mqMax.tablet} {
+    padding: 1rem;
   }
 `;
 

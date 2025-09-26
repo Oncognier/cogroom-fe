@@ -4,9 +4,10 @@ import type { Editor } from '@tiptap/react';
 import { useState } from 'react';
 
 import * as S from './CustomToolbar.styled';
+import CustomToolbarAlignment from './Sections/CustomToolbarAlignment';
 import CustomToolbarInline from './Sections/CustomToolbarInline';
+import CustomToolbarList from './Sections/CustomToolbarList';
 import CustomToolbarPalette from './Sections/CustomToolbarPalette';
-import CustomToolbarParagraph from './Sections/CustomToolbarParagraph';
 import CustomToolbarUtilities from './Sections/CustomToolbarUtilities';
 
 export type PopupType = 'media' | 'typography' | 'color' | 'link' | 'font' | null;
@@ -41,7 +42,11 @@ export default function CustomToolbar({ editor }: CustomToolbarProps) {
         closePopups={closePopups}
       />
       <S.Divider />
-      <CustomToolbarParagraph
+      <CustomToolbarAlignment
+        editor={editor}
+        closePopups={closePopups}
+      />
+      <CustomToolbarList
         editor={editor}
         closePopups={closePopups}
       />

@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 type MediaItemProps = {
   isActive?: boolean;
 };
