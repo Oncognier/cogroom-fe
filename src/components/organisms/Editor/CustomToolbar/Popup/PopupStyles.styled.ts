@@ -60,8 +60,8 @@ export const PopupContainer = styled.div<PopupContainerProps>`
     ${({ popupType }) =>
       popupType === 'color' &&
       `
-      left: 70%;
-      transform: translateX(-70%);
+      left: 90%;
+      transform: translateX(-90%);
     `}
     ${({ popupType }) =>
       popupType === 'link' &&
