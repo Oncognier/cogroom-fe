@@ -76,22 +76,14 @@ export const MobileSettingIcon = styled.button`
   align-items: center;
   justify-content: center;
 
-  width: 2.4rem;
-  height: 2.4rem;
-
-  background: transparent;
-  border: none;
+  width: 2rem;
+  height: 2rem;
+  color: ${({ theme }) => theme.semantic.label.assistive};
 
   cursor: pointer;
 
-  svg {
-    width: 2rem;
-    height: 2rem;
+  &:hover {
     color: ${({ theme }) => theme.semantic.label.alternative};
-  }
-
-  &:hover svg {
-    color: ${({ theme }) => theme.semantic.label.normal};
   }
 `;
 
@@ -122,13 +114,13 @@ export const MobileMenuButton = styled.button`
   &:active {
     background: ${({ theme }) => theme.semantic.fill.alternative};
   }
+`;
 
-  svg {
-    width: 2.4rem;
-    height: 2.4rem;
-    color: ${({ theme }) => theme.semantic.label.alternative};
-    flex-shrink: 0;
-  }
+export const MobileMenuButtonIcon = styled.div`
+  width: 2.4rem;
+  height: 2.4rem;
+  color: ${({ theme }) => theme.semantic.label.alternative};
+  flex-shrink: 0;
 `;
 
 export const MobileMenuButtonText = styled.span`
