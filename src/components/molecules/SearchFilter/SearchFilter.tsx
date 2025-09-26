@@ -162,7 +162,7 @@ export default function SearchFilter({ totalTitle, total, fields, actions, class
         ))}
 
         {fields.dateRange && (
-          <SelectDateRange  
+          <SelectDateRange
             selectedStartDate={(watch(fields.dateRange.startDateName || 'startDate') as Date) || null}
             selectedEndDate={(watch(fields.dateRange.endDateName || 'endDate') as Date) || null}
             onStartDateChange={(date) => setValue(fields.dateRange!.startDateName || 'startDate', date)}
