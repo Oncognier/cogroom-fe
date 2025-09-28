@@ -18,9 +18,9 @@ export const StaticBlueLine = styled.div`
 
 export const BlueLineElement = styled.div`
   position: absolute;
-  left: 1.6rem;
+  left: 1.5rem;
   top: 5rem;
-  width: 0.15rem;
+  width: 0.2rem;
   background-color: ${({ theme }) => theme.palette.blue[90]};
   z-index: 1;
 `;
