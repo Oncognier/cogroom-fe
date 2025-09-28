@@ -214,12 +214,12 @@ export default function CommentItem({
             )}
           </S.LikesWithReplyBox>
 
-          {!isChild && comment.children && comment.children.length > 0 && !showChildren && (
+          {!isChild && comment.children && comment.children.length > 0 && (
             <S.ReplyCountButton
               ref={replyCountButtonRef}
               onClick={handleToggleChildren}
             >
-              답글 {comment.children.length}개
+              {showChildren ? '답글 닫기' : `답글 ${comment.children.length}개`}
               <S.ChevronIcon $isExpanded={showChildren}>
                 <ChevronRightIcon />
               </S.ChevronIcon>
