@@ -9,9 +9,10 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import { Underline } from '@tiptap/extension-underline';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
+import { LimitListNesting } from '@/utils/editor/LimitListNesting';
 
 import { CustomImage } from './CustomImage';
 import { CustomLink } from './CustomLink';
@@ -25,24 +26,6 @@ export type EditorProps = {
   height?: number;
   readonly?: boolean;
   className?: string;
-  onImageUpload?: (s3Url: string) => void;
-};
-
-const addListStyles = (html: string): string => {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(html, 'text/html');
-
-  doc.querySelectorAll('ul').forEach((ul) => {
-    ul.style.listStyleType = 'disc';
-    ul.style.paddingLeft = '1.5rem';
-  });
-
-  doc.querySelectorAll('ol').forEach((ol) => {
-    ol.style.listStyleType = 'decimal';
-    ol.style.paddingLeft = '1.5rem';
-  });
-
-  return doc.body.innerHTML;
 };
 
 export default function Editor({
@@ -52,32 +35,14 @@ export default function Editor({
   height = 400,
   readonly = false,
   className,
-  onImageUpload,
 }: EditorProps) {
-  const imageFileMapRef = useRef<Set<string>>(new Set());
-
   const { uploadToS3 } = useUploadFileToS3Mutation({
     onSuccess: (accessUrls) => {
       if (accessUrls.length > 0 && editor) {
-        const s3Url = accessUrls[0];
-
-        imageFileMapRef.current.add(s3Url);
-
-        editor
-          .chain()
-          .focus()
-          .setCustomImage({
-            src: s3Url,
-          })
-          .run();
-        onImageUpload?.(s3Url);
+        editor.chain().focus().setCustomImage({ src: accessUrls[0] }).run();
       }
     },
   });
-
-  const handleImageUpload = (file: File) => {
-    uploadToS3({ files: [file] });
-  };
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -89,7 +54,6 @@ export default function Editor({
         HTMLAttributes: {
           class: 'editor-link',
         },
-
         openOnClick: false,
         linkOnPaste: false,
         autolink: false,
@@ -110,12 +74,12 @@ export default function Editor({
         limit: 50000,
         mode: 'textSize',
       }),
+      LimitListNesting,
     ],
     content: value,
     editable: !readonly,
     onUpdate: ({ editor }) => {
-      const html = editor.getHTML();
-      onChange(addListStyles(html));
+      onChange(editor.getHTML());
     },
   });
 
@@ -131,7 +95,7 @@ export default function Editor({
       const file = files[0];
       if (!file.type.startsWith('image/')) return;
 
-      handleImageUpload(file);
+      uploadToS3({ files: [file] });
     };
 
     const dom = editor.view.dom;
@@ -140,7 +104,7 @@ export default function Editor({
     return () => {
       dom.removeEventListener('drop', handleDrop);
     };
-  }, [editor, handleImageUpload]);
+  }, [editor, uploadToS3]);
 
   useEffect(() => {
     if (editor && value !== editor.getHTML()) {
