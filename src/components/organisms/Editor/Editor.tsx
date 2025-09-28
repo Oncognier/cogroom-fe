@@ -2,6 +2,7 @@
 
 import CharacterCount from '@tiptap/extension-character-count';
 import Color from '@tiptap/extension-color';
+import { FileHandler } from '@tiptap/extension-file-handler';
 import FontFamily from '@tiptap/extension-font-family';
 import Placeholder from '@tiptap/extension-placeholder';
 import { TextAlign } from '@tiptap/extension-text-align';
@@ -39,7 +40,16 @@ export default function Editor({
   const { uploadToS3 } = useUploadFileToS3Mutation({
     onSuccess: (accessUrls) => {
       if (accessUrls.length > 0 && editor) {
-        editor.chain().focus().setCustomImage({ src: accessUrls[0] }).run();
+        const url = accessUrls[0];
+
+        editor
+          .chain()
+          .focus()
+          .setCustomImage({
+            src: url,
+            'data-original-filename': url,
+          })
+          .run();
       }
     },
   });
@@ -75,6 +85,19 @@ export default function Editor({
         mode: 'textSize',
       }),
       LimitListNesting,
+      FileHandler.configure({
+        allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+        onDrop: (currentEditor, files) => {
+          if (!files || files.length === 0) return;
+          const file = files[0];
+          uploadToS3({ files: [file] });
+        },
+        onPaste: (currentEditor, files) => {
+          if (!files || files.length === 0) return;
+          const file = files[0];
+          uploadToS3({ files: [file] });
+        },
+      }),
     ],
     content: value,
     editable: !readonly,
@@ -82,29 +105,6 @@ export default function Editor({
       onChange(editor.getHTML());
     },
   });
-
-  useEffect(() => {
-    if (!editor) return;
-
-    const handleDrop = async (event: DragEvent) => {
-      event.preventDefault();
-
-      const files = event.dataTransfer?.files;
-      if (!files || files.length === 0) return;
-
-      const file = files[0];
-      if (!file.type.startsWith('image/')) return;
-
-      uploadToS3({ files: [file] });
-    };
-
-    const dom = editor.view.dom;
-    dom.addEventListener('drop', handleDrop);
-
-    return () => {
-      dom.removeEventListener('drop', handleDrop);
-    };
-  }, [editor, uploadToS3]);
 
   useEffect(() => {
     if (editor && value !== editor.getHTML()) {
