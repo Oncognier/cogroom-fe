@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
+import ScrollToTop from '@/components/atoms/ScrollToTop/ScrollToTop';
 import TabBarList from '@/components/molecules/TabBarList/TabBarList';
 
 import * as S from './layout.styled';
@@ -41,6 +42,10 @@ export default function CommunityLayout({ children }: { children: React.ReactNod
           fillContainer
         />
       </S.CommunityHeader>
+
+      <S.FloatingButtonWrapper>
+        <ScrollToTop />
+      </S.FloatingButtonWrapper>
 
       {children}
     </S.CommunityLayout>

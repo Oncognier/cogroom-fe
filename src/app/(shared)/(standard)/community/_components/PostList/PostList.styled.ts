@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { mqMax } from '@/styles/foundation';
+
 export const PostList = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,4 +37,17 @@ export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+`;
+
+export const FloatingButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 1.8rem;
+  right: 1.6rem;
+  z-index: 1000;
+
+  display: none;
+
+  ${mqMax.tablet} {
+    display: block;
+  }
 `;

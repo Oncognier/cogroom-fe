@@ -112,7 +112,7 @@ export const HandleBar = styled.div`
 
 export const FloatingButtonWrapper = styled.div`
   position: fixed;
-  bottom: 1.6rem;
+  bottom: 1.7rem;
   right: 1.6rem;
   z-index: 1000;
 `;
