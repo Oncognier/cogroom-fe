@@ -20,7 +20,6 @@ export default function CustomToolbar({ editor }: CustomToolbarProps) {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
   const [selectedFont, setSelectedFont] = useState<string>('기본서체');
 
-
   const togglePopup = (popup: PopupType) => {
     setActivePopup((prev) => (prev === popup ? null : popup));
   };
