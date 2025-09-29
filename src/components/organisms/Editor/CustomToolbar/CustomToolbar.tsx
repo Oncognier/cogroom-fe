@@ -1,7 +1,7 @@
 'use client';
 
 import type { Editor } from '@tiptap/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import * as S from './CustomToolbar.styled';
 import CustomToolbarAlignment from './Sections/CustomToolbarAlignment';
@@ -19,6 +19,16 @@ type CustomToolbarProps = {
 export default function CustomToolbar({ editor }: CustomToolbarProps) {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
   const [selectedFont, setSelectedFont] = useState<string>('기본서체');
+
+  useEffect(() => {
+    editor
+      .chain()
+      .focus()
+      .setFontFamily(
+        'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+      )
+      .run();
+  }, [editor]);
 
   const togglePopup = (popup: PopupType) => {
     setActivePopup((prev) => (prev === popup ? null : popup));

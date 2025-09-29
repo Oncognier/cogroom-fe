@@ -47,6 +47,7 @@ export const useCommentState = ({ comment }: UseCommentStateProps) => {
 
   const handleReplySuccess = () => {
     setShowReplyField(false);
+    setShowChildren(true);
   };
 
   const handleEditSuccess = () => {
