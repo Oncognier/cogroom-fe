@@ -16,6 +16,7 @@ export default function SolidButton({
   iconRight,
   size,
   color,
+  round,
   fillContainer,
   isDisabled,
   onClick,
@@ -33,6 +34,7 @@ export default function SolidButton({
       fillContainer={fillContainer}
       type={type}
       align={align}
+      round={round}
     >
       {iconLeft && <S.Icon>{iconLeft}</S.Icon>}
       {label}
