@@ -18,9 +18,10 @@ export interface SolidButtonStyleProps {
   interactionVariant: InteractionVariant;
   fillContainer?: boolean;
   align?: SolidButtonAlign;
+  round?: boolean;
 }
 
-const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButtonAlign) => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButtonAlign, round?: boolean) => css`
   display: flex;
   align-items: center;
   justify-content: ${align};
@@ -28,7 +29,7 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButton
 
   width: ${fillContainer ? '100%' : 'auto'};
   border: none;
-  border-radius: 1.2rem;
+  border-radius: ${round ? '9999px' : '1.2rem'};
   background-color: ${theme.semantic.primary.normal};
   color: ${theme.semantic.static.white};
   padding: 1.2rem 2.4rem;
@@ -83,7 +84,7 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
 };
 
 export const SolidButton = styled.button<SolidButtonStyleProps>`
-  ${({ theme, fillContainer, align }) => commonStyles(theme, fillContainer, align)};
+  ${({ theme, fillContainer, align, round }) => commonStyles(theme, fillContainer, align, round)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>

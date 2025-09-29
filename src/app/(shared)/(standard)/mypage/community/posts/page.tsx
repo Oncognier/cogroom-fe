@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-import MyPageScrollXWrapper from '@/app/(shared)/(standard)/mypage/_components/MyPageScrollXWrapper/MyPageScrollXWrapper';
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
@@ -81,109 +80,107 @@ export default function Posts() {
 
   return (
     <S.UserPost>
-      <MyPageScrollXWrapper>
-        <S.FilterHeader>
-          <SearchFilter
-            totalTitle='전체 글'
-            total={total}
-            fields={{
-              dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
-              select: [
-                {
-                  name: 'categoryId',
-                  placeholder: '카테고리 선택',
-                  options: POST_CATEGORY_SELECT_OPTIONS,
-                  isMulti: true,
-                },
-              ],
-              search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
-            }}
-            actions={[{ type: 'submit', label: '검색하기' }]}
-          />
+      <S.FilterHeader>
+        <SearchFilter
+          totalTitle='전체 글'
+          total={total}
+          fields={{
+            dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+            select: [
+              {
+                name: 'categoryId',
+                placeholder: '카테고리 선택',
+                options: POST_CATEGORY_SELECT_OPTIONS,
+                isMulti: true,
+              },
+            ],
+            search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
+          }}
+          actions={[{ type: 'submit', label: '검색하기' }]}
+        />
 
-          <S.ListControlsWrapper>
-            {posts.length > 0 && (
-              <>
-                {!isEdit ? (
-                  <OutlinedButton
-                    label='선택'
-                    onClick={() => {
-                      setIsEdit(true);
-                      setSelectedPostIds([]);
-                    }}
-                    color='primary'
-                    size='sm'
-                    interactionVariant='normal'
-                  />
-                ) : (
-                  <S.ListSelectButtonWrapper>
-                    {posts.length > 0 && posts.every((p) => selectedPostIds.includes(p.postId)) ? (
-                      <SolidButton
-                        label='전체 취소'
-                        onClick={handleSelectAll}
-                        color='primary'
-                        size='sm'
-                        interactionVariant='normal'
-                      />
-                    ) : (
-                      <SolidButton
-                        type='button'
-                        label='전체 선택'
-                        onClick={handleSelectAll}
-                        color='primary'
-                        size='sm'
-                        interactionVariant='normal'
-                      />
-                    )}
-
-                    <OutlinedButton
-                      label='삭제'
-                      onClick={handleDeletePosts}
-                      color='destructive'
+        <S.ListControlsWrapper>
+          {posts.length > 0 && (
+            <>
+              {!isEdit ? (
+                <OutlinedButton
+                  label='선택'
+                  onClick={() => {
+                    setIsEdit(true);
+                    setSelectedPostIds([]);
+                  }}
+                  color='primary'
+                  size='sm'
+                  interactionVariant='normal'
+                />
+              ) : (
+                <S.ListSelectButtonWrapper>
+                  {posts.length > 0 && posts.every((p) => selectedPostIds.includes(p.postId)) ? (
+                    <SolidButton
+                      label='전체 취소'
+                      onClick={handleSelectAll}
+                      color='primary'
                       size='sm'
                       interactionVariant='normal'
                     />
-                  </S.ListSelectButtonWrapper>
-                )}
-              </>
-            )}
+                  ) : (
+                    <SolidButton
+                      type='button'
+                      label='전체 선택'
+                      onClick={handleSelectAll}
+                      color='primary'
+                      size='sm'
+                      interactionVariant='normal'
+                    />
+                  )}
 
-            <SortButton
-              sort={sort}
-              onClick={handleSortChange}
-            />
-          </S.ListControlsWrapper>
-        </S.FilterHeader>
+                  <OutlinedButton
+                    label='삭제'
+                    onClick={handleDeletePosts}
+                    color='destructive'
+                    size='sm'
+                    interactionVariant='normal'
+                  />
+                </S.ListSelectButtonWrapper>
+              )}
+            </>
+          )}
 
-        {posts.length === 0 ? (
-          <EmptyState
-            icon={<MessageCircleX />}
-            description='코그니어 커뮤니티에 첫 글을 써 보세요!'
-            buttonLabel='커뮤니티 바로가기'
-            buttonAction={handleGoToCommunity}
+          <SortButton
+            sort={sort}
+            onClick={handleSortChange}
           />
-        ) : (
-          <>
-            <S.PostList>
-              {posts.map((post) => (
-                <PostCard
-                  key={post.postId}
-                  post={post}
-                  isEdit={isEdit}
-                  isSelected={selectedPostIds.includes(post.postId)}
-                  onToggleSelect={(checked) => handleTogglePostSelection(post.postId, checked)}
-                />
-              ))}
-            </S.PostList>
+        </S.ListControlsWrapper>
+      </S.FilterHeader>
 
-            <InfiniteScrollSentinel
-              observerRef={observerRef}
-              hasNextPage={!!hasNextPage}
-              isFetchingNextPage={isFetchingNextPage}
-            />
-          </>
-        )}
-      </MyPageScrollXWrapper>
+      {posts.length === 0 ? (
+        <EmptyState
+          icon={<MessageCircleX />}
+          description='코그니어 커뮤니티에 첫 글을 써 보세요!'
+          buttonLabel='커뮤니티 바로가기'
+          buttonAction={handleGoToCommunity}
+        />
+      ) : (
+        <>
+          <S.PostList>
+            {posts.map((post) => (
+              <PostCard
+                key={post.postId}
+                post={post}
+                isEdit={isEdit}
+                isSelected={selectedPostIds.includes(post.postId)}
+                onToggleSelect={(checked) => handleTogglePostSelection(post.postId, checked)}
+              />
+            ))}
+          </S.PostList>
+
+          <InfiniteScrollSentinel
+            observerRef={observerRef}
+            hasNextPage={!!hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
+        </>
+      )}
     </S.UserPost>
   );
 }
