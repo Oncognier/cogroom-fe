@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
+import ScrollToTop from '@/components/atoms/ScrollToTop/ScrollToTop';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
@@ -35,6 +36,10 @@ export default function PostList() {
 
   return (
     <S.PostList>
+      <S.FloatingButtonWrapper>
+        <ScrollToTop />
+      </S.FloatingButtonWrapper>
+
       <S.ButtonFilter>
         {FILTERS.map(({ label, value }) => {
           const isActive = selected === value;
