@@ -3,19 +3,18 @@
 import { useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
+import Filter from '@/assets/icons/filter.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { Select } from '@/components/molecules/Select/Select';
 import SelectDateRange from '@/components/molecules/SelectDateRange/SelectDateRange';
+import BottomSheet from '@/components/organisms/BottomSheet';
+import { useBottomSheet } from '@/hooks/useBottomSheet';
 import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { formatCountPlus } from '@/utils/formatText';
-import Filter from '@/assets/icons/filter.svg';
 
 import * as S from './SearchFilter.styled';
-import { useBottomSheet } from '@/hooks/useBottomSheet';
-import BottomSheet from '@/components/organisms/BottomSheet';
-import IconButton from '@/components/atoms/IconButton/IconButton';
 
 export interface FilterFieldConfig {
   search?: {

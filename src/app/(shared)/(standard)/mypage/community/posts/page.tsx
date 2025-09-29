@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-import MyPageScrollXWrapper from '@/app/(shared)/(standard)/mypage/_components/MyPageScrollXWrapper/MyPageScrollXWrapper';
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';

@@ -1,7 +1,8 @@
 'use client';
 
-import { mqMax } from '@/styles/foundation';
 import styled from '@emotion/styled';
+
+import { mqMax } from '@/styles/foundation';
 
 export const DesktopOnly = styled.div`
   ${mqMax.tablet} {
