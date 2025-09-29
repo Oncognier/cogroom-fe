@@ -17,6 +17,20 @@ export const DailyCardWrapper = styled.div`
 `;
 
 export const PostContentViewBox = styled.div`
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    'Apple SD Gothic Neo',
+    'Malgun Gothic',
+    '맑은 고딕',
+    'Nanum Gothic',
+    sans-serif !important;
   color: ${({ theme }) => theme.semantic.label.normal};
 
   p:empty {
