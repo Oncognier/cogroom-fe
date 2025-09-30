@@ -20,16 +20,6 @@ export default function CustomToolbar({ editor }: CustomToolbarProps) {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
   const [selectedFont, setSelectedFont] = useState<string>('기본서체');
 
-  useEffect(() => {
-    editor
-      .chain()
-      .focus()
-      .setFontFamily(
-        'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-      )
-      .run();
-  }, [editor]);
-
   const togglePopup = (popup: PopupType) => {
     setActivePopup((prev) => (prev === popup ? null : popup));
   };

@@ -56,6 +56,7 @@ export default function Editor({
 
   const editor = useEditor({
     immediatelyRender: false,
+    autofocus: true,
     extensions: [
       StarterKit,
       CustomImage,
