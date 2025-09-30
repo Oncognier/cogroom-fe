@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import dompurify from 'dompurify';
-import parse, { DOMNode, domToReact, Element } from 'html-react-parser';
+import parse, { domToReact, Element } from 'html-react-parser';
 
 import Question from '@/app/(shared)/(standard)/daily/_components/Question/Question';
 
@@ -12,11 +11,11 @@ interface DailyData {
 }
 
 interface PostContentProps {
-  content: string;
+  content?: string;
   daily?: DailyData | null;
 }
 
-export default function PostContent({ content, daily }: PostContentProps) {
+export default function PostContent({ content = '', daily }: PostContentProps) {
   return (
     <S.PostContentContainer>
       {daily && (

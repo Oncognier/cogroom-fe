@@ -14,7 +14,7 @@ import { getDisplayName } from '@/utils/formatText';
 import * as S from './PostAuthor.styled';
 
 interface PostAuthorProps {
-  author: {
+  author?: {
     authorId: number;
     profileUrl: string | null;
     displayName: string;
@@ -77,9 +77,9 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
   };
 
   const handleAvatarClick = () => {
-    if (!author.isAnonymous) {
+    if (author && !author?.isAnonymous) {
       openSimpleModal('userProfile', {
-        memberId: author.authorId.toString(),
+        memberId: author?.authorId.toString(),
       });
     }
   };
@@ -91,14 +91,14 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
     <S.PostAuthorWrapper>
       <S.AuthorInfo
         onClick={handleAvatarClick}
-        $isClickable={!author.isAnonymous}
+        $isClickable={!author?.isAnonymous}
       >
         <AvatarPerson
           type='icon'
           size='md'
-          src={author.profileUrl || undefined}
+          src={author?.profileUrl || undefined}
         />
-        <S.PostUserName>{getDisplayName(author.displayName, author.isAnonymous)}</S.PostUserName>
+        <S.PostUserName>{getDisplayName(author?.displayName || '', author?.isAnonymous || false)}</S.PostUserName>
       </S.AuthorInfo>
 
       {shouldShowMenu && (
