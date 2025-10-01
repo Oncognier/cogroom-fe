@@ -110,6 +110,8 @@ export default function CommentField({
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === 'Enter' && !e.shiftKey) {
+        if (e.nativeEvent?.isComposing) return;
+        if (e.repeat) return;
         e.preventDefault();
         if (!isSubmitDisabled) {
           handleSubmit();
