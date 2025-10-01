@@ -63,31 +63,31 @@ export default function PostPage() {
       />
       <S.PostSectionsWrapper>
         <PostHeader
-          title={post!.title}
-          createdAt={post!.createdAt}
-          viewCount={post!.viewCount}
+          title={post?.title}
+          createdAt={post?.createdAt}
+          viewCount={post?.viewCount}
         />
         <PostAuthor
-          author={post!.author}
+          author={post?.author}
           postId={postId}
-          isMine={post!.isMine}
+          isMine={post?.isMine}
           isAdmin={isAdmin}
         />
         <PostContent
-          content={post!.content}
-          daily={post!.daily}
+          content={post?.content}
+          daily={post?.daily}
         />
         <PostLikesSaved
           postId={postId}
-          likeCount={post!.likeCount}
-          isLiked={post!.myStatus.isLiked}
-          saveCount={post!.saveCount}
-          isSaved={post!.myStatus.isSaved}
+          likeCount={post?.likeCount}
+          isLiked={post?.myStatus.isLiked}
+          saveCount={post?.saveCount}
+          isSaved={post?.myStatus.isSaved}
         />
         <PostComments
           postId={postId}
-          commentCount={post!.commentCount}
-          isPostAnonymous={post!.isAnonymous}
+          commentCount={post?.commentCount}
+          isPostAnonymous={post?.isAnonymous}
         />
       </S.PostSectionsWrapper>
     </S.PostPageContainer>

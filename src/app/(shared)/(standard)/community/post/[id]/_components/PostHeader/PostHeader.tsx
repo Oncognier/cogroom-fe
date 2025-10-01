@@ -4,9 +4,9 @@ import { formatCountPlus } from '@/utils/formatText';
 import * as S from './PostHeader.styled';
 
 interface PostHeaderProps {
-  title: string;
-  createdAt: string;
-  viewCount: number;
+  title?: string;
+  createdAt?: string;
+  viewCount?: number;
 }
 
 export default function PostHeader({ title, createdAt, viewCount }: PostHeaderProps) {
