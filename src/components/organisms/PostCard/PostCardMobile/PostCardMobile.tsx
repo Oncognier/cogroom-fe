@@ -11,7 +11,7 @@ import Heart from '@/assets/icons/heart.svg';
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
-import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
+import { POST_CATEGORY_LABELS, POST_CATEGORY_META, PostCategory } from '@/constants/common';
 import { DEFAULT_THUMBNAIL } from '@/constants/image';
 import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
 import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
@@ -53,7 +53,7 @@ export default function PostCardMobile({ post, isEdit = false, isSelected = fals
   const togglePostSaveMutation = useTogglePostSave();
 
   const handleCardClick = () => {
-    if (isAuth) {
+    if (category.name === POST_CATEGORY_LABELS.REFLECTION || isAuth) {
       router.push(`/community/post/${postId}`);
       return;
     }
