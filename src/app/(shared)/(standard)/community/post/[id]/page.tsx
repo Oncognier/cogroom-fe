@@ -80,9 +80,9 @@ export default function PostPage() {
         <PostLikesSaved
           postId={postId}
           likeCount={post?.likeCount}
-          isLiked={post?.myStatus.isLiked}
+          isLiked={post?.myStatus?.isLiked}
           saveCount={post?.saveCount}
-          isSaved={post?.myStatus.isSaved}
+          isSaved={post?.myStatus?.isSaved}
         />
         <PostComments
           postId={postId}
