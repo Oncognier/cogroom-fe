@@ -21,9 +21,10 @@ export const Wrapper = styled.div`
 `;
 
 export const TextareaContainer = styled.div`
-  width: 100%;
-  height: 10rem;
   position: relative;
+
+  width: 100%;
+  height: 100%;
 `;
 
 export const Textarea = styled.textarea`
@@ -46,11 +47,10 @@ export const BottomSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
 
   ${mqMax.tablet} {
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
     gap: 1rem;
   }
 `;
