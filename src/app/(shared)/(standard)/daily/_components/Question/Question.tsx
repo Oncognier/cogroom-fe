@@ -7,10 +7,10 @@ import { DAILY_MAX_LENGTH } from '@/constants/common';
 import { DEFAULT_QUESTION_BACKGROUND } from '@/constants/image';
 import { useEditDailyAnswerMutation } from '@/hooks/api/daily/useEditDailyAnswer';
 import { useSubmitDailyAnswerMutation } from '@/hooks/api/daily/useSubmitDailyAnswer';
-import { useTextLimiter } from '@/hooks/useTextLimiter';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore, useAlertModalStore } from '@/stores/useModalStore';
 
+import InputCount from './_components/InputCount';
 import * as S from './Question.styled';
 
 interface QuestionProps {
@@ -18,25 +18,29 @@ interface QuestionProps {
   question: string;
   answer?: string;
   hasAnswered: boolean;
+  hideSubmitButton?: boolean;
+  readOnlyMode?: boolean;
 }
 
-export default function Question({ assignedQuestionId, question, answer, hasAnswered }: QuestionProps) {
+export default function Question({
+  assignedQuestionId,
+  question,
+  answer,
+  hasAnswered,
+  hideSubmitButton = false,
+  readOnlyMode = false,
+}: QuestionProps) {
   const [isAnswered, setIsAnswered] = useState<boolean>(!!answer);
   const isFirstAnswer = useRef<boolean>(hasAnswered);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { isLoggedIn } = useAuthStore();
+  const isUnauth = useAuthStore((s) => s.isUnauth());
   const { submitDailyAnswer } = useSubmitDailyAnswerMutation();
   const { editDailyAnswer } = useEditDailyAnswerMutation();
   const { open } = useAppModalStore();
   const { open: openAlertModal } = useAlertModalStore();
 
-  const {
-    value: answerValue,
-    setValue: setAnswerValue,
-    isShaking,
-    isOverLimit,
-  } = useTextLimiter(DAILY_MAX_LENGTH, answer ?? '');
+  const [answerValue, setAnswerValue] = useState<string>(answer ?? '');
 
   const handleInput = () => {
     const el = textareaRef.current;
@@ -47,7 +51,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   };
 
   const handleSubmit = () => {
-    if (!isLoggedIn) {
+    if (isUnauth) {
       open('login');
       return;
     }
@@ -62,7 +66,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
   };
 
   const handleEdit = () => {
-    if (!isLoggedIn) {
+    if (isUnauth) {
       open('login');
       return;
     }
@@ -95,7 +99,7 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
       </S.QuestionWrapper>
       <S.Form>
         <S.InputGroup>
-          {isAnswered && (
+          {isAnswered && !readOnlyMode && (
             <S.AnswerStamp>
               <CheckCircle />
             </S.AnswerStamp>
@@ -104,20 +108,26 @@ export default function Question({ assignedQuestionId, question, answer, hasAnsw
             ref={textareaRef}
             value={answerValue}
             placeholder='음... 나는'
+            $readOnly={readOnlyMode}
             onChange={(e) => {
-              setAnswerValue(e.target.value);
+              if (!readOnlyMode) {
+                setAnswerValue(e.target.value);
+              }
             }}
           />
         </S.InputGroup>
 
         <S.SubmitGroup>
-          <S.CountValue
-            isHundredOver={isOverLimit}
-            isShaking={isShaking}
-          >
-            {answerValue.length}/{DAILY_MAX_LENGTH - 1}
-          </S.CountValue>
-          <S.Button onClick={isAnswered ? handleEdit : handleSubmit}>{isAnswered ? '수정하기' : '제출하기'}</S.Button>
+          {!readOnlyMode && (
+            <InputCount
+              maxLength={DAILY_MAX_LENGTH}
+              value={answerValue}
+              onChange={setAnswerValue}
+            />
+          )}
+          {!hideSubmitButton && (
+            <S.Button onClick={isAnswered ? handleEdit : handleSubmit}>{isAnswered ? '수정하기' : '제출하기'}</S.Button>
+          )}
         </S.SubmitGroup>
       </S.Form>
     </S.QuestionCard>

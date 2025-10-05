@@ -1,27 +1,23 @@
 import Image from 'next/image';
 
-import { DEFAULT_THUMBNAIL } from '@/constants/image';
-
 import * as S from './Thumbnail.styled';
 import type { ThumbnailStyleProps } from './Thumbnail.styled';
 
 interface ThumbnailProps extends ThumbnailStyleProps {
-  src?: string;
+  src: string;
   alt?: string;
 }
 
 export default function Thumbnail({
-  src = DEFAULT_THUMBNAIL,
+  src,
   alt = 'thumbnail',
   ratio = '1_1',
-  portrait = false,
   border = false,
   radius = false,
 }: ThumbnailProps) {
   return (
     <S.Thumbnail
       ratio={ratio}
-      portrait={portrait}
       border={border}
       radius={radius}
     >

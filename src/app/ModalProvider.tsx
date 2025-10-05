@@ -3,14 +3,16 @@
 import React from 'react';
 
 import Base from '@/components/organisms/Modal/Base/Base';
-import { AlertModalRegistry, AppModalRegistry } from '@/components/organisms/Modal/modalConfig';
+import { AlertModalRegistry, AppModalRegistry, SimpleModalRegistry } from '@/components/organisms/Modal/modalConfig';
 import AlertModal from '@/components/organisms/Modal/templates/AlertModal/AlertModal';
 import AppModal from '@/components/organisms/Modal/templates/AppModal/AppModal';
-import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
+import SimpleModal from '@/components/organisms/Modal/templates/SimpleModal/SimpleModal';
+import { useAlertModalStore, useAppModalStore, useSimpleModalStore } from '@/stores/useModalStore';
 
 export default function ModalProvider() {
   const appModalStore = useAppModalStore();
   const alertModalStore = useAlertModalStore();
+  const simpleModalStore = useSimpleModalStore();
 
   return (
     <>
@@ -23,6 +25,11 @@ export default function ModalProvider() {
         modalMap={AlertModalRegistry}
         useModalStore={() => alertModalStore}
         wrapper={AlertModal}
+      />
+      <Base
+        modalMap={SimpleModalRegistry}
+        useModalStore={() => simpleModalStore}
+        wrapper={SimpleModal}
       />
       <div id='modal-root' />
     </>

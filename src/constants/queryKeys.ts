@@ -11,6 +11,12 @@ const MEMBER_QUERY_KEYS = {
   MEMBER_SUMMARY: ['member', 'summary'],
   MEMBER_DAILY: ['member', 'daily'],
   MEMBER_DASHBOARD: ['member', 'dashboard'],
+  MEMBER_POSTS: ['member', 'posts'],
+  MEMBER_COMMENTS: ['member', 'comments'],
+  MEMBER_SAVES: ['member', 'posts', 'saves'],
+  MEMBER_LIKESPOSTS: ['member', 'posts', 'likes'],
+  MEMBER_LIKESCOMMENTS: ['member', 'comments', 'likes'],
+  PROFILE: ['member', 'profile'],
 } as const;
 
 const DAILY_QUERY_KEYS = {
@@ -25,11 +31,19 @@ const STREAK_QUERY_KEYS = {
   STREAK_DAYS: ['streak', 'days'],
 } as const;
 
+const POST_QUERY_KEYS = {
+  POST: ['post'],
+  POST_CREATE: ['post', 'create'],
+  POST_LIST: ['post', 'list'],
+} as const;
+
 const ADMIN_QUERY_KEYS = {
   ADMIN: ['admin'],
   ADMIN_MEMBER_LIST: ['admin', 'member_list'],
   ADMIN_DAILY_LIST: ['admin', 'daily_list'],
   ADMIN_MEMBER_DAILY: ['admin', 'daily'],
+  POST_LIST: ['admin', 'post_list'],
+  COMMENT_LIST: ['admin', 'comment_list'],
 } as const;
 
-export { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS, DAILY_QUERY_KEYS, STREAK_QUERY_KEYS, ADMIN_QUERY_KEYS };
+export { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS, DAILY_QUERY_KEYS, STREAK_QUERY_KEYS, POST_QUERY_KEYS, ADMIN_QUERY_KEYS };

@@ -9,8 +9,12 @@ import {
   UserDailyResponse,
   UserDashboardResponse,
   UserInfoResponse,
+  UserCommunityRequest,
   UserSummaryResponse,
   WithdrawRequest,
+  UserCommentListResponse,
+  UserPostListResponse,
+  UserProfileResponse,
 } from '@/types/member';
 
 import { axiosInstance } from './axios/axiosInstance';
@@ -32,8 +36,60 @@ const getUserInfo = async () => {
   return data.result;
 };
 
+const getUserProfile = async (memberId: string) => {
+  const { data } = await axiosInstance.get<UserProfileResponse>(END_POINTS_V1.MEMBERS.PROFILE(memberId));
+
+  return data.result;
+};
+
 const getUserDaily = async () => {
   const { data } = await axiosInstance.get<UserDailyResponse>(END_POINTS_V1.MEMBERS.DAILY);
+
+  return data.result;
+};
+
+const getUserPost = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS, {
+    params,
+  });
+
+  return data.result;
+};
+
+const deleteUserPost = async (postList: number[]) => {
+  await axiosInstance.delete(END_POINTS_V1.MEMBERS.POSTS, {
+    data: { postList },
+  });
+};
+
+const getUserCommentList = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getUserLikePost = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.POSTS_LIKE, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getUserLikeComment = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserCommentListResponse>(END_POINTS_V1.MEMBERS.COMMENTS_LIKE, {
+    params,
+  });
+
+  return data.result;
+};
+
+const getUserSavePost = async (params: UserCommunityRequest) => {
+  const { data } = await axiosInstance.get<UserPostListResponse>(END_POINTS_V1.MEMBERS.SAVES, {
+    params,
+  });
 
   return data.result;
 };
@@ -77,7 +133,14 @@ export const memberApi = {
   getUserSummary,
   getUserDashboard,
   getUserInfo,
+  getUserProfile,
   getUserDaily,
+  getUserPost,
+  getUserLikePost,
+  getUserLikeComment,
+  getUserSavePost,
+  deleteUserPost,
+  getUserCommentList,
   editUserInfo,
   checkNickname,
   withdraw,

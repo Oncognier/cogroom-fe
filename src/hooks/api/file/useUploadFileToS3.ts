@@ -4,7 +4,7 @@ import { fileApi } from '@/api/fileApis';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
 interface UseUploadFileToS3Props {
-  onSuccess?: (accessUrls: string[]) => void;
+  onSuccess?: (accessUrls: string[], originalFileNames?: string[]) => void;
 }
 
 export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props = {}) => {
@@ -28,10 +28,13 @@ export const useUploadFileToS3Mutation = ({ onSuccess }: UseUploadFileToS3Props 
         ),
       );
 
-      return presignedItems.map((item) => item.accessUrl);
+      return {
+        accessUrls: presignedItems.map((item) => item.accessUrl),
+        originalFileNames: files.map((file) => file.name),
+      };
     },
-    onSuccess: (accessUrls) => {
-      onSuccess?.(accessUrls);
+    onSuccess: ({ accessUrls, originalFileNames }) => {
+      onSuccess?.(accessUrls, originalFileNames);
     },
     onError: () => {
       open('error', { message: '파일 업로드에 실패했습니다.' });

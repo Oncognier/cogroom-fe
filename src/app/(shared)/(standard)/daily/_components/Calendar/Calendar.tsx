@@ -24,7 +24,7 @@ interface CalendarProps {
 export default function Calendar({ streakDateList, hasAnswered }: CalendarProps) {
   const router = useRouter();
   const { open } = useAppModalStore();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const isUnauth = useAuthStore((s) => s.isUnauth());
 
   const today = new Date();
   const [isMonthly, setIsMonthly] = useState(false);
@@ -36,7 +36,7 @@ export default function Calendar({ streakDateList, hasAnswered }: CalendarProps)
   const prevHasAnsweredRef = useRef<boolean>(hasAnswered);
 
   const handleGoToReport = () => {
-    if (!isLoggedIn) {
+    if (isUnauth) {
       open('login');
       return;
     }

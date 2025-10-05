@@ -13,9 +13,6 @@ const meta: Meta<typeof Thumbnail> = {
       control: 'select',
       options: ['1_1', '5_4', '4_3', '3_2', '16_10', '16_9', '2_1', '21_9'],
     },
-    portrait: {
-      control: 'boolean',
-    },
     border: {
       control: 'boolean',
     },
@@ -33,7 +30,6 @@ export const Default: Story = {
     src: DEFAULT_THUMBNAIL,
     alt: 'default thumbnail',
     ratio: '16_9',
-    portrait: false,
     border: false,
     radius: false,
   },
@@ -61,6 +57,5 @@ export const Portrait: Story = {
   args: {
     src: DEFAULT_THUMBNAIL,
     alt: 'portrait thumbnail',
-    portrait: true,
   },
 };

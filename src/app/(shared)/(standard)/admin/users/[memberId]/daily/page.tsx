@@ -10,17 +10,17 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Search from '@/components/atoms/Search/Search';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import { Select } from '@/components/molecules/Select/Select';
-import SelectDate from '@/components/molecules/SelectDate/SelectDate';
+import SelectDateRange from '@/components/molecules/SelectDateRange/SelectDateRange';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
-import { CATEGORY_SELECT_OPTIONS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
+import Table from '@/components/organisms/Table/Table';
+import { CATEGORY_SELECT_OPTIONS, DAILY_TABLE_HEADER_ITEMS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetMemberDailyQuestions from '@/hooks/api/admin/useGetMemberDailyQuestions';
 import { MemberDailyFormFields } from '@/types/form';
 import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
 
-import DailyTableHeader from './_components/DailyTableHeader/DailyTableHeader';
+import DailyListCard from './_components/DailyListCard/DailyListCard';
 import * as S from './page.styled';
-import DailyListRow from '../../../_components/DailyListRow/DailyListRow';
 
 export default function MemberDaily() {
   const memberId = String(useParams()?.memberId);
@@ -59,11 +59,21 @@ export default function MemberDaily() {
   const isAllSelected =
     currentPageContentIds.length > 0 && currentPageContentIds.every((id) => selectedIds.includes(id));
 
-  const onSubmit = (data: MemberDailyFormFields) => {
-    setFilterValues(data);
+  const onSubmit = (form: MemberDailyFormFields) => {
+    setFilterValues(form);
     setCurrentPage(0);
     setSelectedIds([]);
   };
+
+  const handleToggleAll = (checked: boolean) => {
+    setSelectedIds(checked ? currentPageContentIds : []);
+  };
+
+  const handleToggleOne = (id: number, checked: boolean) => {
+    setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
+  };
+
+  if (isLoading) return <Loading />;
 
   return (
     <S.DailyContainer>
@@ -113,7 +123,7 @@ export default function MemberDaily() {
                 name='endDate'
                 control={control}
                 render={({ field: endField }) => (
-                  <SelectDate
+                  <SelectDateRange
                     selectedStartDate={startField.value}
                     selectedEndDate={endField.value}
                     onStartDateChange={startField.onChange}
@@ -149,31 +159,24 @@ export default function MemberDaily() {
           />
         </S.FilterHeader>
 
-        <S.MemberDailyTable>
-          <DailyTableHeader
-            checked={isAllSelected}
-            onCheckToggle={(ck) => setSelectedIds(ck ? currentPageContentIds : [])}
-          />
-
-          {isLoading ? (
-            <Loading />
-          ) : contents.length === 0 ? (
-            <EmptyState icon={<ScriptX />} />
-          ) : (
-            contents.map((d) => (
-              <DailyListRow
+        <Table
+          checked={isAllSelected}
+          onCheckToggle={handleToggleAll}
+          headerItems={DAILY_TABLE_HEADER_ITEMS}
+          isEmpty={contents.length === 0}
+          emptyState={<EmptyState icon={<ScriptX />} />}
+        >
+          <S.RowWrapper>
+            {contents.map((d) => (
+              <DailyListCard
                 key={d.assignedQuestionId}
                 daily={d}
                 checked={selectedIds.includes(d.assignedQuestionId)}
-                onCheckToggle={(ck) =>
-                  setSelectedIds((prev) =>
-                    ck ? [...prev, d.assignedQuestionId] : prev.filter((id) => id !== d.assignedQuestionId),
-                  )
-                }
+                onCheckToggle={(ck) => handleToggleOne(d.assignedQuestionId, ck)}
               />
-            ))
-          )}
-        </S.MemberDailyTable>
+            ))}
+          </S.RowWrapper>
+        </Table>
       </ScrollXWrapper>
 
       <S.PaginationWrapper>

@@ -1,6 +1,7 @@
-import MessageCircleX from '@/assets/icons/message-circle-x.svg';
-import EmptyState from '@/components/organisms/EmptyState/EmptyState';
+'use client';
+
+import { redirect } from 'next/navigation';
 
 export default function Likes() {
-  return <EmptyState icon={<MessageCircleX />} />;
+  redirect('/mypage/community/likes/posts');
 }

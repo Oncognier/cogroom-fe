@@ -12,6 +12,8 @@ const BASE_PATH_V1 = {
   CONTENTS: `${API_V1}/contents`,
   FILE: `${API_V1}/files`,
   STREAKS: `${API_V1}/streaks`,
+  POSTS: `${API_V1}/posts`,
+  COMMENTS: `${API_V1}/comments`,
 
   ADMIN: `${API_V1}/admin`,
 } as const;
@@ -50,8 +52,13 @@ export const END_POINTS_V1 = {
     DAILY: `${BASE_PATH_V1.MEMBERS}/me/daily`,
     ORDERS: `${BASE_PATH_V1.MEMBERS}/orders`,
     WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
+    POSTS: `${BASE_PATH_V1.MEMBERS}/me/posts`,
+    COMMENTS: `${BASE_PATH_V1.MEMBERS}/me/comments`,
+    POSTS_LIKE: `${BASE_PATH_V1.MEMBERS}/me/posts/likes`,
+    COMMENTS_LIKE: `${BASE_PATH_V1.MEMBERS}/me/comments/likes`,
+    SAVES: `${BASE_PATH_V1.MEMBERS}/me/posts/saves`,
+    PROFILE: (memberId: string) => `${BASE_PATH_V1.MEMBERS}/${memberId}/profile`,
   },
-
   DAILY: {
     QUESTIONS: `${BASE_PATH_V1.DAILY}/questions`,
     ANSWERS: `${BASE_PATH_V1.DAILY}/answers`,
@@ -75,6 +82,23 @@ export const END_POINTS_V1 = {
     CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
     DAILY_STREAK: `${BASE_PATH_V1.STREAKS}/daily-streak`,
   },
+  POSTS: {
+    LIST: `${BASE_PATH_V1.POSTS}`,
+    POST_CREATE: `${BASE_PATH_V1.POSTS}`,
+    POST_UPDATE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+    POST_DETAIL: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+    POST_LIKE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/likes`,
+    POST_SAVE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/saves`,
+    DELETE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+  },
+  COMMENTS: {
+    CREATE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/comments`,
+    LIST: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/comments`,
+    UPDATE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
+    DELETE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
+    LIKE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
+    DELETE_LIKE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
+  },
 
   ADMIN: {
     MEMBERS: {
@@ -90,6 +114,10 @@ export const END_POINTS_V1 = {
       QUESTIONS_CREATE: `${BASE_PATH_V1.ADMIN}/daily/questions`,
       QUESTIONS_EDIT: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
       QUESTIONS_DELETE: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
+    },
+    COMMUNITY: {
+      POSTS: `${BASE_PATH_V1.ADMIN}/community/posts`,
+      COMMENTS: `${BASE_PATH_V1.ADMIN}/community/comments`,
     },
     CONTENTS: {
       CONTENTS: `${BASE_PATH_V1.ADMIN}/contents`,
@@ -116,6 +144,7 @@ export const HTTP_STATUS_CODE = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
+  CONFLICT: 409,
   INTERNAL_SERVER_ERROR: 500,
   SERVICE_UNAVAILABLE: 503,
 };

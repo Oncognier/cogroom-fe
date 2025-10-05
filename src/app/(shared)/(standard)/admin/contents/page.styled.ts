@@ -10,35 +10,23 @@ export const ContentsContainer = styled.div`
   width: 100%;
 `;
 
-export const FilterHeader = styled.form`
-  display: flex;
-  gap: 1.2rem;
-  align-items: center;
-
-  width: 100%;
-  padding: 0.8rem 0;
-`;
-
-export const SearchWrapper = styled.div`
-  width: 20.3rem;
-`;
-
-export const SelectWrapper = styled.div`
-  width: 20.3rem;
-`;
-
-export const Title = styled.p`
-  flex: 1;
-
-  ${({ theme }) => theme.typography.heading1.semibold};
-  color: ${({ theme }) => theme.semantic.label.normal};
-`;
-
-export const ContentsTable = styled.div`
+export const FilterHeader = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 0.8rem;
 
   width: 100%;
+`;
+
+export const PageSwitcher = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+`;
+
+export const PageTitle = styled.div`
+  ${({ theme }) => theme.typography.heading1.semibold};
+  color: ${({ theme }) => theme.semantic.label.normal};
 `;
 
 export const PaginationWrapper = styled.div`

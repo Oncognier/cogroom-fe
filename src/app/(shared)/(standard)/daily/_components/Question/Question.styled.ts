@@ -75,6 +75,7 @@ export const Form = styled.div`
 
   max-width: 52rem;
   width: 100%;
+  height: 5.4rem;
   padding: 0.6rem 0.8rem 0.6rem 3.2rem;
 
   ${({ theme }) => theme.typography.body1.regular}
@@ -92,7 +93,7 @@ export const InputGroup = styled.div`
   gap: 0.8rem;
 `;
 
-export const Input = styled.textarea`
+export const Input = styled.textarea<{ $readOnly?: boolean }>`
   width: 100%;
   overflow-y: auto;
   height: 2rem;
@@ -104,6 +105,7 @@ export const Input = styled.textarea`
 
   ${({ theme }) => theme.typography.label1.regular}
   color: ${({ theme }) => theme.semantic.label.normal};
+  cursor: ${({ $readOnly }) => ($readOnly ? 'default' : 'text')};
 
   ::placeholder {
     color: ${({ theme }) => theme.semantic.label.alternative};

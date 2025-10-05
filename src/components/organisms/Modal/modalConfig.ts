@@ -2,6 +2,7 @@ import type { ModalMap } from '@/types/modal';
 
 import Alert, { AlertProps } from './Alert/Alert';
 import ChangeRole, { ChangeRoleProps } from './ChangeRole/ChangeRole';
+import CommunityDelete, { CommunityDeleteProps } from './CommunityDelete/CommunityDelete';
 import DailyShare, { DailyShareProps } from './Daily/DailyShare/DailyShare';
 import DailyFirstAnswer, { DailyFirstAnswerProps } from './Daily/FirstAnswer/DailyFirstAnswer';
 import DailyAnswerPost, { DailyAnswerPostProps } from './Daily/Post/DailyAnswerPost';
@@ -10,6 +11,8 @@ import Login from './Login/Login';
 import Logout from './Logout/Logout';
 import Notify from './Notify/Notify';
 import Signup, { SignupProps } from './Signup/Signup';
+import SimpleModal from './templates/SimpleModal/SimpleModal';
+import UserProfileModal, { UserProfileModalProps } from './UserProfile/UserProfileModal';
 import Withdraw from './Withdraw/Withdraw';
 
 export type AppModalProps = {
@@ -27,6 +30,11 @@ export type AlertModalProps = {
   alert: AlertProps;
   dailyFirstAnswer: DailyFirstAnswerProps;
   changeRole: ChangeRoleProps;
+  communityDelete: CommunityDeleteProps;
+};
+
+export type SimpleModalProps = {
+  userProfile: UserProfileModalProps;
 };
 
 export const AppModalRegistry = {
@@ -44,4 +52,9 @@ export const AlertModalRegistry = {
   alert: { Component: Alert, disableOutsideClick: false },
   dailyFirstAnswer: { Component: DailyFirstAnswer, disableOutsideClick: false },
   changeRole: { Component: ChangeRole, disableOutsideClick: false },
+  communityDelete: { Component: CommunityDelete, disableOutsideClick: false },
 } satisfies ModalMap<AlertModalProps>;
+
+export const SimpleModalRegistry = {
+  userProfile: { Component: UserProfileModal, Wrapper: SimpleModal, disableOutsideClick: false },
+} satisfies ModalMap<SimpleModalProps>;

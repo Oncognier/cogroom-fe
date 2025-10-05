@@ -4,13 +4,13 @@ import * as S from './SettingItem.styled';
 
 interface SettingItemProps {
   label: string;
-  description?: string;
+  children?: React.ReactNode;
   isActive: boolean;
   onChange: () => void;
   disabled?: boolean;
 }
 
-export default function SettingItem({ label, description, isActive, onChange, disabled }: SettingItemProps) {
+export default function SettingItem({ label, children, isActive, onChange, disabled }: SettingItemProps) {
   return (
     <S.Container>
       <S.SettingItem>
@@ -22,7 +22,7 @@ export default function SettingItem({ label, description, isActive, onChange, di
           onChange={onChange}
         />
       </S.SettingItem>
-      {description && <S.Description>{description}</S.Description>}
+      {children}
     </S.Container>
   );
 }

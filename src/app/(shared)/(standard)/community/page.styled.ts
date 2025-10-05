@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 2.4rem;
 `;
 
 export const BannerWrapper = styled.div`
@@ -40,4 +40,11 @@ export const BannerTitleWrapper = styled.div`
 export const BannerTitle = styled.p`
   ${({ theme }) => theme.typography.title1.bold}
   color: ${({ theme }) => theme.semantic.label.normal};
+`;
+
+export const WriteButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  width: 100%;
 `;

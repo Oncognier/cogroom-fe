@@ -1,6 +1,10 @@
-import { ApiResponse } from './api';
+import { ApiResponse, CursorPaginationResult } from './api';
+import { Comment } from './comment';
+import { Post } from './post';
 
 export type MemberRole = 'USER' | 'ADMIN' | 'CONTENT_PROVIDER';
+
+export type SortType = 'latest' | 'oldest';
 
 export type UserSummary = {
   nickname: string;
@@ -22,6 +26,17 @@ export type UserInfo = {
 
 export interface UserInfoResponse extends ApiResponse {
   result: UserInfo;
+}
+
+export type UserProfile = {
+  memberId: number;
+  nickname: string;
+  profileUrl?: string;
+  description?: string;
+};
+
+export interface UserProfileResponse extends ApiResponse {
+  result: UserProfile;
 }
 
 export interface EditUserInfoRequest extends UserInfo {}
@@ -54,4 +69,21 @@ export interface CheckNicknameResponse extends ApiResponse {
 
 export interface WithdrawRequest {
   reason: string;
+}
+
+export interface UserCommunityRequest {
+  sort?: string;
+  categoryId?: number[];
+  keyword?: string;
+  startDate?: string;
+  endDate?: string;
+  cursor?: number | null;
+}
+
+export interface UserPostListResponse extends ApiResponse {
+  result: CursorPaginationResult<Post>;
+}
+
+export interface UserCommentListResponse extends ApiResponse {
+  result: CursorPaginationResult<Comment>;
 }

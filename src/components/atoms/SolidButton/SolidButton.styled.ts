@@ -8,7 +8,7 @@ import { getInteraction, InteractionVariant } from '@/styles/helpers/interaction
 
 type BrandColors = keyof Pick<typeof brandColors, 'kakao' | 'naver'>;
 
-type SolidButtonColor = 'primary' | BrandColors;
+type SolidButtonColor = 'primary' | 'assistive' | BrandColors;
 type SolidButtonSize = 'sm' | 'md' | 'lg';
 type SolidButtonAlign = 'center' | 'space-between';
 
@@ -18,9 +18,10 @@ export interface SolidButtonStyleProps {
   interactionVariant: InteractionVariant;
   fillContainer?: boolean;
   align?: SolidButtonAlign;
+  round?: boolean;
 }
 
-const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButtonAlign) => css`
+const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButtonAlign, round?: boolean) => css`
   display: flex;
   align-items: center;
   justify-content: ${align};
@@ -28,10 +29,12 @@ const commonStyles = (theme: Theme, fillContainer?: boolean, align?: SolidButton
 
   width: ${fillContainer ? '100%' : 'auto'};
   border: none;
-  border-radius: 1.2rem;
+  border-radius: ${round ? '9999px' : '1.2rem'};
   background-color: ${theme.semantic.primary.normal};
   color: ${theme.semantic.static.white};
   padding: 1.2rem 2.4rem;
+
+  white-space: nowrap;
 
   &:hover {
     cursor: pointer;
@@ -66,6 +69,10 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
     background-color: ${theme.semantic.primary.normal};
     color: ${theme.semantic.static.white};
   `,
+  assistive: (theme) => css`
+    background-color: ${theme.semantic.background.elevated.normal};
+    color: ${theme.semantic.background.elevated.alternative};
+  `,
   kakao: (theme) => css`
     background-color: ${theme.brandColors.kakao};
     color: ${theme.semantic.label.normal};
@@ -77,7 +84,7 @@ const colorStyles: Record<SolidButtonColor, (theme: Theme) => SerializedStyles> 
 };
 
 export const SolidButton = styled.button<SolidButtonStyleProps>`
-  ${({ theme, fillContainer, align }) => commonStyles(theme, fillContainer, align)};
+  ${({ theme, fillContainer, align, round }) => commonStyles(theme, fillContainer, align, round)};
   ${({ theme, size }) => sizeStyles[size](theme)};
   ${({ theme, color }) => (color ? colorStyles[color](theme) : colorStyles.primary(theme))};
   ${({ theme, interactionVariant, disabled }) =>
@@ -89,8 +96,6 @@ export const Icon = styled.div`
   justify-content: center;
   align-items: center;
 
-  & > svg {
-    width: 1.13em;
-    height: 1.13em;
-  }
+  width: 1.13em;
+  height: 1.13em;
 `;

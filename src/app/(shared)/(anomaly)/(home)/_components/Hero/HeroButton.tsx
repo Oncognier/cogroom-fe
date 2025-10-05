@@ -11,10 +11,10 @@ import * as S from './Hero.styled';
 export default function HeroButton() {
   const { open } = useAppModalStore();
   const router = useRouter();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const isAuth = useAuthStore((s) => s.isAuth());
 
   const handleClick = () => {
-    if (isLoggedIn) {
+    if (isAuth) {
       router.push('/daily');
     } else {
       open('login');

@@ -1,7 +1,9 @@
 import { RoleKey } from '@/constants/common';
 import { ApiResponse, PaginationResult } from '@/types/api';
 
+import { Comment } from './comment';
 import { MemberRole } from './member';
+import { Post } from './post';
 
 export interface MemberListRequest {
   page?: number;
@@ -39,6 +41,7 @@ export interface MemberDailyQuestion {
   question: string;
   level: string;
   categories: string[];
+  answer: string;
   answeredAt: string;
 }
 
@@ -55,6 +58,32 @@ export interface DailyQuestion {
 
 export interface DailyQuestionsResponse extends ApiResponse {
   result: PaginationResult<DailyQuestion>;
+}
+
+export interface AdminPostListRequest {
+  page?: number;
+  categoryId?: number[];
+  nickname?: string;
+  title?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface AdminPostListResponse extends ApiResponse {
+  result: PaginationResult<Post>;
+}
+
+export interface AdminCommentListRequest {
+  page?: number;
+  categoryId?: number[];
+  nickname?: string;
+  content?: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface AdminCommentListResponse extends ApiResponse {
+  result: PaginationResult<Comment>;
 }
 
 export interface ChangeMemberRoleRequest {

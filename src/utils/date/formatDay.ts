@@ -28,6 +28,11 @@ export const formatDayAsYYYYMM = createDateFormatter((date) => {
   return `${date.getFullYear()}년 ${formatToDigits(date.getMonth() + 1, 2)}월`;
 });
 
+// HH:mm 형식으로 포맷팅 (예: 13:32)
+export const formatTimeAsHHmm = createDateFormatter((date) => {
+  return `${formatToDigits(date.getHours(), 2)}:${formatToDigits(date.getMinutes(), 2)}`;
+});
+
 // 요일 반환 (월~일)
 export const formatWeekday = createDateFormatter((date) => {
   const idx = date.getDay();
@@ -53,3 +58,30 @@ export const formatDateRangeLabel = (start?: Date | string | null, end?: Date | 
   }
   return '';
 };
+
+/**
+ * 주어진 시각을 한국어 상대시간 문자열로 포맷합니다.
+ *
+ * 규칙:
+ * - 1분 미만: "방금 전"
+ * - 1시간 미만: "N분 전"
+ * - 24시간 미만: "N시간 전"
+ * - 8일 미만(= 1~7일): "N일 전"
+ * - 8일 이상: "YYYY-MM-DD" (기존 formatDayAsDashYYYYMMDD 재사용)
+ */
+export const formatRelativeKorean = createDateFormatter((date) => {
+  const now = new Date();
+  let diffMs = now.getTime() - date.getTime();
+  if (diffMs < 0) diffMs = 0; // 미래 시각은 "방금 전" 쪽 규칙에 수렴하도록 0으로 클램프
+
+  const minuteMs = 60 * 1000;
+  const hourMs = 60 * minuteMs;
+  const dayMs = 24 * hourMs;
+
+  if (diffMs < minuteMs) return '방금 전';
+  if (diffMs < hourMs) return `${Math.floor(diffMs / minuteMs)}분 전`;
+  if (diffMs < 24 * hourMs) return `${Math.floor(diffMs / hourMs)}시간 전`;
+  if (diffMs < 8 * dayMs) return `${Math.floor(diffMs / dayMs)}일 전`;
+
+  return formatDayAsDashYYYYMMDD(date);
+});
