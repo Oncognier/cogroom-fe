@@ -98,7 +98,7 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
           size='md'
           src={author?.profileUrl || undefined}
         />
-        <S.PostUserName>{getDisplayName(author?.displayName || '', author?.isAnonymous || false)}</S.PostUserName>
+        <S.PostUserName>{getDisplayName(author?.displayName || null, author?.isAnonymous || false)}</S.PostUserName>
       </S.AuthorInfo>
 
       {shouldShowMenu && (
