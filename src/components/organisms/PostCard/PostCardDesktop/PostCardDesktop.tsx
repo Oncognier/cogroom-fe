@@ -12,7 +12,7 @@ import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
-import { POST_CATEGORY_META, PostCategory } from '@/constants/common';
+import { POST_CATEGORY_LABELS, POST_CATEGORY_META, PostCategory } from '@/constants/common';
 import { DEFAULT_THUMBNAIL } from '@/constants/image';
 import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
 import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
@@ -56,7 +56,7 @@ export default function PostCardDesktop({ post, isEdit = false, isSelected = fal
   const togglePostSaveMutation = useTogglePostSave();
 
   const handleCardClick = () => {
-    if (isAuth) {
+    if (category.name === POST_CATEGORY_LABELS.REFLECTION || isAuth) {
       router.push(`/community/post/${postId}`);
       return;
     }

@@ -15,7 +15,7 @@ type ColorIndicatorProps = {
 
 export const CustomToolbar = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 
@@ -23,6 +23,7 @@ export const CustomToolbar = styled.div`
 
   ${mqMax.tablet} {
     padding: 0;
+    justify-content: flex-start;
   }
 `;
 
@@ -154,24 +155,16 @@ export const DropdownButton = styled.button<ButtonProps>`
   cursor: pointer;
   transition: all 0.2s ease;
 
-  svg {
-    width: 2rem !important;
-    height: 2rem !important;
-    transition: transform 0.2s ease;
-    transform: ${({ isActive }) => (isActive ? 'rotate(180deg)' : 'rotate(0deg)')};
-  }
-
   ${mqMax.tablet} {
     padding: 1rem;
   }
 `;
 
-export const MediaIcon = styled.div`
-  width: 1.6rem;
-  height: 1.6rem;
-  background: ${({ theme }) => theme.semantic.label.normal};
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='m21 16-4-4-6 6-4-4-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v11z'/%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3C/svg%3E")
-    center/contain no-repeat;
+export const DropdownIcon = styled.div<ButtonProps>`
+  width: 2rem;
+  height: 2rem;
+  transition: transform 0.2s ease;
+  transform: ${({ isActive }) => (isActive ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
 
 export const ColorButtonContent = styled.div`

@@ -111,7 +111,7 @@ export const useCommunityWriteLogic = (): UseCommunityWriteLogicReturn => {
     const finalIsAnonymous = isAnonymousRendered ? formData.isAnonymous : false;
 
     if (isEditMode && editPostId) {
-      const existingImageUrls = extractImageUrls(existingPost?.content || '');
+      const existingImageUrls = extractImageUrls(existingPost!.content);
       const deleteUrlList = calculateDeleteUrls(existingImageUrls, imageUrlList);
 
       updatePost({

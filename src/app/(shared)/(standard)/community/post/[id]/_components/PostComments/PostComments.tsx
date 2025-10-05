@@ -11,8 +11,8 @@ import * as S from './PostComments.styled';
 
 interface PostCommentsProps {
   postId: string;
-  commentCount: number;
-  isPostAnonymous: boolean;
+  commentCount?: number;
+  isPostAnonymous?: boolean;
 }
 
 export default function PostComments({ postId, commentCount, isPostAnonymous }: PostCommentsProps) {

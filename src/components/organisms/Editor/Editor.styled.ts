@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { editorContentStyles } from '@/styles/commonStyles';
+
 type EditorWrapperProps = {
   height: number;
 };
@@ -13,42 +15,6 @@ export const EditorWrapper = styled.div`
 
   width: 100%;
   height: 100%;
-
-  ul {
-    padding-left: 1em;
-    margin: 0 0 0.5rem 0;
-  }
-  ul li {
-    padding-left: 0.5em;
-    text-indent: 0;
-  }
-  ul li::marker {
-    content: '•';
-    color: ${({ theme }) => theme.semantic.static.black};
-    margin-right: 0.5em; /* 점과 글자 사이 간격 */
-  }
-
-  /* 번호 리스트 */
-  ol {
-    padding-left: 1em;
-    counter-reset: item;
-
-    margin: 0 0 1em 0;
-  }
-  ol li {
-    counter-increment: item;
-    padding-left: 0.5em; /* 글자와 점 사이 간격 */
-    text-indent: 0;
-  }
-  ol li::marker {
-    content: counter(item) '.';
-    color: ${({ theme }) => theme.semantic.static.black};
-    margin-right: 0.5em; /* 숫자와 글자 사이 간격 */
-  }
-
-  li {
-    margin: 0.25em 0;
-  }
 
   .ProseMirror {
     font-family:
@@ -66,11 +32,6 @@ export const EditorWrapper = styled.div`
       'Nanum Gothic',
       sans-serif !important;
 
-    font-size: 1.6rem;
-    line-height: 2.6rem;
-    letter-spacing: 0.0057em;
-    font-weight: 400;
-
     height: 100%;
     color: ${({ theme }) => theme.semantic.label.normal};
     background-color: ${({ theme }) => theme.semantic.static.white};
@@ -86,31 +47,7 @@ export const EditorWrapper = styled.div`
       pointer-events: none;
     }
 
-    h1,
-    h2,
-    h3 {
-      margin: 2.4rem 0 1.2rem 0;
-      font-weight: bold;
-
-      &:first-child {
-        margin-top: 0;
-      }
-    }
-
-    h1 {
-      font-size: 2.4rem;
-      line-height: 1.3;
-    }
-
-    h2 {
-      font-size: 2rem;
-      line-height: 1.4;
-    }
-
-    h3 {
-      font-size: 1.6rem;
-      line-height: 1.5;
-    }
+    ${({ theme }) => editorContentStyles(theme)}
 
     blockquote {
       margin: 1.6rem 0;
@@ -121,32 +58,6 @@ export const EditorWrapper = styled.div`
       p {
         margin: 0;
       }
-    }
-
-    .editor-link {
-      color: ${({ theme }) => theme.semantic.primary.normal};
-      text-decoration: underline;
-      cursor: pointer;
-
-      &:hover {
-        color: ${({ theme }) => theme.semantic.primary.strong};
-      }
-    }
-
-    strong {
-      font-weight: bold;
-    }
-
-    em {
-      font-style: italic;
-    }
-
-    u {
-      text-decoration: underline;
-    }
-
-    s {
-      text-decoration: line-through;
     }
   }
 `;

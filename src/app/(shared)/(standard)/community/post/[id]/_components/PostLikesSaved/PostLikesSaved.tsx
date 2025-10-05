@@ -9,13 +9,19 @@ import * as S from './PostLikesSaved.styled';
 
 interface PostLikesSavedProps {
   postId: string;
-  likeCount: number;
-  isLiked: boolean;
-  saveCount: number;
-  isSaved: boolean;
+  likeCount?: number;
+  isLiked?: boolean;
+  saveCount?: number;
+  isSaved?: boolean;
 }
 
-export default function PostLikesSaved({ postId, likeCount, isLiked, saveCount, isSaved }: PostLikesSavedProps) {
+export default function PostLikesSaved({
+  postId,
+  likeCount = 0,
+  isLiked = false,
+  saveCount = 0,
+  isSaved = false,
+}: PostLikesSavedProps) {
   const togglePostLikeMutation = useTogglePostLike();
   const togglePostSaveMutation = useTogglePostSave();
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, ChangeEvent } from 'react';
+import { useState, useCallback, ChangeEvent, KeyboardEvent } from 'react';
 
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
@@ -107,12 +107,27 @@ export default function CommentField({
   const isLoading = isEdit ? updateCommentMutation.isPending : createLoading;
   const isSubmitDisabled = disabled || isLoading || !content.trim();
 
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        if (e.nativeEvent?.isComposing) return;
+        if (e.repeat) return;
+        e.preventDefault();
+        if (!isSubmitDisabled) {
+          handleSubmit();
+        }
+      }
+    },
+    [handleSubmit, isSubmitDisabled],
+  );
+
   return (
     <S.Wrapper>
       <S.TextareaContainer>
         <S.Textarea
           value={content}
           onChange={handleContentChange}
+          onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled || isLoading}
         />

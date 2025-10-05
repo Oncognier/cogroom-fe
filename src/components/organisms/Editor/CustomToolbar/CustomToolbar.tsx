@@ -1,7 +1,7 @@
 'use client';
 
 import type { Editor } from '@tiptap/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import * as S from './CustomToolbar.styled';
 import CustomToolbarAlignment from './Sections/CustomToolbarAlignment';
