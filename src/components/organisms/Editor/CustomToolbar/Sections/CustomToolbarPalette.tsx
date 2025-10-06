@@ -32,6 +32,13 @@ export default function CustomToolbarPalette({
 }: Props) {
   const currentColor = editor.getAttributes('textStyle').color;
 
+  const getCurrentTextType = () => {
+    if (editor.isActive('heading', { level: 1 })) return '제목 1';
+    if (editor.isActive('heading', { level: 2 })) return '제목 2';
+    if (editor.isActive('heading', { level: 3 })) return '제목 3';
+    return '본문';
+  };
+
   const { uploadToS3 } = useUploadFileToS3Mutation({
     onSuccess: (accessUrls, originalFileNames) => {
       if (accessUrls.length > 0 && originalFileNames) {
@@ -91,7 +98,7 @@ export default function CustomToolbarPalette({
           onClick={() => togglePopup('typography')}
           isActive={activePopup === 'typography'}
         >
-          본문
+          {getCurrentTextType()}
           <S.DropdownIcon isActive={activePopup === 'typography'}>
             <ChevronDown />
           </S.DropdownIcon>
