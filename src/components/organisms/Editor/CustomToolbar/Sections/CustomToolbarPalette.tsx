@@ -5,6 +5,7 @@ import type { Editor } from '@tiptap/react';
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ImageIcon from '@/assets/icons/image.svg';
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
+import { cogroom } from '@/styles/color';
 
 import type { PopupType } from '../CustomToolbar';
 import * as S from '../CustomToolbar.styled';
@@ -162,7 +163,7 @@ export default function CustomToolbarPalette({
             <ColorPopup
               editor={editor}
               onClose={closePopups}
-              currentColor={currentColor ?? '#000000'}
+              currentColor={currentColor ?? cogroom.black}
             />
           </PopupWrapper>
         )}
