@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
+import { ONCOGNIER_CONTENTS_URL } from '@/constants/common';
 import { DEFAULT_CONTENT_MAIN_BANNER, DEFAULT_OG_THUMBNAIL } from '@/constants/image';
 
 import * as S from './page.styled';
@@ -37,7 +38,7 @@ export default function Content() {
         ]}
       />
       <a
-        href='https://oncognier.com/all'
+        href={ONCOGNIER_CONTENTS_URL}
         target='_blank'
       >
         <S.BannerWrapper>
