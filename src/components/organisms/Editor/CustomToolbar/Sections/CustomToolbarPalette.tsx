@@ -155,7 +155,7 @@ export default function CustomToolbarPalette({
             <ColorPopup
               editor={editor}
               onClose={closePopups}
-              currentColor={currentColor}
+              currentColor={currentColor ?? '#000000'}
             />
           </PopupWrapper>
         )}
