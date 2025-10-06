@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import useGetDailyQuestionsQuery from '@/hooks/api/daily/useGetDailyQuestions';
-import { useAlertModalStore } from '@/stores/useModalStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useAlertModalStore, useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './CommunityActions.styled';
 
@@ -12,8 +13,15 @@ export default function CommunityActions() {
   const router = useRouter();
   const { data } = useGetDailyQuestionsQuery();
   const { open } = useAlertModalStore();
+  const { open: openAppModal } = useAppModalStore();
+  const isAuth = useAuthStore((s) => s.isAuth());
 
-  const onClick = () => {
+  const onClickDaily = () => {
+    if (!isAuth) {
+      openAppModal('login');
+      return;
+    }
+
     if (data?.answer) {
       router.push('/community/write?type=daily');
       return;
@@ -29,6 +37,15 @@ export default function CommunityActions() {
     });
   };
 
+  const onClickWrite = () => {
+    if (!isAuth) {
+      openAppModal('login');
+      return;
+    }
+
+    router.push('/community/write?type=post');
+  };
+
   return (
     <S.Container>
       <OutlinedButton
@@ -36,7 +53,7 @@ export default function CommunityActions() {
         size='sm'
         color='primary'
         interactionVariant='normal'
-        onClick={onClick}
+        onClick={onClickDaily}
       />
 
       <OutlinedButton
@@ -44,7 +61,7 @@ export default function CommunityActions() {
         size='sm'
         color='primary'
         interactionVariant='normal'
-        onClick={() => router.push('/community/write?type=post')}
+        onClick={onClickWrite}
       />
     </S.Container>
   );
