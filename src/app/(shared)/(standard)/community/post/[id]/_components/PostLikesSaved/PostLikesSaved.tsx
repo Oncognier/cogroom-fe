@@ -3,6 +3,8 @@ import HeartIcon from '@/assets/icons/heart.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
 import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 import { formatCountPlus } from '@/utils/formatText';
 
 import * as S from './PostLikesSaved.styled';
@@ -24,13 +26,23 @@ export default function PostLikesSaved({
 }: PostLikesSavedProps) {
   const togglePostLikeMutation = useTogglePostLike();
   const togglePostSaveMutation = useTogglePostSave();
+  const { open } = useAppModalStore();
+  const isAuth = useAuthStore((s) => s.isAuth());
 
   const handleLikeClick = () => {
+    if (!isAuth) {
+      open('login');
+      return;
+    }
     if (togglePostLikeMutation.isPending) return;
     togglePostLikeMutation.mutate({ postId, isLiked });
   };
 
   const handleSaveClick = () => {
+    if (!isAuth) {
+      open('login');
+      return;
+    }
     if (togglePostSaveMutation.isPending) return;
     togglePostSaveMutation.mutate({ postId, isSaved });
   };

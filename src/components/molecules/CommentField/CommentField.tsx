@@ -6,6 +6,8 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { useCreateComment } from '@/hooks/api/comment/useCreateComment';
 import { useUpdateComment } from '@/hooks/api/comment/useUpdateComment';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import * as S from './CommentField.styled';
 
@@ -45,6 +47,8 @@ export default function CommentField({
   const [localIsAnonymous, setLocalIsAnonymous] = useState(false);
   const { createComment, isLoading: createLoading } = useCreateComment(postId);
   const updateCommentMutation = useUpdateComment();
+  const { open } = useAppModalStore();
+  const isAuth = useAuthStore((s) => s.isAuth());
 
   const handleContentChange = useCallback(
     (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,6 +62,11 @@ export default function CommentField({
 
   const handleSubmit = useCallback(() => {
     if (content.trim()) {
+      if (!isAuth) {
+        open('login');
+        return;
+      }
+
       if (isEdit && commentId) {
         updateCommentMutation.mutate(
           {

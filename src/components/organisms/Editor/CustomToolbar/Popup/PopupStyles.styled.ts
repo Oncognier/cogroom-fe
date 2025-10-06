@@ -93,8 +93,7 @@ export const MediaItem = styled.button<MediaItemProps>`
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${({ theme, isActive }) =>
-      isActive ? theme.semantic.primary.strong : theme.semantic.background.normal.alternative};
+    background-color: ${({ theme, isActive }) => !isActive && theme.semantic.background.normal.alternative};
   }
 `;
 
@@ -142,8 +141,7 @@ export const TypographyItem = styled.button<TypographyItemProps>`
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${({ theme, isActive }) =>
-      isActive ? theme.semantic.primary.strong : theme.semantic.background.normal.alternative};
+    background-color: ${({ theme, isActive }) => !isActive && theme.semantic.background.normal.alternative};
   }
 `;
 
@@ -315,7 +313,6 @@ export const LinkInput = styled.input`
 
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.semantic.primary.normal};
   }
 
   &::placeholder {
@@ -388,7 +385,7 @@ export const FontItem = styled.button<FontItemProps>`
   transition: all 0.2s ease;
 
   &:hover {
-    background: ${({ theme }) => theme.semantic.background.elevated.normal};
+    background-color: ${({ theme, isActive }) => !isActive && theme.semantic.background.normal.alternative};
   }
 `;
 

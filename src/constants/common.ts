@@ -220,3 +220,5 @@ export const DAILY_FEEDBACK_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSeZ-6SkoxlPCltFvF4G20XXEsuyk3FjGFsBN5Kbrh1Rjru2Xg/viewform';
 
 export const ONCOGNIER_URL = 'https://www.oncognier.com/';
+
+export const ONCOGNIER_CONTENTS_URL = 'https://oncognier.com/PDF';
