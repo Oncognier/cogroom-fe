@@ -61,11 +61,19 @@ export default function PostCardMobile({ post, isEdit = false, isSelected = fals
   };
 
   const onToggleLike = () => {
+    if (!isAuth) {
+      open('login');
+      return;
+    }
     if (togglePostLikeMutation.isPending) return;
     togglePostLikeMutation.mutate({ postId: String(postId), isLiked });
   };
 
   const onToggleSave = () => {
+    if (!isAuth) {
+      open('login');
+      return;
+    }
     if (togglePostSaveMutation.isPending) return;
     togglePostSaveMutation.mutate({ postId: String(postId), isSaved });
   };

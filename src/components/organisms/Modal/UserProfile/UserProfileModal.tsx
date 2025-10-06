@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
-import Loading from '@/components/organisms/Loading/Loading';
 import useGetUserProfile from '@/hooks/api/member/useGetUserProfile';
 import { useAlertModalStore } from '@/stores/useModalStore';
 
@@ -27,15 +26,7 @@ export default function UserProfileModal({ memberId }: UserProfileModalProps) {
     }
   }, [error, openAlert]);
 
-  if (isLoading) {
-    return (
-      <S.UserProfileModalContainer>
-        <Loading />
-      </S.UserProfileModalContainer>
-    );
-  }
-
-  if (!profile) return;
+  if (isLoading || !profile) return;
 
   return (
     <S.UserProfileModalContainer>
