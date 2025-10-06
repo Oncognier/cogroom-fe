@@ -291,3 +291,8 @@ export const brandColors = {
   naver: '#03C75A',
   google: '#747775',
 } as const;
+
+export const cogroom = {
+  black: '#050B14',
+  white: '#F6F9FF',
+} as const;
