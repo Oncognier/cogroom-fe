@@ -1,4 +1,4 @@
-import { opacity, palette, semantic, brandColors } from './color';
+import { opacity, palette, semantic, brandColors, cogroom } from './color';
 import { breakpoints, ratio, shadow } from './foundation';
 import { typography } from './typography';
 
@@ -11,6 +11,7 @@ export const theme = {
   ratio,
   shadow,
   brandColors,
+  cogroom,
 };
 
 export type Theme = typeof theme;

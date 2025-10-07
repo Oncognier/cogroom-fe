@@ -5,6 +5,7 @@ import type { Editor } from '@tiptap/react';
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import ImageIcon from '@/assets/icons/image.svg';
 import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
+import { cogroom } from '@/styles/color';
 
 import type { PopupType } from '../CustomToolbar';
 import * as S from '../CustomToolbar.styled';
@@ -31,6 +32,13 @@ export default function CustomToolbarPalette({
   onSelectFont,
 }: Props) {
   const currentColor = editor.getAttributes('textStyle').color;
+
+  const getCurrentTextType = () => {
+    if (editor.isActive('heading', { level: 1 })) return '제목 1';
+    if (editor.isActive('heading', { level: 2 })) return '제목 2';
+    if (editor.isActive('heading', { level: 3 })) return '제목 3';
+    return '본문';
+  };
 
   const { uploadToS3 } = useUploadFileToS3Mutation({
     onSuccess: (accessUrls, originalFileNames) => {
@@ -91,7 +99,7 @@ export default function CustomToolbarPalette({
           onClick={() => togglePopup('typography')}
           isActive={activePopup === 'typography'}
         >
-          본문
+          {getCurrentTextType()}
           <S.DropdownIcon isActive={activePopup === 'typography'}>
             <ChevronDown />
           </S.DropdownIcon>
@@ -155,7 +163,7 @@ export default function CustomToolbarPalette({
             <ColorPopup
               editor={editor}
               onClose={closePopups}
-              currentColor={currentColor ?? '#000000'}
+              currentColor={currentColor ?? cogroom.black}
             />
           </PopupWrapper>
         )}

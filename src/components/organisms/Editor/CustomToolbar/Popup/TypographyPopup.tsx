@@ -11,17 +11,17 @@ type TypographyPopupProps = {
 
 export default function TypographyPopup({ editor, onClose }: TypographyPopupProps) {
   const handleHeading1 = () => {
-    editor.chain().focus().toggleHeading({ level: 1 }).run();
+    editor.chain().focus().setHeading({ level: 1 }).run();
     onClose();
   };
 
   const handleHeading2 = () => {
-    editor.chain().focus().toggleHeading({ level: 2 }).run();
+    editor.chain().focus().setHeading({ level: 2 }).run();
     onClose();
   };
 
   const handleHeading3 = () => {
-    editor.chain().focus().toggleHeading({ level: 3 }).run();
+    editor.chain().focus().setHeading({ level: 3 }).run();
     onClose();
   };
 
