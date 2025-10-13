@@ -25,7 +25,6 @@ export default function PostContent({ content = '', daily }: PostContentProps) {
             question={daily.question}
             answer={daily.answer}
             hasAnswered={true}
-            hideSubmitButton={true}
             readOnlyMode={true}
           />
         </S.DailyCardWrapper>

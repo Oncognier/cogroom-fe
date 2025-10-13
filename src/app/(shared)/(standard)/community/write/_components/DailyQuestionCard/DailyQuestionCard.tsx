@@ -36,7 +36,6 @@ export default function DailyQuestionCard({ question, answer, assignedQuestionId
           question={question || DEFAULT_DAILY_QUESTION}
           answer={answer}
           hasAnswered={true}
-          hideSubmitButton={true}
           readOnlyMode={true}
         />
       </DesktopVersion>
