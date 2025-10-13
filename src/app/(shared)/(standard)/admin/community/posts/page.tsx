@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useCallback } from 'react';
 
 import ScriptX from '@/assets/icons/script-x.svg';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
@@ -10,29 +10,25 @@ import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
 import { ADMIN_POSTS_TABLE_HEADER_ITEMS, POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetPostList from '@/hooks/api/admin/useGetAdminPostList';
-import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
+import { useCategoryParam } from '@/hooks/queryParams/useCategoryParam';
+import { useDateRangeParams } from '@/hooks/queryParams/useDateRangeParams';
+import { useNicknameParam } from '@/hooks/queryParams/useNicknameParam';
+import { usePageParam } from '@/hooks/queryParams/usePageParam';
+import { useTitleParam } from '@/hooks/queryParams/useTitleParam';
 
 import * as S from './page.styled';
 import ScrollXWrapper from '../../_components/ScrollXWrapper/ScrollXWrapper';
 import CommunityListRow from '../_components/CommunityListRow/CommunityListRow';
 
 export default function AdminPosts() {
-  const { updateSearchParams, getSearchParam, getSearchParamAsArray } = useUrlSearchParams();
-
-  const urlPageNum = Number(getSearchParam('page') ?? 1);
-  const [currentPage, setCurrentPage] = useState(Math.max(0, urlPageNum - 1));
-
-  const categoryId = useMemo(
-    () => getSearchParamAsArray('category').map(Number).filter(Boolean),
-    [getSearchParamAsArray],
-  );
-  const title = getSearchParam('title') ?? '';
-  const nickname = getSearchParam('nickname') ?? '';
-  const startDate = getSearchParam('startDate') ?? undefined;
-  const endDate = getSearchParam('endDate') ?? undefined;
+  const [page, setPage] = usePageParam(0);
+  const [categoryId] = useCategoryParam();
+  const [title] = useTitleParam();
+  const [nickname] = useNicknameParam();
+  const [{ startDate, endDate }] = useDateRangeParams();
 
   const { data, isLoading } = useGetPostList({
-    page: currentPage,
+    page,
     categoryId,
     title,
     nickname,
@@ -44,15 +40,7 @@ export default function AdminPosts() {
   const totalPages = data?.totalPages ?? 1;
   const totalCount = data?.totalElements ?? 0;
 
-  useEffect(() => {
-    const next = Math.max(0, Number(getSearchParam('page') ?? 1) - 1);
-    setCurrentPage(next);
-  }, [getSearchParam]);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    updateSearchParams({ page: page + 1 });
-  };
+  const handlePageChange = useCallback((uiPageOneBased: number) => setPage(uiPageOneBased - 1), [setPage]);
 
   if (isLoading) return <Loading />;
 
@@ -77,7 +65,7 @@ export default function AdminPosts() {
               { name: 'title', placeholder: '글 제목 입력' },
             ],
           }}
-          actions={[{ type: 'submit', label: '검색하기' }]}
+          action={{ label: '검색하기' }}
         />
 
         <Table
@@ -100,9 +88,9 @@ export default function AdminPosts() {
       <S.PaginationWrapper>
         <NumberPagination
           size='nm'
-          currentPage={currentPage + 1}
+          currentPage={page + 1}
           totalPages={totalPages}
-          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
+          onPageChange={handlePageChange}
         />
       </S.PaginationWrapper>
     </S.Posts>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
@@ -15,33 +15,37 @@ import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useDeleteUserPost from '@/hooks/api/member/useDeleteUserPosts';
 import useGetUserPost from '@/hooks/api/member/useGetUserPost';
+import { useCategoryParam } from '@/hooks/queryParams/useCategoryParam';
+import { useDateRangeParams } from '@/hooks/queryParams/useDateRangeParams';
+import { useKeywordParam } from '@/hooks/queryParams/useKeywordParam';
+import { useSortParam } from '@/hooks/queryParams/useSortParam';
 import useScroll from '@/hooks/useScroll';
-import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
 import { useAlertModalStore } from '@/stores/useModalStore';
-import { SortType } from '@/types/member';
 
 import * as S from './page.styled';
 
 export default function Posts() {
   const router = useRouter();
-  const { updateSearchParams, getSearchParam, getSearchParamAsDate, getSearchParamAsArray } = useUrlSearchParams();
   const { open } = useAlertModalStore();
 
-  const [sort, setSort] = useState<SortType>('latest');
+  const [categoryId] = useCategoryParam();
+  const [keyword] = useKeywordParam();
+  const [{ startDate, endDate }] = useDateRangeParams();
+  const [sort, setSort] = useSortParam('latest');
+
   const [isEdit, setIsEdit] = useState(false);
   const [selectedPostIds, setSelectedPostIds] = useState<number[]>([]);
   const { mutate: deleteUserPost } = useDeleteUserPost(selectedPostIds);
 
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserPost({
     sort,
-    categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
-    keyword: getSearchParam('keyword') ?? '',
-    startDate: getSearchParamAsDate('startDate') ?? undefined,
-    endDate: getSearchParamAsDate('endDate') ?? undefined,
+    categoryId,
+    keyword,
+    startDate,
+    endDate,
   });
 
-  const total = data?.pages?.[0]?.totalElements;
-
+  const total = data?.pages?.[0]?.totalElements ?? 0;
   const posts = useMemo(() => (data?.pages ?? []).flatMap((p) => p.data ?? []), [data]);
 
   const { observerRef } = useScroll({
@@ -50,21 +54,17 @@ export default function Posts() {
   });
 
   const handleSortChange = () => {
-    const next = sort === 'latest' ? 'oldest' : 'latest';
-    setSort(next);
-    updateSearchParams({ sort: next });
+    setSort(sort === 'latest' ? 'oldest' : 'latest');
     setSelectedPostIds([]);
   };
 
-  const handleTogglePostSelection = (postId: number, checked: boolean) => {
+  const handleTogglePostSelection = useCallback((postId: number, checked: boolean) => {
     setSelectedPostIds((prev) => (checked ? [...prev, postId] : prev.filter((id) => id !== postId)));
-  };
+  }, []);
 
-  const handleSelectAll = () => {
-    const loadedIds = posts.map((p) => p.postId);
-    const allSelected = loadedIds.length > 0 && loadedIds.every((id: number) => selectedPostIds.includes(id));
-    setSelectedPostIds(allSelected ? [] : loadedIds);
-  };
+  const loadedIds = useMemo(() => posts.map((p) => p.postId), [posts]);
+  const allSelected = loadedIds.length > 0 && loadedIds.every((id) => selectedPostIds.includes(id));
+  const handleSelectAll = () => setSelectedPostIds(allSelected ? [] : loadedIds);
 
   const handleDeletePosts = () => {
     if (selectedPostIds.length === 0) {
@@ -88,7 +88,7 @@ export default function Posts() {
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
               {
-                name: 'categoryId',
+                name: 'category',
                 placeholder: '카테고리 선택',
                 options: POST_CATEGORY_SELECT_OPTIONS,
                 isMulti: true,
@@ -96,7 +96,7 @@ export default function Posts() {
             ],
             search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
           }}
-          actions={[{ type: 'submit', label: '검색하기' }]}
+          action={{ label: '검색하기' }}
         />
 
         <S.ListControlsWrapper>
@@ -115,7 +115,7 @@ export default function Posts() {
                 />
               ) : (
                 <S.ListSelectButtonWrapper>
-                  {posts.length > 0 && posts.every((p) => selectedPostIds.includes(p.postId)) ? (
+                  {allSelected ? (
                     <SolidButton
                       label='전체 취소'
                       onClick={handleSelectAll}
