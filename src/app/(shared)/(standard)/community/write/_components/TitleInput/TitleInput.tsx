@@ -1,7 +1,9 @@
 import { Controller } from 'react-hook-form';
 
 import Input from '@/components/molecules/Input/Input';
+import { VALIDATION_MESSAGE } from '@/constants/validationMessages';
 import { FormControl } from '@/types/communityWrite';
+import { validatePostTitle } from '@/utils/validators/postValidators';
 
 export default function TitleInput({ control, error }: { control: FormControl; error?: string }) {
   return (
@@ -9,17 +11,12 @@ export default function TitleInput({ control, error }: { control: FormControl; e
       name='title'
       control={control}
       rules={{
-        required: '제목을 입력해 주세요.',
+        required: VALIDATION_MESSAGE.POST_TITLE_EMPTY_FIELD_ERROR,
         maxLength: {
           value: 50,
-          message: '제목은 최대 50자까지 입력할 수 있어요.',
+          message: VALIDATION_MESSAGE.POST_TITLE_TOO_LONG_ERROR,
         },
-        validate: (value) => {
-          // 허용 문자 정규식 (한글, 영문, 숫자, 특수문자, 이모지 포함)
-          const allowedRegex = /^[\p{L}\p{N}\p{P}\p{S}\p{Emoji}\s]+$/u;
-
-          return allowedRegex.test(value) || '제목에 사용할 수 없는 문자가 있어요';
-        },
+        validate: validatePostTitle,
       }}
       render={({ field }) => (
         <Input
