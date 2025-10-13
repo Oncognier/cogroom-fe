@@ -44,6 +44,45 @@ export const EditorWrapper = styled.div`
       }
     }
   }
+
+  /* readonly 모드 HTML 파싱 콘텐츠 스타일 */
+  .readonly-content {
+    ${({ theme }) => editorContentStyles(theme)}
+    color: ${({ theme }) => theme.semantic.label.normal};
+
+    p:empty {
+      min-height: 1.6rem;
+      margin: 0.5rem 0 !important;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.8rem;
+
+      &[data-align='left'] {
+        display: block;
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      &[data-align='center'] {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &[data-align='right'] {
+        display: block;
+        margin-left: auto;
+        margin-right: 0;
+      }
+    }
+  }
 `;
 
 export const EditorContent = styled.div<EditorWrapperProps>`
