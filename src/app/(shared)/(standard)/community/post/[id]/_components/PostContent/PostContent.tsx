@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import parse, { domToReact, Element } from 'html-react-parser';
 
-import Question from '@/app/(shared)/(standard)/daily/_components/Question/Question';
+import Question from '@/components/organisms/Question/Question';
 
 import * as S from './PostContent.styled';
 
