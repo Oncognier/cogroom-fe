@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-import { editorContentStyles } from '@/styles/commonStyles';
+import { editorContentStyles } from '@/styles/editorContentStyles';
 
 type EditorWrapperProps = {
   height: number;
@@ -17,21 +17,7 @@ export const EditorWrapper = styled.div`
   height: 100%;
 
   .ProseMirror {
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      'Helvetica Neue',
-      Arial,
-      'Noto Sans',
-      'Apple SD Gothic Neo',
-      'Malgun Gothic',
-      '맑은 고딕',
-      'Nanum Gothic',
-      sans-serif !important;
-
+    ${({ theme }) => editorContentStyles(theme)}
     height: 100%;
     color: ${({ theme }) => theme.semantic.label.normal};
     background-color: ${({ theme }) => theme.semantic.static.white};
@@ -46,8 +32,6 @@ export const EditorWrapper = styled.div`
       height: 0;
       pointer-events: none;
     }
-
-    ${({ theme }) => editorContentStyles(theme)}
 
     blockquote {
       margin: 1.6rem 0;

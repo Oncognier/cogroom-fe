@@ -7,6 +7,20 @@ import type { Theme } from './theme';
 export const editorContentStyles = (theme: Theme) => css`
   /* 기본 본문 폰트 */
   ${theme.typography.body1.medium}
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    'Noto Sans',
+    'Apple SD Gothic Neo',
+    'Malgun Gothic',
+    '맑은 고딕',
+    'Nanum Gothic',
+    sans-serif !important;
 
   ul {
     padding-left: 1em;

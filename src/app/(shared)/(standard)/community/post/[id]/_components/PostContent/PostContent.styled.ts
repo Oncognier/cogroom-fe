@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 
-import { editorContentStyles } from '@/styles/commonStyles';
+import { editorContentStyles } from '@/styles/editorContentStyles';
 
 export const PostContentContainer = styled.div`
   min-height: 30rem;
@@ -17,28 +17,13 @@ export const DailyCardWrapper = styled.div`
 `;
 
 export const PostContentViewBox = styled.div`
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    'Noto Sans',
-    'Apple SD Gothic Neo',
-    'Malgun Gothic',
-    '맑은 고딕',
-    'Nanum Gothic',
-    sans-serif !important;
+  ${({ theme }) => editorContentStyles(theme)}
   color: ${({ theme }) => theme.semantic.label.normal};
 
   p:empty {
     min-height: 1.6rem;
     margin: 0.5rem 0 !important;
   }
-
-  ${({ theme }) => editorContentStyles(theme)}
 
   p {
     margin: 0.5rem 0;
