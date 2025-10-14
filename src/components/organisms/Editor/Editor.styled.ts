@@ -22,7 +22,7 @@ export const EditorWrapper = styled.div`
     color: ${({ theme }) => theme.semantic.label.normal};
     background-color: ${({ theme }) => theme.semantic.static.white};
 
-    overflow: hidden;
+    overflow-y: auto;
     outline: none;
 
     &.is-editor-empty:first-child::before {
@@ -86,8 +86,8 @@ export const EditorWrapper = styled.div`
 `;
 
 export const EditorContent = styled.div<EditorWrapperProps & { readonly?: boolean }>`
-  min-height: 400px;
-  height: ${({ height }) => `${height}px`};
+  min-height: ${({ readonly }) => (readonly ? '200px' : '400px')};
+  height: ${({ height, readonly }) => (readonly ? '100%' : `${height}px`)};
   padding: 1.2rem 1.6rem;
 
   border: ${({ readonly, theme }) => (readonly ? 'none' : `1px solid ${theme.semantic.label.assistive}`)};
