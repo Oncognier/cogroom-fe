@@ -17,9 +17,18 @@ function applyParamToSearchParams(searchParams: URLSearchParams, key: string, va
 
   if (Array.isArray(value)) {
     searchParams.delete(key);
-    value.forEach((v) => {
-      if (!isEmptyParamValue(v)) searchParams.append(key, String(v));
-    });
+
+    // 중복 제거 → 빈 값 제거 → 숫자/문자 정렬
+    const normalized = Array.from(new Set(value))
+      .filter((v) => !isEmptyParamValue(v))
+      .sort((a, b) => {
+        const [aNum, bNum] = [Number(a), Number(b)];
+        const bothNumbers = !Number.isNaN(aNum) && !Number.isNaN(bNum);
+        return bothNumbers ? aNum - bNum : String(a).localeCompare(String(b));
+      });
+
+    normalized.forEach((v) => searchParams.append(key, String(v)));
+
     return;
   }
 
