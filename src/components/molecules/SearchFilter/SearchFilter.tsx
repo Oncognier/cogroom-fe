@@ -59,7 +59,7 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
   });
 
   const handleFormSubmit = (formValues: FilterValues) => {
-    updateSearchParams(formValues, 'push');
+    updateSearchParams(formValues);
   };
 
   return (
