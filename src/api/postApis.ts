@@ -62,7 +62,7 @@ const getPostList = async (params: PostListRequest) => {
   return data.result;
 };
 
-const togglePostLike = async (postId: string) => {
+const likePost = async (postId: string) => {
   const { data } = await axiosInstance.post(END_POINTS_V1.POSTS.POST_LIKE(postId));
 
   return data.result;
@@ -97,7 +97,7 @@ export const postApi = {
   updatePost,
   getPost,
   getPostList,
-  togglePostLike,
+  likePost,
   unlikePost,
   savePost,
   unsavePost,
