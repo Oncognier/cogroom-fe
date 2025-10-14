@@ -1,5 +1,7 @@
 import { Control } from 'react-hook-form';
 
+import { SelectOption } from '@/types/common';
+
 export interface CommunityWriteFormData {
   categoryId: number[];
   title: string;
@@ -13,7 +15,7 @@ export interface CategoryOption {
 }
 
 export interface CategorySelectorProps {
-  options: CategoryOption[];
+  options: SelectOption[];
   value: number[];
   error?: string;
   onChange: (value: number[]) => void;
