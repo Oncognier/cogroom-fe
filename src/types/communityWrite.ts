@@ -1,4 +1,4 @@
-import { Control, UseFormReturn } from 'react-hook-form';
+import { Control } from 'react-hook-form';
 
 export interface CommunityWriteFormData {
   categoryId: number[];
@@ -30,26 +30,4 @@ export interface DailyQuestionCardProps {
 
 export interface PostEditorProps {
   height?: number;
-}
-
-export interface UseCommunityWriteLogicReturn {
-  // Form 관련
-  methods: UseFormReturn<CommunityWriteFormData>;
-  onSubmit: (data: CommunityWriteFormData) => void;
-  isLoading: boolean;
-
-  // Category 관련
-  categoryProps: CategorySelectorProps;
-
-  // Daily 관련
-  dailyProps: DailyQuestionCardProps | null;
-
-  // Editor 관련
-  editorProps: PostEditorProps;
-
-  // 상태
-  isEditMode: boolean;
-  isLoadingPost: boolean;
-  showAnonymous: boolean;
-  isAnonymousDisabled: boolean;
 }
