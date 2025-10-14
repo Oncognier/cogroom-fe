@@ -1,6 +1,5 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import { FormProvider } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
@@ -12,6 +11,7 @@ import { useDailyLogic } from '@/hooks/communityWrite/useDailyLogic';
 import { useEditMode } from '@/hooks/communityWrite/useEditMode';
 import { usePostSubmission } from '@/hooks/communityWrite/usePostSubmission';
 import { useWriteForm } from '@/hooks/communityWrite/useWriteForm';
+import { useUrlSearchParams } from '@/hooks/queryParams/useUrlSearchParams';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 import CategorySelector from './_components/CategorySelector/CategorySelector';
@@ -22,8 +22,8 @@ import * as S from './page.styled';
 import CommunityDescription from '../_components/CommunityDescription';
 
 export default function CommunityWrite() {
-  const searchParams = useSearchParams();
-  const type = searchParams.get('type') || 'post';
+  const { getSearchParam } = useUrlSearchParams();
+  const type = getSearchParam('type') || 'post';
   const isDaily = type === 'daily';
 
   const editMode = useEditMode({

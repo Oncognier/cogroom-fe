@@ -1,8 +1,8 @@
-import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { UseFormReset } from 'react-hook-form';
 
 import { useGetPost } from '@/hooks/api/post/useGetPost';
+import { useUrlSearchParams } from '@/hooks/queryParams/useUrlSearchParams';
 import { CommunityWriteFormData } from '@/types/communityWrite';
 import { getCategoryType } from '@/utils/postUtils';
 
@@ -35,9 +35,9 @@ export interface UseEditModeReturn {
 }
 
 export const useEditMode = ({ reset, updateUrlType }: UseEditModeProps): UseEditModeReturn => {
-  const searchParams = useSearchParams();
-  const type = searchParams.get('type') || 'post';
-  const editPostId = searchParams.get('edit');
+  const { getSearchParam } = useUrlSearchParams();
+  const type = getSearchParam('type') || 'post';
+  const editPostId = getSearchParam('edit');
   const isEditMode = !!editPostId;
   const isDaily = type === 'daily';
 
