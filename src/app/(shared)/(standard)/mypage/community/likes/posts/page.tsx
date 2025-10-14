@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
 import MessageCircleX from '@/assets/icons/message-circle-x.svg';
@@ -13,26 +13,31 @@ import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserLikePost from '@/hooks/api/member/useGetUserLikePost';
+import { useCategoryParam } from '@/hooks/queryParams/useCategoryParam';
+import { useDateRangeParams } from '@/hooks/queryParams/useDateRangeParams';
+import { useKeywordParam } from '@/hooks/queryParams/useKeywordParam';
+import { useSortParam } from '@/hooks/queryParams/useSortParam';
 import useScroll from '@/hooks/useScroll';
-import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
-import { SortType } from '@/types/member';
 
 import * as S from './page.styled';
 
 export default function LikesPosts() {
   const router = useRouter();
-  const { updateSearchParams, getSearchParam, getSearchParamAsDate, getSearchParamAsArray } = useUrlSearchParams();
-  const [sort, setSort] = useState<SortType>('latest');
+
+  const [categoryId] = useCategoryParam();
+  const [keyword] = useKeywordParam();
+  const [{ startDate, endDate }] = useDateRangeParams();
+  const [sort, setSort] = useSortParam('latest');
 
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserLikePost({
     sort,
-    categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
-    keyword: getSearchParam('keyword') ?? '',
-    startDate: getSearchParamAsDate('startDate') ?? undefined,
-    endDate: getSearchParamAsDate('endDate') ?? undefined,
+    categoryId,
+    keyword,
+    startDate,
+    endDate,
   });
 
-  const total = data?.pages?.[0]?.totalElements;
+  const total = data?.pages?.[0]?.totalElements ?? 0;
   const posts = useMemo(() => (data?.pages ?? []).flatMap((p) => p.data ?? []), [data]);
 
   const { observerRef } = useScroll({
@@ -40,12 +45,7 @@ export default function LikesPosts() {
     fetchNext: fetchNextPage,
   });
 
-  const handleSortChange = () => {
-    const next = sort === 'latest' ? 'oldest' : 'latest';
-    setSort(next);
-    updateSearchParams({ sort: next });
-  };
-
+  const handleSortChange = () => setSort(sort === 'latest' ? 'oldest' : 'latest');
   const handleGoToCommunity = () => router.push('/community');
 
   if (isLoading) return <Loading />;
@@ -60,7 +60,7 @@ export default function LikesPosts() {
             dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
             select: [
               {
-                name: 'categoryId',
+                name: 'category',
                 placeholder: '카테고리 선택',
                 options: POST_CATEGORY_SELECT_OPTIONS,
                 isMulti: true,
@@ -68,7 +68,7 @@ export default function LikesPosts() {
             ],
             search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
           }}
-          actions={[{ type: 'submit', label: '검색하기' }]}
+          action={{ label: '검색하기' }}
         />
 
         <S.ListControlsWrapper>
@@ -79,13 +79,6 @@ export default function LikesPosts() {
               size='sm'
               interactionVariant='normal'
               onClick={() => router.push('/mypage/community/likes/posts')}
-            />
-            <SolidButton
-              label='댓글'
-              color='assistive'
-              size='sm'
-              interactionVariant='normal'
-              onClick={() => router.push('/mypage/community/likes/comments')}
             />
           </S.SwitchLikeButtonWrapper>
 
