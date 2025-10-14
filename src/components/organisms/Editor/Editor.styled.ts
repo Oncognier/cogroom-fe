@@ -85,12 +85,12 @@ export const EditorWrapper = styled.div`
   }
 `;
 
-export const EditorContent = styled.div<EditorWrapperProps>`
+export const EditorContent = styled.div<EditorWrapperProps & { readonly?: boolean }>`
   min-height: 400px;
   height: ${({ height }) => `${height}px`};
   padding: 1.2rem 1.6rem;
 
-  border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
+  border: ${({ readonly, theme }) => (readonly ? 'none' : `1px solid ${theme.semantic.label.assistive}`)};
   border-radius: 1.2rem;
   & > div {
     height: 100%;

@@ -37,7 +37,10 @@ export default function Editor({
   if (readonly && content) {
     return (
       <S.EditorWrapper className={className}>
-        <S.EditorContent height={height}>
+        <S.EditorContent
+          height={height}
+          readonly={readonly}
+        >
           <div className='readonly-content'>
             {parse(content, {
               replace: (domNode) => {
@@ -68,7 +71,10 @@ export default function Editor({
   return (
     <S.EditorWrapper className={className}>
       <CustomToolbar editor={editor} />
-      <S.EditorContent height={height}>
+      <S.EditorContent
+        height={height}
+        readonly={readonly}
+      >
         <EditorContent editor={editor} />
       </S.EditorContent>
     </S.EditorWrapper>
