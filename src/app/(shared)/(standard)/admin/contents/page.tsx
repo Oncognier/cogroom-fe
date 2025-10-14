@@ -1,7 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 
 import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ChevronDown from '@/assets/icons/chevrondown.svg';
@@ -14,23 +13,27 @@ import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
 import { CATEGORY_SELECT_OPTIONS, CONTENTS_TABLE_HEADER_ITEMS, LEVEL_SELECT_OPTIONS } from '@/constants/common';
 import useGetDailyQuestions from '@/hooks/api/admin/useGetDailyQuestions';
-import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
+import { useCategoryParam } from '@/hooks/queryParams/useCategoryParam';
+import { useKeywordParam } from '@/hooks/queryParams/useKeywordParam';
+import { useLevelParam } from '@/hooks/queryParams/useLevelParam';
+import { usePageParam } from '@/hooks/queryParams/usePageParam';
 
 import DailyListRow from './_components/DailyListRow/DailyListRow';
 import * as S from './page.styled';
 
 export default function Contents() {
-  const router = useRouter();
-  const { updateSearchParams, getSearchParam, getSearchParamAsArray } = useUrlSearchParams();
+  const [page, setPage] = usePageParam(0);
+  const [category] = useCategoryParam();
+  const [level] = useLevelParam();
+  const [keyword] = useKeywordParam();
 
-  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const { data, isLoading } = useGetDailyQuestions({
-    page: currentPage,
-    category: getSearchParamAsArray('category').map(Number).filter(Boolean),
-    level: getSearchParamAsArray('level'),
-    keyword: getSearchParam('keyword') ?? '',
+    page,
+    category,
+    level,
+    keyword,
   });
 
   const contents = useMemo(() => data?.data ?? [], [data]);
@@ -43,23 +46,14 @@ export default function Contents() {
     setSelectedIds(checked ? currentPageIds : []);
   };
 
-  const handleToggleOne = (id: number, checked: boolean) => {
+  const handleToggleOne = useCallback((id: number, checked: boolean) => {
     setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
-  };
+  }, []);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handlePageChange = (uiPageOneBased: number) => {
+    setPage(uiPageOneBased - 1);
     setSelectedIds([]);
-    updateSearchParams({ page: page + 1 });
   };
-
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
-
-  useEffect(() => {
-    if (urlPageNum > 0) {
-      setCurrentPage(urlPageNum - 1);
-    }
-  }, [urlPageNum]);
 
   if (isLoading) return <Loading />;
 
@@ -77,6 +71,7 @@ export default function Contents() {
               <ChevronDown />
             </IconButton>
           </S.PageSwitcher>
+
           <SearchFilter
             fields={{
               select: [
@@ -95,15 +90,7 @@ export default function Contents() {
               ],
               search: [{ name: 'keyword', placeholder: '키워드 검색' }],
             }}
-            actions={[
-              { type: 'submit', label: '검색하기' },
-              {
-                type: 'button',
-                label: '추가하기',
-                variant: 'solid',
-                onClick: () => router.push('/admin/contents/create/daily'),
-              },
-            ]}
+            action={{ label: '검색하기' }}
           />
         </S.FilterHeader>
 
@@ -128,9 +115,9 @@ export default function Contents() {
       <S.PaginationWrapper>
         <NumberPagination
           size='nm'
-          currentPage={currentPage + 1}
+          currentPage={page + 1}
           totalPages={totalPages}
-          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
+          onPageChange={handlePageChange}
         />
       </S.PaginationWrapper>
     </S.ContentsContainer>

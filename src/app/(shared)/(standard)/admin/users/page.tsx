@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 
 import ScrollXWrapper from '@/app/(shared)/(standard)/admin/_components/ScrollXWrapper/ScrollXWrapper';
 import ScriptX from '@/assets/icons/script-x.svg';
@@ -13,23 +13,25 @@ import Table from '@/components/organisms/Table/Table';
 import { USER_TABLE_HEADER_ITEMS } from '@/constants/common';
 import { useDeleteMemberMutation } from '@/hooks/api/admin/useDeleteMember';
 import useGetMemberList from '@/hooks/api/admin/useGetMemberList';
-import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
-import { formatDayAsDashYYYYMMDD } from '@/utils/date/formatDay';
+import { useDateRangeParams } from '@/hooks/queryParams/useDateRangeParams';
+import { useKeywordParam } from '@/hooks/queryParams/useKeywordParam';
+import { usePageParam } from '@/hooks/queryParams/usePageParam';
 
 import UserListRow from './_components/UserListRow/UserListRow';
 import * as S from './page.styled';
 
 export default function Users() {
-  const { updateSearchParams, getSearchParam, getSearchParamAsDate } = useUrlSearchParams();
+  const [page, setPage] = usePageParam(0);
+  const [keyword] = useKeywordParam();
+  const [{ startDate, endDate }] = useDateRangeParams();
 
-  const [currentPage, setCurrentPage] = useState(Number(getSearchParam('page') ?? 0));
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const { data, isLoading } = useGetMemberList({
-    page: currentPage,
-    keyword: getSearchParam('keyword') ?? '',
-    startDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('startDate')),
-    endDate: formatDayAsDashYYYYMMDD(getSearchParamAsDate('endDate')),
+    page,
+    keyword,
+    startDate,
+    endDate,
   });
 
   const { deleteMember } = useDeleteMemberMutation();
@@ -41,27 +43,18 @@ export default function Users() {
   const currentPageMemberIds = useMemo(() => members.map((m) => m.memberId), [members]);
   const isAllSelected = currentPageMemberIds.length > 0 && currentPageMemberIds.every((id) => selectedIds.includes(id));
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handlePageChange = (uiPageOneBased: number) => {
+    setPage(uiPageOneBased - 1);
     setSelectedIds([]);
-    updateSearchParams({ page: page + 1 });
   };
 
   const handleToggleAll = (checked: boolean) => {
     setSelectedIds(checked ? currentPageMemberIds : []);
   };
 
-  const handleToggleOne = (id: number, checked: boolean) => {
+  const handleToggleOne = useCallback((id: number, checked: boolean) => {
     setSelectedIds((prev) => (checked ? [...prev, id] : prev.filter((v) => v !== id)));
-  };
-
-  const urlPageNum = Number(getSearchParam('page') ?? 0);
-
-  useEffect(() => {
-    if (urlPageNum > 0) {
-      setCurrentPage(urlPageNum - 1);
-    }
-  }, [urlPageNum]);
+  }, []);
 
   if (isLoading) return <Loading />;
 
@@ -75,7 +68,7 @@ export default function Users() {
             dateRange: {},
             search: [{ name: 'keyword', placeholder: '회원정보 검색' }],
           }}
-          actions={[{ type: 'submit', label: '검색하기' }]}
+          action={{ label: '검색하기' }}
         />
 
         <S.TableWrapper>
@@ -111,9 +104,9 @@ export default function Users() {
       <S.PaginationButton>
         <NumberPagination
           size='nm'
-          currentPage={currentPage + 1}
+          currentPage={page + 1}
           totalPages={totalPages}
-          onPageChange={(uiPage) => handlePageChange(uiPage - 1)}
+          onPageChange={handlePageChange}
         />
       </S.PaginationButton>
     </S.UsersContainer>
