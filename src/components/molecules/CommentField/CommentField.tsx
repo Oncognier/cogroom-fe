@@ -44,7 +44,7 @@ export default function CommentField({
   onCancel,
 }: CommentFieldProps) {
   const [content, setContent] = useState(initialContent);
-  const [localIsAnonymous, setLocalIsAnonymous] = useState(false);
+  const [localIsAnonymous, setLocalIsAnonymous] = useState(isAnonymous ?? false);
   const { createComment, isLoading: createLoading } = useCreateComment(postId);
   const updateCommentMutation = useUpdateComment();
   const { open } = useAppModalStore();
