@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
+import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 import { LoginRequest, SendEmailRequest, SignupRequest } from '@/types/auth';
 
 import { checkEmailError, checkEmailSuccess } from '../data/auth/checkEmailData';
@@ -19,7 +19,7 @@ import { signupError, signupSuccess } from '../data/auth/signupData';
 
 export const authHandlers = [
   // 인증 이메일 전송
-  http.post(END_POINTS_V1.AUTH.EMAIL_VERIFICATION, async ({ request }) => {
+  http.post(END_POINTS.AUTH.EMAIL_VERIFICATION, async ({ request }) => {
     const body = (await request.json()) as SendEmailRequest;
 
     if (!body.email) {
@@ -34,7 +34,7 @@ export const authHandlers = [
   }),
 
   // 이메일 인증 완료 여부 확인
-  http.get(END_POINTS_V1.AUTH.EMAIL_CHECK_VERIFICATION, async ({ request }) => {
+  http.get(END_POINTS.AUTH.EMAIL_CHECK_VERIFICATION, async ({ request }) => {
     const url = new URL(request.url);
     const userEmail = url.searchParams.get('userEmail');
     const verificationCode = url.searchParams.get('verificationCode'); // 교정 완료
@@ -51,7 +51,7 @@ export const authHandlers = [
   }),
 
   // 이메일 인증 상태 조회
-  http.get(END_POINTS_V1.AUTH.EMAIL_STATUS, async ({ request }) => {
+  http.get(END_POINTS.AUTH.EMAIL_STATUS, async ({ request }) => {
     const url = new URL(request.url);
     const email = url.searchParams.get('email');
 
@@ -67,7 +67,7 @@ export const authHandlers = [
   }),
 
   // 회원가입
-  http.post(END_POINTS_V1.AUTH.SIGNUP, async ({ request }) => {
+  http.post(END_POINTS.AUTH.SIGNUP, async ({ request }) => {
     const body = (await request.json()) as SignupRequest;
 
     if (!body.provider || !body.email || !body.signupToken) {
@@ -88,7 +88,7 @@ export const authHandlers = [
   }),
 
   // 로그인
-  http.post(END_POINTS_V1.AUTH.LOGIN, async ({ request }) => {
+  http.post(END_POINTS.AUTH.LOGIN, async ({ request }) => {
     const body = (await request.json()) as LoginRequest;
 
     if (!body.code || !body.provider) {
@@ -119,7 +119,7 @@ export const authHandlers = [
   }),
 
   // 로그아웃
-  http.post(END_POINTS_V1.AUTH.LOGOUT, async () => {
+  http.post(END_POINTS.AUTH.LOGOUT, async () => {
     // 로그아웃 시: 토큰 쿠키 모두 제거
     return new HttpResponse(JSON.stringify(logoutSuccess), {
       status: HTTP_STATUS_CODE.OK,
@@ -132,7 +132,7 @@ export const authHandlers = [
   }),
 
   // 토큰 재발급
-  http.post(END_POINTS_V1.AUTH.REISSUE, async () => {
+  http.post(END_POINTS.AUTH.REISSUE, async () => {
     // 성공 케이스 사용 시 주석 해제
     // return new HttpResponse(JSON.stringify(reissueSuccess), {
     //   status: HTTP_STATUS_CODE.OK,

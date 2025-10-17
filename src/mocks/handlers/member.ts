@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
+import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 import type { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
 import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
@@ -20,28 +20,28 @@ import { withdrawSuccess } from '../data/member/withdrawData';
 
 export const memberHandlers = [
   // 사용자 요약 정보 조회
-  http.get(END_POINTS_V1.MEMBERS.SUMMARY, async () => {
+  http.get(END_POINTS.MEMBERS.SUMMARY, async () => {
     return new HttpResponse(JSON.stringify(getUserSummarySuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 사용자 대시보드 정보 조회
-  http.get(END_POINTS_V1.MEMBERS.DASHBOARD, async () => {
+  http.get(END_POINTS.MEMBERS.DASHBOARD, async () => {
     return new HttpResponse(JSON.stringify(getUserDashboardSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 내 정보 조회
-  http.get(END_POINTS_V1.MEMBERS.ME, async () => {
+  http.get(END_POINTS.MEMBERS.ME, async () => {
     return new HttpResponse(JSON.stringify(getUserInfoSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 다른 사용자 프로필 조회
-  http.get(END_POINTS_V1.MEMBERS.PROFILE(':memberId'), async ({ params }) => {
+  http.get(END_POINTS.MEMBERS.PROFILE(':memberId'), async ({ params }) => {
     const { memberId } = params;
     if (!memberId) {
       // 필요 시 에러 페이로드가 있다면 교체
@@ -55,49 +55,49 @@ export const memberHandlers = [
   }),
 
   // 내 데일리 질문 및 답변 조회
-  http.get(END_POINTS_V1.MEMBERS.DAILY, async () => {
+  http.get(END_POINTS.MEMBERS.DAILY, async () => {
     return new HttpResponse(JSON.stringify(getUserDailySuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 내가 작성한 게시글 조회
-  http.get(END_POINTS_V1.MEMBERS.POSTS, async () => {
+  http.get(END_POINTS.MEMBERS.POSTS, async () => {
     return new HttpResponse(JSON.stringify(getUserPostListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 내가 저장한 게시글 조회
-  http.get(END_POINTS_V1.MEMBERS.POSTS_SAVES, async () => {
+  http.get(END_POINTS.MEMBERS.POSTS_SAVES, async () => {
     return new HttpResponse(JSON.stringify(getUserSaveListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 내가 좋아요한 게시글 조회
-  http.get(END_POINTS_V1.MEMBERS.POSTS_LIKES, async () => {
+  http.get(END_POINTS.MEMBERS.POSTS_LIKES, async () => {
     return new HttpResponse(JSON.stringify(getUserLikePostListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 내가 작성한 댓글 조회
-  http.get(END_POINTS_V1.MEMBERS.COMMENTS, async () => {
+  http.get(END_POINTS.MEMBERS.COMMENTS, async () => {
     return new HttpResponse(JSON.stringify(getUserCommentListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 내가 좋아요한 댓글 조회
-  http.get(END_POINTS_V1.MEMBERS.COMMENTS_LIKES, async () => {
+  http.get(END_POINTS.MEMBERS.COMMENTS_LIKES, async () => {
     return new HttpResponse(JSON.stringify(getUserLikeCommentListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
   // 내가 작성한 게시글 일괄 삭제
-  http.delete(END_POINTS_V1.MEMBERS.POSTS, async ({ request }) => {
+  http.delete(END_POINTS.MEMBERS.POSTS, async ({ request }) => {
     const body = (await request.json()) as { postList?: number[] } | undefined;
 
     if (!body?.postList || body.postList.length === 0) {
@@ -112,7 +112,7 @@ export const memberHandlers = [
   }),
 
   // 사용자 정보 수정
-  http.patch(END_POINTS_V1.MEMBERS.ME, async ({ request }) => {
+  http.patch(END_POINTS.MEMBERS.ME, async ({ request }) => {
     const body = (await request.json()) as EditUserInfoRequest;
 
     if (!body.email || !body.nickname) {
@@ -127,7 +127,7 @@ export const memberHandlers = [
   }),
 
   // 닉네임 중복 검사
-  http.post(END_POINTS_V1.MEMBERS.NICKNAME_CHECK, async ({ request }) => {
+  http.post(END_POINTS.MEMBERS.NICKNAME_CHECK, async ({ request }) => {
     const body = (await request.json()) as CheckNicknameRequest;
 
     if (!body.nickname) {
@@ -142,7 +142,7 @@ export const memberHandlers = [
   }),
 
   // 회원 탈퇴
-  http.delete(END_POINTS_V1.MEMBERS.WITHDRAW, async () => {
+  http.delete(END_POINTS.MEMBERS.WITHDRAW, async () => {
     // 이전 요청에서 정의한 정책에 맞춰, 탈퇴 시 토큰 쿠키 제거
     return new HttpResponse(JSON.stringify(withdrawSuccess), {
       status: HTTP_STATUS_CODE.OK,

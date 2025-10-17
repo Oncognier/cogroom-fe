@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-import { END_POINTS_V1 } from '@/constants/api';
+import { END_POINTS } from '@/constants/api';
 import { GetPresignedUrlRequest, PresignedUrlResponse, UploadToS3Request } from '@/types/file';
 
 import { axiosInstance } from './axios/axiosInstance';
 
 /** 프리사인드 업로드 URL 발급 */
 const getPresignedUrl = async ({ fileSet }: GetPresignedUrlRequest) => {
-  const { data } = await axiosInstance.post<PresignedUrlResponse>(END_POINTS_V1.FILES.PRESIGNED_UPLOAD, { fileSet });
+  const { data } = await axiosInstance.post<PresignedUrlResponse>(END_POINTS.FILES.PRESIGNED_UPLOAD, { fileSet });
   return data.result;
 };
 

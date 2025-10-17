@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 
-import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
+import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 import { DailyAnswerRequest } from '@/types/daily';
 
 import {
@@ -18,7 +18,7 @@ import {
 
 export const dailyHandlers = [
   // 데일리 질문 조회
-  http.get(END_POINTS_V1.DAILY.QUESTIONS, async () => {
+  http.get(END_POINTS.DAILY.QUESTIONS, async () => {
     // 답변 후
     // return new HttpResponse(JSON.stringify(getDailySuccess_Answered), { status: HTTP_STATUS_CODE.OK });
 
@@ -28,7 +28,7 @@ export const dailyHandlers = [
   }),
 
   // 이전 답변 존재 여부 조회
-  http.get(END_POINTS_V1.DAILY.HAS_ANSWERED, async () => {
+  http.get(END_POINTS.DAILY.HAS_ANSWERED, async () => {
     // 답변 후
     // return new HttpResponse(JSON.stringify(getDailyHasAnswered_Answered), { status: HTTP_STATUS_CODE.OK });
 
@@ -38,7 +38,7 @@ export const dailyHandlers = [
   }),
 
   // 데일리 답변 등록
-  http.post(END_POINTS_V1.DAILY.ANSWERS, async ({ request }) => {
+  http.post(END_POINTS.DAILY.ANSWERS, async ({ request }) => {
     const body = (await request.json()) as DailyAnswerRequest;
 
     if (!body.answer) {
@@ -59,7 +59,7 @@ export const dailyHandlers = [
   }),
 
   // 데일리 답변 수정
-  http.patch(END_POINTS_V1.DAILY.ANSWERS, async ({ request }) => {
+  http.patch(END_POINTS.DAILY.ANSWERS, async ({ request }) => {
     const body = (await request.json()) as DailyAnswerRequest;
 
     if (!body.answer) {

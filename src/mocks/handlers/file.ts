@@ -1,12 +1,12 @@
 import { http, HttpResponse } from 'msw';
 
-import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
+import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 
 import { getPresignedUrlError, getPresignedUrlSuccess } from '../data/file/getPresignedUrlData';
 
 export const fileHandlers = [
   // 프리사인드 업로드 URL 발급
-  http.post(END_POINTS_V1.FILES.PRESIGNED_UPLOAD, async ({ request }) => {
+  http.post(END_POINTS.FILES.PRESIGNED_UPLOAD, async ({ request }) => {
     const body = (await request.json()) as { fileSet?: unknown };
 
     if (!body?.fileSet) {

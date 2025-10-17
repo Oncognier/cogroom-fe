@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 
-import { END_POINTS_V1 } from '@/constants/api';
+import { END_POINTS } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 import {
   LoginRequest,
@@ -17,7 +17,7 @@ import { axiosInstance } from './axios/axiosInstance';
 /** 인증 이메일 전송 */
 const sendEmail = async ({ email }: SendEmailRequest) => {
   const { data } = await axiosInstance.post<SendEmailRequest, AxiosResponse<ApiResponse>>(
-    END_POINTS_V1.AUTH.EMAIL_VERIFICATION,
+    END_POINTS.AUTH.EMAIL_VERIFICATION,
     { email },
   );
   return data;
@@ -25,19 +25,19 @@ const sendEmail = async ({ email }: SendEmailRequest) => {
 
 /** 이메일 인증 완료 여부 확인 */
 const checkEmail = async (params: CheckEmailRequest) => {
-  const { data } = await axiosInstance.get<ApiResponse>(END_POINTS_V1.AUTH.EMAIL_CHECK_VERIFICATION, { params });
+  const { data } = await axiosInstance.get<ApiResponse>(END_POINTS.AUTH.EMAIL_CHECK_VERIFICATION, { params });
   return data;
 };
 
 /** 이메일 인증 상태 조회 */
 const getEmailStatus = async (params: GetEmailStatusRequest) => {
-  const { data } = await axiosInstance.get<GetEmailStatusResponse>(END_POINTS_V1.AUTH.EMAIL_STATUS, { params });
+  const { data } = await axiosInstance.get<GetEmailStatusResponse>(END_POINTS.AUTH.EMAIL_STATUS, { params });
   return data.result;
 };
 
 /** 회원가입 (소셜/로컬 통합) */
 const signup = async ({ provider, signupToken, email }: SignupRequest) => {
-  const { data } = await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(END_POINTS_V1.AUTH.SIGNUP, {
+  const { data } = await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(END_POINTS.AUTH.SIGNUP, {
     provider,
     signupToken,
     email,
@@ -47,7 +47,7 @@ const signup = async ({ provider, signupToken, email }: SignupRequest) => {
 
 /** 로그인 (소셜/로컬 통합) */
 const login = async ({ code, provider, state }: LoginRequest) => {
-  const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(END_POINTS_V1.AUTH.LOGIN, {
+  const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(END_POINTS.AUTH.LOGIN, {
     code,
     provider,
     state,
@@ -57,13 +57,13 @@ const login = async ({ code, provider, state }: LoginRequest) => {
 
 /** 로그아웃 */
 const logout = async () => {
-  const { data } = await axiosInstance.post<null, AxiosResponse<ApiResponse>>(END_POINTS_V1.AUTH.LOGOUT);
+  const { data } = await axiosInstance.post<null, AxiosResponse<ApiResponse>>(END_POINTS.AUTH.LOGOUT);
   return data;
 };
 
 /** 토큰 재발급 */
 const reissueToken = async () => {
-  await axiosInstance.post<null, AxiosResponse>(END_POINTS_V1.AUTH.REISSUE);
+  await axiosInstance.post<null, AxiosResponse>(END_POINTS.AUTH.REISSUE);
 };
 
 export const authApi = {

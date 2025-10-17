@@ -25,7 +25,7 @@ const BASE_PATH_V2 = {
   FILES: `${API_V2}/files`,
 } as const;
 
-export const END_POINTS_V1 = {
+export const END_POINTS = {
   AUTH: {
     /** 회원가입 (POST, 소셜/로컬 통합) */
     SIGNUP: `${BASE_PATH_V2.AUTH}/signup`,
