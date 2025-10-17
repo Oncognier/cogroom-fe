@@ -6,134 +6,168 @@ const API_V2 = `${BASE_URL}/api/v2`;
 const BASE_PATH_V1 = {
   AUTH: `${API_V1}/auth`,
   MEMBERS: `${API_V1}/members`,
-
-  NOTICES: `${API_V1}/notices`,
   DAILY: `${API_V1}/daily`,
-  CONTENTS: `${API_V1}/contents`,
-  FILE: `${API_V1}/files`,
   STREAKS: `${API_V1}/streaks`,
   POSTS: `${API_V1}/posts`,
   COMMENTS: `${API_V1}/comments`,
-
   ADMIN: `${API_V1}/admin`,
+  FILES: `${API_V1}/files`,
 } as const;
 
 const BASE_PATH_V2 = {
   AUTH: `${API_V2}/auth`,
   MEMBERS: `${API_V2}/members`,
-
-  NOTICES: `${API_V2}/notices`,
   DAILY: `${API_V2}/daily`,
-  CONTENTS: `${API_V2}/contents`,
-  FILE: `${API_V2}/files`,
   STREAKS: `${API_V2}/streaks`,
-
+  POSTS: `${API_V2}/posts`,
+  COMMENTS: `${API_V2}/comments`,
   ADMIN: `${API_V2}/admin`,
+  FILES: `${API_V2}/files`,
 } as const;
 
 export const END_POINTS_V1 = {
   AUTH: {
+    /** 회원가입 (POST, 소셜/로컬 통합) */
     SIGNUP: `${BASE_PATH_V2.AUTH}/signup`,
+
+    /** 로그인 (POST, 소셜/로컬 통합) */
     LOGIN: `${BASE_PATH_V1.AUTH}/login`,
+
+    /** 로그아웃 (POST) */
     LOGOUT: `${BASE_PATH_V1.AUTH}/logout`,
-    SEND_EMAIL: `${BASE_PATH_V1.AUTH}/email-verification`,
-    CHECK_EMAIL: `${BASE_PATH_V1.AUTH}/check-verification`,
-    EMAIL_VERIFIED_STATUS: `${BASE_PATH_V1.AUTH}/email/status`,
-    NICKNAME: `${BASE_PATH_V1.AUTH}/nickname`,
-    REISSUE_TOKEN: `${BASE_PATH_V1.AUTH}/reissue`,
+
+    /** 토큰 재발급 (POST) */
+    REISSUE: `${BASE_PATH_V1.AUTH}/reissue`,
+
+    /** 인증 이메일 전송 (POST) */
+    EMAIL_VERIFICATION: `${BASE_PATH_V1.AUTH}/email-verification`,
+
+    /** 이메일 인증 여부 확인 (GET) */
+    EMAIL_STATUS: `${BASE_PATH_V1.AUTH}/email/status`,
+
+    /** 이메일 인증 완료 처리 (GET) */
+    EMAIL_CHECK_VERIFICATION: `${BASE_PATH_V1.AUTH}/check-verification`,
   },
+
   MEMBERS: {
-    MY: BASE_PATH_V1.MEMBERS,
+    /** 내 기본 정보 조회/수정 (GET / PATCH) */
+    ME: `${BASE_PATH_V1.MEMBERS}/me`,
+
+    /** 요약 정보 조회 (GET, 닉네임/사진) */
     SUMMARY: `${BASE_PATH_V1.MEMBERS}/me/summary`,
-    INFO: `${BASE_PATH_V1.MEMBERS}/me`,
-    INFO_EDIT: `${BASE_PATH_V1.MEMBERS}/me`,
-    CHECK_NICKNAME: `${BASE_PATH_V1.MEMBERS}/me/nickname`,
+
+    /** 마이페이지 대시보드 조회 (GET) */
     DASHBOARD: `${BASE_PATH_V1.MEMBERS}/me/dashboard`,
-    DAILY: `${BASE_PATH_V1.MEMBERS}/me/daily`,
-    ORDERS: `${BASE_PATH_V1.MEMBERS}/orders`,
-    WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
+
+    /** 닉네임 중복 검사 (POST) */
+    NICKNAME_CHECK: `${BASE_PATH_V1.MEMBERS}/me/nickname`,
+
+    /** 알림 설정 조회/수정 (GET / PATCH) */
+    NOTIFICATIONS: `${BASE_PATH_V1.MEMBERS}/me/notifications`,
+
+    /** 내가 작성한 게시글 목록 조회 / 일괄 삭제 (GET / DELETE) */
     POSTS: `${BASE_PATH_V1.MEMBERS}/me/posts`,
+
+    /** 내가 저장한 게시글 목록 조회 (GET) */
+    POSTS_SAVES: `${BASE_PATH_V1.MEMBERS}/me/posts/saves`,
+
+    /** 내가 좋아요한 게시글 목록 조회 (GET) */
+    POSTS_LIKES: `${BASE_PATH_V1.MEMBERS}/me/posts/likes`,
+
+    /** 내가 작성한 댓글/대댓글 목록 조회 (GET) */
     COMMENTS: `${BASE_PATH_V1.MEMBERS}/me/comments`,
-    POSTS_LIKE: `${BASE_PATH_V1.MEMBERS}/me/posts/likes`,
-    COMMENTS_LIKE: `${BASE_PATH_V1.MEMBERS}/me/comments/likes`,
-    SAVES: `${BASE_PATH_V1.MEMBERS}/me/posts/saves`,
+
+    /** 내가 좋아요한 댓글 목록 조회 (GET) */
+    COMMENTS_LIKES: `${BASE_PATH_V1.MEMBERS}/me/comments/likes`,
+
+    /** 데일리 질문 및 답변 조회 (GET) */
+    DAILY: `${BASE_PATH_V1.MEMBERS}/me/daily`,
+
+    /** 특정 회원 프로필 조회 (GET) */
     PROFILE: (memberId: string) => `${BASE_PATH_V1.MEMBERS}/${memberId}/profile`,
+
+    /** 회원 탈퇴 (DELETE) */
+    WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
   },
+
   DAILY: {
+    /** 데일리 질문 조회 (GET) */
     QUESTIONS: `${BASE_PATH_V1.DAILY}/questions`,
+
+    /** 데일리 답변 등록/수정 (POST / PATCH) */
     ANSWERS: `${BASE_PATH_V1.DAILY}/answers`,
-    ANSWERS_EDIT: (answerId: string) => `${BASE_PATH_V1.DAILY}/answers/${answerId}`,
-    CALENDAR: `${BASE_PATH_V1.DAILY}/calendar`,
+
+    /** 이전 답변 존재 여부 조회 (GET) */
     HAS_ANSWERED: `${BASE_PATH_V1.DAILY}/has-answered`,
   },
-  CONTENTS: {
-    CONTENTS: BASE_PATH_V1.CONTENTS,
-    RECOMMEND_CONTENTS: `${BASE_PATH_V1.CONTENTS}/recommendations`,
-    CONTENT: (contentId: string) => `${BASE_PATH_V1.CONTENTS}/${contentId}`,
-    CONTENT_REVIEW: (contentId: string) => `${BASE_PATH_V1.CONTENTS}/${contentId}/reviews`,
-  },
-  NOTICES: {
-    NOTICES: BASE_PATH_V1.NOTICES,
-  },
-  FILE: {
-    PRESIGNED_URL: `${BASE_PATH_V1.FILE}/preSigned-url/upload`,
-  },
+
   STREAKS: {
-    CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
+    /** 데일리 스트릭 연속 일수 조회 (GET) */
     DAILY_STREAK: `${BASE_PATH_V1.STREAKS}/daily-streak`,
+
+    /** 물방울(스트릭) 캘린더 기록 조회 (GET) */
+    CALENDAR: `${BASE_PATH_V1.STREAKS}/calendar`,
   },
+
   POSTS: {
-    LIST: `${BASE_PATH_V1.POSTS}`,
-    POST_CREATE: `${BASE_PATH_V1.POSTS}`,
-    POST_UPDATE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
-    POST_DETAIL: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
-    POST_LIKE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/likes`,
-    POST_SAVE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/saves`,
-    DELETE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+    /** 게시글 목록 조회 / 작성 (GET / POST) */
+    ROOT: `${BASE_PATH_V1.POSTS}`,
+
+    /** 게시글 카테고리 목록 조회 (GET) */
+    CATEGORIES: `${BASE_PATH_V1.POSTS}/categories`,
+
+    /** 게시글 상세 조회 / 수정 / 삭제 (GET / PATCH / DELETE) */
+    BY_ID: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}`,
+
+    /** 게시글 좋아요 등록 / 취소 (POST / DELETE) */
+    LIKES: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/likes`,
+
+    /** 게시글 저장 / 저장 취소 (POST / DELETE) */
+    SAVES: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/saves`,
+
+    COMMENTS: {
+      /** 게시글 댓글 목록 조회 / 작성 (GET / POST) */
+      ROOT: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/comments`,
+    },
   },
+
   COMMENTS: {
-    CREATE: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/comments`,
-    LIST: (postId: string) => `${BASE_PATH_V1.POSTS}/${postId}/comments`,
-    UPDATE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
-    DELETE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
-    LIKE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
-    DELETE_LIKE: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
+    /** 댓글 수정 / 삭제 (PATCH / DELETE) */
+    BY_ID: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}`,
+
+    /** 댓글 좋아요 등록 / 취소 (POST / DELETE) */
+    LIKES: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
   },
 
   ADMIN: {
     MEMBERS: {
-      LIST: `${BASE_PATH_V1.ADMIN}/members`,
-      DELETE: `${BASE_PATH_V1.ADMIN}/members`,
-      MEMBER: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}`,
+      /** 회원 목록 조회 / 일괄 삭제 (GET / DELETE) */
+      ROOT: `${BASE_PATH_V1.ADMIN}/members`,
+
+      /** 특정 회원 권한 변경 (PATCH) */
       CHANGE_ROLE: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}`,
+
+      /** 특정 회원 데일리 콘텐츠 조회 (GET) */
       DAILY: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}/daily`,
-      CONTENTS: (memberId: string) => `${BASE_PATH_V1.ADMIN}/members/${memberId}/contents`,
     },
+
     DAILY: {
+      /** 데일리 질문 목록 조회 / 등록 (GET / POST) */
       QUESTIONS: `${BASE_PATH_V1.ADMIN}/daily/questions`,
-      QUESTIONS_CREATE: `${BASE_PATH_V1.ADMIN}/daily/questions`,
-      QUESTIONS_EDIT: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
-      QUESTIONS_DELETE: (questionId: string) => `${BASE_PATH_V1.ADMIN}/daily/questions/${questionId}`,
     },
+
     COMMUNITY: {
+      /** 커뮤니티 게시글 목록 조회 (GET) */
       POSTS: `${BASE_PATH_V1.ADMIN}/community/posts`,
+
+      /** 커뮤니티 댓글 목록 조회 (GET) */
       COMMENTS: `${BASE_PATH_V1.ADMIN}/community/comments`,
     },
-    CONTENTS: {
-      CONTENTS: `${BASE_PATH_V1.ADMIN}/contents`,
-      CONTENTS_STATUS: `${BASE_PATH_V1.ADMIN}/contents/status`,
-      CONTENTS_CREATE: `${BASE_PATH_V1.ADMIN}/contents`,
-      CONTENTS_EDIT: (contentId: string) => `${BASE_PATH_V1.ADMIN}/contents/${contentId}`,
-      CONTENTS_DELETE: (contentId: string) => `${BASE_PATH_V1.ADMIN}/contents/${contentId}`,
-    },
-    NOTICES: {
-      NOTICES_CREATE: `${BASE_PATH_V1.ADMIN}/notices`,
-      NOTICES_EDIT: (noticeId: string) => `${BASE_PATH_V1.ADMIN}/notices/${noticeId}`,
-      NOTICES_DELETE: (noticeId: string) => `${BASE_PATH_V1.ADMIN}/notices/${noticeId}`,
-    },
-    ORDERS: {
-      ORDERS: `${BASE_PATH_V1.ADMIN}/orders`,
-    },
+  },
+
+  FILES: {
+    /** 프리사인드 업로드 URL 발급 (POST) */
+    PRESIGNED_UPLOAD: `${BASE_PATH_V1.FILES}/preSigned-url/upload`,
   },
 } as const;
 
