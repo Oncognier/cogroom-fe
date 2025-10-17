@@ -1,0 +1,96 @@
+import { MOCK_IMAGE } from '@/mocks/constants/mockAssets';
+
+export const getUserLikePostListSuccess = {
+  code: 'SUCCESS',
+  message: '사용자 좋아요 게시글 조회에 성공했습니다.',
+  result: {
+    data: [
+      {
+        postId: 101,
+        title: '요즘 집중이 안 될 때, 여러분은 어떻게 하세요?',
+        thumbnailUrl: null,
+        viewCount: 1423,
+        likeCount: 128,
+        commentCount: 47,
+        saveCount: 23,
+        createdAt: '2025-10-15T09:12:03.346Z',
+        updatedAt: '2025-10-16T10:20:00.000Z',
+        isAnonymous: false,
+        postStatus: 'ACTIVE',
+        category: {
+          categoryId: 2,
+          name: '사색/고민',
+        },
+        author: {
+          authorId: 32,
+          displayName: '은하수조각',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        myStatus: {
+          isLiked: true,
+          isCommented: false,
+          isSaved: true,
+        },
+      },
+      {
+        postId: 102,
+        title: '매일 5분, 마음을 정리하는 작은 습관 🌿',
+        thumbnailUrl: null,
+        viewCount: 2120,
+        likeCount: 342,
+        commentCount: 91,
+        saveCount: 76,
+        createdAt: '2025-10-14T18:45:11.000Z',
+        updatedAt: '2025-10-16T08:12:54.000Z',
+        isAnonymous: false,
+        postStatus: 'ACTIVE',
+        category: {
+          categoryId: 1,
+          name: '데일리 공유',
+        },
+        author: {
+          authorId: 14,
+          displayName: '하루의기록',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.MALE_PROFILE,
+        },
+        myStatus: {
+          isLiked: true,
+          isCommented: true,
+          isSaved: false,
+        },
+      },
+      {
+        postId: 103,
+        title: '감정은 통제할 수 있을까? 심리학적으로 본 이야기',
+        thumbnailUrl: null,
+        viewCount: 984,
+        likeCount: 157,
+        commentCount: 38,
+        saveCount: 44,
+        createdAt: '2025-10-12T13:32:40.000Z',
+        updatedAt: '2025-10-13T21:50:00.000Z',
+        isAnonymous: true,
+        postStatus: 'ACTIVE',
+        category: {
+          categoryId: 3,
+          name: '칼럼',
+        },
+        author: {
+          authorId: 0,
+          displayName: '익명',
+          isAnonymous: true,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        myStatus: {
+          isLiked: true,
+          isCommented: false,
+          isSaved: true,
+        },
+      },
+    ],
+    nextCursor: null,
+    isLast: true,
+  },
+};

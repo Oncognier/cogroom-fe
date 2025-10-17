@@ -6,11 +6,12 @@ export const loginSuccess_NewUser = {
   message: '로그인에 성공했습니다.',
   result: {
     socialUserInfo: {
-      provider: 'KAKAO',
-      providerId: '4281330880',
-      email: 'cogroom@naver.com',
-      nickname: '코그룸',
+      provider: 'NAVER',
+      providerId: 'providerId',
+      nickname: '복원빈',
+      email: 'email@email.com',
     },
+    signupToken: 'a0940685-signupToken',
     needSignup: true,
   },
 };

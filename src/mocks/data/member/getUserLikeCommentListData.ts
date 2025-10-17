@@ -1,0 +1,97 @@
+import { MOCK_IMAGE } from '@/mocks/constants/mockAssets';
+
+export const getUserLikeCommentListSuccess = {
+  code: 'SUCCESS',
+  message: '사용자 좋아요 댓글 목록 조회에 성공했습니다.',
+  result: {
+    data: [
+      {
+        commentId: 101,
+        content: '저도 이 부분 공감돼요. 꾸준히 하는 게 정말 어렵죠 😅',
+        author: {
+          authorId: 12,
+          displayName: '밤하늘요정',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        isMine: false,
+        isLiked: true,
+        likeCount: 24,
+        status: 'ACTIVE',
+        createdAt: '2025-10-15T14:25:40.000Z',
+        updatedAt: '2025-10-15T14:25:40.000Z',
+        children: [
+          {
+            commentId: 201,
+            content: '맞아요! 하루라도 안 하면 다시 돌아가기 힘든 것 같아요 😭',
+            author: {
+              authorId: 8,
+              displayName: '이른아침',
+              isAnonymous: false,
+              profileUrl: MOCK_IMAGE.MALE_PROFILE,
+            },
+            likeCount: 7,
+            status: 'ACTIVE',
+            createdAt: '2025-10-15T15:10:12.000Z',
+            updatedAt: '2025-10-15T15:10:12.000Z',
+            isMine: false,
+            isLiked: true,
+          },
+        ],
+      },
+      {
+        commentId: 102,
+        content: '글에서 전해지는 진심이 느껴져서 감동받았어요 💛',
+        author: {
+          authorId: 29,
+          displayName: '달빛소리',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        isMine: true,
+        isLiked: true,
+        likeCount: 56,
+        status: 'ACTIVE',
+        createdAt: '2025-10-14T19:40:00.000Z',
+        updatedAt: '2025-10-14T19:40:00.000Z',
+        children: [
+          {
+            commentId: 202,
+            content: '저도요! 이 글 보고 하루를 다시 정비하게 됐어요 😊',
+            author: {
+              authorId: 15,
+              displayName: '별빛나비',
+              isAnonymous: false,
+              profileUrl: MOCK_IMAGE.MALE_PROFILE,
+            },
+            likeCount: 3,
+            status: 'ACTIVE',
+            createdAt: '2025-10-14T20:02:22.000Z',
+            updatedAt: '2025-10-14T20:02:22.000Z',
+            isMine: false,
+            isLiked: false,
+          },
+        ],
+      },
+      {
+        commentId: 103,
+        content: '익명으로 남기지만, 이 글 덕분에 위로받고 갑니다 🙏',
+        author: {
+          authorId: 0,
+          displayName: '익명',
+          isAnonymous: true,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        isMine: false,
+        isLiked: true,
+        likeCount: 11,
+        status: 'ACTIVE',
+        createdAt: '2025-10-13T08:15:00.000Z',
+        updatedAt: '2025-10-13T08:15:00.000Z',
+        children: [],
+      },
+    ],
+    nextCursor: null,
+    isLast: true,
+  },
+};
