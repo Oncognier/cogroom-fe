@@ -18,7 +18,7 @@ import { sendEmailError, sendEmailSuccess } from '../data/auth/sendEmailData';
 import { signupError, signupSuccess } from '../data/auth/signupData';
 
 export const authHandlers = [
-  http.get(END_POINTS_V1.AUTH.CHECK_EMAIL, async ({ request }) => {
+  http.get(END_POINTS_V1.AUTH.EMAIL_CHECK_VERIFICATION, async ({ request }) => {
     const url = new URL(request.url);
     const userEmail = url.searchParams.get('userEmail');
     const verificationCode = url.searchParams.get('userEmail');
@@ -34,7 +34,7 @@ export const authHandlers = [
     });
   }),
 
-  http.get(END_POINTS_V1.AUTH.EMAIL_VERIFIED_STATUS, async ({ request }) => {
+  http.get(END_POINTS_V1.AUTH.EMAIL_STATUS, async ({ request }) => {
     const url = new URL(request.url);
     const email = url.searchParams.get('email');
 
@@ -91,7 +91,7 @@ export const authHandlers = [
     });
   }),
 
-  http.post(END_POINTS_V1.AUTH.SEND_EMAIL, async ({ request }) => {
+  http.post(END_POINTS_V1.AUTH.EMAIL_VERIFICATION, async ({ request }) => {
     const body = (await request.json()) as SendEmailRequest;
 
     if (!body.email) {
@@ -111,7 +111,7 @@ export const authHandlers = [
     });
   }),
 
-  http.post(END_POINTS_V1.AUTH.REISSUE_TOKEN, async () => {
+  http.post(END_POINTS_V1.AUTH.REISSUE, async () => {
     // 로그아웃 시 사용
     return new HttpResponse(JSON.stringify(reissueError), {
       status: HTTP_STATUS_CODE.UNAUTHORIZED,

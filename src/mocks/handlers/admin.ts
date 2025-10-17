@@ -16,7 +16,7 @@ import {
 import { getMemberListSuccess } from '../data/admin/getMemberListData';
 
 export const adminHandlers = [
-  http.get(END_POINTS_V1.ADMIN.MEMBERS.LIST, async () => {
+  http.get(END_POINTS_V1.ADMIN.MEMBERS.ROOT, async () => {
     return new HttpResponse(JSON.stringify(getMemberListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
@@ -60,7 +60,7 @@ export const adminHandlers = [
     });
   }),
 
-  http.delete(END_POINTS_V1.ADMIN.MEMBERS.DELETE, async ({ request }) => {
+  http.delete(END_POINTS_V1.ADMIN.MEMBERS.ROOT, async ({ request }) => {
     const body = (await request.json()) as DeleteMemberRequest;
 
     if (!body.memberIdList) {
@@ -74,7 +74,7 @@ export const adminHandlers = [
     });
   }),
 
-  http.post(END_POINTS_V1.ADMIN.DAILY.QUESTIONS_CREATE, async ({ request }) => {
+  http.post(END_POINTS_V1.ADMIN.DAILY.QUESTIONS, async ({ request }) => {
     const body = (await request.json()) as CreateDailyQuestionsRequest;
 
     if (!body.level || !body.categoryList) {

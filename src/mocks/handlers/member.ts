@@ -27,7 +27,7 @@ export const memberHandlers = [
     });
   }),
 
-  http.get(END_POINTS_V1.MEMBERS.INFO, async () => {
+  http.get(END_POINTS_V1.MEMBERS.ME, async () => {
     return new HttpResponse(JSON.stringify(getUserInfoSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
@@ -51,13 +51,13 @@ export const memberHandlers = [
     });
   }),
 
-  http.get(END_POINTS_V1.MEMBERS.SAVES, async () => {
+  http.get(END_POINTS_V1.MEMBERS.POSTS_SAVES, async () => {
     return new HttpResponse(JSON.stringify(getUserSaveListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
-  http.patch(END_POINTS_V1.MEMBERS.INFO_EDIT, async ({ request }) => {
+  http.patch(END_POINTS_V1.MEMBERS.ME, async ({ request }) => {
     const body = (await request.json()) as EditUserInfoRequest;
 
     if (!body.email || !body.nickname) {
@@ -71,7 +71,7 @@ export const memberHandlers = [
     });
   }),
 
-  http.post(END_POINTS_V1.MEMBERS.CHECK_NICKNAME, async ({ request }) => {
+  http.post(END_POINTS_V1.MEMBERS.NICKNAME_CHECK, async ({ request }) => {
     const body = (await request.json()) as CheckNicknameRequest;
 
     if (!body.nickname) {

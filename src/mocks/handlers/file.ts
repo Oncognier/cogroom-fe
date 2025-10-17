@@ -5,7 +5,7 @@ import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
 import { getPresignedUrlError, getPresignedUrlSuccess } from '../data/file/getPresignedUrlData';
 
 export const fileHandlers = [
-  http.get(END_POINTS_V1.FILE.PRESIGNED_URL, async ({ request }) => {
+  http.get(END_POINTS_V1.FILES.PRESIGNED_UPLOAD, async ({ request }) => {
     const url = new URL(request.url);
     const fileName = url.searchParams.get('fileName');
 
