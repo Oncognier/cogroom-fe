@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import parse, { domToReact, Element } from 'html-react-parser';
-
-import Question from '@/app/(shared)/(standard)/daily/_components/Question/Question';
+import Editor from '@/components/organisms/Editor/Editor';
+import Question from '@/components/organisms/Question/Question';
 
 import * as S from './PostContent.styled';
 
@@ -25,32 +23,16 @@ export default function PostContent({ content = '', daily }: PostContentProps) {
             question={daily.question}
             answer={daily.answer}
             hasAnswered={true}
-            hideSubmitButton={true}
             readOnlyMode={true}
           />
         </S.DailyCardWrapper>
       )}
 
-      <S.PostContentViewBox>
-        {parse(content, {
-          replace: (domNode) => {
-            const element = domNode as Element;
-            if (element.type === 'tag' && element.name === 'a') {
-              const { class: className, target, ...rest } = element.attribs;
-
-              return (
-                <a
-                  {...rest}
-                  className={className}
-                  target={target}
-                >
-                  {domToReact(element.children as any)}
-                </a>
-              );
-            }
-          },
-        })}
-      </S.PostContentViewBox>
+      <Editor
+        content={content}
+        readonly
+        height={400}
+      />
     </S.PostContentContainer>
   );
 }

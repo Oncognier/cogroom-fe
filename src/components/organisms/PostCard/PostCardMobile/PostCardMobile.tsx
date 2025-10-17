@@ -13,8 +13,8 @@ import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import Thumbnail from '@/components/atoms/Thumbnail/Thumbnail';
 import { POST_CATEGORY_LABELS, POST_CATEGORY_META, PostCategory } from '@/constants/common';
 import { DEFAULT_THUMBNAIL } from '@/constants/image';
-import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
-import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
+import { useLikePost } from '@/hooks/api/post/useLikePost';
+import { useSavePost } from '@/hooks/api/post/useSavePost';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 import { formatRelativeKorean } from '@/utils/date/formatDay';
@@ -49,8 +49,8 @@ export default function PostCardMobile({ post, isEdit = false, isSelected = fals
   const likeCount = likeCountProp ?? 0;
   const saveCount = saveCountProp ?? 0;
 
-  const togglePostLikeMutation = useTogglePostLike();
-  const togglePostSaveMutation = useTogglePostSave();
+  const { likePost } = useLikePost();
+  const { savePost } = useSavePost();
 
   const handleCardClick = () => {
     if (category.name === POST_CATEGORY_LABELS.REFLECTION || isAuth) {
@@ -65,8 +65,7 @@ export default function PostCardMobile({ post, isEdit = false, isSelected = fals
       open('login');
       return;
     }
-    if (togglePostLikeMutation.isPending) return;
-    togglePostLikeMutation.mutate({ postId: String(postId), isLiked });
+    likePost({ postId: String(postId), isLiked });
   };
 
   const onToggleSave = () => {
@@ -74,8 +73,7 @@ export default function PostCardMobile({ post, isEdit = false, isSelected = fals
       open('login');
       return;
     }
-    if (togglePostSaveMutation.isPending) return;
-    togglePostSaveMutation.mutate({ postId: String(postId), isSaved });
+    savePost({ postId: String(postId), isSaved });
   };
 
   return (
@@ -113,7 +111,7 @@ export default function PostCardMobile({ post, isEdit = false, isSelected = fals
               fillIcon={<HeartFill />}
               isActive={isLiked}
               onClick={onToggleLike}
-              disabled={togglePostLikeMutation.isPending}
+              disabled={false}
             />
             <MetaItem
               count={commentCount || 0}
@@ -127,7 +125,7 @@ export default function PostCardMobile({ post, isEdit = false, isSelected = fals
               fillIcon={<BookmarkFill />}
               isActive={isSaved}
               onClick={onToggleSave}
-              disabled={togglePostSaveMutation.isPending}
+              disabled={false}
             />
           </S.MetaRow>
 

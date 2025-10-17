@@ -18,7 +18,6 @@ interface QuestionProps {
   question: string;
   answer?: string;
   hasAnswered: boolean;
-  hideSubmitButton?: boolean;
   readOnlyMode?: boolean;
 }
 
@@ -27,7 +26,6 @@ export default function Question({
   question,
   answer,
   hasAnswered,
-  hideSubmitButton = false,
   readOnlyMode = false,
 }: QuestionProps) {
   const [isAnswered, setIsAnswered] = useState<boolean>(!!answer);
@@ -125,7 +123,7 @@ export default function Question({
               onChange={setAnswerValue}
             />
           )}
-          {!hideSubmitButton && (
+          {!readOnlyMode && (
             <S.Button onClick={isAnswered ? handleEdit : handleSubmit}>{isAnswered ? '수정하기' : '제출하기'}</S.Button>
           )}
         </S.SubmitGroup>
