@@ -1,0 +1,96 @@
+import { MOCK_IMAGE } from '@/mocks/constants/mockAssets';
+
+export const getPostListSuccess = {
+  code: 'SUCCESS',
+  message: '게시글 목록 조회에 성공했습니다.',
+  result: {
+    data: [
+      {
+        postId: 101,
+        title: '하루를 정리하는 나만의 방법 ✍️',
+        thumbnailUrl: null,
+        viewCount: 2145,
+        likeCount: 187,
+        commentCount: 45,
+        saveCount: 61,
+        createdAt: '2025-10-17T09:12:40.000Z',
+        updatedAt: '2025-10-17T10:20:00.000Z',
+        isAnonymous: false,
+        postStatus: 'ACTIVE',
+        category: {
+          categoryId: 1,
+          name: '데일리 공유',
+        },
+        author: {
+          authorId: 31,
+          displayName: '별빛산책',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        myStatus: {
+          isLiked: true,
+          isCommented: false,
+          isSaved: true,
+        },
+      },
+      {
+        postId: 102,
+        title: '감정이 벅차오를 때, 여러분은 어떻게 다스리시나요?',
+        thumbnailUrl: null,
+        viewCount: 1897,
+        likeCount: 254,
+        commentCount: 73,
+        saveCount: 84,
+        createdAt: '2025-10-16T20:30:15.000Z',
+        updatedAt: '2025-10-16T22:12:00.000Z',
+        isAnonymous: false,
+        postStatus: 'ACTIVE',
+        category: {
+          categoryId: 2,
+          name: '사색/고민',
+        },
+        author: {
+          authorId: 42,
+          displayName: '은하수조각',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.MALE_PROFILE,
+        },
+        myStatus: {
+          isLiked: true,
+          isCommented: true,
+          isSaved: false,
+        },
+      },
+      {
+        postId: 103,
+        title: '아침형 인간이 되기 위한 작은 습관 ☀️',
+        thumbnailUrl: null,
+        viewCount: 756,
+        likeCount: 98,
+        commentCount: 26,
+        saveCount: 39,
+        createdAt: '2025-10-15T06:44:00.000Z',
+        updatedAt: '2025-10-15T07:00:00.000Z',
+        isAnonymous: true,
+        postStatus: 'ACTIVE',
+        category: {
+          categoryId: 3,
+          name: '칼럼',
+        },
+        author: {
+          authorId: 0,
+          displayName: null,
+          isAnonymous: true,
+          profileUrl: null,
+        },
+        myStatus: {
+          isLiked: false,
+          isCommented: false,
+          isSaved: true,
+        },
+      },
+    ],
+    nextCursor: null,
+    isLast: true,
+  },
+};
