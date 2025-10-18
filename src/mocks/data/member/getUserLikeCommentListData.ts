@@ -78,9 +78,9 @@ export const getUserLikeCommentListSuccess = {
         content: '익명으로 남기지만, 이 글 덕분에 위로받고 갑니다 🙏',
         author: {
           authorId: 0,
-          displayName: '익명',
+          displayName: null,
           isAnonymous: true,
-          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+          profileUrl: null,
         },
         isMine: false,
         isLiked: true,
