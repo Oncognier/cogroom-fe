@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 
-import { END_POINTS_V1 } from '@/constants/api';
+import { END_POINTS } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 import {
   CreateCommentRequest,
@@ -14,69 +14,56 @@ import {
 
 import { axiosInstance } from './axios/axiosInstance';
 
+/** 댓글 목록 조회 */
+const getCommentList = async (postId: string, params: CommentListRequest) => {
+  const { data } = await axiosInstance.get<CommentListResponse>(END_POINTS.POSTS.COMMENTS.ROOT(postId), { params });
+  return data.result;
+};
+
+/** 댓글 작성 */
 const createComment = async (
   postId: string,
   { parentId, content, isAnonymous, mentionedList }: CreateCommentRequest,
 ) => {
   const { data } = await axiosInstance.post<CreateCommentRequest, AxiosResponse<CreateCommentResponse>>(
-    END_POINTS_V1.COMMENTS.CREATE(postId),
-    {
-      parentId,
-      content,
-      isAnonymous,
-      mentionedList,
-    },
+    END_POINTS.POSTS.COMMENTS.ROOT(postId),
+    { parentId, content, isAnonymous, mentionedList },
   );
-
   return data.result;
 };
 
-const getCommentList = async (postId: string, params: CommentListRequest) => {
-  const { data } = await axiosInstance.get<CommentListResponse>(END_POINTS_V1.COMMENTS.LIST(postId), {
-    params,
-  });
-
-  return data.result;
-};
-
+/** 댓글 수정 */
 const updateComment = async (commentId: string, { content, isAnonymous, mentionedList }: UpdateCommentRequest) => {
   const { data } = await axiosInstance.patch<UpdateCommentRequest, AxiosResponse<UpdateCommentResponse>>(
-    END_POINTS_V1.COMMENTS.UPDATE(commentId),
-    {
-      content,
-      isAnonymous,
-      mentionedList,
-    },
+    END_POINTS.COMMENTS.BY_ID(commentId),
+    { content, isAnonymous, mentionedList },
   );
-
   return data.result;
 };
 
+/** 댓글 삭제 */
 const deleteComment = async ({ commentId }: { commentId: string }) => {
-  const { data } = await axiosInstance.delete<null, AxiosResponse<ApiResponse>>(
-    END_POINTS_V1.COMMENTS.DELETE(commentId),
-  );
-
+  const { data } = await axiosInstance.delete<null, AxiosResponse<ApiResponse>>(END_POINTS.COMMENTS.BY_ID(commentId));
   return data;
 };
 
+/** 댓글 좋아요 등록 */
 const toggleCommentLike = async (commentId: string) => {
-  const { data } = await axiosInstance.post(END_POINTS_V1.COMMENTS.LIKE(commentId));
-
+  const { data } = await axiosInstance.post(END_POINTS.COMMENTS.LIKES(commentId));
   return data.result;
 };
 
+/** 댓글 좋아요 취소 */
 const deleteCommentLike = async (commentId: string) => {
   const { data } = await axiosInstance.delete<null, AxiosResponse<DeleteCommentLikeResponse>>(
-    END_POINTS_V1.COMMENTS.DELETE_LIKE(commentId),
+    END_POINTS.COMMENTS.LIKES(commentId),
   );
-
   return data.result;
 };
 
 export const commentApi = {
-  createComment,
   getCommentList,
+  createComment,
   updateComment,
   deleteComment,
   toggleCommentLike,

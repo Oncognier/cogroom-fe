@@ -10,8 +10,8 @@ export const getUserPostListSuccess = {
     data: [
       {
         postId: 22,
-        title: '이건 글 제목입니다. 어쩌구 저쩌구 어쩌구 ',
-        thumbnailUrl: '/carousel1.png',
+        title: '요즘 마음이 자꾸 흔들릴 때, 어떻게 다스리시나요?',
+        thumbnailUrl: null,
         category: {
           id: 2,
           name: '사색/고민',
@@ -30,8 +30,8 @@ export const getUserPostListSuccess = {
       },
       {
         postId: 23,
-        title: '테스트 게시글6',
-        thumbnailUrl: '/carousel2.png',
+        title: '누군가를 진심으로 이해한다는 건 어떤 걸까요?',
+        thumbnailUrl: null,
         category: {
           id: 2,
           name: '사색/고민',
@@ -50,8 +50,8 @@ export const getUserPostListSuccess = {
       },
       {
         postId: 24,
-        title: '테스트 게시글6',
-        thumbnailUrl: '/carousel3.png',
+        title: '조용히 혼자 있고 싶은 날, 나만의 회복 방법 🌿',
+        thumbnailUrl: null,
         category: {
           id: 2,
           name: '사색/고민',
@@ -70,8 +70,8 @@ export const getUserPostListSuccess = {
       },
       {
         postId: 25,
-        title: '테스트 게시글6',
-        thumbnailUrl: '/carousel4.png',
+        title: '지치지 않으려면, 마음에도 쉼표가 필요하다는 걸 배웠어요',
+        thumbnailUrl: null,
         category: {
           id: 2,
           name: '사색/고민',
@@ -90,7 +90,7 @@ export const getUserPostListSuccess = {
       },
       {
         postId: 26,
-        title: '테스트 게시글6',
+        title: '완벽하려는 마음을 내려놓는 게 왜 이렇게 어려울까요?',
         category: {
           id: 2,
           name: '사색/고민',

@@ -1,0 +1,97 @@
+import { MOCK_IMAGE } from '@/mocks/constants/mockAssets';
+
+export const getCommentListSuccess = {
+  code: 'SUCCESS',
+  message: '댓글 목록 조회에 성공했습니다.',
+  result: {
+    data: [
+      {
+        commentId: 101,
+        content: '글을 읽고 나서 마음이 한결 편해졌어요. 좋은 글 감사합니다 😊',
+        author: {
+          authorId: 21,
+          displayName: '하늘정원',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        isMine: false,
+        isLiked: true,
+        likeCount: 14,
+        status: 'ACTIVE',
+        createdAt: '2025-10-17T20:15:30.000Z',
+        updatedAt: '2025-10-17T20:15:30.000Z',
+        children: [
+          {
+            commentId: 201,
+            content: '공감해주셔서 감사해요 :) 좋은 하루 되세요 ☀️',
+            author: {
+              authorId: 5,
+              displayName: '별빛산책',
+              isAnonymous: false,
+              profileUrl: MOCK_IMAGE.MALE_PROFILE,
+            },
+            likeCount: 3,
+            status: 'ACTIVE',
+            createdAt: '2025-10-17T21:02:45.000Z',
+            updatedAt: '2025-10-17T21:02:45.000Z',
+            isMine: false,
+            isLiked: false,
+          },
+        ],
+      },
+      {
+        commentId: 102,
+        content: '익명이지만 용기 내서 남겨봅니다. 정말 많은 위로가 되었어요 🙏',
+        author: {
+          authorId: 0,
+          displayName: null,
+          isAnonymous: true,
+          profileUrl: null,
+        },
+        isMine: false,
+        isLiked: true,
+        likeCount: 22,
+        status: 'ACTIVE',
+        createdAt: '2025-10-16T18:42:10.000Z',
+        updatedAt: '2025-10-16T18:42:10.000Z',
+        children: [
+          {
+            commentId: 202,
+            content: '이 댓글 보니까 저도 위로가 되네요 🥲',
+            author: {
+              authorId: 18,
+              displayName: '초록비',
+              isAnonymous: false,
+              profileUrl: MOCK_IMAGE.MALE_PROFILE,
+            },
+            likeCount: 5,
+            status: 'ACTIVE',
+            createdAt: '2025-10-16T19:03:28.000Z',
+            updatedAt: '2025-10-16T19:03:28.000Z',
+            isMine: true,
+            isLiked: true,
+          },
+        ],
+      },
+      {
+        commentId: 103,
+        content: '요즘 이렇게 진심 어린 글 보기 힘든데... 덕분에 하루가 따뜻하네요 ☕️',
+        author: {
+          authorId: 33,
+          displayName: '소소한하루',
+          isAnonymous: false,
+          profileUrl: MOCK_IMAGE.FEMALE_PROFILE,
+        },
+        isMine: true,
+        isLiked: false,
+        likeCount: 8,
+        status: 'ACTIVE',
+        createdAt: '2025-10-15T10:12:00.000Z',
+        updatedAt: '2025-10-15T10:12:00.000Z',
+        children: [],
+      },
+    ],
+    nextCursor: null,
+    isLast: true,
+  },
+};
