@@ -6,6 +6,7 @@ import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { postApi } from '@/api/postApis';
 import { ADMIN_QUERY_KEYS, POST_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
+import { communityErrorHandler } from '@/utils/errors/communityErrorHandler';
 
 export const useDeletePostMutation = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient();
@@ -26,20 +27,7 @@ export const useDeletePostMutation = (onSuccessCallback?: () => void) => {
       });
     },
     onError: (error: HTTPError) => {
-      switch (error.code) {
-        case 'POST_FORBIDDEN_ERROR':
-          open('alert', { message: '본인이 작성한 게시글만 수정/삭제가 가능합니다.' });
-          break;
-        case 'POST_ALREADY_DELETED_ERROR':
-          open('alert', { message: '이미 삭제된 게시글입니다.' });
-          break;
-        case 'POST_HIDDEN_ERROR':
-          open('alert', { message: '숨김 처리된 게시글입니다.' });
-          break;
-        default:
-          open('alert', { message: '글 삭제에 실패했습니다.' });
-          break;
-      }
+      communityErrorHandler(error, open, 'DELETE');
     },
   });
 
