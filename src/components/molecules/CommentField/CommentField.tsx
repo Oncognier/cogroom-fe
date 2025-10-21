@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
@@ -19,7 +19,6 @@ interface CommentFieldProps {
   parentId?: number;
   mentionedList?: number[];
   disabled?: boolean;
-  onSuccess?: () => void;
   showAnonymousCheckbox?: boolean;
   // 수정 모드용 props
   isEdit?: boolean;
@@ -30,13 +29,12 @@ interface CommentFieldProps {
 
 export default function CommentField({
   postId,
-  placeholder = '댓글을 입력해주세요',
+  placeholder = '생각을 나눠주세요 •••',
   maxLength = 1000,
-  isAnonymous,
+  isAnonymous = false,
   parentId,
   mentionedList = [],
   disabled = false,
-  onSuccess,
   showAnonymousCheckbox = false,
   isEdit = false,
   commentId,
@@ -44,103 +42,81 @@ export default function CommentField({
   onCancel,
 }: CommentFieldProps) {
   const [content, setContent] = useState(initialContent);
-  const [localIsAnonymous, setLocalIsAnonymous] = useState(isAnonymous ?? false);
+  const [localIsAnonymous, setLocalIsAnonymous] = useState(isAnonymous);
+
   const { createComment, isLoading: createLoading } = useCreateComment(postId);
-  const updateCommentMutation = useUpdateComment();
+  const { updateComment, isLoading: updateLoading } = useUpdateComment(postId);
   const { open } = useAppModalStore();
   const isAuth = useAuthStore((s) => s.isAuth());
 
-  const handleContentChange = useCallback(
-    (e: ChangeEvent<HTMLTextAreaElement>) => {
-      const value = e.target.value;
-      if (value.length <= maxLength) {
-        setContent(value);
-      }
-    },
-    [maxLength],
-  );
+  useEffect(() => {
+    setContent(initialContent);
+  }, [initialContent]);
 
-  const handleSubmit = useCallback(() => {
-    if (content.trim()) {
-      if (!isAuth) {
-        open('login');
-        return;
-      }
+  useEffect(() => {
+    setLocalIsAnonymous(isAnonymous ?? false);
+  }, [isAnonymous]);
 
-      if (isEdit && commentId) {
-        updateCommentMutation.mutate(
-          {
-            commentId,
-            data: {
-              content: content.trim(),
-              isAnonymous: localIsAnonymous,
-              mentionedList,
-            },
-          },
-          {
-            onSuccess: () => {
-              setContent('');
-              onSuccess?.();
-            },
-          },
-        );
-      } else {
-        createComment(
-          {
-            content: content.trim(),
-            isAnonymous: localIsAnonymous,
-            parentId,
-            mentionedList,
-          },
-          {
-            onSuccess: () => {
-              setContent('');
-              onSuccess?.();
-            },
-          },
-        );
-      }
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value.length <= maxLength) {
+      setContent(value);
     }
-  }, [
-    content,
-    isEdit,
-    commentId,
-    updateCommentMutation,
-    createComment,
-    localIsAnonymous,
-    parentId,
-    mentionedList,
-    onSuccess,
-  ]);
+  };
 
-  const isLoading = isEdit ? updateCommentMutation.isPending : createLoading;
+  const handleSubmit = () => {
+    const trimmed = content.trim();
+    if (!trimmed) return;
+
+    if (!isAuth) {
+      open('login');
+      return;
+    }
+
+    if (isEdit && commentId) {
+      updateComment({
+        commentId,
+        data: {
+          content: trimmed,
+          isAnonymous: localIsAnonymous,
+          mentionedList,
+        },
+      });
+    } else {
+      createComment({
+        content: trimmed,
+        isAnonymous: localIsAnonymous,
+        parentId,
+        mentionedList,
+      });
+    }
+
+    onCancel?.();
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key !== 'Enter' || e.shiftKey) return;
+    // IME 조합 중이거나 키 반복이면 무시
+    if (e.nativeEvent?.isComposing) return;
+    if (e.repeat) return;
+
+    e.preventDefault();
+    if (!isSubmitDisabled) handleSubmit();
+  };
+
+  const isLoading = isEdit ? updateLoading : createLoading;
   const isSubmitDisabled = disabled || isLoading || !content.trim();
 
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        if (e.nativeEvent?.isComposing) return;
-        if (e.repeat) return;
-        e.preventDefault();
-        if (!isSubmitDisabled) {
-          handleSubmit();
-        }
-      }
-    },
-    [handleSubmit, isSubmitDisabled],
-  );
-
   return (
-    <S.Wrapper>
-      <S.TextareaContainer>
-        <S.Textarea
-          value={content}
-          onChange={handleContentChange}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          disabled={disabled || isLoading}
-        />
-      </S.TextareaContainer>
+    <S.CommentField>
+      <S.Textarea
+        value={content}
+        onChange={handleContentChange}
+        onKeyDown={handleKeyDown}
+        placeholder={placeholder}
+        disabled={disabled || isLoading}
+        maxLength={maxLength}
+      />
 
       <S.BottomSection>
         <S.CounterWrapper>
@@ -158,6 +134,7 @@ export default function CommentField({
               onClick={onCancel}
             />
           )}
+
           {showAnonymousCheckbox && (
             <S.CheckboxWrapper>
               <Checkbox
@@ -170,6 +147,7 @@ export default function CommentField({
               <S.CheckboxLabel>익명</S.CheckboxLabel>
             </S.CheckboxWrapper>
           )}
+
           <SolidButton
             label={isEdit ? '수정하기' : '입력'}
             size='sm'
@@ -179,6 +157,6 @@ export default function CommentField({
           />
         </S.ButtonWrapper>
       </S.BottomSection>
-    </S.Wrapper>
+    </S.CommentField>
   );
 }

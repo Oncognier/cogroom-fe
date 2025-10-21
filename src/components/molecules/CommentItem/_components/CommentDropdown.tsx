@@ -10,7 +10,7 @@ import { useDropdown } from '@/hooks/useDropdown';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { DropdownOption } from '@/types/common';
 
-import * as S from '../CommentItem.styled';
+import * as S from './CommentDropdown.styled';
 
 interface CommentDropdownProps {
   commentId: number;

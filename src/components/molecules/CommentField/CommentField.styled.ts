@@ -4,27 +4,21 @@ import styled from '@emotion/styled';
 
 import { mqMax } from '@/styles/foundation';
 
-export const Wrapper = styled.div`
-  width: 100%;
-  height: 18rem;
-  border-radius: 1.2rem;
-  background-color: ${({ theme }) => theme.semantic.static.white};
-  border: 1px solid ${({ theme }) => theme.palette.blue[80]};
-  padding: 1.2rem 1.6rem;
+export const CommentField = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 
-  &:focus-within {
-    border: 1px solid ${({ theme }) => theme.semantic.background.elevated.alternative};
-  }
-`;
-
-export const TextareaContainer = styled.div`
-  position: relative;
-
   width: 100%;
-  height: 100%;
+  height: 18rem;
+  padding: 1.2rem 1.6rem;
+  border-radius: 1.2rem;
+  border: 1px solid ${({ theme }) => theme.palette.blue[80]};
+  background-color: ${({ theme }) => theme.semantic.static.white};
+
+  &:focus-within {
+    border-color: ${({ theme }) => theme.semantic.background.elevated.alternative};
+  }
 `;
 
 export const Textarea = styled.textarea`

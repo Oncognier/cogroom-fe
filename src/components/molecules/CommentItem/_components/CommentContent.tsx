@@ -55,7 +55,6 @@ export default function CommentContent({
             commentId={comment.commentId.toString()}
             initialContent={comment.content}
             isAnonymous={comment.author.isAnonymous}
-            onSuccess={onEditSuccess}
             onCancel={onEditCancel}
           />
         </S.EditFieldWrapper>

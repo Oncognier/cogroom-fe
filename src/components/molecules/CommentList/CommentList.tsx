@@ -42,10 +42,7 @@ export default function CommentList({
             key={comment.commentId}
             comment={comment}
             postId={postId}
-            isMine={comment.isMine || false}
-            isAdmin={isAdmin}
             isPostAnonymous={isPostAnonymous}
-            onCommentUpdated={onCommentUpdated}
           />
         ))}
     </S.CommentListWrapper>

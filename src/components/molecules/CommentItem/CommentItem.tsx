@@ -1,84 +1,33 @@
 'use client';
 
-import ChevronRightIcon from '@/assets/icons/chevronright.svg';
-import HeartFill from '@/assets/icons/heart-fill.svg';
-import Heart from '@/assets/icons/heart.svg';
-import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import { useState } from 'react';
+import ChevronRight from '@/assets/icons/chevronright.svg';
+import ChevronUp from '@/assets/icons/chevronup.svg';
 import CommentField from '@/components/molecules/CommentField/CommentField';
-import { useDeleteCommentLike } from '@/hooks/api/comment/useDeleteCommentLike';
-import { useToggleCommentLike } from '@/hooks/api/comment/useToggleCommentLike';
-import { useBlueLineHeight } from '@/hooks/useBlueLineHeight';
-import { useCommentState } from '@/hooks/useCommentState';
-import { useSimpleModalStore } from '@/stores/useModalStore';
 import { Comment } from '@/types/comment';
-import { formatRelativeKorean } from '@/utils/date/formatDay';
-import { formatCountPlus, getDisplayName } from '@/utils/formatText';
-
-import { BlueLineElement, StaticBlueLine } from './_components/BlueLineElement';
-import CommentContent from './_components/CommentContent';
-import CommentDropdown from './_components/CommentDropdown';
 import * as S from './CommentItem.styled';
+import CommentCard from '../CommentCard/CommentCard';
+import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import { useSimpleModalStore } from '@/stores/useModalStore';
 
 interface CommentItemProps {
-  comment: Comment;
   postId: string;
-  isAdmin?: boolean;
-  isMine?: boolean;
-  isChild?: boolean;
-  parentShowReplyField?: boolean;
+  comment: Comment;
   isPostAnonymous?: boolean;
-  onCommentUpdated?: () => void;
 }
 
-export default function CommentItem({
-  comment,
-  postId,
-  isMine = false,
-  isAdmin = false,
-  isChild = false,
-  parentShowReplyField = false,
-  isPostAnonymous = false,
-  onCommentUpdated,
-}: CommentItemProps) {
-  const {
-    likeCount,
-    isLiked,
-    showReplyField,
-    isEditing,
-    showChildren,
-    showFullContent,
-    isOverflowing,
-    setLikeCount,
-    setIsLiked,
-    setIsEditing,
-    contentRef,
-    childrenRefs,
-    replyCountButtonRef,
-    commentWrapperRef,
-    handleReplyClick,
-    handleReplySuccess,
-    handleEditSuccess,
-    handleEditCancel,
-    handleToggleChildren,
-    handleToggleFullContent,
-  } = useCommentState({ comment });
+export default function CommentItem({ comment, postId, isPostAnonymous = false }: CommentItemProps) {
+  const replyCount = comment.children?.length ?? 0;
+  const hasManyReplies = replyCount > 0;
 
-  const { lineHeight, replyFieldHeight, getReplyCountButtonHeight } = useBlueLineHeight({
-    showChildren,
-    showReplyField,
-    comment,
-    showFullContent,
-    commentWrapperRef,
-    childrenRefs,
-    replyCountButtonRef,
-  });
-
+  const [showReplyList, setShowReplyList] = useState(!hasManyReplies);
+  const [isReplying, setIsReplying] = useState(false);
   const { open: openSimpleModal } = useSimpleModalStore();
 
-  const toggleCommentLikeMutation = useToggleCommentLike();
-  const deleteCommentLikeMutation = useDeleteCommentLike();
+  const toggleChildren = () => setShowReplyList((v) => !v);
+  const toggleReplyField = () => setIsReplying((v) => !v);
 
-  const handleAvatarClick = () => {
+  const handleProfile = () => {
     if (!comment.author.isAnonymous) {
       openSimpleModal('userProfile', {
         memberId: comment.author.authorId.toString(),
@@ -86,184 +35,74 @@ export default function CommentItem({
     }
   };
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  const handleLikeClick = () => {
-    const originalIsLiked = isLiked;
-    const originalLikeCount = likeCount;
-    const newIsLiked = !isLiked;
-    const newLikeCount = newIsLiked ? likeCount + 1 : likeCount - 1;
-
-    const mutation = originalIsLiked ? deleteCommentLikeMutation : toggleCommentLikeMutation;
-
-    setIsLiked(newIsLiked);
-    setLikeCount(newLikeCount);
-
-    mutation.mutate(comment.commentId.toString(), {
-      onError: () => {
-        setIsLiked(originalIsLiked);
-        setLikeCount(originalLikeCount);
-      },
-    });
-  };
-
-  const handleReplySuccessWithUpdate = () => {
-    handleReplySuccess();
-    onCommentUpdated?.();
-  };
-
-  const handleEditSuccessWithUpdate = () => {
-    handleEditSuccess();
-    onCommentUpdated?.();
-  };
-
-  const getAuthorName = () => {
-    switch (comment.status) {
-      case 'ACTIVE':
-        return getDisplayName(comment.author.displayName, comment.author.isAnonymous);
-      case 'DELETED_BY_USER':
-      case 'DELETED_BY_ADMIN':
-        return '삭제된 댓글';
-      case 'USER_WITHDRAWN':
-        return '탈퇴한 코그니어';
-      default:
-        return getDisplayName(comment.author.displayName, comment.author.isAnonymous);
-    }
-  };
-
   return (
-    <S.CommentItemWrapper
-      $isChild={isChild}
-      ref={commentWrapperRef}
-    >
-      <S.CommentWrapper>
-        <S.CommentFirstBox>
-          {!isChild && comment.children && comment.children.length > 0 && !showChildren && (
-            <StaticBlueLine style={{ height: `${getReplyCountButtonHeight()}px` }} />
-          )}
+    <S.CommentItem>
+      <S.CommentFirstBox>
+        <AvatarPerson
+          type='icon'
+          size='sm'
+          src={comment.author.profileUrl || undefined}
+          onClick={handleProfile}
+        />
+      </S.CommentFirstBox>
 
-          {!isChild && showReplyField && <StaticBlueLine style={{ height: `${replyFieldHeight}px` }} />}
+      <S.CommentSecondBox>
+        <CommentCard
+          commentId={comment.commentId}
+          postId={postId}
+          content={comment.content}
+          author={comment.author}
+          isLiked={comment.isLiked}
+          isMine={comment.isMine}
+          likeCount={comment.likeCount}
+          status={comment.status}
+          createdAt={comment.createdAt}
+          updatedAt={comment.updatedAt}
+          onReplyClick={toggleReplyField}
+          isReplying={isReplying}
+        />
 
-          {!isChild && comment.children && comment.children.length > 0 && showChildren && !showReplyField && (
-            <BlueLineElement style={{ height: `${lineHeight - 60}px` }} />
-          )}
-
-          <S.AvatarWrapper
-            onClick={handleAvatarClick}
-            $isClickable={!comment.author.isAnonymous}
-            $isChild={isChild}
-            $showReplyField={parentShowReplyField}
-          >
-            <AvatarPerson
-              type='icon'
-              size='sm'
-              src={comment.author.profileUrl || undefined}
-            />
-          </S.AvatarWrapper>
-        </S.CommentFirstBox>
-
-        <S.CommentSecondBox>
-          <S.AuthorInfoBox>
-            <S.NameBox>
-              <S.AuthorName
-                $isActive={comment.status === 'ACTIVE'}
-                $isClickable={!comment.author.isAnonymous}
-                onClick={handleAvatarClick}
-              >
-                {getAuthorName()}
-              </S.AuthorName>
-              {comment.status === 'ACTIVE' && <S.CommentTime>{formatRelativeKorean(comment.createdAt)}</S.CommentTime>}
-            </S.NameBox>
-
-            {comment.status === 'ACTIVE' && (
-              <CommentDropdown
-                commentId={comment.commentId}
-                isMine={isMine}
-                isAdmin={isAdmin}
-                onEdit={handleEdit}
-                onCommentUpdated={onCommentUpdated}
-              />
-            )}
-          </S.AuthorInfoBox>
-
-          <CommentContent
-            comment={comment}
+        {isReplying && comment.status === 'ACTIVE' && (
+          <CommentField
             postId={postId}
-            isChild={isChild}
-            isEditing={isEditing}
-            showFullContent={showFullContent}
-            isOverflowing={isOverflowing}
-            contentRef={contentRef}
-            onEditSuccess={handleEditSuccessWithUpdate}
-            onEditCancel={handleEditCancel}
-            onToggleFullContent={handleToggleFullContent}
+            placeholder='댓글을 입력해주세요'
+            parentId={comment.commentId}
+            showAnonymousCheckbox={isPostAnonymous}
           />
+        )}
 
-          <S.LikesWithReplyBox>
-            {comment.status === 'ACTIVE' && (
-              <S.LikeButton onClick={handleLikeClick}>
-                <S.LikeIcon $isLiked={isLiked}>{isLiked ? <HeartFill /> : <Heart />}</S.LikeIcon>
-                <S.LikeCount>{formatCountPlus(likeCount)}</S.LikeCount>
-              </S.LikeButton>
-            )}
+        {replyCount > 0 && (
+          <S.ShowReplyButton
+            type='button'
+            onClick={toggleChildren}
+          >
+            <S.ShowReplyText>{showReplyList ? '답글 닫기' : `답글 ${replyCount}개`}</S.ShowReplyText>
+            <S.ChevronIcon>{showReplyList ? <ChevronUp /> : <ChevronRight />}</S.ChevronIcon>
+          </S.ShowReplyButton>
+        )}
 
-            {!isChild && !isEditing && comment.status === 'ACTIVE' && (
-              <S.FooterButton onClick={handleReplyClick}>{showReplyField ? '취소하기' : '답글 달기'}</S.FooterButton>
-            )}
-          </S.LikesWithReplyBox>
-
-          {!isChild && comment.children && comment.children.length > 0 && (
-            <S.ReplyCountButton
-              ref={replyCountButtonRef}
-              onClick={handleToggleChildren}
-            >
-              {showChildren ? '답글 닫기' : `답글 ${comment.children.length}개`}
-              <S.ChevronIcon $isExpanded={showChildren}>
-                <ChevronRightIcon />
-              </S.ChevronIcon>
-            </S.ReplyCountButton>
-          )}
-
-          {showReplyField && !isEditing && comment.status === 'ACTIVE' && (
-            <S.ReplyFieldContainer data-reply-field>
-              <CommentField
+        {replyCount > 0 && showReplyList && (
+          <S.ReplyList>
+            {comment.children!.map((child) => (
+              <CommentCard
+                key={child.commentId}
+                commentId={child.commentId}
                 postId={postId}
-                placeholder='댓글을 입력해주세요'
-                parentId={comment.commentId}
-                showAnonymousCheckbox={isPostAnonymous}
-                onSuccess={handleReplySuccessWithUpdate}
+                content={child.content}
+                author={child.author}
+                isLiked={child.isLiked}
+                isMine={child.isMine}
+                likeCount={child.likeCount}
+                status={child.status}
+                createdAt={child.createdAt}
+                updatedAt={child.updatedAt}
+                defaultExpanded={false}
+                isReply
               />
-            </S.ReplyFieldContainer>
-          )}
-
-          {comment.children && comment.children.length > 0 && showChildren && (
-            <S.ChilrenWrpper>
-              {comment.children.map((childComment, index) => (
-                <S.ChildrenContainer
-                  key={childComment.commentId}
-                  ref={(el) => {
-                    childrenRefs.current[index] = el;
-                  }}
-                >
-                  <CommentItem
-                    key={childComment.commentId}
-                    comment={childComment}
-                    postId={postId}
-                    isMine={childComment.isMine}
-                    isAdmin={isAdmin}
-                    isChild={true}
-                    parentShowReplyField={showReplyField}
-                    isPostAnonymous={isPostAnonymous}
-                    onCommentUpdated={onCommentUpdated}
-                  />
-                </S.ChildrenContainer>
-              ))}
-            </S.ChilrenWrpper>
-          )}
-        </S.CommentSecondBox>
-      </S.CommentWrapper>
-    </S.CommentItemWrapper>
+            ))}
+          </S.ReplyList>
+        )}
+      </S.CommentSecondBox>
+    </S.CommentItem>
   );
 }
