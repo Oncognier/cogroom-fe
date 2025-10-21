@@ -21,8 +21,11 @@ export const useCreateComment = (postId: string) => {
       queryClient.invalidateQueries({ queryKey: ['comments', postId] });
     },
     onError: (error: HTTPError) => {
-      // 특별한 경우 처리
-      if (error.code === 'TOKEN_INVALID_ERROR' || error.code === 'ACCESS_TOKEN_EMPTY_ERROR') {
+      if (
+        error.code === 'TOKEN_INVALID_ERROR' ||
+        error.code === 'REFRESH_TOKEN_EMPTY_ERROR' ||
+        error.code === 'TOKEN_BLACK_LIST_ERROR'
+      ) {
         openModal('login');
         return;
       }
