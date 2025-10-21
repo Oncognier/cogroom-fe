@@ -4,10 +4,11 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { commentApi } from '@/api/commentApis';
 import { CommentListRequest } from '@/types/comment';
+import { COMMENT_QUERY_KEYS } from '@/constants/queryKeys';
 
 export const useGetComments = (postId: string, params: CommentListRequest = {}) => {
   return useInfiniteQuery({
-    queryKey: ['comments', postId, params],
+    queryKey: [...COMMENT_QUERY_KEYS.COMMENT_LIST, postId, params],
     queryFn: ({ pageParam = undefined }) =>
       commentApi.getCommentList(postId, {
         ...params,

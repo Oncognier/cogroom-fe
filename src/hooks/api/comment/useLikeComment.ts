@@ -4,22 +4,25 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { HTTPError } from '@/api/axios/errors/HTTPError';
 import { commentApi } from '@/api/commentApis';
+import { COMMENT_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { communityErrorHandler } from '@/utils/errors/communityErrorHandler';
 
-export const useToggleCommentLike = () => {
+export const useLikeComment = () => {
   const queryClient = useQueryClient();
   const { open: openAlert } = useAlertModalStore();
 
   const mutation = useMutation({
-    mutationFn: commentApi.toggleCommentLike,
+    mutationFn: ({ commentId, isLiked }: { commentId: string; isLiked: boolean }) => {
+      return isLiked ? commentApi.unlikeComment(commentId) : commentApi.likeComment(commentId);
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] });
+      queryClient.invalidateQueries({ queryKey: [...COMMENT_QUERY_KEYS.COMMENT_LIST] });
     },
     onError: (error: HTTPError) => {
       communityErrorHandler(error, openAlert, 'LIKE');
     },
   });
 
-  return mutation;
+  return { likeComment: mutation.mutate };
 };

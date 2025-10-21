@@ -12,7 +12,7 @@ export const useDeleteCommentLike = () => {
   const { open: openAlert } = useAlertModalStore();
 
   const mutation = useMutation({
-    mutationFn: commentApi.deleteCommentLike,
+    mutationFn: commentApi.unlikeComment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
