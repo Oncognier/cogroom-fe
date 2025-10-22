@@ -1,8 +1,5 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
-
-import { commentApi } from '@/api/commentApis';
 import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import { DropdownList } from '@/components/molecules/DropdownList/DropdownList';
@@ -11,8 +8,10 @@ import { useAlertModalStore } from '@/stores/useModalStore';
 import { DropdownOption } from '@/types/common';
 
 import * as S from './CommentDropdown.styled';
+import { useDeleteCommentMutation } from '@/hooks/api/comment/useDeleteComment';
 
 interface CommentDropdownProps {
+  postId: string;
   commentId: number;
   isMine: boolean;
   isAdmin: boolean;
@@ -21,6 +20,7 @@ interface CommentDropdownProps {
 }
 
 export default function CommentDropdown({
+  postId,
   commentId,
   isMine,
   isAdmin,
@@ -29,17 +29,7 @@ export default function CommentDropdown({
 }: CommentDropdownProps) {
   const { open: openAlert } = useAlertModalStore();
   const { isOpen, toggle, close, handleBlur, dropdownRef } = useDropdown();
-
-  const forceDeleteMutation = useMutation({
-    mutationFn: commentApi.deleteComment,
-    onSuccess: () => {
-      openAlert('alert', { message: '댓글이 삭제되었습니다.' });
-      onCommentUpdated?.();
-    },
-    onError: () => {
-      openAlert('alert', { message: '댓글 삭제에 실패했습니다.' });
-    },
-  });
+  const { deleteComment } = useDeleteCommentMutation(postId);
 
   const getDropdownOptions = (): DropdownOption[] => {
     const options: DropdownOption[] = [];
@@ -66,7 +56,7 @@ export default function CommentDropdown({
         onConfirm: onCommentUpdated,
       });
     } else if (value === 'FORCE_DELETE') {
-      forceDeleteMutation.mutate({ commentId: commentId.toString() });
+      deleteComment({ commentId: String(commentId) });
     }
 
     close();
