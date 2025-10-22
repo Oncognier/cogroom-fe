@@ -8,7 +8,7 @@ import { ADMIN_QUERY_KEYS, COMMENT_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { communityErrorHandler } from '@/utils/errors/communityErrorHandler';
 
-export const useDeleteCommentMutation = () => {
+export const useDeleteCommentMutation = (postId: string) => {
   const queryClient = useQueryClient();
   const { open } = useAlertModalStore();
 
@@ -16,7 +16,7 @@ export const useDeleteCommentMutation = () => {
     mutationFn: commentApi.deleteComment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [...ADMIN_QUERY_KEYS.COMMENT_LIST] });
-      queryClient.invalidateQueries({ queryKey: [...COMMENT_QUERY_KEYS.COMMENT_LIST] });
+      queryClient.invalidateQueries({ queryKey: [...COMMENT_QUERY_KEYS.COMMENT_LIST, postId] });
       open('alert', { message: '댓글이 삭제되었습니다.' });
     },
 
