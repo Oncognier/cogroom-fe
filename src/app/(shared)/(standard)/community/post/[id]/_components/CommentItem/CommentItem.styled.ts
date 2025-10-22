@@ -6,21 +6,24 @@ export const CommentItem = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 1rem;
+
   width: 100%;
 `;
 
 export const CommentFirstBox = styled.div`
+  position: relative;
+
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  position: relative;
 `;
 
 export const CommentSecondBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 2.4rem;
+
+  width: 100%;
 `;
 
 export const ShowReplyButton = styled.button`

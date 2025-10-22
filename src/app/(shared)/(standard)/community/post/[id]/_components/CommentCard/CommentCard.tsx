@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import HeartFill from '@/assets/icons/heart-fill.svg';
 import Heart from '@/assets/icons/heart.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
-import CommentField from '@/components/molecules/CommentField/CommentField';
+import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
 import { useLikeComment } from '@/hooks/api/comment/useLikeComment';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useSimpleModalStore } from '@/stores/useModalStore';
@@ -14,7 +14,7 @@ import { formatRelativeKorean } from '@/utils/date/formatDay';
 import { formatCountPlus, getDisplayName } from '@/utils/formatText';
 
 import * as S from './CommentCard.styled';
-import CommentDropdown from '../CommentItem/_components/CommentDropdown';
+import CommentDropdown from './CommentDropdown/CommentDropdown';
 
 interface CommentCardProps {
   commentId: number;
@@ -55,6 +55,16 @@ export default function CommentCard({
 
   const [showFullContent, setShowFullContent] = useState<boolean>(defaultExpanded);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isClamped, setIsClamped] = useState(false);
+
+  const contentRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const isOverflowing = el.scrollHeight > el.clientHeight + 1;
+    setIsClamped(isOverflowing);
+  }, [content, showFullContent]);
 
   const handleProfile = () => {
     if (!author.isAnonymous) {
@@ -68,13 +78,9 @@ export default function CommentCard({
     likeComment({ commentId: String(commentId), isLiked });
   };
 
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
+  const handleEdit = () => setIsEditing(true);
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-  };
+  const handleCancelEdit = () => setIsEditing(false);
 
   const getCommentContent = (status: CommentStatus, content: string): string => {
     if (status === 'ACTIVE') return content;
@@ -88,12 +94,14 @@ export default function CommentCard({
   return (
     <S.CommentCard>
       {isReply && (
-        <AvatarPerson
-          type='icon'
-          size='sm'
-          src={author.profileUrl || undefined}
-          onClick={handleProfile}
-        />
+        <S.ReplyAvatarBox>
+          <AvatarPerson
+            type='icon'
+            size='sm'
+            src={author.profileUrl || undefined}
+            onClick={handleProfile}
+          />
+        </S.ReplyAvatarBox>
       )}
 
       <S.CommentRight>
@@ -137,13 +145,14 @@ export default function CommentCard({
         ) : (
           <S.CommentBody $isActive={status === 'ACTIVE'}>
             <S.Content
+              ref={contentRef}
               $isActive={status === 'ACTIVE'}
               $showFullContent={showFullContent}
             >
               {getCommentContent(status, content)}
             </S.Content>
 
-            {status === 'ACTIVE' && showFullContent && (
+            {status === 'ACTIVE' && !showFullContent && isClamped && (
               <S.ShowMoreButton
                 type='button'
                 onClick={() => setShowFullContent(true)}

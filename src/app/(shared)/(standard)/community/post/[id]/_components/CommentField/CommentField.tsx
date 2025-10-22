@@ -19,12 +19,13 @@ interface CommentFieldProps {
   parentId?: number;
   mentionedList?: number[];
   disabled?: boolean;
-  showAnonymousCheckbox?: boolean;
   // 수정 모드용 props
   isEdit?: boolean;
   commentId?: string;
   initialContent?: string;
   onCancel?: () => void;
+  /** 작성/수정 성공 시 부모에게 알림 */
+  onSuccess?: () => void;
 }
 
 export default function CommentField({
@@ -35,11 +36,11 @@ export default function CommentField({
   parentId,
   mentionedList = [],
   disabled = false,
-  showAnonymousCheckbox = false,
   isEdit = false,
   commentId,
   initialContent = '',
   onCancel,
+  onSuccess,
 }: CommentFieldProps) {
   const [content, setContent] = useState(initialContent);
   const [localIsAnonymous, setLocalIsAnonymous] = useState(isAnonymous);
@@ -64,6 +65,13 @@ export default function CommentField({
     }
   };
 
+  const afterSuccess = () => {
+    // 공통 후처리: 입력창 비우기, 취소/성공 콜백 호출
+    setContent('');
+    onCancel?.();
+    onSuccess?.();
+  };
+
   const handleSubmit = () => {
     const trimmed = content.trim();
     if (!trimmed) return;
@@ -74,30 +82,38 @@ export default function CommentField({
     }
 
     if (isEdit && commentId) {
-      updateComment({
-        commentId,
-        data: {
+      updateComment(
+        {
+          commentId,
+          data: {
+            content: trimmed,
+            isAnonymous: localIsAnonymous,
+            mentionedList,
+          },
+        },
+        {
+          onSuccess: afterSuccess,
+        },
+      );
+    } else {
+      createComment(
+        {
           content: trimmed,
           isAnonymous: localIsAnonymous,
+          parentId,
           mentionedList,
         },
-      });
-    } else {
-      createComment({
-        content: trimmed,
-        isAnonymous: localIsAnonymous,
-        parentId,
-        mentionedList,
-      });
+        {
+          onSuccess: afterSuccess,
+        },
+      );
     }
-
-    onCancel?.();
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key !== 'Enter' || e.shiftKey) return;
     // IME 조합 중이거나 키 반복이면 무시
-    if (e.nativeEvent?.isComposing) return;
+    if ((e as any).nativeEvent?.isComposing) return;
     if (e.repeat) return;
 
     e.preventDefault();
@@ -125,6 +141,17 @@ export default function CommentField({
         </S.CounterWrapper>
 
         <S.ButtonWrapper>
+          <S.CheckboxWrapper>
+            <Checkbox
+              size='nm'
+              isChecked={localIsAnonymous}
+              onToggle={setLocalIsAnonymous}
+              interactionVariant='normal'
+              name='commentAnonymous'
+            />
+            <S.CheckboxLabel>익명</S.CheckboxLabel>
+          </S.CheckboxWrapper>
+
           {isEdit && onCancel && (
             <SolidButton
               label='취소'
@@ -133,19 +160,6 @@ export default function CommentField({
               interactionVariant='normal'
               onClick={onCancel}
             />
-          )}
-
-          {showAnonymousCheckbox && (
-            <S.CheckboxWrapper>
-              <Checkbox
-                size='nm'
-                isChecked={localIsAnonymous}
-                onToggle={setLocalIsAnonymous}
-                interactionVariant='normal'
-                name='commentAnonymous'
-              />
-              <S.CheckboxLabel>익명</S.CheckboxLabel>
-            </S.CheckboxWrapper>
           )}
 
           <SolidButton

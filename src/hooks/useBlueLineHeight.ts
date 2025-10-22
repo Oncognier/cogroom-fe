@@ -7,8 +7,8 @@ import { Comment } from '@/types/comment';
 const BLUE_LINE_CONSTANTS = {
   MIN_HEIGHT: 50,
   MIN_REPLY_FIELD_HEIGHT: 100,
-  AVATAR_OFFSET: 32,
-  REPLY_COUNT_BUTTON_OFFSET: 15,
+  AVATAR_OFFSET: 16,
+  REPLY_COUNT_BUTTON_OFFSET: 38,
   WRAPPER_HEIGHT_MARGIN: 50,
   UPDATE_DELAY: 50,
   REPLY_FIELD_UPDATE_DELAY: 100,
@@ -18,7 +18,6 @@ interface UseBlueLineHeightProps {
   showChildren: boolean;
   showReplyField: boolean;
   comment: Comment;
-  showFullContent: boolean;
   commentWrapperRef: React.RefObject<HTMLDivElement | null>;
   childrenRefs: React.RefObject<Array<HTMLDivElement | null>>;
   replyCountButtonRef: React.RefObject<HTMLButtonElement | null>;
@@ -28,7 +27,6 @@ export const useBlueLineHeight = ({
   showChildren,
   showReplyField,
   comment,
-  showFullContent,
   commentWrapperRef,
   childrenRefs,
   replyCountButtonRef,
@@ -57,7 +55,7 @@ export const useBlueLineHeight = ({
     return () => {
       observer.disconnect();
     };
-  }, [comment.content, showReplyField, showChildren, showFullContent]);
+  }, [comment.content, showReplyField, showChildren]);
 
   // 자식 댓글들의 아바타 위치를 기준으로 높이 계산
   useEffect(() => {
@@ -95,7 +93,7 @@ export const useBlueLineHeight = ({
     // 댓글 내용이 변경되었을 때 약간의 지연 후 업데이트
     const timeoutId = setTimeout(updateButtonPosition, BLUE_LINE_CONSTANTS.UPDATE_DELAY);
     return () => clearTimeout(timeoutId);
-  }, [comment.content, showFullContent, showChildren, comment.children]);
+  }, [comment.content, , showChildren, comment.children]);
 
   // 답글 필드 높이 계산
   useEffect(() => {
@@ -127,7 +125,7 @@ export const useBlueLineHeight = ({
       const timeoutId = setTimeout(updateReplyFieldHeight, BLUE_LINE_CONSTANTS.REPLY_FIELD_UPDATE_DELAY);
       return () => clearTimeout(timeoutId);
     }
-  }, [showReplyField, comment.content, showFullContent, commentWrapperHeight]);
+  }, [showReplyField, comment.content, , commentWrapperHeight]);
 
   // 답글 n개 버튼까지의 높이 계산
   const getReplyCountButtonHeight = () => {
