@@ -24,7 +24,6 @@ interface CommentFieldProps {
   commentId?: string;
   initialContent?: string;
   onCancel?: () => void;
-  /** 작성/수정 성공 시 부모에게 알림 */
   onSuccess?: () => void;
 }
 
@@ -112,7 +111,7 @@ export default function CommentField({
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key !== 'Enter' || e.shiftKey) return;
     // IME 조합 중이거나 키 반복이면 무시
-    if ((e as any).nativeEvent?.isComposing) return;
+    if (e.nativeEvent?.isComposing) return;
     if (e.repeat) return;
 
     e.preventDefault();

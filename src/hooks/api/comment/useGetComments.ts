@@ -3,8 +3,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { commentApi } from '@/api/commentApis';
-import { CommentListRequest } from '@/types/comment';
 import { COMMENT_QUERY_KEYS } from '@/constants/queryKeys';
+import { CommentListRequest } from '@/types/comment';
 
 export const useGetComments = (postId: string, params: CommentListRequest = {}) => {
   return useInfiniteQuery({

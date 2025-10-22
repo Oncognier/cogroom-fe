@@ -3,12 +3,12 @@
 import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
 import { DropdownList } from '@/components/molecules/DropdownList/DropdownList';
+import { useDeleteCommentMutation } from '@/hooks/api/comment/useDeleteComment';
 import { useDropdown } from '@/hooks/useDropdown';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { DropdownOption } from '@/types/common';
 
 import * as S from './CommentDropdown.styled';
-import { useDeleteCommentMutation } from '@/hooks/api/comment/useDeleteComment';
 
 interface CommentDropdownProps {
   postId: string;

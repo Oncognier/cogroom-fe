@@ -1,18 +1,18 @@
 'use client';
 
 import { useRef, useState } from 'react';
+
+import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
 import ChevronRight from '@/assets/icons/chevronright.svg';
 import ChevronUp from '@/assets/icons/chevronup.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
-import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
-import { useSimpleModalStore } from '@/stores/useModalStore';
-import { Comment } from '@/types/comment';
-
 import { useBlueLineHeight } from '@/hooks/useBlueLineHeight';
+import { useSimpleModalStore } from '@/stores/useModalStore';
+import { BlueLineElement, StaticBlueLine } from '@/styles/helpers/blueLine';
+import { Comment } from '@/types/comment';
 
 import * as S from './CommentItem.styled';
 import CommentCard from '../CommentCard/CommentCard';
-import { BlueLineElement, StaticBlueLine } from '@/styles/helpers/blueLine';
 
 interface CommentItemProps {
   postId: string;

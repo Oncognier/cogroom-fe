@@ -1,7 +1,7 @@
 'use client';
 
-import LoadingSpinner from '@/components/atoms/LoadingSpinner/LoadingSpinner';
 import CommentItem from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentItem/CommentItem';
+import LoadingSpinner from '@/components/atoms/LoadingSpinner/LoadingSpinner';
 import { Comment } from '@/types/comment';
 
 import * as S from './CommentList.styled';

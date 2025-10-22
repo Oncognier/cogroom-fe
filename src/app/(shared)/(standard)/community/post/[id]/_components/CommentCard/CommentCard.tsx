@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 
+import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
 import HeartFill from '@/assets/icons/heart-fill.svg';
 import Heart from '@/assets/icons/heart.svg';
 import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
-import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
 import { useLikeComment } from '@/hooks/api/comment/useLikeComment';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useSimpleModalStore } from '@/stores/useModalStore';

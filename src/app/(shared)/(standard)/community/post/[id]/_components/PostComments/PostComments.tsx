@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
-import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
 import CommentList from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentList/CommentList';
+import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import { useGetComments } from '@/hooks/api/comment/useGetComments';
 import useScroll from '@/hooks/useScroll';
 
