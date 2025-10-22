@@ -8,7 +8,7 @@ import { ADMIN_QUERY_KEYS, COMMENT_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { communityErrorHandler } from '@/utils/errors/communityErrorHandler';
 
-export const useDeleteCommentMutation = (postId: string) => {
+export const useDeleteCommentMutation = (postId?: string) => {
   const queryClient = useQueryClient();
   const { open } = useAlertModalStore();
 
