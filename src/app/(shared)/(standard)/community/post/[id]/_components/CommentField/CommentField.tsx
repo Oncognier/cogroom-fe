@@ -66,7 +66,6 @@ export default function CommentField({
   };
 
   const afterSuccess = () => {
-    // 공통 후처리: 입력창 비우기, 취소/성공 콜백 호출
     setContent('');
     onCancel?.();
     onSuccess?.();

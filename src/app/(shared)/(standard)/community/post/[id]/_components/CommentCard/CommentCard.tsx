@@ -51,7 +51,7 @@ export default function CommentCard({
 }: CommentCardProps) {
   const { open: openSimpleModal } = useSimpleModalStore();
   const isAdmin = useAuthStore((s) => s.isAdmin());
-  const { likeComment } = useLikeComment();
+  const { likeComment } = useLikeComment(postId);
 
   const [showFullContent, setShowFullContent] = useState<boolean>(defaultExpanded);
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -124,6 +124,7 @@ export default function CommentCard({
 
           {status === 'ACTIVE' && (
             <CommentDropdown
+              postId={postId}
               commentId={commentId}
               isMine={isMine}
               isAdmin={isAdmin}

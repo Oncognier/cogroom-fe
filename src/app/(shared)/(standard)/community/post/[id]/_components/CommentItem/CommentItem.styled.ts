@@ -10,7 +10,7 @@ export const CommentItem = styled.div`
   width: 100%;
 `;
 
-export const CommentFirstBox = styled.div`
+export const CommentItemLeft = styled.div`
   position: relative;
 
   display: flex;
@@ -18,7 +18,7 @@ export const CommentFirstBox = styled.div`
   gap: 0.6rem;
 `;
 
-export const CommentSecondBox = styled.div`
+export const CommentItemRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
