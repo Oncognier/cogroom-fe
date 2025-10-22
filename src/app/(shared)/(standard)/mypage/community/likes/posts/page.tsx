@@ -80,6 +80,13 @@ export default function LikesPosts() {
               interactionVariant='normal'
               onClick={() => router.push('/mypage/community/likes/posts')}
             />
+            <SolidButton
+              label='댓글'
+              color='assistive'
+              size='sm'
+              interactionVariant='normal'
+              onClick={() => router.push('/mypage/community/likes/comments')}
+            />
           </S.SwitchLikeButtonWrapper>
 
           <SortButton
