@@ -66,7 +66,7 @@ export default function PostAuthor({ author, postId, isMine = false, isAdmin = f
     } else if (value === 'DELETE') {
       openAlert('communityDelete', {
         type: 'post',
-        id: Number(postId),
+        postId,
         onConfirm: () => router.push('/community'),
       });
     } else if (value === 'FORCE_DELETE') {

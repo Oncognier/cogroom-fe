@@ -61,8 +61,12 @@ export default function CommunityListRow(props: CommunityListRowProps) {
         else open('alert', { message: '이미 삭제된 댓글입니다.' });
         return;
       }
-      const targetType = isPost ? 'post' : 'comment';
-      open('communityDelete', { type: targetType, id });
+
+      if (isPost) {
+        open('communityDelete', { type: 'post', postId: String(id) });
+      } else {
+        open('communityDelete', { type: 'comment', postId: String(parentPostId), commentId: String(id) });
+      }
     }
 
     close();

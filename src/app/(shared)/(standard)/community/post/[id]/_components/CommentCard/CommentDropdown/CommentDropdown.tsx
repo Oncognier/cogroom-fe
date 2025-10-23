@@ -52,7 +52,8 @@ export default function CommentDropdown({
     } else if (value === 'DELETE') {
       openAlert('communityDelete', {
         type: 'comment',
-        id: commentId,
+        postId,
+        commentId: String(commentId),
         onConfirm: onCommentUpdated,
       });
     } else if (value === 'FORCE_DELETE') {
