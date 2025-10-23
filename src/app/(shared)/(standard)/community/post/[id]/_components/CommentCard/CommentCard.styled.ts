@@ -2,6 +2,8 @@
 
 import styled from '@emotion/styled';
 
+import { ConnectorBase } from '../ConnectorBase/ConnectorBase.styled';
+
 export const CommentCard = styled.div`
   display: flex;
   gap: 1rem;
@@ -14,23 +16,11 @@ export const ReplyAvatarWrapper = styled.div`
 `;
 
 /**
- * 댓글-답글 구조에서 "답글 아바타 왼쪽"에 표시되는 시각적 연결선(ㄴ자 형태).
- * 부모 댓글과 자식 댓글(답글)의 관계를 시각적으로 이어주는 역할을 합니다.
+ * 댓글-답글 구조에서 "답글 아바타 왼쪽"에 표시되는 시각적 연결선(ㄴ자 형태)
  */
-export const ReplyConnector = styled.div`
-  position: absolute;
+export const ReplyConnector = styled(ConnectorBase)`
   left: -2.9rem;
   top: 0.5rem;
-  width: 1.5rem;
-  height: 1.4rem;
-
-  background: transparent;
-  border-left: 2px solid ${({ theme }) => theme.palette.blue[90]};
-  border-bottom: 2px solid ${({ theme }) => theme.palette.blue[90]};
-  border-right: none;
-  border-radius: 0 0 0 4rem;
-  z-index: 1;
-  pointer-events: none;
 `;
 
 export const CommentRight = styled.div`
