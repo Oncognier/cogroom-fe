@@ -20,9 +20,9 @@ interface CommentItemProps {
 
 export default function CommentItem({ comment, postId }: CommentItemProps) {
   const replyCount = comment.children?.length ?? 0;
-  const hasReplies = replyCount > 0;
+  const hasMultipleReplies = replyCount > 1;
 
-  const [showReplyList, setShowReplyList] = useState(!hasReplies); // 답글 없으면 기본 펼침
+  const [showReplyList, setShowReplyList] = useState(!hasMultipleReplies);
   const [isReplying, setIsReplying] = useState(false);
 
   const { open: openSimpleModal } = useSimpleModalStore();
