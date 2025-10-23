@@ -94,14 +94,15 @@ export default function CommentCard({
   return (
     <S.CommentCard>
       {isReply && (
-        <S.ReplyAvatarBox>
+        <S.ReplyAvatarWrapper>
+          <S.ReplyConnector data-reply-connector />
           <AvatarPerson
             type='icon'
             size='sm'
             src={author.profileUrl || undefined}
             onClick={handleProfile}
           />
-        </S.ReplyAvatarBox>
+        </S.ReplyAvatarWrapper>
       )}
 
       <S.CommentRight>

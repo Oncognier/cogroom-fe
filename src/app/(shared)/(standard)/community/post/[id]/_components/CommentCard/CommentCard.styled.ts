@@ -9,35 +9,36 @@ export const CommentCard = styled.div`
   width: 100%;
 `;
 
+export const ReplyAvatarWrapper = styled.div`
+  position: relative;
+`;
+
+/**
+ * 댓글-답글 구조에서 "답글 아바타 왼쪽"에 표시되는 시각적 연결선(ㄴ자 형태).
+ * 부모 댓글과 자식 댓글(답글)의 관계를 시각적으로 이어주는 역할을 합니다.
+ */
+export const ReplyConnector = styled.div`
+  position: absolute;
+  left: -2.9rem;
+  top: 0.5rem;
+  width: 1.5rem;
+  height: 1.4rem;
+
+  background: transparent;
+  border-left: 2px solid ${({ theme }) => theme.palette.blue[90]};
+  border-bottom: 2px solid ${({ theme }) => theme.palette.blue[90]};
+  border-right: none;
+  border-radius: 0 0 0 4rem;
+  z-index: 1;
+  pointer-events: none;
+`;
+
 export const CommentRight = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
 
   width: 100%;
-`;
-
-/** 답글 아바타 왼쪽에 ㄴ자(엘보우) 라인 그리는 래퍼 */
-export const ReplyAvatarBox = styled.div`
-  position: relative;
-
-  /* ㄴ자 라인 */
-  &::before {
-    content: '';
-    position: absolute;
-    /* 아바타 왼쪽으로 조금 나와서 꺾이게 */
-    left: -3.1rem; /* 아바타 중심에서 왼쪽으로 나가는 길이 (프로젝트 토큰에 맞춰 조절) */
-    top: 0.5rem; /* 아바타 수직 중앙에 맞게 미세 조정 */
-    width: 1.8rem; /* 가로로 꺾이는 길이 */
-    height: 1.2rem; /* 세로로 내려오는 길이 */
-
-    background: transparent;
-    border-left: 2px solid ${({ theme }) => theme.palette.blue[90]};
-    border-bottom: 2px solid ${({ theme }) => theme.palette.blue[90]};
-    border-right: none;
-    border-radius: 0 0 0 4rem;
-    z-index: 1;
-  }
 `;
 
 export const CommentHeader = styled.div`
