@@ -6,17 +6,12 @@ import { MEMBER_QUERY_KEYS, POST_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAlertModalStore } from '@/stores/useModalStore';
 import { communityErrorHandler } from '@/utils/errors/communityErrorHandler';
 
-interface LikePostParams {
-  postId: string;
-  isLiked: boolean;
-}
-
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   const { open: openAlert } = useAlertModalStore();
 
   const mutation = useMutation({
-    mutationFn: ({ postId, isLiked }: LikePostParams) => {
+    mutationFn: ({ postId, isLiked }: { postId: string; isLiked: boolean }) => {
       return isLiked ? postApi.unlikePost(postId) : postApi.likePost(postId);
     },
     onSuccess: (_data, variables) => {

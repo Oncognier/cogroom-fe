@@ -1,0 +1,188 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
+import HeartFill from '@/assets/icons/heart-fill.svg';
+import Heart from '@/assets/icons/heart.svg';
+import AvatarPerson from '@/components/atoms/AvatarPerson/AvatarPerson';
+import { useLikeComment } from '@/hooks/api/comment/useLikeComment';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useSimpleModalStore } from '@/stores/useModalStore';
+import { CommentAuthor, CommentStatus } from '@/types/comment';
+import { formatRelativeKorean } from '@/utils/date/formatDay';
+import { formatCountPlus, getDisplayName } from '@/utils/formatText';
+
+import * as S from './CommentCard.styled';
+import CommentDropdown from './CommentDropdown/CommentDropdown';
+
+interface CommentCardProps {
+  commentId: number;
+  postId: string;
+  content: string;
+  author: CommentAuthor;
+  isLiked: boolean;
+  isMine: boolean;
+  likeCount: number;
+  status: CommentStatus;
+  createdAt: string;
+  updatedAt: string;
+  defaultExpanded?: boolean;
+  onReplyClick?: () => void;
+  isReplying?: boolean;
+  isReply?: boolean;
+}
+
+export default function CommentCard({
+  commentId,
+  postId,
+  content,
+  author,
+  isLiked,
+  isMine,
+  likeCount,
+  status,
+  createdAt,
+  updatedAt,
+  defaultExpanded = false,
+  onReplyClick,
+  isReplying = false,
+  isReply = false,
+}: CommentCardProps) {
+  const { open: openSimpleModal } = useSimpleModalStore();
+  const isAdmin = useAuthStore((s) => s.isAdmin());
+  const { likeComment } = useLikeComment(postId);
+
+  const [showFullContent, setShowFullContent] = useState<boolean>(defaultExpanded);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isClamped, setIsClamped] = useState(false);
+
+  const contentRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const isOverflowing = el.scrollHeight > el.clientHeight + 1;
+    setIsClamped(isOverflowing);
+  }, [content, showFullContent]);
+
+  const handleProfile = () => {
+    if (!author.isAnonymous) {
+      openSimpleModal('userProfile', {
+        memberId: author.authorId.toString(),
+      });
+    }
+  };
+
+  const handleLike = () => {
+    likeComment({ commentId: String(commentId), isLiked });
+  };
+
+  const handleEdit = () => setIsEditing(true);
+
+  const handleCancelEdit = () => setIsEditing(false);
+
+  const getCommentContent = (status: CommentStatus, content: string): string => {
+    if (status === 'ACTIVE') return content;
+    if (status === 'DELETED_BY_USER' || status === 'DELETED_BY_ADMIN') return '삭제된 댓글이에요';
+    if (status === 'USER_WITHDRAWN') return '댓글을 볼 수 없어요';
+    return '댓글을 불러올 수 없습니다.';
+  };
+
+  const isEdited = new Date(updatedAt).getTime() > new Date(createdAt).getTime();
+
+  return (
+    <S.CommentCard>
+      {isReply && (
+        <S.ReplyAvatarWrapper>
+          <S.ReplyConnector data-reply-connector />
+          <AvatarPerson
+            type='icon'
+            size='sm'
+            src={author.profileUrl || undefined}
+            onClick={handleProfile}
+          />
+        </S.ReplyAvatarWrapper>
+      )}
+
+      <S.CommentRight>
+        <S.CommentHeader>
+          <S.AuthorInfo>
+            <S.Nickname $isActive={status === 'ACTIVE'}>
+              {getDisplayName(
+                author.displayName,
+                author.isAnonymous,
+                status === 'DELETED_BY_USER' || status === 'DELETED_BY_ADMIN',
+              )}
+            </S.Nickname>
+            {status === 'ACTIVE' && (
+              <>
+                <S.MetaText>{formatRelativeKorean(createdAt)}</S.MetaText>
+                {isEdited && <S.MetaText>(수정됨)</S.MetaText>}
+              </>
+            )}
+          </S.AuthorInfo>
+
+          {status === 'ACTIVE' && (
+            <CommentDropdown
+              postId={postId}
+              commentId={commentId}
+              isMine={isMine}
+              isAdmin={isAdmin}
+              onEdit={handleEdit}
+            />
+          )}
+        </S.CommentHeader>
+
+        {isEditing ? (
+          <CommentField
+            postId={postId}
+            placeholder='댓글을 수정해주세요'
+            commentId={String(commentId)}
+            initialContent={content}
+            isAnonymous={author.isAnonymous}
+            onCancel={handleCancelEdit}
+            isEdit
+          />
+        ) : (
+          <S.CommentBody $isActive={status === 'ACTIVE'}>
+            <S.Content
+              ref={contentRef}
+              $isActive={status === 'ACTIVE'}
+              $showFullContent={showFullContent}
+            >
+              {getCommentContent(status, content)}
+            </S.Content>
+
+            {status === 'ACTIVE' && !showFullContent && isClamped && (
+              <S.ShowMoreButton
+                type='button'
+                onClick={() => setShowFullContent(true)}
+              >
+                자세히 보기
+              </S.ShowMoreButton>
+            )}
+          </S.CommentBody>
+        )}
+
+        <S.CommentFooter>
+          {status === 'ACTIVE' && (
+            <S.LikeButton onClick={handleLike}>
+              <S.LikeIcon $isLiked={isLiked}>{isLiked ? <HeartFill /> : <Heart />}</S.LikeIcon>
+              <S.LikeCount>{formatCountPlus(likeCount)}</S.LikeCount>
+            </S.LikeButton>
+          )}
+
+          {status === 'ACTIVE' && !isReply && (
+            <S.ReplyButton
+              type='button'
+              onClick={onReplyClick}
+            >
+              {isReplying ? '취소하기' : '답글 달기'}
+            </S.ReplyButton>
+          )}
+        </S.CommentFooter>
+      </S.CommentRight>
+    </S.CommentCard>
+  );
+}

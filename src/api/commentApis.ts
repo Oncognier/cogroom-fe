@@ -48,16 +48,18 @@ const deleteComment = async ({ commentId }: { commentId: string }) => {
 };
 
 /** 댓글 좋아요 등록 */
-const toggleCommentLike = async (commentId: string) => {
+const likeComment = async (commentId: string) => {
   const { data } = await axiosInstance.post(END_POINTS.COMMENTS.LIKES(commentId));
+
   return data.result;
 };
 
 /** 댓글 좋아요 취소 */
-const deleteCommentLike = async (commentId: string) => {
+const unlikeComment = async (commentId: string) => {
   const { data } = await axiosInstance.delete<null, AxiosResponse<DeleteCommentLikeResponse>>(
     END_POINTS.COMMENTS.LIKES(commentId),
   );
+
   return data.result;
 };
 
@@ -66,6 +68,6 @@ export const commentApi = {
   createComment,
   updateComment,
   deleteComment,
-  toggleCommentLike,
-  deleteCommentLike,
+  likeComment,
+  unlikeComment,
 };

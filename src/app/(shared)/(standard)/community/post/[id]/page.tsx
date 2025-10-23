@@ -87,7 +87,6 @@ export default function PostPage() {
         <PostComments
           postId={postId}
           commentCount={post?.commentCount}
-          isPostAnonymous={post?.isAnonymous}
         />
       </S.PostSectionsWrapper>
     </S.PostPageContainer>

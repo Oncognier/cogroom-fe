@@ -34,20 +34,26 @@ export function formatCountPlus(value?: number, threshold = 1000): string {
  * 작성자의 표시 이름을 반환하는 유틸 함수
  *
  * 규칙:
+ * - isCommentDelete가 true                   → "삭제된 댓글"
  * - nickname이 null이고 isAnonymous가 false → "탈퇴함"
  * - nickname이 null이고 isAnonymous가 true  → "익명"
- * - 그 외                                  → nickname 그대로
+ * - 그 외                                   → nickname 그대로
  *
  * @example
  * getDisplayName("코그니어1", false); // "코그니어1"
- * getDisplayName("코그니어1", true);  // "코그니어1"
  * getDisplayName(null, true);         // "익명"
  * getDisplayName(null, false);        // "탈퇴함"
+ * getDisplayName("코그니어1", false, true);  // "삭제된 댓글"
  */
-export function getDisplayName(nickname: string | null, isAnonymous: boolean): string {
+export function getDisplayName(nickname: string | null, isAnonymous: boolean, isCommentDelete?: boolean): string {
+  if (isCommentDelete) {
+    return '삭제된 댓글';
+  }
+
   if (nickname === null) {
     return isAnonymous ? '익명' : '탈퇴함';
   }
+
   return nickname;
 }
 

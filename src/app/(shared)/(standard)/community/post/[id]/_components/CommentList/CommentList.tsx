@@ -1,7 +1,7 @@
 'use client';
 
+import CommentItem from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentItem/CommentItem';
 import LoadingSpinner from '@/components/atoms/LoadingSpinner/LoadingSpinner';
-import CommentItem from '@/components/molecules/CommentItem/CommentItem';
 import { Comment } from '@/types/comment';
 
 import * as S from './CommentList.styled';
@@ -10,19 +10,9 @@ interface CommentListProps {
   comments: Comment[];
   postId: string;
   isLoading?: boolean;
-  isAdmin?: boolean;
-  isPostAnonymous?: boolean;
-  onCommentUpdated?: () => void;
 }
 
-export default function CommentList({
-  comments,
-  postId,
-  isLoading = false,
-  isAdmin = false,
-  isPostAnonymous = false,
-  onCommentUpdated,
-}: CommentListProps) {
+export default function CommentList({ comments, postId, isLoading = false }: CommentListProps) {
   if (isLoading) {
     return (
       <S.LoadingWrapper>
@@ -40,12 +30,8 @@ export default function CommentList({
         .map((comment) => (
           <CommentItem
             key={comment.commentId}
-            comment={comment}
             postId={postId}
-            isMine={comment.isMine || false}
-            isAdmin={isAdmin}
-            isPostAnonymous={isPostAnonymous}
-            onCommentUpdated={onCommentUpdated}
+            comment={comment}
           />
         ))}
     </S.CommentListWrapper>
