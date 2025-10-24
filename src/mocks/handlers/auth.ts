@@ -110,11 +110,6 @@ export const authHandlers = [
     // 로그인 성공 시: 액세스/리프레시 토큰을 쿠키로 설정
     return new HttpResponse(JSON.stringify(loginSuccess_NewUser), {
       status: HTTP_STATUS_CODE.OK,
-      headers: new Headers([
-        ['Set-Cookie', `accessToken=${mockAccessToken}; HttpOnly; Path=/; SameSite=Lax`],
-        ['Set-Cookie', `refreshToken=${mockRefreshToken}; HttpOnly; Path=/; SameSite=Lax`],
-        ['Content-Type', 'application/json'],
-      ]),
     });
   }),
 
