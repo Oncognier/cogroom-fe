@@ -31,7 +31,7 @@ export default function Footer() {
             <span> | </span> 통신판매업 신고 번호: 2025-수원권선-0559
           </S.Info>
           <S.Info>
-            주소: 경기 수원시 권선구 매실로 47-14, 16400, 4층 <span> | </span> 문의: oncognier@gmail.com
+            주소: 경기 수원시 권선구 매실로 47-14, 16400, 4층 <span> | </span> 문의: oncognier@gmail.com, 010-3739-3430
           </S.Info>
           <S.Info>Copyright © 2025 주식회사 온코그니어 All Rights Reserved</S.Info>
         </S.InfoWrapper>
@@ -41,6 +41,7 @@ export default function Footer() {
             <Link href={'/terms'}>이용 약관</Link>
             <Link href={'/privacy'}>개인정보 처리방침</Link>
             <Link href={'/marketing'}>마케팅 정보 수신동의</Link>
+            <Link href='https://oncognier.notion.site/2963f9bd81c68065aa38c15fb5c6b484'>환불 규정</Link>
           </S.FooterLinks>
           <SocialLink />
         </S.FooterBottom>
