@@ -22,8 +22,7 @@ export const CustomToolbar = styled.div`
   padding: 0 0.6rem;
 
   ${mqMax.tablet} {
-    padding: 0;
-    justify-content: flex-start;
+    display: none;
   }
 `;
 
