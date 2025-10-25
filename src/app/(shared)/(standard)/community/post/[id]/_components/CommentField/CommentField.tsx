@@ -127,56 +127,64 @@ export default function CommentField({
   const isLoading = isEdit ? updateLoading : createLoading;
   const isSubmitDisabled = disabled || isLoading || !content.trim();
 
-  return (
-    <S.CommentField>
-      <S.Textarea
-        ref={textareaRef}
-        rows={1}
-        value={content}
-        onChange={handleContentChange}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        disabled={disabled || isLoading}
-        maxLength={maxLength}
-      />
+  const renderBottomControls = () => (
+    <>
+      <S.CounterWrapper>
+        <S.CharCurrentCounter>{content.length} /</S.CharCurrentCounter>
+        <S.CharTotalCounter>{maxLength.toLocaleString()}</S.CharTotalCounter>
+      </S.CounterWrapper>
 
-      <S.BottomSection>
-        <S.CounterWrapper>
-          <S.CharCurrentCounter>{content.length} /</S.CharCurrentCounter>
-          <S.CharTotalCounter>{maxLength.toLocaleString()}</S.CharTotalCounter>
-        </S.CounterWrapper>
-
-        <S.ButtonWrapper>
-          <S.CheckboxWrapper>
-            <Checkbox
-              size='nm'
-              isChecked={localIsAnonymous}
-              onToggle={setLocalIsAnonymous}
-              interactionVariant='normal'
-              name='commentAnonymous'
-            />
-            <S.CheckboxLabel>익명</S.CheckboxLabel>
-          </S.CheckboxWrapper>
-
-          {isEdit && onCancel && (
-            <SolidButton
-              label='취소'
-              size='sm'
-              color='assistive'
-              interactionVariant='normal'
-              onClick={onCancel}
-            />
-          )}
-
-          <SolidButton
-            label={isEdit ? '수정하기' : '입력'}
-            size='sm'
+      <S.ButtonWrapper>
+        <S.CheckboxWrapper>
+          <Checkbox
+            size='nm'
+            isChecked={localIsAnonymous}
+            onToggle={setLocalIsAnonymous}
             interactionVariant='normal'
-            onClick={handleSubmit}
-            isDisabled={isSubmitDisabled}
+            name='commentAnonymous'
           />
-        </S.ButtonWrapper>
-      </S.BottomSection>
-    </S.CommentField>
+          <S.CheckboxLabel>익명</S.CheckboxLabel>
+        </S.CheckboxWrapper>
+
+        {isEdit && onCancel && (
+          <SolidButton
+            label='취소'
+            size='sm'
+            color='assistive'
+            interactionVariant='normal'
+            onClick={onCancel}
+          />
+        )}
+
+        <SolidButton
+          label={isEdit ? '수정하기' : '입력'}
+          size='sm'
+          interactionVariant='normal'
+          onClick={handleSubmit}
+          isDisabled={isSubmitDisabled}
+        />
+      </S.ButtonWrapper>
+    </>
+  );
+
+  return (
+    <>
+      <S.CommentField>
+        <S.Textarea
+          ref={textareaRef}
+          rows={1}
+          value={content}
+          onChange={handleContentChange}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          disabled={disabled || isLoading}
+          maxLength={maxLength}
+        />
+
+        <S.BottomSectionInside>{renderBottomControls()}</S.BottomSectionInside>
+      </S.CommentField>
+
+      <S.BottomSectionOutside>{renderBottomControls()}</S.BottomSectionOutside>
+    </>
   );
 }

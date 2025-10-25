@@ -50,6 +50,24 @@ export const BottomSection = styled.div`
   }
 `;
 
+export const BottomSectionInside = styled(BottomSection)`
+  ${mqMax.tablet} {
+    display: none;
+  }
+`;
+
+export const BottomSectionOutside = styled(BottomSection)`
+  display: none;
+
+  ${mqMax.tablet} {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 0.8rem;
+  }
+`;
+
 export const CounterWrapper = styled.div`
   display: flex;
   flex-direction: row;
