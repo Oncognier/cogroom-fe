@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, useEffect, ChangeEvent, KeyboardEvent, useRef } from 'react';
 
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
@@ -19,7 +19,6 @@ interface CommentFieldProps {
   parentId?: number;
   mentionedList?: number[];
   disabled?: boolean;
-  // 수정 모드용 props
   isEdit?: boolean;
   commentId?: string;
   initialContent?: string;
@@ -43,6 +42,7 @@ export default function CommentField({
 }: CommentFieldProps) {
   const [content, setContent] = useState(initialContent);
   const [localIsAnonymous, setLocalIsAnonymous] = useState(isAnonymous);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { createComment, isLoading: createLoading } = useCreateComment(postId);
   const { updateComment, isLoading: updateLoading } = useUpdateComment(postId);
@@ -56,6 +56,17 @@ export default function CommentField({
   useEffect(() => {
     setLocalIsAnonymous(isAnonymous ?? false);
   }, [isAnonymous]);
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    textarea.style.height = 'auto';
+    const lineHeight = parseFloat(getComputedStyle(textarea).lineHeight) || 24;
+    const maxHeight = lineHeight * 4;
+    textarea.style.height = `${Math.min(textarea.scrollHeight, maxHeight)}px`;
+    textarea.style.overflowY = textarea.scrollHeight > maxHeight ? 'auto' : 'hidden';
+  }, [content]);
 
   const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -89,9 +100,7 @@ export default function CommentField({
             mentionedList,
           },
         },
-        {
-          onSuccess: afterSuccess,
-        },
+        { onSuccess: afterSuccess },
       );
     } else {
       createComment(
@@ -101,16 +110,13 @@ export default function CommentField({
           parentId,
           mentionedList,
         },
-        {
-          onSuccess: afterSuccess,
-        },
+        { onSuccess: afterSuccess },
       );
     }
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key !== 'Enter' || e.shiftKey) return;
-    // IME 조합 중이거나 키 반복이면 무시
     if (e.nativeEvent?.isComposing) return;
     if (e.repeat) return;
 
@@ -124,6 +130,8 @@ export default function CommentField({
   return (
     <S.CommentField>
       <S.Textarea
+        ref={textareaRef}
+        rows={1}
         value={content}
         onChange={handleContentChange}
         onKeyDown={handleKeyDown}
