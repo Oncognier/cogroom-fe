@@ -105,6 +105,9 @@ export default function CommunityWrite() {
             onAnonymousToggle={(checked: boolean) => form.setValue('isAnonymous', checked)}
             control={form.methods.control}
             isAnonymousDisabled={daily.isAnonymousDisabled}
+            onSubmit={form.methods.handleSubmit(submission.onSubmit)}
+            isSubmitDisabled={submission.isLoading}
+            submitLabel={editModeWithUpdate.isEditMode ? '\uc218\uc815\ud558\uae30' : '\uc62c\ub9ac\uae30'}
           />
 
           <TitleInput

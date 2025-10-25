@@ -1,6 +1,7 @@
-import { Controller, Control } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
+import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { Select } from '@/components/molecules/Select/Select';
 import { CategorySelectorProps, FormControl } from '@/types/communityWrite';
 
@@ -15,11 +16,17 @@ export default function CategorySelector({
   onAnonymousToggle,
   control,
   isAnonymousDisabled = false,
+  onSubmit,
+  isSubmitDisabled = false,
+  submitLabel = '올리기',
 }: Omit<CategorySelectorProps, 'value'> & {
   showAnonymous: boolean;
   onAnonymousToggle: (checked: boolean) => void;
   control: FormControl;
   isAnonymousDisabled?: boolean;
+  onSubmit?: () => void;
+  isSubmitDisabled?: boolean;
+  submitLabel?: string;
 }) {
   return (
     <S.CategoryBox>
@@ -58,32 +65,46 @@ export default function CategorySelector({
         />
       </S.CategorySelect>
 
-      {showAnonymous && (
-        <S.AnonymousCheckbox>
-          <Controller
-            name='isAnonymous'
-            control={control}
-            render={({ field }) => (
-              <S.CheckboxWrapper>
-                <Checkbox
-                  size='nm'
-                  isChecked={field.value}
-                  onToggle={(checked) => {
-                    if (!isAnonymousDisabled) {
-                      field.onChange(checked);
-                      onAnonymousToggle(checked);
-                    }
-                  }}
-                  interactionVariant='normal'
-                  isDisabled={isAnonymousDisabled}
-                  name='isAnonymous'
-                />
-                <S.CheckboxName>익명</S.CheckboxName>
-              </S.CheckboxWrapper>
-            )}
+      <S.RightSection>
+        {!showAnonymous && (
+          <S.AnonymousCheckbox>
+            <Controller
+              name='isAnonymous'
+              control={control}
+              render={({ field }) => (
+                <S.CheckboxWrapper>
+                  <Checkbox
+                    size='nm'
+                    isChecked={field.value}
+                    onToggle={(checked) => {
+                      if (!isAnonymousDisabled) {
+                        field.onChange(checked);
+                        onAnonymousToggle(checked);
+                      }
+                    }}
+                    interactionVariant='normal'
+                    isDisabled={isAnonymousDisabled}
+                    name='isAnonymous'
+                  />
+                  <S.CheckboxName>익명</S.CheckboxName>
+                </S.CheckboxWrapper>
+              )}
+            />
+          </S.AnonymousCheckbox>
+        )}
+
+        {onSubmit && (
+          <OutlinedButton
+            type='button'
+            color='primary'
+            size='sm'
+            label={submitLabel}
+            interactionVariant='normal'
+            isDisabled={isSubmitDisabled}
+            onClick={onSubmit}
           />
-        </S.AnonymousCheckbox>
-      )}
+        )}
+      </S.RightSection>
     </S.CategoryBox>
   );
 }

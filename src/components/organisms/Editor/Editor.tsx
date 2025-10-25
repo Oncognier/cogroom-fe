@@ -70,7 +70,7 @@ export default function Editor({
 
   return (
     <S.EditorWrapper className={className}>
-      <CustomToolbar editor={editor} />
+      {!readonly && <CustomToolbar editor={editor} />}
       <S.EditorContent
         height={height}
         readonly={readonly}
