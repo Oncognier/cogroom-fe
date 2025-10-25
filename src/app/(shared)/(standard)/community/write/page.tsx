@@ -6,7 +6,6 @@ import EditorFloatingButton from '@/components/atoms/EditorFloatingButton/Editor
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
-import BottomSheet from '@/components/organisms/BottomSheet/BottomSheet';
 import Loading from '@/components/organisms/Loading/Loading';
 import { useCategoryLogic } from '@/hooks/communityWrite/useCategoryLogic';
 import { useDailyLogic } from '@/hooks/communityWrite/useDailyLogic';
@@ -19,6 +18,7 @@ import { useAuthStore } from '@/stores/useAuthStore';
 
 import CategorySelector from './_components/CategorySelector/CategorySelector';
 import DailyQuestionCard from './_components/DailyQuestionCard/DailyQuestionCard';
+import EditorBottomSheet from './_components/EditorBottomSheet/EditorBottomSheet';
 import PostEditor from './_components/PostEditor/PostEditor';
 import TitleInput from './_components/TitleInput/TitleInput';
 import * as S from './page.styled';
@@ -144,12 +144,10 @@ export default function CommunityWrite() {
         <EditorFloatingButton onClick={openBottomSheet} />
       </S.FloatingButtonWrapper>
 
-      <BottomSheet
+      <EditorBottomSheet
         isOpen={isBottomSheetOpen}
         onClose={closeBottomSheet}
-      >
-        <div style={{ padding: '2rem' }}>여기에 에디터 도구 넣기</div>
-      </BottomSheet>
+      />
     </S.Container>
   );
 }
