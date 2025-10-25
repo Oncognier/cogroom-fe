@@ -74,3 +74,16 @@ export const CheckboxName = styled.span`
   ${({ theme }) => theme.typography.label1.regular};
   color: ${({ theme }) => theme.semantic.label.normal};
 `;
+
+export const FloatingButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 1.8rem;
+  right: 1.6rem;
+  z-index: 1000;
+
+  display: none;
+
+  ${mqMax.tablet} {
+    display: block;
+  }
+`;
