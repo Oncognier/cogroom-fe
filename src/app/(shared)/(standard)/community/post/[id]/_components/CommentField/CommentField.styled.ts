@@ -10,7 +10,7 @@ export const CommentField = styled.div`
   gap: 0.8rem;
 
   width: 100%;
-  height: 18rem;
+
   padding: 1.2rem 1.6rem;
   border-radius: 1.2rem;
   border: 1px solid ${({ theme }) => theme.palette.blue[80]};
@@ -23,11 +23,12 @@ export const CommentField = styled.div`
 
 export const Textarea = styled.textarea`
   width: 100%;
-  height: 100%;
+  min-height: 2.4rem;
+  max-height: none;
   border: none;
   outline: none;
   resize: none;
-  overflow-y: auto;
+  overflow-y: hidden;
   background: transparent;
   color: ${({ theme }) => theme.semantic.label.neutral};
   ${({ theme }) => theme.typography.body1.regular};
@@ -46,6 +47,24 @@ export const BottomSection = styled.div`
     flex-direction: column;
     align-items: flex-end;
     gap: 1rem;
+  }
+`;
+
+export const BottomSectionInside = styled(BottomSection)`
+  ${mqMax.tablet} {
+    display: none;
+  }
+`;
+
+export const BottomSectionOutside = styled(BottomSection)`
+  display: none;
+
+  ${mqMax.tablet} {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    margin-top: 0.8rem;
   }
 `;
 
