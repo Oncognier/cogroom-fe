@@ -33,7 +33,7 @@ export default function Footer() {
           <S.Info>
             주소: 경기 수원시 권선구 매실로 47-14, 16400, 4층 <span> | </span> 문의: oncognier@gmail.com, 010-3739-3430
           </S.Info>
-          <S.Info>Copyright © 2025 주식회사 온코그니어 All Rights Reserved</S.Info>
+          <S.Info>Copyright © 2025 온코그니어 All Rights Reserved</S.Info>
         </S.InfoWrapper>
 
         <S.FooterBottom>
