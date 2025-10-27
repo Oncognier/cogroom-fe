@@ -8,7 +8,6 @@ export const AccordionContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
 `;
 
 export const AccordionHeader = styled.button`
