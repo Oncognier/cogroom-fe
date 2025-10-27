@@ -41,11 +41,13 @@ type FontPreviewProps = {
 
 type PopupContainerProps = {
   popupType?: string;
+  variant?: 'top' | 'bottom';
 };
 
 export const PopupContainer = styled.div<PopupContainerProps>`
   position: absolute;
-  top: calc(100% + 1.5rem);
+  top: ${({ variant }) => (variant === 'top' ? 'auto' : 'calc(100% - 20rem)')};
+  bottom: ${({ variant }) => (variant === 'top' ? 'calc(100% + 4rem)' : 'auto')};
   left: 50%;
   transform: translateX(-50%);
   padding: 2rem;
@@ -63,11 +65,12 @@ export const PopupContainer = styled.div<PopupContainerProps>`
       left: 90%;
       transform: translateX(-90%);
     `}
-    ${({ popupType }) =>
+    ${({ popupType, variant }) =>
       popupType === 'link' &&
+      variant !== 'top' &&
       `
-      left: 35%;
-      transform: translateX(-35%);
+      left: 110%;
+      transform: translateX(-110%);
     `}
   }
 `;
@@ -127,6 +130,17 @@ export const TypographyList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+
+  ${mqMax.tablet} {
+    flex-direction: row;
+    gap: 1.2rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 export const TypographyItem = styled.button<TypographyItemProps>`
@@ -142,6 +156,11 @@ export const TypographyItem = styled.button<TypographyItemProps>`
 
   &:hover {
     background-color: ${({ theme, isActive }) => !isActive && theme.semantic.background.normal.alternative};
+  }
+
+  ${mqMax.tablet} {
+    flex-shrink: 0;
+    height: 4.8rem;
   }
 `;
 
@@ -169,12 +188,28 @@ export const ColorGrid = styled.div`
   flex-direction: column;
   gap: 1.2rem;
   width: 100%;
+
+  ${mqMax.tablet} {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 export const ColorRow = styled.div`
   display: flex;
   gap: 1.2rem;
   justify-content: flex-start;
+  flex-shrink: 0;
+
+  ${mqMax.tablet} {
+    gap: 0.8rem;
+  }
 `;
 
 export const ColorCircle = styled.button<ColorCircleProps>`
@@ -220,6 +255,10 @@ export const CustomColorSection = styled.div`
   padding-top: 1.6rem;
   border-top: 0.1rem solid ${({ theme }) => theme.semantic.line.neutral};
   position: relative;
+
+  ${mqMax.tablet} {
+    display: none;
+  }
 `;
 
 export const CustomColorInput = styled.input<CustomColorInputProps>`
@@ -369,6 +408,17 @@ export const FontList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
+
+  ${mqMax.tablet} {
+    flex-direction: row;
+    gap: 1.2rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 `;
 
 export const FontItem = styled.button<FontItemProps>`
@@ -386,6 +436,10 @@ export const FontItem = styled.button<FontItemProps>`
 
   &:hover {
     background-color: ${({ theme, isActive }) => !isActive && theme.semantic.background.normal.alternative};
+  }
+
+  ${mqMax.tablet} {
+    flex-shrink: 0;
   }
 `;
 
