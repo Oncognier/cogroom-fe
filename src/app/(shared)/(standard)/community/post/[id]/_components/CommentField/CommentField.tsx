@@ -142,8 +142,9 @@ export default function CommentField({
             onToggle={setLocalIsAnonymous}
             interactionVariant='normal'
             name='commentAnonymous'
+            isDisabled={isEdit}
           />
-          <S.CheckboxLabel>익명</S.CheckboxLabel>
+          <S.CheckboxLabel isDisabled={isEdit}>익명</S.CheckboxLabel>
         </S.CheckboxWrapper>
 
         {isEdit && onCancel && (
