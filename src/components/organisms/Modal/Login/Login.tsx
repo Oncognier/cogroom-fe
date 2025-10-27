@@ -1,5 +1,7 @@
 'use client';
 
+import { useForm } from 'react-hook-form';
+
 import Google from '@/assets/icons/google.svg';
 import Kakao from '@/assets/icons/kakao.svg';
 import Naver from '@/assets/icons/naver.svg';
@@ -7,11 +9,10 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Input from '@/components/molecules/Input/Input';
 import { GOOGLE_AUTH_API_URL, KAKAO_AUTH_API_URL, NAVER_AUTH_API_URL } from '@/constants/api';
+import { useAdminLoginMutation } from '@/hooks/api/auth/useAdminLogin';
 import { useAppModalStore } from '@/stores/useModalStore';
-import { useForm } from 'react-hook-form';
 
 import * as S from './Login.styled';
-import { useAdminLoginMutation } from '@/hooks/api/auth/useAdminLogin';
 
 type AuthPlatform = 'kakao' | 'naver' | 'google';
 
