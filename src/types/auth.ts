@@ -39,3 +39,14 @@ export interface SignupRequest {
   signupToken: string;
   email: string;
 }
+
+export interface AdminLoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface AdminLoginResponse extends ApiResponse {
+  result: {
+    needSignup: boolean;
+  };
+}

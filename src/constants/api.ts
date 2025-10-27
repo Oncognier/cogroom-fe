@@ -171,6 +171,11 @@ export const END_POINTS = {
   },
 } as const;
 
+export const TEMP_ENDPOINTS = {
+  /** 포트원 심사용 운영자 로그인 (POST) */
+  ADMIN_LOGIN: `${BASE_PATH_V1.AUTH}/local-login`,
+} as const;
+
 export const HTTP_STATUS_CODE = {
   OK: 200,
   CREATED: 201,

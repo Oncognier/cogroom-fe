@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 
-import { END_POINTS } from '@/constants/api';
+import { END_POINTS, TEMP_ENDPOINTS } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 import {
   LoginRequest,
@@ -10,6 +10,8 @@ import {
   GetEmailStatusRequest,
   GetEmailStatusResponse,
   CheckEmailRequest,
+  AdminLoginRequest,
+  AdminLoginResponse,
 } from '@/types/auth';
 
 import { axiosInstance } from './axios/axiosInstance';
@@ -35,7 +37,7 @@ const getEmailStatus = async (params: GetEmailStatusRequest) => {
   return data.result;
 };
 
-/** 회원가입 (소셜/로컬 통합) */
+/** 회원가입 (소셜 ) */
 const signup = async ({ provider, signupToken, email }: SignupRequest) => {
   const { data } = await axiosInstance.post<SignupRequest, AxiosResponse<ApiResponse>>(END_POINTS.AUTH.SIGNUP, {
     provider,
@@ -45,7 +47,7 @@ const signup = async ({ provider, signupToken, email }: SignupRequest) => {
   return data;
 };
 
-/** 로그인 (소셜/로컬 통합) */
+/** 로그인 (소셜 ) */
 const login = async ({ code, provider, state }: LoginRequest) => {
   const { data } = await axiosInstance.post<LoginRequest, AxiosResponse<LoginResponse>>(END_POINTS.AUTH.LOGIN, {
     code,
@@ -66,6 +68,19 @@ const reissueToken = async () => {
   await axiosInstance.post<null, AxiosResponse>(END_POINTS.AUTH.REISSUE);
 };
 
+/** 운영자 로그인 */
+const adminLogin = async ({ email, password }: AdminLoginRequest) => {
+  const { data } = await axiosInstance.post<AdminLoginRequest, AxiosResponse<AdminLoginResponse>>(
+    TEMP_ENDPOINTS.ADMIN_LOGIN,
+    {
+      email,
+      password,
+    },
+  );
+
+  return data.result;
+};
+
 export const authApi = {
   sendEmail,
   checkEmail,
@@ -74,4 +89,5 @@ export const authApi = {
   login,
   logout,
   reissueToken,
+  adminLogin,
 };
