@@ -2,13 +2,16 @@
 
 import { ReactNode, useEffect, useRef } from 'react';
 
+import { PopupContainer } from './PopupStyles.styled';
+
 type PopupWrapperProps = {
   children: ReactNode;
   onClose: () => void;
   popupType?: string;
+  variant?: 'top' | 'bottom';
 };
 
-export default function PopupWrapper({ children, onClose, popupType }: PopupWrapperProps) {
+export default function PopupWrapper({ children, onClose, popupType, variant }: PopupWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,5 +28,13 @@ export default function PopupWrapper({ children, onClose, popupType }: PopupWrap
     };
   }, [onClose]);
 
-  return <div ref={ref}>{children}</div>;
+  return (
+    <PopupContainer
+      ref={ref}
+      popupType={popupType}
+      variant={variant}
+    >
+      {children}
+    </PopupContainer>
+  );
 }

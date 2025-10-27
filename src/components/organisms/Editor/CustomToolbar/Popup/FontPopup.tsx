@@ -8,6 +8,7 @@ type FontPopupProps = {
   editor: Editor;
   onClose: () => void;
   onSelect: (name: string) => void;
+  variant?: 'popup' | 'inline';
 };
 
 const fonts = [
@@ -33,7 +34,7 @@ const fonts = [
   },
 ];
 
-export default function FontPopup({ editor, onClose, onSelect }: FontPopupProps) {
+export default function FontPopup({ editor, onClose, onSelect, variant = 'popup' }: FontPopupProps) {
   const handleFontSelect = (fontFamily: string, fontName: string) => {
     editor.chain().focus().setFontFamily(fontFamily).run();
     onSelect(fontName);
@@ -42,8 +43,10 @@ export default function FontPopup({ editor, onClose, onSelect }: FontPopupProps)
 
   const currentFontFamily = editor.getAttributes('textStyle').fontFamily || fonts[0].value;
 
+  const Container = variant === 'inline' ? 'div' : S.PopupContainer;
+
   return (
-    <S.PopupContainer>
+    <Container>
       <S.FontList>
         {fonts.map((font) => (
           <S.FontItem
@@ -55,6 +58,6 @@ export default function FontPopup({ editor, onClose, onSelect }: FontPopupProps)
           </S.FontItem>
         ))}
       </S.FontList>
-    </S.PopupContainer>
+    </Container>
   );
 }

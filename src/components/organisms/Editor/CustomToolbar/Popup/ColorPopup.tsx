@@ -12,6 +12,7 @@ type ColorPopupProps = {
   editor: Editor;
   onClose: () => void;
   currentColor?: string;
+  variant?: 'popup' | 'inline';
 };
 
 const colorPalette = [
@@ -23,7 +24,12 @@ const colorPalette = [
   [palette.orange[90], palette.orange[70], palette.orange[50], palette.orange[30], palette.orange[10]],
 ];
 
-export default function ColorPopup({ editor, onClose, currentColor = cogroom.black }: ColorPopupProps) {
+export default function ColorPopup({
+  editor,
+  onClose,
+  currentColor = cogroom.black,
+  variant = 'popup',
+}: ColorPopupProps) {
   const [customColor, setCustomColor] = useState(currentColor);
 
   const handleColorSelect = (color: string) => {
@@ -68,8 +74,11 @@ export default function ColorPopup({ editor, onClose, currentColor = cogroom.bla
     }
   };
 
+  const Container = variant === 'inline' ? 'div' : S.PopupContainer;
+  const containerProps = variant === 'popup' ? { popupType: 'color' } : {};
+
   return (
-    <S.PopupContainer popupType='color'>
+    <Container {...containerProps}>
       <S.ColorGrid>
         {colorPalette.map((row, rowIndex) => (
           <S.ColorRow key={rowIndex}>
@@ -121,6 +130,6 @@ export default function ColorPopup({ editor, onClose, currentColor = cogroom.bla
           onClick={handleCustomColorApply}
         />
       </S.CustomColorSection>
-    </S.PopupContainer>
+    </Container>
   );
 }

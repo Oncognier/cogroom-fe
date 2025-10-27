@@ -7,9 +7,10 @@ import * as S from './PopupStyles.styled';
 type TypographyPopupProps = {
   editor: Editor;
   onClose: () => void;
+  variant?: 'popup' | 'inline';
 };
 
-export default function TypographyPopup({ editor, onClose }: TypographyPopupProps) {
+export default function TypographyPopup({ editor, onClose, variant = 'popup' }: TypographyPopupProps) {
   const handleHeading1 = () => {
     editor.chain().focus().setHeading({ level: 1 }).run();
     onClose();
@@ -30,8 +31,10 @@ export default function TypographyPopup({ editor, onClose }: TypographyPopupProp
     onClose();
   };
 
+  const Container = variant === 'inline' ? 'div' : S.PopupContainer;
+
   return (
-    <S.PopupContainer>
+    <Container>
       <S.TypographyList>
         <S.TypographyItem
           onClick={handleHeading1}
@@ -58,6 +61,6 @@ export default function TypographyPopup({ editor, onClose }: TypographyPopupProp
           <S.TypographyText size='p'>본문</S.TypographyText>
         </S.TypographyItem>
       </S.TypographyList>
-    </S.PopupContainer>
+    </Container>
   );
 }
