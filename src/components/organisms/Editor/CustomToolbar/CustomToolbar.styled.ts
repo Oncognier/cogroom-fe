@@ -109,8 +109,8 @@ export const ToolbarButton = styled.button<ButtonProps>`
   ${({ theme }) => getInteraction('strong', theme.semantic.background.elevated.alternative)(theme)};
 
   ${mqMax.tablet} {
-    width: 4rem;
-    height: 4rem;
+    width: 4.4rem;
+    height: 4.4rem;
     padding: 1rem;
   }
 `;
