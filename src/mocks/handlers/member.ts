@@ -13,9 +13,9 @@ import { getUserInfoSuccess } from '../data/member/getUserInfoData';
 import { getUserLikeCommentListSuccess } from '../data/member/getUserLikeCommentListData';
 import { getUserLikePostListSuccess } from '../data/member/getUserLikePostListData';
 import { getUserPostListSuccess } from '../data/member/getUserPostListData';
-import { getUserProfileSuccess } from '../data/member/getUserProfileData';
+import { getUserProfileError, getUserProfileSuccess } from '../data/member/getUserProfileData';
 import { getUserSaveListSuccess } from '../data/member/getUserSaveData';
-import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
+import { getUserSummaryError, getUserSummarySuccess } from '../data/member/getUserSummaryData';
 import { withdrawSuccess } from '../data/member/withdrawData';
 
 export const memberHandlers = [
@@ -24,6 +24,11 @@ export const memberHandlers = [
     return new HttpResponse(JSON.stringify(getUserSummarySuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
+
+    // 로그아웃 상태 원할 시 주석 해제
+    // return new HttpResponse(JSON.stringify(getUserSummaryError), {
+    //     status: HTTP_STATUS_CODE.BAD_REQUEST,
+    //   });
   }),
 
   // 사용자 대시보드 정보 조회
@@ -44,8 +49,7 @@ export const memberHandlers = [
   http.get(END_POINTS.MEMBERS.PROFILE(':memberId'), async ({ params }) => {
     const { memberId } = params;
     if (!memberId) {
-      // 필요 시 에러 페이로드가 있다면 교체
-      return new HttpResponse(JSON.stringify({ code: 'BAD_REQUEST', message: 'memberId is required' }), {
+      return new HttpResponse(JSON.stringify(getUserProfileError), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
     }
@@ -143,7 +147,6 @@ export const memberHandlers = [
 
   // 회원 탈퇴
   http.delete(END_POINTS.MEMBERS.WITHDRAW, async () => {
-    // 이전 요청에서 정의한 정책에 맞춰, 탈퇴 시 토큰 쿠키 제거
     return new HttpResponse(JSON.stringify(withdrawSuccess), {
       status: HTTP_STATUS_CODE.OK,
       headers: new Headers([

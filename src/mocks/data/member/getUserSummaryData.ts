@@ -9,3 +9,8 @@ export const getUserSummarySuccess = {
     memberRole: 'ADMIN',
   },
 };
+
+export const getUserSummaryError = {
+  code: 'REFRESH_TOKEN_EMPTY_ERROR',
+  message: '사용자 정보 조회(Summary)에 실패했습니다.',
+};

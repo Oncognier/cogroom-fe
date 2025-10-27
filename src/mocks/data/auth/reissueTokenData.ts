@@ -4,6 +4,6 @@ export const reissueSuccess = {
 };
 
 export const reissueError = {
-  code: 'INVALID_TOKEN',
+  code: 'TOKEN_INVALID_ERROR',
   message: '토큰 재발급에 실패했습니다.',
 };
