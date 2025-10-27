@@ -3,12 +3,11 @@
 import type { Editor } from '@tiptap/react';
 
 import ChevronDown from '@/assets/icons/chevrondown.svg';
-import ImageIcon from '@/assets/icons/image.svg';
-import { useUploadFileToS3Mutation } from '@/hooks/api/file/useUploadFileToS3';
 import { cogroom } from '@/styles/color';
 
 import type { PopupType } from '../CustomToolbar';
 import * as S from '../CustomToolbar.styled';
+import { CustomToolbarUploader } from './CustomToolbarUploader';
 import ColorPopup from '../Popup/ColorPopup';
 import FontPopup from '../Popup/FontPopup';
 import PopupWrapper from '../Popup/PopupWrapper';
@@ -40,55 +39,14 @@ export default function CustomToolbarPalette({
     return '본문';
   };
 
-  const { uploadToS3 } = useUploadFileToS3Mutation({
-    onSuccess: (accessUrls, originalFileNames) => {
-      if (accessUrls.length > 0 && originalFileNames) {
-        const s3Url = accessUrls[0];
-
-        editor
-          .chain()
-          .focus()
-          .setCustomImage({
-            src: s3Url,
-            width: 300,
-            height: 200,
-            'data-original-filename': s3Url,
-          })
-          .run();
-        closePopups();
-      }
-    },
-  });
-
-  const processImageFile = (file: File) => {
-    uploadToS3({ files: [file] });
-  };
-
-  const handleImageUpload = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-
-    input.onchange = (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      const file = target.files?.[0];
-      if (!file) return;
-
-      processImageFile(file);
-    };
-
-    input.click();
-  };
-
   return (
     <S.ToolbarGroup>
       {/* 이미지 업로드 */}
-      <S.ImageUpload
-        type='button'
-        onClick={handleImageUpload}
-      >
-        <ImageIcon />
-      </S.ImageUpload>
+
+      <CustomToolbarUploader
+        editor={editor}
+        closePopups={closePopups}
+      />
 
       <S.Divider />
 
