@@ -52,7 +52,9 @@ export function useCustomEditor({
     extensions: [
       StarterKit,
       CustomImage,
-      Color,
+      Color.configure({
+        types: ['textStyle', 'heading', 'paragraph'],
+      }),
       CustomLink.configure({
         HTMLAttributes: {
           class: 'editor-link',
@@ -67,7 +69,7 @@ export function useCustomEditor({
         types: ['heading', 'paragraph', 'customImage', 'listItem', 'bulletList', 'orderedList'],
       }),
       FontFamily.configure({
-        types: ['textStyle'],
+        types: ['textStyle', 'heading', 'paragraph'],
       }),
       Placeholder.configure({
         placeholder,
@@ -96,6 +98,11 @@ export function useCustomEditor({
     editable: !readonly,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
+    },
+    onCreate: ({ editor }) => {
+      if (typeof window !== 'undefined') {
+        window.currentEditor = editor;
+      }
     },
   });
 
