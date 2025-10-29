@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useRef } from 'react';
 
-import { PopupContainer } from './PopupStyles.styled';
+import { PopupContainer } from './PopupWrapper.styled';
 
 type PopupWrapperProps = {
   children: ReactNode;

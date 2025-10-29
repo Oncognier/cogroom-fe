@@ -6,7 +6,7 @@ import { useState } from 'react';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { palette, cogroom } from '@/styles/color';
 
-import * as S from './PopupStyles.styled';
+import * as S from './ColorPopup.styled';
 
 type ColorPopupProps = {
   editor: Editor;

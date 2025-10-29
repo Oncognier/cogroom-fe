@@ -2,7 +2,7 @@
 
 import type { Editor } from '@tiptap/react';
 
-import * as S from './PopupStyles.styled';
+import * as S from './TypographyPopup.styled';
 
 type TypographyPopupProps = {
   editor: Editor;

@@ -7,7 +7,7 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Input from '@/components/molecules/Input/Input';
 
-import * as S from './PopupStyles.styled';
+import * as S from './LinkPopup.styled';
 
 type LinkPopupProps = {
   editor: Editor;
