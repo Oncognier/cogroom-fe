@@ -74,11 +74,8 @@ export default function ColorPopup({
     }
   };
 
-  const Container = variant === 'inline' ? 'div' : S.PopupContainer;
-  const containerProps = variant === 'popup' ? { popupType: 'color' } : {};
-
   return (
-    <Container {...containerProps}>
+    <>
       <S.ColorGrid>
         {colorPalette.map((row, rowIndex) => (
           <S.ColorRow key={rowIndex}>
@@ -130,6 +127,6 @@ export default function ColorPopup({
           onClick={handleCustomColorApply}
         />
       </S.CustomColorSection>
-    </Container>
+    </>
   );
 }

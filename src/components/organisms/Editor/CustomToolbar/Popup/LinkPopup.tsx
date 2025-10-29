@@ -49,7 +49,10 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
   };
 
   const handleApply = () => {
-    if (!url.trim() || !editor) return;
+    if (!url.trim() || !editor) {
+      onClose();
+      return;
+    }
 
     let finalUrl = url.trim();
     if (!/^https?:\/\//i.test(finalUrl)) {
@@ -102,7 +105,7 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
   if (!editor) return null;
 
   return (
-    <S.PopupContainer popupType='link'>
+    <>
       <S.LinkForm>
         <Input
           inputSize='sm'
@@ -144,6 +147,6 @@ export default function LinkPopup({ editor, onClose }: LinkPopupProps) {
           />
         </S.LinkButtonGroup>
       </S.LinkForm>
-    </S.PopupContainer>
+    </>
   );
 }

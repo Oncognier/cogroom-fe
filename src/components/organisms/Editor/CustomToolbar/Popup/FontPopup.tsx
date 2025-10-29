@@ -43,21 +43,17 @@ export default function FontPopup({ editor, onClose, onSelect, variant = 'popup'
 
   const currentFontFamily = editor.getAttributes('textStyle').fontFamily || fonts[0].value;
 
-  const Container = variant === 'inline' ? 'div' : S.PopupContainer;
-
   return (
-    <Container>
-      <S.FontList>
-        {fonts.map((font) => (
-          <S.FontItem
-            key={font.value}
-            onClick={() => handleFontSelect(font.value, font.name)}
-            isActive={currentFontFamily === font.value}
-          >
-            <S.FontPreview fontFamily={font.value}>{font.name}</S.FontPreview>
-          </S.FontItem>
-        ))}
-      </S.FontList>
-    </Container>
+    <S.FontList>
+      {fonts.map((font) => (
+        <S.FontItem
+          key={font.value}
+          onClick={() => handleFontSelect(font.value, font.name)}
+          isActive={currentFontFamily === font.value}
+        >
+          <S.FontPreview fontFamily={font.value}>{font.name}</S.FontPreview>
+        </S.FontItem>
+      ))}
+    </S.FontList>
   );
 }

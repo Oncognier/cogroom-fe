@@ -31,10 +31,8 @@ export default function TypographyPopup({ editor, onClose, variant = 'popup' }: 
     onClose();
   };
 
-  const Container = variant === 'inline' ? 'div' : S.PopupContainer;
-
   return (
-    <Container>
+    <>
       <S.TypographyList>
         <S.TypographyItem
           onClick={handleHeading1}
@@ -61,6 +59,6 @@ export default function TypographyPopup({ editor, onClose, variant = 'popup' }: 
           <S.TypographyText size='p'>본문</S.TypographyText>
         </S.TypographyItem>
       </S.TypographyList>
-    </Container>
+    </>
   );
 }
