@@ -46,8 +46,8 @@ type PopupContainerProps = {
 
 export const PopupContainer = styled.div<PopupContainerProps>`
   position: absolute;
-  top: ${({ variant }) => (variant === 'top' ? 'auto' : 'calc(100% - 20rem)')};
-  bottom: ${({ variant }) => (variant === 'top' ? 'calc(100% + 4rem)' : 'auto')};
+  top: calc(100% + 1rem);
+
   left: 50%;
   transform: translateX(-50%);
   padding: 2rem;
@@ -64,13 +64,6 @@ export const PopupContainer = styled.div<PopupContainerProps>`
       `
       left: 90%;
       transform: translateX(-90%);
-    `}
-    ${({ popupType, variant }) =>
-      popupType === 'link' &&
-      variant !== 'top' &&
-      `
-      left: 110%;
-      transform: translateX(-110%);
     `}
   }
 `;
@@ -321,7 +314,7 @@ export const LinkForm = styled.div`
   width: 36.7rem;
 
   ${mqMax.tablet} {
-    width: 25rem;
+    width: 28rem;
   }
 `;
 
