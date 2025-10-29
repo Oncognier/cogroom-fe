@@ -9,6 +9,7 @@ import BottomSheet from '@/components/organisms/BottomSheet/BottomSheet';
 import type { PopupType } from '@/components/organisms/Editor/CustomToolbar/CustomToolbar';
 import ColorPopup from '@/components/organisms/Editor/CustomToolbar/Popup/ColorPopup';
 import FontPopup from '@/components/organisms/Editor/CustomToolbar/Popup/FontPopup';
+import LinkPopup from '@/components/organisms/Editor/CustomToolbar/Popup/LinkPopup';
 import TypographyPopup from '@/components/organisms/Editor/CustomToolbar/Popup/TypographyPopup';
 import CustomToolbarAlignment from '@/components/organisms/Editor/CustomToolbar/Sections/CustomToolbarAlignment';
 import CustomToolbarInline from '@/components/organisms/Editor/CustomToolbar/Sections/CustomToolbarInline';
@@ -32,10 +33,15 @@ declare global {
 
 export default function EditorBottomSheet({ isOpen, onClose }: EditorBottomSheetProps) {
   const [activePopup, setActivePopup] = useState<PopupType>(null);
+  const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const editor = typeof window !== 'undefined' ? window.currentEditor : null;
 
   const togglePopup = (popup: PopupType) => {
-    setActivePopup((prev) => (prev === popup ? null : popup));
+    if (popup === 'link') {
+      setIsLinkModalOpen(true);
+    } else {
+      setActivePopup((prev) => (prev === popup ? null : popup));
+    }
   };
 
   const handleClose = () => {
@@ -43,94 +49,111 @@ export default function EditorBottomSheet({ isOpen, onClose }: EditorBottomSheet
     onClose();
   };
 
+  const closeLinkModal = () => {
+    setIsLinkModalOpen(false);
+  };
+
   if (!editor) {
     return null;
   }
 
   return (
-    <BottomSheet
-      title='에디터'
-      isOpen={isOpen}
-      onClose={handleClose}
-    >
-      <S.Container>
-        <AccordionGroup exclusive>
-          <Accordion
-            id='size'
-            title='크기'
-          >
-            <S.AccordionContent>
-              <TypographyPopup
-                editor={editor}
-                onClose={onClose}
-                variant='inline'
-              />
-            </S.AccordionContent>
-          </Accordion>
+    <>
+      <BottomSheet
+        title='에디터'
+        isOpen={isOpen}
+        onClose={handleClose}
+      >
+        <S.Container>
+          <AccordionGroup exclusive>
+            <Accordion
+              id='size'
+              title='크기'
+            >
+              <S.AccordionContent>
+                <TypographyPopup
+                  editor={editor}
+                  onClose={onClose}
+                  variant='inline'
+                />
+              </S.AccordionContent>
+            </Accordion>
+
+            <S.Divider />
+
+            <Accordion
+              id='font'
+              title='서체'
+            >
+              <S.AccordionContent>
+                <FontPopup
+                  editor={editor}
+                  onClose={onClose}
+                  onSelect={() => {}}
+                  variant='inline'
+                />
+              </S.AccordionContent>
+            </Accordion>
+
+            <S.Divider />
+
+            <Accordion
+              id='color'
+              title='색상'
+            >
+              <S.AccordionContent>
+                <ColorPopup
+                  editor={editor}
+                  onClose={onClose}
+                  currentColor={editor.getAttributes('textStyle').color || cogroom.black}
+                  variant='inline'
+                />
+              </S.AccordionContent>
+            </Accordion>
+          </AccordionGroup>
 
           <S.Divider />
 
-          <Accordion
-            id='font'
-            title='서체'
-          >
-            <S.AccordionContent>
-              <FontPopup
+          <S.ToolbarSection>
+            <S.ToolbarRow>
+              <CustomToolbarUploader
                 editor={editor}
-                onClose={onClose}
-                onSelect={() => {}}
-                variant='inline'
+                closePopups={onClose}
               />
-            </S.AccordionContent>
-          </Accordion>
-
-          <S.Divider />
-
-          <Accordion
-            id='color'
-            title='색상'
-          >
-            <S.AccordionContent>
-              <ColorPopup
+              <CustomToolbarInline
                 editor={editor}
-                onClose={onClose}
-                currentColor={editor.getAttributes('textStyle').color || cogroom.black}
-                variant='inline'
+                closePopups={onClose}
               />
-            </S.AccordionContent>
-          </Accordion>
-        </AccordionGroup>
+              <CustomToolbarUtilities
+                variant='top'
+                editor={editor}
+                activePopup={activePopup}
+                togglePopup={togglePopup}
+                closePopups={handleClose}
+              />
+              <CustomToolbarAlignment
+                editor={editor}
+                closePopups={onClose}
+              />
+              <CustomToolbarList
+                editor={editor}
+                closePopups={onClose}
+              />
+            </S.ToolbarRow>
+          </S.ToolbarSection>
+        </S.Container>
+      </BottomSheet>
 
-        <S.Divider />
-
-        <S.ToolbarSection>
-          <S.ToolbarRow>
-            <CustomToolbarUploader
+      {isLinkModalOpen && (
+        <S.LinkModalOverlay onClick={closeLinkModal}>
+          <S.LinkModalContainer onClick={(e) => e.stopPropagation()}>
+            <LinkPopup
               editor={editor}
-              closePopups={onClose}
+              onClose={closeLinkModal}
             />
-            <CustomToolbarInline
-              editor={editor}
-              closePopups={onClose}
-            />
-            <CustomToolbarUtilities
-              variant='top'
-              editor={editor}
-              activePopup={activePopup}
-              togglePopup={togglePopup}
-              closePopups={handleClose}
-            />
-            <CustomToolbarAlignment
-              editor={editor}
-              closePopups={onClose}
-            />
-            <CustomToolbarList
-              editor={editor}
-              closePopups={onClose}
-            />
-          </S.ToolbarRow>
-        </S.ToolbarSection>
-      </S.Container>
-    </BottomSheet>
+          </S.LinkModalContainer>
+        </S.LinkModalOverlay>
+      )}
+    </>
   );
 }
