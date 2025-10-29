@@ -2,7 +2,6 @@
 
 import { FormProvider } from 'react-hook-form';
 
-import EditorFloatingButton from '@/components/atoms/EditorFloatingButton/EditorFloatingButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
@@ -13,12 +12,10 @@ import { useEditMode } from '@/hooks/communityWrite/useEditMode';
 import { usePostSubmission } from '@/hooks/communityWrite/usePostSubmission';
 import { useWriteForm } from '@/hooks/communityWrite/useWriteForm';
 import { useUrlSearchParams } from '@/hooks/queryParams/useUrlSearchParams';
-import { useBottomSheet } from '@/hooks/useBottomSheet';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 import CategorySelector from './_components/CategorySelector/CategorySelector';
 import DailyQuestionCard from './_components/DailyQuestionCard/DailyQuestionCard';
-import EditorBottomSheet from './_components/EditorBottomSheet/EditorBottomSheet';
 import PostEditor from './_components/PostEditor/PostEditor';
 import TitleInput from './_components/TitleInput/TitleInput';
 import * as S from './page.styled';
@@ -75,7 +72,6 @@ export default function CommunityWrite() {
     isDailyCategory: categoryWithDaily.isDailyCategory,
   });
   const isUnauth = useAuthStore((s) => s.isUnauth());
-  const { isOpen: isBottomSheetOpen, open: openBottomSheet, close: closeBottomSheet } = useBottomSheet();
 
   if (isUnauth) {
     return <AuthGuard />;
@@ -139,15 +135,6 @@ export default function CommunityWrite() {
           </S.ButtonWrapper>
         </S.WriteForm>
       </FormProvider>
-
-      <S.FloatingButtonWrapper>
-        <EditorFloatingButton onClick={openBottomSheet} />
-      </S.FloatingButtonWrapper>
-
-      <EditorBottomSheet
-        isOpen={isBottomSheetOpen}
-        onClose={closeBottomSheet}
-      />
     </S.Container>
   );
 }

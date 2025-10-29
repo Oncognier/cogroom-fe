@@ -3,6 +3,7 @@
 import styled from '@emotion/styled';
 
 import { editorContentStyles } from '@/styles/editorContentStyles';
+import { mqMax } from '@/styles/foundation';
 
 type EditorWrapperProps = {
   height: number;
@@ -95,5 +96,17 @@ export const EditorContent = styled.div<EditorWrapperProps & { readonly?: boolea
   & > div {
     height: 100%;
     padding-top: 2rem;
+  }
+`;
+
+export const FloatingButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 1.8rem;
+  right: 1.6rem;
+  z-index: 1000;
+  display: none;
+
+  ${mqMax.tablet} {
+    display: block;
   }
 `;
