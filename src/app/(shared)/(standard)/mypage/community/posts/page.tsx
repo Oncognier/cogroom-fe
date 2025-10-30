@@ -10,8 +10,8 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
-import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
+import PostCardSkeleton from '@/components/organisms/PostCard/PostCardSkeleton/PostCardSkeleton';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useDeleteUserPost from '@/hooks/api/member/useDeleteUserPosts';
 import useGetUserPost from '@/hooks/api/member/useGetUserPost';
@@ -76,7 +76,47 @@ export default function Posts() {
 
   const handleGoToCommunity = () => router.push('/community');
 
-  if (isLoading) return <Loading />;
+  if (isLoading) {
+    return (
+      <S.UserPost>
+        <S.FilterHeader>
+          <SearchFilter
+            totalTitle='전체 글'
+            total={0}
+            fields={{
+              dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+              select: [
+                {
+                  name: 'category',
+                  placeholder: '카테고리 선택',
+                  options: POST_CATEGORY_SELECT_OPTIONS,
+                  isMulti: true,
+                },
+              ],
+              search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
+            }}
+            action={{ label: '검색하기' }}
+          />
+
+          <S.ListControlsWrapper>
+            <SortButton
+              sort={sort}
+              onClick={handleSortChange}
+            />
+          </S.ListControlsWrapper>
+        </S.FilterHeader>
+
+        <S.PostList>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <PostCardSkeleton
+              key={index}
+              isEdit={isEdit}
+            />
+          ))}
+        </S.PostList>
+      </S.UserPost>
+    );
+  }
 
   return (
     <S.UserPost>

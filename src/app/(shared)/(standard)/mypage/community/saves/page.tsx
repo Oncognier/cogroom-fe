@@ -8,8 +8,8 @@ import MessageCircleX from '@/assets/icons/message-circle-x.svg';
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
-import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
+import PostCardSkeleton from '@/components/organisms/PostCard/PostCardSkeleton/PostCardSkeleton';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserSave from '@/hooks/api/member/useGetUserSave';
 import { useCategoryParam } from '@/hooks/queryParams/useCategoryParam';
@@ -47,7 +47,44 @@ export default function Saves() {
   const handleSortChange = () => setSort(sort === 'latest' ? 'oldest' : 'latest');
   const handleGoToCommunity = () => router.push('/community');
 
-  if (isLoading) return <Loading />;
+  if (isLoading) {
+    return (
+      <S.UserSave>
+        <S.FilterHeader>
+          <SearchFilter
+            totalTitle='전체 글'
+            total={0}
+            fields={{
+              dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+              select: [
+                {
+                  name: 'category',
+                  placeholder: '카테고리 선택',
+                  options: POST_CATEGORY_SELECT_OPTIONS,
+                  isMulti: true,
+                },
+              ],
+              search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
+            }}
+            action={{ label: '검색하기' }}
+          />
+
+          <S.SortButtonWrapper>
+            <SortButton
+              sort={sort}
+              onClick={handleSortChange}
+            />
+          </S.SortButtonWrapper>
+        </S.FilterHeader>
+
+        <S.SaveList>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <PostCardSkeleton key={index} />
+          ))}
+        </S.SaveList>
+      </S.UserSave>
+    );
+  }
 
   return (
     <S.UserSave>

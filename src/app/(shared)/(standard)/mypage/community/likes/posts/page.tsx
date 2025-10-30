@@ -11,6 +11,7 @@ import SearchFilter from '@/components/molecules/SearchFilter/SearchFilter';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
+import PostCardSkeleton from '@/components/organisms/PostCard/PostCardSkeleton/PostCardSkeleton';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserLikePost from '@/hooks/api/member/useGetUserLikePost';
 import { useCategoryParam } from '@/hooks/queryParams/useCategoryParam';
@@ -48,7 +49,61 @@ export default function LikesPosts() {
   const handleSortChange = () => setSort(sort === 'latest' ? 'oldest' : 'latest');
   const handleGoToCommunity = () => router.push('/community');
 
-  if (isLoading) return <Loading />;
+  if (isLoading) {
+    return (
+      <S.LikesPosts>
+        <S.FilterHeader>
+          <SearchFilter
+            totalTitle='전체 글'
+            total={0}
+            fields={{
+              dateRange: { startDateName: 'startDate', endDateName: 'endDate' },
+              select: [
+                {
+                  name: 'category',
+                  placeholder: '카테고리 선택',
+                  options: POST_CATEGORY_SELECT_OPTIONS,
+                  isMulti: true,
+                },
+              ],
+              search: [{ name: 'keyword', placeholder: '글 제목 입력' }],
+            }}
+            action={{ label: '검색하기' }}
+          />
+
+          <S.ListControlsWrapper>
+            <S.SwitchLikeButtonWrapper>
+              <SolidButton
+                label='포스팅'
+                color='primary'
+                size='sm'
+                interactionVariant='normal'
+                onClick={() => router.push('/mypage/community/likes/posts')}
+              />
+              <SolidButton
+                label='댓글'
+                color='assistive'
+                size='sm'
+                interactionVariant='normal'
+                onClick={() => router.push('/mypage/community/likes/comments')}
+              />
+            </S.SwitchLikeButtonWrapper>
+
+            <SortButton
+              sort={sort}
+              onClick={handleSortChange}
+            />
+          </S.ListControlsWrapper>
+        </S.FilterHeader>
+
+        <S.LikePostList>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <PostCardSkeleton key={index} />
+          ))}
+        </S.LikePostList>
+      </S.LikesPosts>
+    );
+  }
 
   return (
     <S.LikesPosts>

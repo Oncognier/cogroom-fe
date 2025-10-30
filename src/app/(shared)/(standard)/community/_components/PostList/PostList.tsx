@@ -5,8 +5,8 @@ import { useMemo, useState } from 'react';
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
 import ScrollToTop from '@/components/atoms/ScrollToTop/ScrollToTop';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import Loading from '@/components/organisms/Loading/Loading';
 import PostCard from '@/components/organisms/PostCard/PostCard';
+import PostCardSkeleton from '@/components/organisms/PostCard/PostCardSkeleton/PostCardSkeleton';
 import useGetPostList from '@/hooks/api/post/useGetPostList';
 import useScroll from '@/hooks/useScroll';
 
@@ -57,7 +57,11 @@ export default function PostList() {
       </S.ButtonFilter>
 
       {isLoading && posts.length === 0 ? (
-        <Loading />
+        <S.ListWrapper>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <PostCardSkeleton key={index} />
+          ))}
+        </S.ListWrapper>
       ) : (
         <S.ListWrapper>
           {posts.map((post) => (
