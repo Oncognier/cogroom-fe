@@ -69,6 +69,7 @@ export default function MyPageLayout({ children }: { children: React.ReactNode }
       </S.ContentLayout>
 
       <BottomSheet
+        title='마이페이지'
         isOpen={bottomSheet.isOpen}
         onClose={bottomSheet.close}
       >

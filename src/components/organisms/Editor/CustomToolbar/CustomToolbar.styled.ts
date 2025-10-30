@@ -22,8 +22,7 @@ export const CustomToolbar = styled.div`
   padding: 0 0.6rem;
 
   ${mqMax.tablet} {
-    padding: 0;
-    justify-content: flex-start;
+    display: none;
   }
 `;
 
@@ -33,11 +32,6 @@ export const ToolbarGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
-
-  ${mqMax.tablet} {
-    gap: 0.4rem;
-    order: 1;
-  }
 `;
 
 export const DropdownWrapper = styled.div`
@@ -50,10 +44,6 @@ export const InlineGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 0.4rem;
-
-  ${mqMax.tablet} {
-    order: 2;
-  }
 `;
 
 export const ParagraphGroup = styled.div`
@@ -65,29 +55,17 @@ export const AlignmentGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 0.4rem;
-
-  ${mqMax.tablet} {
-    order: 3;
-  }
 `;
 
 export const ListGroup = styled.div`
   display: flex;
   align-items: center;
   gap: 0.4rem;
-
-  ${mqMax.tablet} {
-    order: 4;
-  }
 `;
 
 export const UtilitiesGroup = styled.div`
   display: flex;
   align-items: center;
-
-  ${mqMax.tablet} {
-    order: 6;
-  }
 `;
 
 export const Divider = styled.div`
@@ -131,8 +109,8 @@ export const ToolbarButton = styled.button<ButtonProps>`
   ${({ theme }) => getInteraction('strong', theme.semantic.background.elevated.alternative)(theme)};
 
   ${mqMax.tablet} {
-    width: 4rem;
-    height: 4rem;
+    width: 4.4rem;
+    height: 4.4rem;
     padding: 1rem;
   }
 `;

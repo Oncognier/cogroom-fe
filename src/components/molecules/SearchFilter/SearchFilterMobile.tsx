@@ -53,6 +53,7 @@ export default function SearchFilterMobile({
       </S.FloatingButtonWrapper>
 
       <BottomSheet
+        title='필터선택'
         isOpen={bottomSheet.isOpen}
         onClose={bottomSheet.close}
       >
@@ -65,11 +66,6 @@ export default function SearchFilterMobile({
             bottomSheet.close();
           }}
         >
-          <S.TitleSection>
-            <S.HandleBar />
-            <S.Title>필터 선택</S.Title>
-          </S.TitleSection>
-
           <S.FilterSection>
             {fields.search?.map((f) => (
               <SearchController

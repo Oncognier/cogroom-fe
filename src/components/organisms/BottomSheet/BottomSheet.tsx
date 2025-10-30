@@ -8,10 +8,11 @@ import * as S from './BottomSheet.styled';
 interface BottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
+  title?: string;
   children: React.ReactNode;
 }
 
-export default function BottomSheet({ isOpen, onClose, children }: BottomSheetProps) {
+export default function BottomSheet({ isOpen, onClose, children, title }: BottomSheetProps) {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -48,6 +49,11 @@ export default function BottomSheet({ isOpen, onClose, children }: BottomSheetPr
         onClick={(e) => e.stopPropagation()}
         isOpen={isOpen}
       >
+        <S.TitleSection>
+          <S.HandleBar />
+          <S.Title>{title || ''}</S.Title>
+        </S.TitleSection>
+
         {children}
       </S.BottomSheetContainer>
     </S.BottomSheetOverlay>,

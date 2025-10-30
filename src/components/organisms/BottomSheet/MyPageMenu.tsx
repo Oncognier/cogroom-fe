@@ -37,10 +37,6 @@ export default function MyPageMenu({ onClose }: MyPageMenuProps) {
 
   return (
     <>
-      <S.TitleSection>
-        <S.HandleBar />
-        <S.Title>마이페이지</S.Title>
-      </S.TitleSection>
       <S.MenuSection>
         <S.MenuList>
           {menuItems.map((item) => (

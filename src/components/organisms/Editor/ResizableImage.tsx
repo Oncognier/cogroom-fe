@@ -3,6 +3,8 @@
 import styled from '@emotion/styled';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 
+import { EDITOR_IMAGE_DEFAULTS } from '@/constants/editorImageDefaults';
+
 type ResizableImageProps = {
   src: string;
   alt?: string;
@@ -89,8 +91,8 @@ const ResizeHandle = styled.div<{ position: string }>`
 export default function ResizableImage({
   src,
   alt = '',
-  initialWidth = 300,
-  initialHeight = 200,
+  initialWidth = EDITOR_IMAGE_DEFAULTS.width,
+  initialHeight = EDITOR_IMAGE_DEFAULTS.height,
   onResize,
   textAlign = 'left',
 }: ResizableImageProps) {

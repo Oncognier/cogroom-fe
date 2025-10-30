@@ -4,6 +4,8 @@ import { Node, mergeAttributes, CommandProps } from '@tiptap/core';
 import { Node as ProseMirrorNode } from '@tiptap/pm/model';
 import { ReactNodeViewRenderer, NodeViewWrapper, Editor } from '@tiptap/react';
 
+import { EDITOR_IMAGE_DEFAULTS } from '@/constants/editorImageDefaults';
+
 import ResizableImage from './ResizableImage';
 
 declare module '@tiptap/core' {
@@ -58,8 +60,8 @@ const CustomImageComponent = ({ node, updateAttributes }: CustomImageComponentPr
         <ResizableImage
           src={node.attrs.src}
           alt={node.attrs.alt || ''}
-          initialWidth={node.attrs.width || 300}
-          initialHeight={node.attrs.height || 200}
+          initialWidth={node.attrs.width || EDITOR_IMAGE_DEFAULTS.width}
+          initialHeight={node.attrs.height || EDITOR_IMAGE_DEFAULTS.height}
           textAlign={getCurrentAlign()}
           onResize={handleResize}
         />
@@ -84,10 +86,10 @@ export const CustomImage = Node.create<CustomImageOptions>({
         default: null,
       },
       width: {
-        default: 300,
+        default: EDITOR_IMAGE_DEFAULTS.width,
       },
       height: {
-        default: 200,
+        default: EDITOR_IMAGE_DEFAULTS.height,
       },
       align: {
         default: 'left',

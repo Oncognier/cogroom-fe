@@ -2,11 +2,14 @@
 
 import { EditorContent } from '@tiptap/react';
 import parse, { domToReact, Element, DOMNode } from 'html-react-parser';
+import { useState } from 'react';
 
+import EditorFloatingButton from '@/components/atoms/EditorFloatingButton/EditorFloatingButton';
 import { useCustomEditor } from '@/hooks/useCustomEditor';
 
 import CustomToolbar from './CustomToolbar/CustomToolbar';
 import * as S from './Editor.styled';
+import EditorBottomSheet from './EditorBottomSheet/EditorBottomSheet';
 
 export type EditorProps = {
   value?: string;
@@ -27,12 +30,17 @@ export default function Editor({
   readonly = false,
   className,
 }: EditorProps) {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
   const editor = useCustomEditor({
     value: value || '',
     onChange: onChange || (() => {}),
     placeholder,
     readonly,
   });
+
+  const openBottomSheet = () => setIsBottomSheetOpen(true);
+  const closeBottomSheet = () => setIsBottomSheetOpen(false);
 
   if (readonly && content) {
     return (
@@ -69,14 +77,29 @@ export default function Editor({
   if (!editor) return null;
 
   return (
-    <S.EditorWrapper className={className}>
-      {!readonly && <CustomToolbar editor={editor} />}
-      <S.EditorContent
-        height={height}
-        readonly={readonly}
-      >
-        <EditorContent editor={editor} />
-      </S.EditorContent>
-    </S.EditorWrapper>
+    <>
+      <S.EditorWrapper className={className}>
+        {!readonly && <CustomToolbar editor={editor} />}
+        <S.EditorContent
+          height={height}
+          readonly={readonly}
+        >
+          <EditorContent editor={editor} />
+        </S.EditorContent>
+      </S.EditorWrapper>
+
+      {!readonly && (
+        <>
+          <S.FloatingButtonWrapper>
+            <EditorFloatingButton onClick={openBottomSheet} />
+          </S.FloatingButtonWrapper>
+
+          <EditorBottomSheet
+            isOpen={isBottomSheetOpen}
+            onClose={closeBottomSheet}
+          />
+        </>
+      )}
+    </>
   );
 }
