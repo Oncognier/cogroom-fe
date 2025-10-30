@@ -46,3 +46,27 @@ export const ButtonWrapper = styled.div`
   flex-direction: column;
   gap: 0.8rem;
 `;
+
+// 포트원 심사용
+export const AdminLogin = styled.form`
+  display: flex;
+  gap: 1.2rem;
+`;
+
+export const AdminInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  width: 18.9rem;
+`;
+
+export const AdminButton = styled.button`
+  width: 8.5rem;
+  height: 100%;
+  ${({ theme }) => theme.typography.body1.semibold};
+  background-color: ${({ theme }) => theme.semantic.primary.normal};
+  border-radius: 1.2rem;
+  color: ${({ theme }) => theme.semantic.static.white};
+`;
+// 여기까지 제거
