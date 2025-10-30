@@ -110,8 +110,7 @@ export const useDailyLogic = ({
   const showAnonymous =
     (isEditMode && existingPost?.daily && isDailyCategory) || (!!dailyData?.answer && isDaily && isDailyCategory);
 
-  const isAnonymousDisabled =
-    isEditMode && existingPost?.category.categoryId === 1 && existingPost?.author?.isAnonymous === true;
+  const isAnonymousDisabled = isEditMode;
 
   const dailyQuestionProps = (() => {
     if (isEditMode && existingPost?.daily && isDailyCategory) {

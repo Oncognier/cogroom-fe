@@ -101,7 +101,6 @@ export default function CommunityWrite() {
             error={form.errors.categoryId?.message}
             onChange={(value: number[]) => form.setValue('categoryId', value)}
             onCategoryChange={categoryWithDaily.handleCategoryChange}
-            showAnonymous={daily.showAnonymous}
             onAnonymousToggle={(checked: boolean) => form.setValue('isAnonymous', checked)}
             control={form.methods.control}
             isAnonymousDisabled={daily.isAnonymousDisabled}

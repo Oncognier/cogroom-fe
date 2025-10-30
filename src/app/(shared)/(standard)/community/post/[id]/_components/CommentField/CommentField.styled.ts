@@ -91,9 +91,9 @@ export const CheckboxWrapper = styled.div`
   gap: 0.6rem;
 `;
 
-export const CheckboxLabel = styled.span`
+export const CheckboxLabel = styled.span<{ isDisabled: boolean }>`
   ${({ theme }) => theme.typography.label1.regular};
-  color: ${({ theme }) => theme.semantic.label.normal};
+  color: ${({ theme, isDisabled }) => (isDisabled ? theme.semantic.interaction.inactive : theme.semantic.label.normal)};
 `;
 
 export const ButtonWrapper = styled.div`

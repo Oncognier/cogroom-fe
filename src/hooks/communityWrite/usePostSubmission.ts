@@ -45,10 +45,8 @@ export const usePostSubmission = ({
   const onSubmit = (formData: CommunityWriteFormData) => {
     const categoryId = extractCategoryId(formData.categoryId);
     const imageUrlList = extractImageUrls(formData.content);
-    const isAnonymousRendered =
-      (isEditMode && existingPost?.daily && isDailyCategory) || (!!dailyData?.answer && isDaily && isDailyCategory);
 
-    const finalIsAnonymous = isAnonymousRendered ? formData.isAnonymous : false;
+    const finalIsAnonymous = formData.isAnonymous;
 
     if (isEditMode && editPostId) {
       const existingImageUrls = extractImageUrls(existingPost!.content);
