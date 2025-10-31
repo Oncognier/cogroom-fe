@@ -16,6 +16,7 @@ import PostComments from './_components/PostComments/PostComments';
 import PostContent from './_components/PostContent/PostContent';
 import PostHeader from './_components/PostHeader/PostHeader';
 import PostLikesSaved from './_components/PostLikesSaved/PostLikesSaved';
+import PostSkeleton from './_components/PostSkeleton/PostSkeleton';
 import * as S from './page.styled';
 
 const POST_ERROR_MESSAGES: Record<string, string> = {
@@ -33,8 +34,9 @@ export default function PostPage() {
   const { open } = useAppModalStore();
   const { data: post, isLoading, error } = useGetPost(postId);
   const isAdmin = useAuthStore((s) => s.isAdmin());
+  const isUnknown = useAuthStore((s) => s.isUnknown());
 
-  if (isLoading) return <Loading />;
+  if (isUnknown || isLoading) return <PostSkeleton />;
 
   if (error instanceof HTTPError && error.code) {
     const postErrorMessage = POST_ERROR_MESSAGES[error.code];
