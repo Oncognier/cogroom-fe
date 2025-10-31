@@ -28,12 +28,6 @@ export const ContentSection = styled.div`
   margin-bottom: 2rem;
 `;
 
-export const DailyContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-`;
-
 export const LikesSection = styled.div`
   display: flex;
   flex-direction: column;

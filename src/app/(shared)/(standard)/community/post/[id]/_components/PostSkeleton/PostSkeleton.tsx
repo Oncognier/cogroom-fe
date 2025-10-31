@@ -4,12 +4,9 @@ import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
 
 import * as SS from './PostSkeleton.styled';
 import * as S from '../../page.styled';
+import CommentsSkeleton from '../CommentsSkeleton/CommentsSkeleton';
 
-interface PostSkeletonProps {
-  isDaily?: boolean;
-}
-
-export default function PostSkeleton({ isDaily = false }: PostSkeletonProps) {
+export default function PostSkeleton() {
   return (
     <S.PostPageContainer>
       <Breadcrumb
@@ -48,24 +45,10 @@ export default function PostSkeleton({ isDaily = false }: PostSkeletonProps) {
         </SS.AuthorSection>
 
         <SS.ContentSection>
-          {isDaily ? (
-            <SS.DailyContent>
-              <Skeleton
-                width='100%'
-                height='39rem'
-                borderRadius='1.2rem'
-              />
-              <Skeleton
-                width='100%'
-                height='9.6rem'
-              />
-            </SS.DailyContent>
-          ) : (
-            <Skeleton
-              width='100%'
-              height='9.6rem'
-            />
-          )}
+          <Skeleton
+            width='100%'
+            height='20rem'
+          />
         </SS.ContentSection>
 
         <SS.LikesSection>
@@ -76,6 +59,8 @@ export default function PostSkeleton({ isDaily = false }: PostSkeletonProps) {
           />
           <SS.Divider />
         </SS.LikesSection>
+
+        <CommentsSkeleton />
       </S.PostSectionsWrapper>
     </S.PostPageContainer>
   );
