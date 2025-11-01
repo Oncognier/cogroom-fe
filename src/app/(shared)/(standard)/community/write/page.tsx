@@ -5,7 +5,6 @@ import { FormProvider } from 'react-hook-form';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
-import Loading from '@/components/organisms/Loading/Loading';
 import { useCategoryLogic } from '@/hooks/communityWrite/useCategoryLogic';
 import { useDailyLogic } from '@/hooks/communityWrite/useDailyLogic';
 import { useEditMode } from '@/hooks/communityWrite/useEditMode';
@@ -18,6 +17,7 @@ import CategorySelector from './_components/CategorySelector/CategorySelector';
 import DailyQuestionCard from './_components/DailyQuestionCard/DailyQuestionCard';
 import PostEditor from './_components/PostEditor/PostEditor';
 import TitleInput from './_components/TitleInput/TitleInput';
+import WriteSkeleton from './_components/WriteSkeleton/WriteSkeleton';
 import * as S from './page.styled';
 import CommunityDescription from '../_components/CommunityDescription';
 
@@ -71,14 +71,16 @@ export default function CommunityWrite() {
     isDaily,
     isDailyCategory: categoryWithDaily.isDailyCategory,
   });
+
   const isUnauth = useAuthStore((s) => s.isUnauth());
+  const isUnknown = useAuthStore((s) => s.isUnknown());
 
   if (isUnauth) {
     return <AuthGuard />;
   }
 
-  if (editModeWithUpdate.isEditMode && editModeWithUpdate.isLoadingPost) {
-    return <Loading />;
+  if (isUnknown || (editModeWithUpdate.isEditMode && editModeWithUpdate.isLoadingPost)) {
+    return <WriteSkeleton />;
   }
 
   return (
