@@ -4,7 +4,7 @@ import * as S from './Checkbox.styled';
 import type { CheckboxStyleProps } from './Checkbox.styled';
 
 interface CheckboxProps extends CheckboxStyleProps {
-  onToggle: (checked: boolean) => void;
+  onToggle?: (checked: boolean) => void;
   required?: boolean;
   name?: string;
   tabIndex?: number;
@@ -29,7 +29,7 @@ export default function Checkbox({
     }
 
     if (!isDisabled) {
-      onToggle(!isChecked);
+      onToggle?.(!isChecked);
     }
   };
 
@@ -47,7 +47,7 @@ export default function Checkbox({
       <S.HiddenCheckbox
         type='checkbox'
         checked={isChecked}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToggle(e.target.checked)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onToggle?.(e.target.checked)}
         disabled={isDisabled}
         name={name}
         required={required}
