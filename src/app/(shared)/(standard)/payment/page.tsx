@@ -55,7 +55,7 @@ export default function Payment() {
 
     const response = await PortOne.requestIdentityVerification({
       storeId: 'store-0746d3bf-7b4d-4961-8ebb-9c1f3335cda8',
-      identityVerificationId: `identity-verification-5`,
+      identityVerificationId: `identity-verification-${crypto.randomUUID()}`,
       channelKey: 'channel-key-23cd71f0-f2f9-444a-b1bf-0d10c94448d9',
     });
 
