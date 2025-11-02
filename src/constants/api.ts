@@ -228,3 +228,8 @@ const REDIRECT_BASE_URL = `${OAUTH_BASE_URL}/callback`;
 export const KAKAO_AUTH_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=kakao&response_type=code`;
 export const NAVER_AUTH_API_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=naver&state=STATE_STRING`;
 export const GOOGLE_AUTH_API_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=google&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent`;
+
+export const PORTONE = {
+  STORE_ID: process.env.NEXT_PUBLIC_PORTONE_STORE_ID,
+  CHANNEL_KEY: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY,
+} as const;

@@ -8,6 +8,7 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
+import { PORTONE } from '@/constants/api';
 import { useChangePlanMutation } from '@/hooks/api/payment/useChangePlan';
 import { useGetBillingKey } from '@/hooks/api/payment/useGetBillingKey';
 import { useGetPlanInfo } from '@/hooks/api/payment/useGetPlanInfo';
@@ -53,10 +54,14 @@ export default function Payment() {
       return;
     }
 
+    if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEY) {
+      return;
+    }
+
     const response = await PortOne.requestIdentityVerification({
-      storeId: 'store-0746d3bf-7b4d-4961-8ebb-9c1f3335cda8',
+      storeId: PORTONE.STORE_ID,
       identityVerificationId: `identity-verification-${crypto.randomUUID()}`,
-      channelKey: 'channel-key-23cd71f0-f2f9-444a-b1bf-0d10c94448d9',
+      channelKey: PORTONE.CHANNEL_KEY,
     });
 
     if (!response) {
