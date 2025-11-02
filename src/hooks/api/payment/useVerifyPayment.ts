@@ -23,14 +23,16 @@ export const useVerifyPaymentMutation = () => {
         channelKey: PORTONE.CHANNEL_KEY,
         issueId: String(paymentHistoryId),
         issueName: planName,
+        redirectUrl: PORTONE.REDIRECT_URL,
+        offerPeriod: {
+          interval: '1m',
+        },
         customer: {
           fullName: name,
           phoneNumber: phoneNumber,
           email: email,
         },
       });
-
-      router.push('/');
     },
     onError: () => {
       alert('결제에 실패하였습니다');

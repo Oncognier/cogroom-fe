@@ -232,4 +232,5 @@ export const GOOGLE_AUTH_API_URL = `https://accounts.google.com/o/oauth2/v2/auth
 export const PORTONE = {
   STORE_ID: process.env.NEXT_PUBLIC_PORTONE_STORE_ID,
   CHANNEL_KEY: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY,
+  REDIRECT_URL: process.env.NEXT_PUBLIC_PORTONE_REDIRECT_URL,
 } as const;
