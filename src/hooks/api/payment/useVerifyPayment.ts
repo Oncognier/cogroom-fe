@@ -1,13 +1,10 @@
 import PortOne from '@portone/browser-sdk/v2';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 import { paymentApi } from '@/api/paymentApis';
 import { PORTONE } from '@/constants/api';
 
 export const useVerifyPaymentMutation = () => {
-  const router = useRouter();
-
   const mutation = useMutation({
     mutationFn: paymentApi.verifyPayment,
     onSuccess: async ({ email, phoneNumber, name, paymentHistoryId, finalPrice, planName }) => {
