@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
+import { paymentApi } from '@/api/paymentApis';
 import { PAYMENT_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { paymentApi } from '@/api/paymentApis';
 
 export const useGetPlans = () => {
   const isAuth = useAuthStore((s) => s.isAuth());
