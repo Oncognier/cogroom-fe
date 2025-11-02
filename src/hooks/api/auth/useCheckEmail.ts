@@ -6,7 +6,7 @@ import { CheckEmailRequest } from '@/types/auth';
 
 export const useCheckEmailQuery = (params: CheckEmailRequest, enabled: boolean = false) => {
   return useQuery({
-    queryKey: [AUTH_QUERY_KEYS.CHECK_EMAIL, params],
+    queryKey: [...AUTH_QUERY_KEYS.CHECK_EMAIL, params],
     queryFn: () => authApi.checkEmail(params),
     enabled,
   });
