@@ -10,6 +10,7 @@ const BASE_PATH_V1 = {
   STREAKS: `${API_V1}/streaks`,
   POSTS: `${API_V1}/posts`,
   COMMENTS: `${API_V1}/comments`,
+  PAYMENTS: `${API_V1}/payments`,
   ADMIN: `${API_V1}/admin`,
   FILES: `${API_V1}/files`,
 } as const;
@@ -21,6 +22,7 @@ const BASE_PATH_V2 = {
   STREAKS: `${API_V2}/streaks`,
   POSTS: `${API_V2}/posts`,
   COMMENTS: `${API_V2}/comments`,
+  PAYMENTS: `${API_V2}/payments`,
   ADMIN: `${API_V2}/admin`,
   FILES: `${API_V2}/files`,
 } as const;
@@ -137,6 +139,23 @@ export const END_POINTS = {
 
     /** 댓글 좋아요 등록 / 취소 (POST / DELETE) */
     LIKES: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
+  },
+
+  PAYMENTS: {
+    /** 플랜 정보 조회 (GET) */
+    PLAN: `${BASE_PATH_V1.PAYMENTS}/plan`,
+
+    /** 플랜 정보 전체 조회 (GET) */
+    PLANS: `${BASE_PATH_V1.PAYMENTS}/plans`,
+
+    /** 빌링키 조회 (GET) — 신규 결제자/플랜 업데이트 대상 확인용 */
+    BILLING_KEY: `${BASE_PATH_V1.PAYMENTS}/billingKey`,
+
+    /** 플랜 변경 (PATCH) */
+    CHANGE_PLAN: `${BASE_PATH_V1.PAYMENTS}/plan/change`,
+
+    /** 결제 인증 정보 조회 (POST) */
+    VERIFY: `${BASE_PATH_V1.PAYMENTS}/verify`,
   },
 
   ADMIN: {
