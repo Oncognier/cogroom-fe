@@ -10,6 +10,7 @@ const BASE_PATH_V1 = {
   STREAKS: `${API_V1}/streaks`,
   POSTS: `${API_V1}/posts`,
   COMMENTS: `${API_V1}/comments`,
+  PAYMENTS: `${API_V1}/payments`,
   ADMIN: `${API_V1}/admin`,
   FILES: `${API_V1}/files`,
 } as const;
@@ -21,6 +22,7 @@ const BASE_PATH_V2 = {
   STREAKS: `${API_V2}/streaks`,
   POSTS: `${API_V2}/posts`,
   COMMENTS: `${API_V2}/comments`,
+  PAYMENTS: `${API_V2}/payments`,
   ADMIN: `${API_V2}/admin`,
   FILES: `${API_V2}/files`,
 } as const;
@@ -139,6 +141,23 @@ export const END_POINTS = {
     LIKES: (commentId: string) => `${BASE_PATH_V1.COMMENTS}/${commentId}/likes`,
   },
 
+  PAYMENTS: {
+    /** 플랜 정보 조회 (GET) */
+    PLAN: `${BASE_PATH_V1.PAYMENTS}/plan`,
+
+    /** 플랜 정보 전체 조회 (GET) */
+    PLANS: `${BASE_PATH_V1.PAYMENTS}/plans`,
+
+    /** 빌링키 조회 (GET) — 신규 결제자/플랜 업데이트 대상 확인용 */
+    BILLING_KEY: `${BASE_PATH_V1.PAYMENTS}/billingKey`,
+
+    /** 플랜 변경 (PATCH) */
+    CHANGE_PLAN: `${BASE_PATH_V1.PAYMENTS}/plan/change`,
+
+    /** 결제 인증 정보 조회 (POST) */
+    VERIFY: `${BASE_PATH_V1.PAYMENTS}/verify`,
+  },
+
   ADMIN: {
     MEMBERS: {
       /** 회원 목록 조회 / 일괄 삭제 (GET / DELETE) */
@@ -209,3 +228,9 @@ const REDIRECT_BASE_URL = `${OAUTH_BASE_URL}/callback`;
 export const KAKAO_AUTH_API_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=kakao&response_type=code`;
 export const NAVER_AUTH_API_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=naver&state=STATE_STRING`;
 export const GOOGLE_AUTH_API_URL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_BASE_URL}?provider=google&response_type=code&scope=openid%20email%20profile&access_type=offline&prompt=consent`;
+
+export const PORTONE = {
+  STORE_ID: process.env.NEXT_PUBLIC_PORTONE_STORE_ID,
+  CHANNEL_KEY: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY,
+  REDIRECT_URL: process.env.NEXT_PUBLIC_PORTONE_REDIRECT_URL,
+} as const;

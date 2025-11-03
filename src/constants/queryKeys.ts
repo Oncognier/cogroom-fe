@@ -42,6 +42,13 @@ const COMMENT_QUERY_KEYS = {
   COMMENT_LIST: ['comment', 'list'],
 } as const;
 
+const PAYMENT_QUERY_KEYS = {
+  PAYMENT: ['payment'],
+  PLAN_INFO: ['payment', 'plan', 'info'],
+  PLANS: ['payment', 'plans'],
+  BILLING_KEY: ['payment', 'billing_key'],
+} as const;
+
 const ADMIN_QUERY_KEYS = {
   ADMIN: ['admin'],
   ADMIN_MEMBER_LIST: ['admin', 'member_list'],
@@ -58,5 +65,6 @@ export {
   STREAK_QUERY_KEYS,
   POST_QUERY_KEYS,
   COMMENT_QUERY_KEYS,
+  PAYMENT_QUERY_KEYS,
   ADMIN_QUERY_KEYS,
 };

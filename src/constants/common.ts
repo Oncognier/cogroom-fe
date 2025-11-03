@@ -9,8 +9,8 @@ export const DEPLOY_ENV = (process.env.NEXT_PUBLIC_DEPLOY_ENV ?? 'production') a
 
 /* ---------- 네비게이션 ---------- */
 export const HEADER_NAV_ITEMS = [
+  { label: '프리미엄', href: '/subscription' },
   { label: '데일리', href: '/daily' },
-  { label: '콘텐츠', href: '/content' },
   { label: '커뮤니티', href: '/community' },
 ] as const;
 
