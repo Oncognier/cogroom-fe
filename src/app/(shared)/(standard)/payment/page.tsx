@@ -54,14 +54,14 @@ export default function Payment() {
       return;
     }
 
-    if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEY) {
+    if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEY_IDENTITY) {
       return;
     }
 
     const response = await PortOne.requestIdentityVerification({
       storeId: PORTONE.STORE_ID,
       identityVerificationId: `identity-verification-${crypto.randomUUID()}`,
-      channelKey: PORTONE.CHANNEL_KEY,
+      channelKey: PORTONE.CHANNEL_KEY_IDENTITY,
     });
 
     if (!response) {

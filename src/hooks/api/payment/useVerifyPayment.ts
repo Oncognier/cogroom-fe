@@ -8,7 +8,7 @@ export const useVerifyPaymentMutation = () => {
   const mutation = useMutation({
     mutationFn: paymentApi.verifyPayment,
     onSuccess: async ({ email, phoneNumber, name, paymentHistoryId, finalPrice, planName }) => {
-      if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEY) {
+      if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEY_SUBSCRIPTION) {
         return;
       }
 
@@ -17,7 +17,7 @@ export const useVerifyPaymentMutation = () => {
         currency: 'KRW',
         storeId: PORTONE.STORE_ID,
         billingKeyMethod: 'CARD',
-        channelKey: PORTONE.CHANNEL_KEY,
+        channelKey: PORTONE.CHANNEL_KEY_SUBSCRIPTION,
         issueId: String(paymentHistoryId),
         issueName: planName,
         redirectUrl: PORTONE.REDIRECT_URL,
