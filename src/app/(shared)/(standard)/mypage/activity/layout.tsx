@@ -12,7 +12,7 @@ export default function ActivityLayout({ children }: { children: React.ReactNode
   return (
     <S.ActivityLayout>
       <S.ActivityHeader>
-        <S.Heading>학습 및 활동기록</S.Heading>
+        <S.Heading>데일리 활동</S.Heading>
         <TabBarList
           items={[
             {
