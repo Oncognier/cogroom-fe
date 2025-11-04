@@ -13,7 +13,11 @@ export function useCurrentPageName() {
   };
 
   if (pathname.startsWith('/mypage/activity')) {
-    return '학습 및 활동 기록';
+    return SIDEBAR_NAV_ITEMS.find((item) => item.href === '/mypage/activity')?.label || '데일리 활동';
+  }
+
+  if (pathname.startsWith('/mypage/purchase')) {
+    return SIDEBAR_NAV_ITEMS.find((item) => item.href === '/mypage/purchase')?.label || '구독 및 결제';
   }
 
   return pathMap[pathname] || '마이페이지';
