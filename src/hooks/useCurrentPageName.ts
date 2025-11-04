@@ -1,16 +1,20 @@
 import { usePathname } from 'next/navigation';
 
+import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
+
 export function useCurrentPageName() {
   const pathname = usePathname();
 
+  const sidebarPathMap = Object.fromEntries(SIDEBAR_NAV_ITEMS.map((item) => [item.href, item.label]));
+
   const pathMap: Record<string, string> = {
     '/mypage': '마이 대시보드',
-    '/mypage/setting': '개인정보 설정',
-    '/mypage/activity/daily': '학습 및 활동 기록',
-    '/mypage/purchase': '구매 기록',
-    '/mypage/community': '커뮤니티 활동',
-    '/mypage/notification': '푸시 및 카톡 알림',
+    ...sidebarPathMap,
   };
+
+  if (pathname.startsWith('/mypage/activity')) {
+    return '학습 및 활동 기록';
+  }
 
   return pathMap[pathname] || '마이페이지';
 }

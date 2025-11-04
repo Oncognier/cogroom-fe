@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 
 import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
+import { SIDEBAR_NAV_ITEMS } from '@/constants/common';
 
 export default function MyPageBreadcrumb() {
   const pathname = usePathname();
@@ -13,15 +14,15 @@ export default function MyPageBreadcrumb() {
       { name: '마이페이지', href: '/mypage' },
     ];
 
+    const sidebarPathMap = Object.fromEntries(SIDEBAR_NAV_ITEMS.map((item) => [item.href, item.label]));
+
     const pathMap: Record<string, string> = {
-      '/mypage/setting': '개인정보 설정',
-      '/mypage/history': '학습 및 활동 기록',
-      '/mypage/purchase': '구매 기록',
-      '/mypage/community': '커뮤니티 활동',
-      '/mypage/notification': '푸시 및 카톡 알림',
+      ...sidebarPathMap,
     };
 
-    if (pathMap[pathname]) {
+    if (pathname.startsWith('/mypage/activity')) {
+      items.push({ name: '학습 및 활동 기록', href: pathname });
+    } else if (pathMap[pathname]) {
       items.push({ name: pathMap[pathname], href: pathname });
     }
 
