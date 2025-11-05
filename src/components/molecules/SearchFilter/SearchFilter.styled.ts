@@ -5,6 +5,8 @@ import styled from '@emotion/styled';
 import { mqMax } from '@/styles/foundation';
 
 export const DesktopOnly = styled.div`
+  display: block;
+
   ${mqMax.tablet} {
     display: none;
   }
@@ -14,9 +16,7 @@ export const MobileOnly = styled.div`
   display: none;
 
   ${mqMax.tablet} {
-    display: flex;
-    width: 100%;
-    padding: 0.8rem 0;
+    display: block;
   }
 `;
 
@@ -27,6 +27,11 @@ export const SearchFilter = styled.div`
 
   width: 100%;
   padding: 0.8rem 0;
+
+  ${mqMax.tablet} {
+    flex-direction: row;
+    gap: 0;
+  }
 `;
 
 export const FilterContainer = styled.form`

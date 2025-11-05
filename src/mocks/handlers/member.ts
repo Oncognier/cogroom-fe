@@ -1,63 +1,122 @@
 import { http, HttpResponse } from 'msw';
 
-import { END_POINTS_V1, HTTP_STATUS_CODE } from '@/constants/api';
-import { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
+import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
+import type { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
 import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
+import { deleteUserPostError, deleteUserPostSuccess } from '../data/member/deleteUserPostData';
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
 import { getUserCommentListSuccess } from '../data/member/getUserCommentListData';
 import { getUserDailySuccess } from '../data/member/getUserDailyData';
 import { getUserDashboardSuccess } from '../data/member/getUserDashboardData';
 import { getUserInfoSuccess } from '../data/member/getUserInfoData';
+import { getUserLikeCommentListSuccess } from '../data/member/getUserLikeCommentListData';
+import { getUserLikePostListSuccess } from '../data/member/getUserLikePostListData';
 import { getUserPostListSuccess } from '../data/member/getUserPostListData';
+import { getUserProfileError, getUserProfileSuccess } from '../data/member/getUserProfileData';
 import { getUserSaveListSuccess } from '../data/member/getUserSaveData';
-import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
+import { getUserSummaryError, getUserSummarySuccess } from '../data/member/getUserSummaryData';
 import { withdrawSuccess } from '../data/member/withdrawData';
 
 export const memberHandlers = [
-  http.get(END_POINTS_V1.MEMBERS.SUMMARY, async () => {
+  // 사용자 요약 정보 조회
+  http.get(END_POINTS.MEMBERS.SUMMARY, async () => {
     return new HttpResponse(JSON.stringify(getUserSummarySuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
+
+    // 로그아웃 상태 원할 시 주석 해제
+    // return new HttpResponse(JSON.stringify(getUserSummaryError), {
+    //     status: HTTP_STATUS_CODE.BAD_REQUEST,
+    //   });
   }),
 
-  http.get(END_POINTS_V1.MEMBERS.DASHBOARD, async () => {
+  // 사용자 대시보드 정보 조회
+  http.get(END_POINTS.MEMBERS.DASHBOARD, async () => {
     return new HttpResponse(JSON.stringify(getUserDashboardSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
-  http.get(END_POINTS_V1.MEMBERS.INFO, async () => {
+  // 내 정보 조회
+  http.get(END_POINTS.MEMBERS.ME, async () => {
     return new HttpResponse(JSON.stringify(getUserInfoSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
-  http.get(END_POINTS_V1.MEMBERS.DAILY, async () => {
+  // 다른 사용자 프로필 조회
+  http.get(END_POINTS.MEMBERS.PROFILE(':memberId'), async ({ params }) => {
+    const { memberId } = params;
+    if (!memberId) {
+      return new HttpResponse(JSON.stringify(getUserProfileError), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+    return new HttpResponse(JSON.stringify(getUserProfileSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 내 데일리 질문 및 답변 조회
+  http.get(END_POINTS.MEMBERS.DAILY, async () => {
     return new HttpResponse(JSON.stringify(getUserDailySuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
-  http.get(END_POINTS_V1.MEMBERS.POSTS, async () => {
+  // 내가 작성한 게시글 조회
+  http.get(END_POINTS.MEMBERS.POSTS, async () => {
     return new HttpResponse(JSON.stringify(getUserPostListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
-  http.get(END_POINTS_V1.MEMBERS.COMMENTS, async () => {
-    return new HttpResponse(JSON.stringify(getUserCommentListSuccess), {
-      status: HTTP_STATUS_CODE.OK,
-    });
-  }),
-
-  http.get(END_POINTS_V1.MEMBERS.SAVES, async () => {
+  // 내가 저장한 게시글 조회
+  http.get(END_POINTS.MEMBERS.POSTS_SAVES, async () => {
     return new HttpResponse(JSON.stringify(getUserSaveListSuccess), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
 
-  http.patch(END_POINTS_V1.MEMBERS.INFO_EDIT, async ({ request }) => {
+  // 내가 좋아요한 게시글 조회
+  http.get(END_POINTS.MEMBERS.POSTS_LIKES, async () => {
+    return new HttpResponse(JSON.stringify(getUserLikePostListSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 내가 작성한 댓글 조회
+  http.get(END_POINTS.MEMBERS.COMMENTS, async () => {
+    return new HttpResponse(JSON.stringify(getUserCommentListSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 내가 좋아요한 댓글 조회
+  http.get(END_POINTS.MEMBERS.COMMENTS_LIKES, async () => {
+    return new HttpResponse(JSON.stringify(getUserLikeCommentListSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 내가 작성한 게시글 일괄 삭제
+  http.delete(END_POINTS.MEMBERS.POSTS, async ({ request }) => {
+    const body = (await request.json()) as { postList?: number[] } | undefined;
+
+    if (!body?.postList || body.postList.length === 0) {
+      return new HttpResponse(JSON.stringify(deleteUserPostError), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(deleteUserPostSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 사용자 정보 수정
+  http.patch(END_POINTS.MEMBERS.ME, async ({ request }) => {
     const body = (await request.json()) as EditUserInfoRequest;
 
     if (!body.email || !body.nickname) {
@@ -71,7 +130,8 @@ export const memberHandlers = [
     });
   }),
 
-  http.post(END_POINTS_V1.MEMBERS.CHECK_NICKNAME, async ({ request }) => {
+  // 닉네임 중복 검사
+  http.post(END_POINTS.MEMBERS.NICKNAME_CHECK, async ({ request }) => {
     const body = (await request.json()) as CheckNicknameRequest;
 
     if (!body.nickname) {
@@ -85,9 +145,15 @@ export const memberHandlers = [
     });
   }),
 
-  http.delete(END_POINTS_V1.MEMBERS.WITHDRAW, async () => {
+  // 회원 탈퇴
+  http.delete(END_POINTS.MEMBERS.WITHDRAW, async () => {
     return new HttpResponse(JSON.stringify(withdrawSuccess), {
       status: HTTP_STATUS_CODE.OK,
+      headers: new Headers([
+        ['Set-Cookie', 'accessToken=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax'],
+        ['Set-Cookie', 'refreshToken=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax'],
+        ['Content-Type', 'application/json'],
+      ]),
     });
   }),
 ];

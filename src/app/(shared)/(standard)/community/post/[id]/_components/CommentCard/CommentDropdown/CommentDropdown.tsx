@@ -1,0 +1,103 @@
+'use client';
+
+import DotsVerticalIcon from '@/assets/icons/dots-vertical.svg';
+import IconButton from '@/components/atoms/IconButton/IconButton';
+import { DropdownList } from '@/components/molecules/DropdownList/DropdownList';
+import { useDeleteCommentMutation } from '@/hooks/api/comment/useDeleteComment';
+import { useDropdown } from '@/hooks/useDropdown';
+import { useAlertModalStore } from '@/stores/useModalStore';
+import { DropdownOption } from '@/types/common';
+
+import * as S from './CommentDropdown.styled';
+
+interface CommentDropdownProps {
+  postId: string;
+  commentId: number;
+  isMine: boolean;
+  isAdmin: boolean;
+  onEdit: () => void;
+  onCommentUpdated?: () => void;
+}
+
+export default function CommentDropdown({
+  postId,
+  commentId,
+  isMine,
+  isAdmin,
+  onEdit,
+  onCommentUpdated,
+}: CommentDropdownProps) {
+  const { open: openAlert } = useAlertModalStore();
+  const { isOpen, toggle, close, handleBlur, dropdownRef } = useDropdown();
+  const { deleteComment } = useDeleteCommentMutation(postId);
+
+  const getDropdownOptions = (): DropdownOption[] => {
+    const options: DropdownOption[] = [];
+
+    if (isMine) {
+      options.push({ label: '수정하기', value: 'EDIT', color: 'default' });
+      options.push({ label: '삭제하기', value: 'DELETE', color: 'default' });
+    } else if (isAdmin) {
+      options.push({ label: '강제로 삭제', value: 'FORCE_DELETE', color: 'red' });
+    }
+
+    return options;
+  };
+
+  const handleDropdownSelect = (values: Array<string | number>) => {
+    const value = values[0];
+
+    if (value === 'EDIT') {
+      onEdit();
+    } else if (value === 'DELETE') {
+      openAlert('communityDelete', {
+        type: 'comment',
+        postId,
+        commentId: String(commentId),
+        onConfirm: onCommentUpdated,
+      });
+    } else if (value === 'FORCE_DELETE') {
+      deleteComment({ commentId: String(commentId) });
+    }
+
+    close();
+  };
+
+  const shouldShowMenu = isMine || isAdmin;
+
+  if (!shouldShowMenu) {
+    return null;
+  }
+
+  return (
+    <S.MenuContainer
+      ref={dropdownRef}
+      onBlur={handleBlur}
+      tabIndex={-1}
+    >
+      <IconButton
+        size='3.6rem'
+        variant='normal'
+        interactionVariant='normal'
+        onClick={toggle}
+        aria-label='더보기'
+        aria-haspopup='menu'
+        aria-expanded={isOpen}
+      >
+        <S.DotsIcon>
+          <DotsVerticalIcon />
+        </S.DotsIcon>
+      </IconButton>
+
+      {isOpen && (
+        <S.MenuDropdownWrapper>
+          <DropdownList
+            options={getDropdownOptions()}
+            selectedValues={[]}
+            onSelect={handleDropdownSelect}
+          />
+        </S.MenuDropdownWrapper>
+      )}
+    </S.MenuContainer>
+  );
+}

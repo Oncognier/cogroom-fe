@@ -2,12 +2,13 @@
 
 import type { Editor } from '@tiptap/react';
 
-import * as S from './PopupStyles.styled';
+import * as S from './FontPopup.styled';
 
 type FontPopupProps = {
   editor: Editor;
   onClose: () => void;
   onSelect: (name: string) => void;
+  variant?: 'popup' | 'inline';
 };
 
 const fonts = [
@@ -33,7 +34,7 @@ const fonts = [
   },
 ];
 
-export default function FontPopup({ editor, onClose, onSelect }: FontPopupProps) {
+export default function FontPopup({ editor, onClose, onSelect, variant = 'popup' }: FontPopupProps) {
   const handleFontSelect = (fontFamily: string, fontName: string) => {
     editor.chain().focus().setFontFamily(fontFamily).run();
     onSelect(fontName);
@@ -43,18 +44,16 @@ export default function FontPopup({ editor, onClose, onSelect }: FontPopupProps)
   const currentFontFamily = editor.getAttributes('textStyle').fontFamily || fonts[0].value;
 
   return (
-    <S.PopupContainer>
-      <S.FontList>
-        {fonts.map((font) => (
-          <S.FontItem
-            key={font.value}
-            onClick={() => handleFontSelect(font.value, font.name)}
-            isActive={currentFontFamily === font.value}
-          >
-            <S.FontPreview fontFamily={font.value}>{font.name}</S.FontPreview>
-          </S.FontItem>
-        ))}
-      </S.FontList>
-    </S.PopupContainer>
+    <S.FontList>
+      {fonts.map((font) => (
+        <S.FontItem
+          key={font.value}
+          onClick={() => handleFontSelect(font.value, font.name)}
+          isActive={currentFontFamily === font.value}
+        >
+          <S.FontPreview fontFamily={font.value}>{font.name}</S.FontPreview>
+        </S.FontItem>
+      ))}
+    </S.FontList>
   );
 }

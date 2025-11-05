@@ -1,29 +1,30 @@
 'use client';
 
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode } from 'react';
+
+import { useDropdown } from '@/hooks/useDropdown';
+
+import { PopupContainer } from './PopupWrapper.styled';
 
 type PopupWrapperProps = {
   children: ReactNode;
   onClose: () => void;
   popupType?: string;
+  variant?: 'top' | 'bottom';
 };
 
-export default function PopupWrapper({ children, onClose, popupType }: PopupWrapperProps) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function PopupWrapper({ children, onClose, popupType, variant }: PopupWrapperProps) {
+  const { dropdownRef, handleBlur } = useDropdown(onClose);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClose();
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [onClose]);
-
-  return <div ref={ref}>{children}</div>;
+  return (
+    <PopupContainer
+      ref={dropdownRef}
+      onBlur={handleBlur}
+      tabIndex={-1}
+      popupType={popupType}
+      variant={variant}
+    >
+      {children}
+    </PopupContainer>
+  );
 }

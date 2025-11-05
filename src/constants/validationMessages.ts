@@ -13,6 +13,10 @@ export const VALIDATION_MESSAGE = {
   NICKNAME_TOO_LONG_ERROR: '닉네임은 10자 이내여야 합니다.',
   NICKNAME_DUPLICATE_ERROR: '이미 사용 중인 닉네임입니다.',
   NICKNAME_EMPTY_FILED_ERROR: '닉네임은 필수입니다.',
+
+  POST_TITLE_INVALID_CHARACTERS_ERROR: '제목에 사용할 수 없는 문자가 있어요.',
+  POST_TITLE_EMPTY_FIELD_ERROR: '제목을 입력해 주세요.',
+  POST_TITLE_TOO_LONG_ERROR: '제목은 최대 50자까지 입력할 수 있어요.',
 } as const;
 
 export type ValidationErrorKey = keyof typeof VALIDATION_MESSAGE;

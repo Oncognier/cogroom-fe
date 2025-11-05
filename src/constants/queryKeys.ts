@@ -37,6 +37,11 @@ const POST_QUERY_KEYS = {
   POST_LIST: ['post', 'list'],
 } as const;
 
+const COMMENT_QUERY_KEYS = {
+  COMMENT: ['comment'],
+  COMMENT_LIST: ['comment', 'list'],
+} as const;
+
 const ADMIN_QUERY_KEYS = {
   ADMIN: ['admin'],
   ADMIN_MEMBER_LIST: ['admin', 'member_list'],
@@ -46,4 +51,12 @@ const ADMIN_QUERY_KEYS = {
   COMMENT_LIST: ['admin', 'comment_list'],
 } as const;
 
-export { AUTH_QUERY_KEYS, MEMBER_QUERY_KEYS, DAILY_QUERY_KEYS, STREAK_QUERY_KEYS, POST_QUERY_KEYS, ADMIN_QUERY_KEYS };
+export {
+  AUTH_QUERY_KEYS,
+  MEMBER_QUERY_KEYS,
+  DAILY_QUERY_KEYS,
+  STREAK_QUERY_KEYS,
+  POST_QUERY_KEYS,
+  COMMENT_QUERY_KEYS,
+  ADMIN_QUERY_KEYS,
+};

@@ -3,6 +3,7 @@
 import Upload from '@/assets/icons/upload.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Loading from '@/components/organisms/Loading/Loading';
+import Question from '@/components/organisms/Question/Question';
 import { DAILY_FEEDBACK_FORM_URL, DEFAULT_DAILY_QUESTION } from '@/constants/common';
 import { DEFAULT_DAILY_BANNER } from '@/constants/image';
 import useGetDailyHasAnsweredQuery from '@/hooks/api/daily/useGetDailyHasAnswered';
@@ -13,7 +14,6 @@ import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 
 import Calendar from './_components/Calendar/Calendar';
-import Question from './_components/Question/Question';
 import Streak from './_components/Streak/Streak';
 import * as S from './page.styled';
 

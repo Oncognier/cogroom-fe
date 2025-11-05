@@ -1,6 +1,7 @@
-import { Controller, Control } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
 
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
+import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import { Select } from '@/components/molecules/Select/Select';
 import { CategorySelectorProps, FormControl } from '@/types/communityWrite';
 
@@ -11,15 +12,19 @@ export default function CategorySelector({
   error,
   onChange,
   onCategoryChange,
-  showAnonymous,
   onAnonymousToggle,
   control,
   isAnonymousDisabled = false,
+  onSubmit,
+  isSubmitDisabled = false,
+  submitLabel = '올리기',
 }: Omit<CategorySelectorProps, 'value'> & {
-  showAnonymous: boolean;
   onAnonymousToggle: (checked: boolean) => void;
   control: FormControl;
   isAnonymousDisabled?: boolean;
+  onSubmit?: () => void;
+  isSubmitDisabled?: boolean;
+  submitLabel?: string;
 }) {
   return (
     <S.CategoryBox>
@@ -58,7 +63,7 @@ export default function CategorySelector({
         />
       </S.CategorySelect>
 
-      {showAnonymous && (
+      <S.RightSection>
         <S.AnonymousCheckbox>
           <Controller
             name='isAnonymous'
@@ -83,7 +88,19 @@ export default function CategorySelector({
             )}
           />
         </S.AnonymousCheckbox>
-      )}
+
+        {onSubmit && (
+          <OutlinedButton
+            type='button'
+            color='primary'
+            size='sm'
+            label={submitLabel}
+            interactionVariant='normal'
+            isDisabled={isSubmitDisabled}
+            onClick={onSubmit}
+          />
+        )}
+      </S.RightSection>
     </S.CategoryBox>
   );
 }

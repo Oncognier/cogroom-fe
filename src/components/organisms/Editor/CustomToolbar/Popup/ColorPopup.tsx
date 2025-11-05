@@ -4,18 +4,19 @@ import type { Editor } from '@tiptap/react';
 import { useState } from 'react';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
-import { palette, semantic } from '@/styles/color';
+import { palette, cogroom } from '@/styles/color';
 
-import * as S from './PopupStyles.styled';
+import * as S from './ColorPopup.styled';
 
 type ColorPopupProps = {
   editor: Editor;
   onClose: () => void;
   currentColor?: string;
+  variant?: 'popup' | 'inline';
 };
 
 const colorPalette = [
-  ['transparent', semantic.static.white, semantic.static.black],
+  ['transparent', cogroom.white, cogroom.black],
   [palette.neutral[98], palette.neutral[95], palette.neutral[80], palette.neutral[60], palette.neutral[40]],
   [palette.blue[90], palette.blue[70], palette.blue[50], palette.blue[30], palette.blue[10]],
   [palette.green[90], palette.green[70], palette.green[50], palette.green[30], palette.green[10]],
@@ -23,7 +24,12 @@ const colorPalette = [
   [palette.orange[90], palette.orange[70], palette.orange[50], palette.orange[30], palette.orange[10]],
 ];
 
-export default function ColorPopup({ editor, onClose, currentColor = '#000000' }: ColorPopupProps) {
+export default function ColorPopup({
+  editor,
+  onClose,
+  currentColor = cogroom.black,
+  variant = 'popup',
+}: ColorPopupProps) {
   const [customColor, setCustomColor] = useState(currentColor);
 
   const handleColorSelect = (color: string) => {
@@ -64,12 +70,12 @@ export default function ColorPopup({ editor, onClose, currentColor = '#000000' }
       editor.chain().focus().setColor(customColor).run();
       onClose();
     } else {
-      setCustomColor('#000000');
+      setCustomColor(cogroom.black);
     }
   };
 
   return (
-    <S.PopupContainer popupType='color'>
+    <>
       <S.ColorGrid>
         {colorPalette.map((row, rowIndex) => (
           <S.ColorRow key={rowIndex}>
@@ -97,7 +103,7 @@ export default function ColorPopup({ editor, onClose, currentColor = '#000000' }
           type='text'
           value={customColor.toUpperCase()}
           onChange={handleHexInputChange}
-          placeholder='#000000'
+          placeholder={cogroom.black}
           maxLength={7}
           onKeyDown={(e) => {
             if (e.key === 'Backspace' && e.currentTarget.selectionStart === 1) {
@@ -121,6 +127,6 @@ export default function ColorPopup({ editor, onClose, currentColor = '#000000' }
           onClick={handleCustomColorApply}
         />
       </S.CustomColorSection>
-    </S.PopupContainer>
+    </>
   );
 }

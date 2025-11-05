@@ -10,23 +10,24 @@ import * as S from './CommunityDelete.styled';
 
 export interface CommunityDeleteProps {
   type: 'post' | 'comment';
-  id: number;
+  postId: string;
+  commentId?: string;
   onConfirm?: () => void;
 }
 
-export default function CommunityDelete({ type, id, onConfirm }: CommunityDeleteProps) {
+export default function CommunityDelete({ type, postId, commentId, onConfirm }: CommunityDeleteProps) {
   const { close } = useAlertModalStore();
 
   const { deletePost } = useDeletePostMutation(onConfirm);
-  const { deleteComment } = useDeleteCommentMutation();
+  const { deleteComment } = useDeleteCommentMutation(postId);
 
   const isPost = type === 'post';
 
   const handleConfirm = () => {
     if (isPost) {
-      deletePost({ postId: String(id) });
+      deletePost({ postId });
     } else {
-      deleteComment({ commentId: String(id) });
+      if (commentId) deleteComment({ commentId });
     }
     close();
   };

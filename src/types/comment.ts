@@ -54,7 +54,6 @@ export type UpdateCommentResponse = ApiResponse & {
 };
 
 export type CommentListRequest = {
-  categoryId?: number[];
   pageSize?: number;
   cursor?: number;
 };

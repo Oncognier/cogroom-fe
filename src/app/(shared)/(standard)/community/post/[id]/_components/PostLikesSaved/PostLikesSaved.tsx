@@ -1,8 +1,8 @@
 import BookmarkIcon from '@/assets/icons/bookmark.svg';
 import HeartIcon from '@/assets/icons/heart.svg';
 import IconButton from '@/components/atoms/IconButton/IconButton';
-import { useTogglePostLike } from '@/hooks/api/post/useTogglePostLike';
-import { useTogglePostSave } from '@/hooks/api/post/useTogglePostSave';
+import { useLikePost } from '@/hooks/api/post/useLikePost';
+import { useSavePost } from '@/hooks/api/post/useSavePost';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 import { formatCountPlus } from '@/utils/formatText';
@@ -24,8 +24,8 @@ export default function PostLikesSaved({
   saveCount = 0,
   isSaved = false,
 }: PostLikesSavedProps) {
-  const togglePostLikeMutation = useTogglePostLike();
-  const togglePostSaveMutation = useTogglePostSave();
+  const { likePost } = useLikePost();
+  const { savePost } = useSavePost();
   const { open } = useAppModalStore();
   const isAuth = useAuthStore((s) => s.isAuth());
 
@@ -34,8 +34,7 @@ export default function PostLikesSaved({
       open('login');
       return;
     }
-    if (togglePostLikeMutation.isPending) return;
-    togglePostLikeMutation.mutate({ postId, isLiked });
+    likePost({ postId, isLiked });
   };
 
   const handleSaveClick = () => {
@@ -43,8 +42,7 @@ export default function PostLikesSaved({
       open('login');
       return;
     }
-    if (togglePostSaveMutation.isPending) return;
-    togglePostSaveMutation.mutate({ postId, isSaved });
+    savePost({ postId, isSaved });
   };
 
   return (
@@ -55,8 +53,8 @@ export default function PostLikesSaved({
           variant={isLiked ? 'solid' : 'outlined'}
           interactionVariant='normal'
           onClick={handleLikeClick}
-          isDisabled={togglePostLikeMutation.isPending}
-          aria-busy={togglePostLikeMutation.isPending}
+          isDisabled={false}
+          aria-busy={false}
         >
           <HeartIcon />
         </IconButton>
@@ -69,8 +67,8 @@ export default function PostLikesSaved({
           variant={isSaved ? 'solid' : 'outlined'}
           interactionVariant='normal'
           onClick={handleSaveClick}
-          isDisabled={togglePostSaveMutation.isPending}
-          aria-busy={togglePostSaveMutation.isPending}
+          isDisabled={false}
+          aria-busy={false}
         >
           <BookmarkIcon />
         </IconButton>

@@ -14,9 +14,16 @@ type Props = {
   activePopup: PopupType;
   togglePopup: (p: PopupType) => void;
   closePopups: () => void;
+  variant?: 'top' | 'bottom';
 };
 
-export default function CustomToolbarUtilities({ editor, activePopup, togglePopup, closePopups }: Props) {
+export default function CustomToolbarUtilities({
+  variant = 'bottom',
+  editor,
+  activePopup,
+  togglePopup,
+  closePopups,
+}: Props) {
   return (
     <S.UtilitiesGroup>
       <S.DropdownWrapper>
@@ -32,6 +39,7 @@ export default function CustomToolbarUtilities({ editor, activePopup, togglePopu
           <PopupWrapper
             onClose={closePopups}
             popupType='link'
+            variant={variant}
           >
             <LinkPopup
               editor={editor}

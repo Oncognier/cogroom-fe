@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import CommentListRow from '@/app/(shared)/(standard)/mypage/_components/CommentListRow/CommentListRow';
 import SortButton from '@/app/(shared)/(standard)/mypage/_components/SortButton/SortButton';
@@ -12,27 +12,31 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Loading from '@/components/organisms/Loading/Loading';
 import { POST_CATEGORY_SELECT_OPTIONS } from '@/constants/common';
 import useGetUserComment from '@/hooks/api/member/useGetUserComment';
+import { useCategoryParam } from '@/hooks/queryParams/useCategoryParam';
+import { useDateRangeParams } from '@/hooks/queryParams/useDateRangeParams';
+import { useKeywordParam } from '@/hooks/queryParams/useKeywordParam';
+import { useSortParam } from '@/hooks/queryParams/useSortParam';
 import useScroll from '@/hooks/useScroll';
-import { useUrlSearchParams } from '@/hooks/useUrlSearchParams';
-import { SortType } from '@/types/member';
 
 import * as S from './page.styled';
 
 export default function Comments() {
   const router = useRouter();
-  const { updateSearchParams, getSearchParam, getSearchParamAsDate, getSearchParamAsArray } = useUrlSearchParams();
-  const [sort, setSort] = useState<SortType>('latest');
+
+  const [categoryId] = useCategoryParam();
+  const [keyword] = useKeywordParam();
+  const [{ startDate, endDate }] = useDateRangeParams();
+  const [sort, setSort] = useSortParam('latest');
 
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetUserComment({
     sort,
-    categoryId: getSearchParamAsArray('categoryId').map(Number) || undefined,
-    keyword: getSearchParam('keyword') ?? '',
-    startDate: getSearchParamAsDate('startDate') ?? undefined,
-    endDate: getSearchParamAsDate('endDate') ?? undefined,
+    categoryId,
+    keyword,
+    startDate,
+    endDate,
   });
 
-  const total = data?.pages?.[0]?.totalElements;
-
+  const total = data?.pages?.[0]?.totalElements ?? 0;
   const comments = useMemo(() => (data?.pages ?? []).flatMap((p) => p.data ?? []), [data]);
 
   const { observerRef } = useScroll({
@@ -40,12 +44,7 @@ export default function Comments() {
     fetchNext: fetchNextPage,
   });
 
-  const handleSortChange = () => {
-    const next = sort === 'latest' ? 'oldest' : 'latest';
-    setSort(next);
-    updateSearchParams({ sort: next });
-  };
-
+  const handleSortChange = () => setSort(sort === 'latest' ? 'oldest' : 'latest');
   const handleGoToCommunity = () => router.push('/community');
 
   if (isLoading) return <Loading />;
@@ -68,7 +67,7 @@ export default function Comments() {
             ],
             search: [{ name: 'keyword', placeholder: '댓글 내용 입력' }],
           }}
-          actions={[{ type: 'submit', label: '검색하기' }]}
+          action={{ label: '검색하기' }}
         />
 
         <S.SortButtonWrapper>

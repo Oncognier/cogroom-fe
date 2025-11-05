@@ -2,7 +2,8 @@
 
 import styled from '@emotion/styled';
 
-import { editorContentStyles } from '@/styles/commonStyles';
+import { editorContentStyles } from '@/styles/editorContentStyles';
+import { mqMax } from '@/styles/foundation';
 
 type EditorWrapperProps = {
   height: number;
@@ -17,26 +18,12 @@ export const EditorWrapper = styled.div`
   height: 100%;
 
   .ProseMirror {
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      'Helvetica Neue',
-      Arial,
-      'Noto Sans',
-      'Apple SD Gothic Neo',
-      'Malgun Gothic',
-      '맑은 고딕',
-      'Nanum Gothic',
-      sans-serif !important;
-
+    ${({ theme }) => editorContentStyles(theme)}
     height: 100%;
     color: ${({ theme }) => theme.semantic.label.normal};
     background-color: ${({ theme }) => theme.semantic.static.white};
 
-    overflow: hidden;
+    overflow-y: auto;
     outline: none;
 
     &.is-editor-empty:first-child::before {
@@ -46,8 +33,6 @@ export const EditorWrapper = styled.div`
       height: 0;
       pointer-events: none;
     }
-
-    ${({ theme }) => editorContentStyles(theme)}
 
     blockquote {
       margin: 1.6rem 0;
@@ -60,17 +45,68 @@ export const EditorWrapper = styled.div`
       }
     }
   }
+
+  /* readonly 모드 HTML 파싱 콘텐츠 스타일 */
+  .readonly-content {
+    ${({ theme }) => editorContentStyles(theme)}
+    color: ${({ theme }) => theme.semantic.label.normal};
+
+    p:empty {
+      min-height: 1.6rem;
+      margin: 0.5rem 0 !important;
+    }
+
+    p {
+      margin: 0.5rem 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.8rem;
+
+      &[data-align='left'] {
+        display: block;
+        margin-left: 0;
+        margin-right: auto;
+      }
+
+      &[data-align='center'] {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &[data-align='right'] {
+        display: block;
+        margin-left: auto;
+        margin-right: 0;
+      }
+    }
+  }
 `;
 
-export const EditorContent = styled.div<EditorWrapperProps>`
-  min-height: 400px;
-  height: ${({ height }) => `${height}px`};
+export const EditorContent = styled.div<EditorWrapperProps & { readonly?: boolean }>`
+  min-height: ${({ readonly }) => (readonly ? '200px' : '400px')};
+  height: ${({ height, readonly }) => (readonly ? '100%' : `${height}px`)};
   padding: 1.2rem 1.6rem;
 
-  border: 1px solid ${({ theme }) => theme.semantic.label.assistive};
+  border: ${({ readonly, theme }) => (readonly ? 'none' : `1px solid ${theme.semantic.label.assistive}`)};
   border-radius: 1.2rem;
   & > div {
     height: 100%;
     padding-top: 2rem;
+  }
+`;
+
+export const FloatingButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 1.8rem;
+  right: 1.6rem;
+  z-index: 1000;
+  display: none;
+
+  ${mqMax.tablet} {
+    display: block;
   }
 `;

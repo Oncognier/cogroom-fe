@@ -1,23 +1,20 @@
 import { useMemo } from 'react';
 
+import CommentField from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentField/CommentField';
+import CommentList from '@/app/(shared)/(standard)/community/post/[id]/_components/CommentList/CommentList';
 import InfiniteScrollSentinel from '@/components/atoms/InfiniteScrollSentinel/InfiniteScrollSentinel';
-import CommentField from '@/components/molecules/CommentField/CommentField';
-import CommentList from '@/components/molecules/CommentList/CommentList';
 import { useGetComments } from '@/hooks/api/comment/useGetComments';
 import useScroll from '@/hooks/useScroll';
-import { useAuthStore } from '@/stores/useAuthStore';
 
 import * as S from './PostComments.styled';
 
 interface PostCommentsProps {
   postId: string;
   commentCount?: number;
-  isPostAnonymous?: boolean;
 }
 
-export default function PostComments({ postId, commentCount, isPostAnonymous }: PostCommentsProps) {
-  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage, refetch } = useGetComments(postId);
-  const isAdmin = useAuthStore((s) => s.isAdmin());
+export default function PostComments({ postId, commentCount }: PostCommentsProps) {
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useGetComments(postId);
 
   const comments = useMemo(() => {
     const result =
@@ -33,28 +30,17 @@ export default function PostComments({ postId, commentCount, isPostAnonymous }: 
     fetchNext: fetchNextPage,
   });
 
-  const handleCommentUpdated = () => {
-    refetch();
-  };
-
   return (
     <S.PostCommentsWrapper>
       <S.CommentsTopWrapper>
         <S.CommentsHeader>댓글 {commentCount}개</S.CommentsHeader>
-        <CommentField
-          postId={postId}
-          onSuccess={handleCommentUpdated}
-          showAnonymousCheckbox={isPostAnonymous}
-        />
+        <CommentField postId={postId} />
       </S.CommentsTopWrapper>
 
       <CommentList
         comments={comments}
         postId={postId}
         isLoading={isLoading && comments.length === 0}
-        isAdmin={isAdmin}
-        isPostAnonymous={isPostAnonymous}
-        onCommentUpdated={handleCommentUpdated}
       />
 
       <InfiniteScrollSentinel
