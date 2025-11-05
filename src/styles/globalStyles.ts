@@ -119,12 +119,6 @@ const globalStyles = () => css`
     line-height: 1;
   }
 
-  ol,
-  ul,
-  li {
-    list-style: none;
-  }
-
   blockquote,
   q {
     quotes: none;
