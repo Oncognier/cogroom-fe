@@ -77,7 +77,7 @@ export default function Payment() {
   return (
     <S.Payment>
       <S.PaymentCardWrapper>
-        {plans?.map((plan) => (
+        {plans?.slice(0, -1).map((plan) => (
           <PaymentCard
             key={plan.planId}
             id={plan.planId}
