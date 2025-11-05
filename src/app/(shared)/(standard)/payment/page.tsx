@@ -83,10 +83,12 @@ export default function Payment() {
             id={plan.planId}
             name={plan.name}
             basePrice={plan.basePrice}
-            baseDiscountAmount={plan.baseDiscountAmount}
             finalPrice={plan.finalPrice}
+            monthlyPrice={plan.monthlyPrice}
+            description={plan.description}
             selectedId={selectedId ?? undefined}
             onSelect={setSelectedId}
+            isFreeTrial={plan.planId === 1}
           />
         ))}
       </S.PaymentCardWrapper>
@@ -127,7 +129,7 @@ export default function Payment() {
           <S.PaymentResult>
             <S.InfoWrapper>
               <S.ResultText>결제 및 총합</S.ResultText>
-              <S.ResultText>{planInfo?.finalPrice} KRW</S.ResultText>
+              <S.ResultText>{planInfo?.monthlyPrice} KRW</S.ResultText>
             </S.InfoWrapper>
             <S.AgreementSection>
               <S.AgreementRow>
