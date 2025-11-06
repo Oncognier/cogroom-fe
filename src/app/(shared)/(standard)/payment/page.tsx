@@ -88,7 +88,7 @@ export default function Payment() {
             description={plan.description}
             selectedId={selectedId ?? undefined}
             onSelect={setSelectedId}
-            isFreeTrial={plan.planId === 1}
+            isFreeTrial={plan.planId === PLAN_MAPPING['MONTH']}
           />
         ))}
       </S.PaymentCardWrapper>
