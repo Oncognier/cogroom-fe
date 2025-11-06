@@ -2,14 +2,38 @@
 
 import styled from '@emotion/styled';
 
-export const PaymentCard = styled.div`
+export const PaymentCard = styled.div<{ $hasFreeBadge?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.24rem;
+
+  width: 100%;
+  padding-top: ${({ $hasFreeBadge }) => ($hasFreeBadge ? '0.9rem' : '0')};
+  margin-top: ${({ $hasFreeBadge }) => ($hasFreeBadge ? '0' : '3.7rem')};
+  height: fit-content;
+  border-radius: ${({ $hasFreeBadge }) => ($hasFreeBadge ? '2.4rem 2.4rem 2.5rem 2.5rem' : '2.5rem')};
+  background-color: ${({ theme }) => theme.cogroom.black};
+`;
+
+export const FreeBadge = styled.p`
+  ${({ theme }) => theme.typography.body1Reading.medium};
+  color: ${({ theme }) => theme.cogroom.white};
+`;
+
+export const CardContainer = styled.div<{ $isChecked?: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 4.4rem;
 
+  width: 100%;
   padding: 2.4rem 2.4rem 3.6rem 2.4rem;
-  border: 1px solid rgba(117, 154, 217, 0.6);
+  border: ${({ $isChecked, theme }) =>
+    $isChecked ? `2px solid ${theme.semantic.primary.normal}` : '1px solid rgba(117, 154, 217, 0.6)'};
   border-radius: 2.4rem;
+  background-color: ${({ theme }) => theme.semantic.background.normal.normal};
+
+  cursor: pointer;
 `;
 
 export const PlanCardHeader = styled.div`
@@ -41,6 +65,10 @@ export const PriceInfoWrapper = styled.div`
 export const DiscountInfo = styled.p`
   ${({ theme }) => theme.typography.body1Reading.regular};
   color: ${({ theme }) => theme.palette.neutral[50]};
+
+  span {
+    text-decoration: line-through;
+  }
 `;
 
 export const FinalPrice = styled.div`
@@ -59,4 +87,60 @@ export const Currency = styled.p`
   color: ${({ theme }) => theme.palette.neutral[50]};
 
   margin-bottom: 0.6rem;
+`;
+
+export const PlanDescription = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+`;
+
+export const PlanDescriptionList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+`;
+
+export const ListItem = styled.li`
+  display: flex;
+  align-items: center;
+`;
+
+export const Marker = styled.div`
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 0.9rem;
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.semantic.primary.normal};
+`;
+
+export const Description = styled.div`
+  ${({ theme }) => theme.typography.body1Reading.medium};
+  color: ${({ theme }) => theme.palette.neutral[30]};
+
+  &.pending {
+    color: ${({ theme }) => theme.palette.neutral[80]};
+  }
+
+  u {
+    text-decoration: none;
+    box-shadow: inset 0 -1px 0 ${({ theme }) => theme.palette.neutral[30]};
+  }
+`;
+
+export const ShowMoreButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  width: fit-content;
+  ${({ theme }) => theme.typography.body1Reading.semibold};
+  color: ${({ theme }) => theme.cogroom.black};
+`;
+
+export const ChevronIcon = styled.div`
+  width: 2.4rem;
+  height: 2.4rem;
+
+  color: ${({ theme }) => theme.cogroom.black};
 `;

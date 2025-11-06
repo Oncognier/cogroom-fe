@@ -65,3 +65,17 @@ export function getAdminDisplayName(nickname: string, isAnonymous: boolean): str
   }
   return nickname;
 }
+
+/**
+ * description 문자열을 // 기준으로 파싱하는 함수
+ * @param description 플랜의 description 문자열
+ * @returns string[] 파싱된 항목 배열
+ */
+export const parsePlanDescription = (description: string): string[] => {
+  if (!description) return [];
+
+  return description
+    .split('//') // "//" 기준 분리
+    .map((item) => item.trim()) // 공백 제거
+    .filter((item) => item.length > 0); // 빈 문자열 제거
+};

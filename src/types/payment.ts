@@ -7,6 +7,7 @@ export interface Plan {
   baseDiscountAmount: number;
   baseDiscountRate: number;
   finalPrice: number;
+  monthlyPrice: number;
   billingCycle: 'MONTHLY' | 'YEARLY';
   description: string;
   status: 'ACTIVE' | 'INACTIVE';
