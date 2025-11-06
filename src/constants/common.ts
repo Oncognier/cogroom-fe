@@ -16,10 +16,10 @@ export const HEADER_NAV_ITEMS = [
 
 export const SIDEBAR_NAV_ITEMS = [
   { label: '개인정보 설정', href: '/mypage/setting' },
-  { label: '데일리 활동', href: '/mypage/activity' },
+  { label: '데일리 활동', href: '/mypage/activity/daily' },
   { label: '알림 설정', href: '/mypage/notification' },
-  { label: '커뮤니티 활동', href: '/mypage/community' },
-  { label: '구독 및 결제', href: '/mypage/purchase' },
+  { label: '커뮤니티 활동', href: '/mypage/community/posts' },
+  { label: '구독 및 결제', href: '/mypage/purchase/subscribe' },
 ] as const;
 
 /* ---------- 메타 데이터 ---------- */
