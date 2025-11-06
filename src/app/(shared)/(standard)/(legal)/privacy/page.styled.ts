@@ -82,8 +82,6 @@ export const SectionContentList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
-
-  list-style: none;
 `;
 
 export const SectionContentListItem = styled.li`

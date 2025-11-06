@@ -87,11 +87,13 @@ export default function PaymentCard({
               {visibleDescriptions.map((item, index) => {
                 const isPending = item.includes('(준비중)');
                 return (
-                  <li
-                    key={index}
-                    className={isPending ? 'pending' : undefined}
-                    dangerouslySetInnerHTML={{ __html: item }}
-                  />
+                  <S.ListItem key={index}>
+                    <S.Marker />
+                    <S.Description
+                      className={isPending ? 'pending' : undefined}
+                      dangerouslySetInnerHTML={{ __html: item }}
+                    />
+                  </S.ListItem>
                 );
               })}
             </S.PlanDescriptionList>

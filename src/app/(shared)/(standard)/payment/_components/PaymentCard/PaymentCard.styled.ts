@@ -99,28 +99,32 @@ export const PlanDescriptionList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+`;
 
-  padding-left: 0.9rem;
-  list-style-position: inside;
+export const ListItem = styled.li`
+  display: flex;
+  align-items: center;
+`;
 
-  li {
-    display: list-item;
+export const Marker = styled.div`
+  width: 0.6rem;
+  height: 0.6rem;
+  margin: 0.9rem;
+  border-radius: 999px;
+  background-color: ${({ theme }) => theme.semantic.primary.normal};
+`;
 
-    ${({ theme }) => theme.typography.body1Reading.medium};
-    color: ${({ theme }) => theme.palette.neutral[30]};
+export const Description = styled.div`
+  ${({ theme }) => theme.typography.body1Reading.medium};
+  color: ${({ theme }) => theme.palette.neutral[30]};
 
-    &.pending {
-      color: ${({ theme }) => theme.palette.neutral[80]};
-    }
-
-    u {
-      text-decoration: none;
-      box-shadow: inset 0 -1px 0 ${({ theme }) => theme.palette.neutral[30]};
-    }
+  &.pending {
+    color: ${({ theme }) => theme.palette.neutral[80]};
   }
 
-  li::marker {
-    color: ${({ theme }) => theme.semantic.primary.normal};
+  u {
+    text-decoration: none;
+    box-shadow: inset 0 -1px 0 ${({ theme }) => theme.palette.neutral[30]};
   }
 `;
 
