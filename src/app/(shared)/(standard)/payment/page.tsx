@@ -17,11 +17,7 @@ import { useVerifyPaymentMutation } from '@/hooks/api/payment/useVerifyPayment';
 
 import PaymentCard from './_components/PaymentCard/PaymentCard';
 import * as S from './page.styled';
-
-const PLAN_MAPPING: Record<string, number> = {
-  MONTH: 1,
-  YEAR: 2,
-};
+import { PLAN_MAPPING } from '@/constants/common';
 
 export default function Payment() {
   const searchParams = useSearchParams();

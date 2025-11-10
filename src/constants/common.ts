@@ -171,6 +171,13 @@ export const WITHDRAW_STEP = {
 } as const;
 export type WithdrawStep = (typeof WITHDRAW_STEP)[keyof typeof WITHDRAW_STEP];
 
+/* ---------- 구독/결제 관련 ---------- */
+export const PLAN_MAPPING: Record<string, number> = {
+  MONTH: 1,
+  YEAR: 2,
+  FREE: 3,
+} as const;
+
 /* ---------- UI/기능 관련 ---------- */
 export const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
 export const PAGINATION_VISIBLE_RANGE = 5;
