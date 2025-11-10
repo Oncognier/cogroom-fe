@@ -90,6 +90,9 @@ export const END_POINTS = {
 
     /** 회원 탈퇴 (DELETE) */
     WITHDRAW: `${BASE_PATH_V1.MEMBERS}/me/withdraw`,
+
+    /** 구독 정보 조회 (GET) */
+    SUBSCRIPTION: `${BASE_PATH_V1.MEMBERS}/me/subscription`,
   },
 
   DAILY: {

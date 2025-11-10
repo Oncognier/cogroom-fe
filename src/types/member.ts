@@ -87,3 +87,15 @@ export interface UserPostListResponse extends ApiResponse {
 export interface UserCommentListResponse extends ApiResponse {
   result: CursorPaginationResult<Comment>;
 }
+
+export type UserSubscription = {
+  planId: number;
+  name: string;
+  nextPaymentDate: string;
+  startedAt: string;
+  duration: number;
+};
+
+export interface UserSubscriptionResponse extends ApiResponse {
+  result: UserSubscription;
+}
