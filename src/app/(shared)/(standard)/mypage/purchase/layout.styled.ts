@@ -10,6 +10,12 @@ export const PurchaseLayout = styled.div`
   width: 100%;
 `;
 
+export const PurchaseHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+`;
+
 export const Heading = styled.p`
   ${({ theme }) => theme.typography.heading1.semibold};
   color: ${({ theme }) => theme.semantic.label.normal};

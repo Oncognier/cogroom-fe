@@ -1,6 +1,5 @@
-import ScriptX from '@/assets/icons/script-x.svg';
-import EmptyState from '@/components/organisms/EmptyState/EmptyState';
+import { redirect } from 'next/navigation';
 
 export default function Purchase() {
-  return <EmptyState icon={<ScriptX />} />;
+  redirect('/mypage/purchase/subscribe');
 }
