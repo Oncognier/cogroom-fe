@@ -1,13 +1,14 @@
 'use client';
 
-import Check from '@/assets/icons/check.svg';
-import { parsePlanDescription } from '@/utils/formatText';
 import { useRouter } from 'next/navigation';
 
-import * as S from './SubscriptionCard.styled';
-import SolidTag from '@/components/atoms/SolidTag/SolidTag';
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
+import Check from '@/assets/icons/check.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import SolidButton from '@/components/atoms/SolidButton/SolidButton';
+import SolidTag from '@/components/atoms/SolidTag/SolidTag';
+import { parsePlanDescription } from '@/utils/formatText';
+
+import * as S from './SubscriptionCard.styled';
 
 export interface SubscriptionCardProps {
   id: number;
