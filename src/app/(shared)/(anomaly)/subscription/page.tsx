@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { PLAN_MAPPING } from '@/constants/common';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useGetPlans } from '@/hooks/api/payment/useGetPlans';
 
 import SubscriptionCard from './_components/SubscriptionCard/SubscriptionCard';
@@ -11,13 +12,20 @@ import * as S from './page.styled';
 
 export default function Subscription() {
   const router = useRouter();
+  const { data: userSummary } = useGetUserSummary();
   const { data: plans } = useGetPlans();
 
   const reorderedPlans = plans ? [plans[plans.length - 1], ...plans.slice(0, plans.length - 1)] : [];
 
   const handleClick = () => {
-    router.push('/payment');
+    if (userSummary?.isTrialUsed) {
+      router.push('/payment');
+    } else {
+      router.push('/payment?plan=MONTH&trial=true');
+    }
   };
+
+  const buttonLabel = userSummary?.isTrialUsed ? '지금 시작하기' : '무료체험 하기';
 
   return (
     <S.Subscription>
@@ -51,7 +59,7 @@ export default function Subscription() {
 
           <SolidButton
             size='lg'
-            label='지금 시작하기'
+            label={buttonLabel}
             color='primary'
             interactionVariant='normal'
             onClick={handleClick}
