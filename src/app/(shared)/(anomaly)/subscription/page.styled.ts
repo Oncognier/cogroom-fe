@@ -7,6 +7,10 @@ export const Subscription = styled.div`
   flex-direction: column;
 `;
 
+export const FirstLayout = styled.div`
+  padding: 12rem 0;
+`;
+
 export const SelectPlan = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,7 +18,8 @@ export const SelectPlan = styled.div`
   align-items: center;
   gap: 6rem;
 
-  padding: 12rem 0;
+  max-width: 111.7rem;
+  margin: 0 auto;
 `;
 
 export const TextWrapper = styled.div`
@@ -36,4 +41,11 @@ export const Subtext = styled.p`
   color: ${({ theme }) => theme.semantic.label.normal};
 
   text-align: center;
+`;
+
+export const SubscriptionCardWrapper = styled.div`
+  display: flex;
+  gap: 3.2rem;
+
+  width: 100%;
 `;

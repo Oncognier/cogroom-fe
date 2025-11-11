@@ -9,6 +9,7 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import { PORTONE } from '@/constants/api';
+import { PLAN_MAPPING } from '@/constants/common';
 import { useChangePlanMutation } from '@/hooks/api/payment/useChangePlan';
 import { useGetBillingKey } from '@/hooks/api/payment/useGetBillingKey';
 import { useGetPlanInfo } from '@/hooks/api/payment/useGetPlanInfo';
@@ -17,11 +18,6 @@ import { useVerifyPaymentMutation } from '@/hooks/api/payment/useVerifyPayment';
 
 import PaymentCard from './_components/PaymentCard/PaymentCard';
 import * as S from './page.styled';
-
-const PLAN_MAPPING: Record<string, number> = {
-  MONTH: 1,
-  YEAR: 2,
-};
 
 export default function Payment() {
   const searchParams = useSearchParams();
