@@ -10,6 +10,7 @@ import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
 import { PORTONE } from '@/constants/api';
 import { PLAN_MAPPING } from '@/constants/common';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useChangePlanMutation } from '@/hooks/api/payment/useChangePlan';
 import { useGetBillingKey } from '@/hooks/api/payment/useGetBillingKey';
 import { useGetPlanInfo } from '@/hooks/api/payment/useGetPlanInfo';
@@ -19,19 +20,30 @@ import { useVerifyPaymentMutation } from '@/hooks/api/payment/useVerifyPayment';
 import PaymentCard from './_components/PaymentCard/PaymentCard';
 import * as S from './page.styled';
 
+const isFreeTrialAvailable = (trialParam: boolean, isTrialUsed: boolean, planId: number) => {
+  const monthlyPlanId = PLAN_MAPPING['MONTH'];
+  return trialParam && !isTrialUsed && planId === monthlyPlanId;
+};
+
 export default function Payment() {
   const searchParams = useSearchParams();
-  const planParam = searchParams.get('plan');
+  const planParam = searchParams.get('plan') ?? 'MONTH';
+  const isTrialParam = searchParams.get('trial') === 'true';
 
-  const [selectedId, setSelectedId] = useState<number>(PLAN_MAPPING[planParam ?? 'MONTH']);
-  const { data: billingKey } = useGetBillingKey();
-  const { data: plans } = useGetPlans();
-  const { data: planInfo } = useGetPlanInfo(selectedId);
-  const { verifyPayment } = useVerifyPaymentMutation();
-  const { changePlan } = useChangePlanMutation();
-
+  const [selectedId, setSelectedId] = useState<number>(PLAN_MAPPING[planParam]);
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
   const [showAgreementError, setShowAgreementError] = useState<boolean>(false);
+
+  const { data: userSummary } = useGetUserSummary();
+  const { data: billingKey } = useGetBillingKey();
+  const { data: plans } = useGetPlans();
+  const { data: planInfo } = useGetPlanInfo(
+    selectedId,
+    isFreeTrialAvailable(isTrialParam, userSummary?.isTrialUsed ?? false, selectedId),
+  );
+
+  const { verifyPayment } = useVerifyPaymentMutation();
+  const { changePlan } = useChangePlanMutation();
 
   const handleClick = async () => {
     if (!isAgreed) {
@@ -42,11 +54,12 @@ export default function Payment() {
     setShowAgreementError(false);
 
     if (!planInfo) {
-      return alert('결제 정보를 불러오는 데 실패했습니다.');
+      alert('결제 정보를 불러오는 데 실패했습니다.');
+      return;
     }
 
     if (billingKey?.isExist) {
-      changePlan({ paymentHistoryId: planInfo?.paymentHistoryId });
+      changePlan({ paymentHistoryId: planInfo.paymentHistoryId });
       return;
     }
 
@@ -61,12 +74,13 @@ export default function Payment() {
     });
 
     if (!response) {
-      return alert('본인인증에 실패하였습니다');
+      alert('본인인증에 실패하였습니다');
+      return;
     }
 
     verifyPayment({
       identityVerificationId: response.identityVerificationId,
-      paymentHistoryId: planInfo?.paymentHistoryId,
+      paymentHistoryId: planInfo.paymentHistoryId,
     });
   };
 
@@ -82,18 +96,19 @@ export default function Payment() {
             finalPrice={plan.finalPrice}
             monthlyPrice={plan.monthlyPrice}
             description={plan.description}
-            selectedId={selectedId ?? undefined}
+            selectedId={selectedId}
             onSelect={setSelectedId}
-            isFreeTrial={plan.planId === PLAN_MAPPING['MONTH']}
+            isFreeTrial={isFreeTrialAvailable(isTrialParam, userSummary?.isTrialUsed ?? false, plan.planId)}
           />
         ))}
       </S.PaymentCardWrapper>
+
       <S.PaymentInfo>
         <S.PaymentSummary>
           <S.PaymentDetail>
             <S.InfoWrapper>
               <S.InfoText>코그룸 프리미엄 구독</S.InfoText>
-              <S.PlanPrice>{planInfo?.basePrice} KRW</S.PlanPrice>
+              <S.PlanPrice>{planInfo?.basePrice ?? '-'} KRW</S.PlanPrice>
             </S.InfoWrapper>
 
             <S.DiscountInfo>
@@ -104,7 +119,7 @@ export default function Payment() {
                   label='기본 적용 할인'
                   round
                 />
-                <S.DiscountPrice>-{planInfo?.baseDiscountAmount} KRW</S.DiscountPrice>
+                <S.DiscountPrice>-{planInfo?.baseDiscountAmount ?? 0} KRW</S.DiscountPrice>
               </S.InfoWrapper>
             </S.DiscountInfo>
 
@@ -125,8 +140,9 @@ export default function Payment() {
           <S.PaymentResult>
             <S.InfoWrapper>
               <S.ResultText>결제 및 총합</S.ResultText>
-              <S.ResultText>{planInfo?.monthlyPrice} KRW</S.ResultText>
+              <S.ResultText>{planInfo?.monthlyPrice ?? '-'} KRW</S.ResultText>
             </S.InfoWrapper>
+
             <S.AgreementSection>
               <S.AgreementRow>
                 <Checkbox
