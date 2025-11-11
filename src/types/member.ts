@@ -10,6 +10,8 @@ export type UserSummary = {
   nickname: string;
   imageUrl: string;
   memberRole: MemberRole;
+  isTrialUsed: boolean;
+  planId: number;
 };
 
 export interface UserSummaryResponse extends ApiResponse {

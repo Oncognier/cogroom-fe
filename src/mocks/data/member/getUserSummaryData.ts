@@ -7,6 +7,8 @@ export const getUserSummarySuccess = {
     nickname: '코그룸',
     imageUrl: MOCK_IMAGE.FEMALE_PROFILE,
     memberRole: 'ADMIN',
+    isTrialUsed: true,
+    planId: null,
   },
 };
 

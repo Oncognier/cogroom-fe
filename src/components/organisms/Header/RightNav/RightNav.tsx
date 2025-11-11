@@ -10,7 +10,7 @@ import IconButton from '@/components/atoms/IconButton/IconButton';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Skeleton from '@/components/skeleton/Skeleton/Skeleton';
 import { ROLE_LABELS } from '@/constants/common';
-import useGetUserSummaryQuery from '@/hooks/api/member/useGetUserSummary';
+import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useAppModalStore } from '@/stores/useModalStore';
 
@@ -20,7 +20,7 @@ export default function RightNav() {
   const router = useRouter();
   const { open } = useAppModalStore();
 
-  const { isSuccess, isError, data } = useGetUserSummaryQuery();
+  const { isSuccess, isError, data } = useGetUserSummary();
 
   const isUnauth = useAuthStore((s) => s.isUnauth());
   const isUnknown = useAuthStore((s) => s.isUnknown());

@@ -21,6 +21,7 @@ export interface PlanInfo extends Plan {
 
 export interface PlanInfoRequest {
   planId: number;
+  isTrial: boolean;
 }
 
 export interface PlanInfoResponse extends ApiResponse {
