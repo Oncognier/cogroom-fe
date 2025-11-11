@@ -1,6 +1,5 @@
 'use client';
 
-import PortOne from '@portone/browser-sdk/v2';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
@@ -8,14 +7,12 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
-import { PORTONE } from '@/constants/api';
 import { PLAN_MAPPING } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
-import { useChangePlanMutation } from '@/hooks/api/payment/useChangePlan';
 import { useGetBillingKey } from '@/hooks/api/payment/useGetBillingKey';
 import { useGetPlanInfo } from '@/hooks/api/payment/useGetPlanInfo';
 import { useGetPlans } from '@/hooks/api/payment/useGetPlans';
-import { useVerifyPaymentMutation } from '@/hooks/api/payment/useVerifyPayment';
+import { usePaymentProcessor } from '@/hooks/api/payment/usePaymentProcessor';
 
 import PaymentCard from './_components/PaymentCard/PaymentCard';
 import * as S from './page.styled';
@@ -41,9 +38,7 @@ export default function Payment() {
     selectedId,
     isFreeTrialAvailable(isTrialParam, userSummary?.isTrialUsed ?? false, selectedId),
   );
-
-  const { verifyPayment } = useVerifyPaymentMutation();
-  const { changePlan } = useChangePlanMutation();
+  const { startPaymentFlow } = usePaymentProcessor();
 
   const handleClick = async () => {
     if (!isAgreed) {
@@ -53,35 +48,12 @@ export default function Payment() {
 
     setShowAgreementError(false);
 
-    if (!planInfo) {
+    if (!planInfo || !billingKey) {
       alert('결제 정보를 불러오는 데 실패했습니다.');
       return;
     }
 
-    if (billingKey?.isExist) {
-      changePlan({ paymentHistoryId: planInfo.paymentHistoryId });
-      return;
-    }
-
-    if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEY_IDENTITY) {
-      return;
-    }
-
-    const response = await PortOne.requestIdentityVerification({
-      storeId: PORTONE.STORE_ID,
-      identityVerificationId: `identity-verification-${crypto.randomUUID()}`,
-      channelKey: PORTONE.CHANNEL_KEY_IDENTITY,
-    });
-
-    if (!response) {
-      alert('본인인증에 실패하였습니다');
-      return;
-    }
-
-    verifyPayment({
-      identityVerificationId: response.identityVerificationId,
-      paymentHistoryId: planInfo.paymentHistoryId,
-    });
+    startPaymentFlow(planInfo.paymentHistoryId, billingKey?.isExist);
   };
 
   return (
