@@ -4,12 +4,12 @@ import { paymentApi } from '@/api/paymentApis';
 import { PAYMENT_QUERY_KEYS } from '@/constants/queryKeys';
 import { useAuthStore } from '@/stores/useAuthStore';
 
-export const useGetPlanInfo = (planId: number) => {
+export const useGetPlanInfo = (planId: number, isTrial: boolean) => {
   const isAuth = useAuthStore((s) => s.isAuth());
 
   return useQuery({
     queryKey: [...PAYMENT_QUERY_KEYS.PLAN_INFO, planId],
-    queryFn: () => paymentApi.getPlanInfo({ planId }),
+    queryFn: () => paymentApi.getPlanInfo({ planId, isTrial }),
     enabled: isAuth,
   });
 };
