@@ -18,6 +18,11 @@ export const formatDayAsSlashYYMMDD = createDateFormatter((date) => {
   return `${year}/${formatToDigits(date.getMonth() + 1, 2)}/${formatToDigits(date.getDate(), 2)}`;
 });
 
+// YYYY.MM.DD 형식으로 포맷팅 (2025.10.29)
+export const formatDayAsDotYYYYMMDD = createDateFormatter((date) => {
+  return `${date.getFullYear()}.${formatToDigits(date.getMonth() + 1, 2)}.${formatToDigits(date.getDate(), 2)}`;
+});
+
 // MM/DD 형식으로 포맷팅 (08/04)
 export const formatDayAsSlashMMDD = createDateFormatter((date) => {
   return `${formatToDigits(date.getMonth() + 1, 2)}/${formatToDigits(date.getDate(), 2)}`;
