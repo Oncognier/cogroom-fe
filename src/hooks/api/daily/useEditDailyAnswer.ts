@@ -13,7 +13,18 @@ export const useEditDailyAnswerMutation = () => {
 
   const mutation = useMutation({
     mutationFn: dailyApi.editDailyAnswer,
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
+      // ✅ GTM 이벤트 전송
+      if (typeof window !== 'undefined') {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'daily_answer_edit_success',
+          questionId: variables.answer, // 필요 시
+          timestamp: new Date().toISOString(),
+        });
+      }
+
+      // 기존 동작 유지
       open('alert', { message: '수정되었습니다.' });
       queryClient.invalidateQueries({ queryKey: [...DAILY_QUERY_KEYS.DAILY_QUESTION_ANSWER] });
     },

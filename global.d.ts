@@ -11,5 +11,6 @@ declare global {
     };
     // Meta (Facebook) Pixel
     fbq: (action: string, event?: string, parameters?: any) => void;
+    dataLayer?: Array<Record<string, any>>;
   }
 }
