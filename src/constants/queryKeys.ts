@@ -16,6 +16,7 @@ const MEMBER_QUERY_KEYS = {
   MEMBER_SAVES: ['member', 'posts', 'saves'],
   MEMBER_LIKESPOSTS: ['member', 'posts', 'likes'],
   MEMBER_LIKESCOMMENTS: ['member', 'comments', 'likes'],
+  MEMBER_SUBSCRIPTION: ['member', 'subscription'],
   PROFILE: ['member', 'profile'],
 } as const;
 

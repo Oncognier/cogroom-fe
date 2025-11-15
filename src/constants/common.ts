@@ -229,3 +229,17 @@ export const DAILY_FEEDBACK_FORM_URL =
 export const ONCOGNIER_URL = 'https://www.oncognier.com/';
 
 export const ONCOGNIER_CONTENTS_URL = 'https://oncognier.com/PDF';
+
+/* ---------- 구독/플랜 ---------- */
+export const PLAN_TYPES = {
+  MONTHLY: 1,
+  YEARLY: 2,
+  FREE: 3,
+} as const;
+
+export const PREMIUM_BENEFITS = [
+  '스트릭 부활권',
+  '데일리 답변 글자수 UP',
+  '물방울 달력 무한 조회',
+  '데일리 답변 무한 수정, 무한 공유',
+];

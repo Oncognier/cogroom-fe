@@ -15,7 +15,8 @@ import { getUserLikePostListSuccess } from '../data/member/getUserLikePostListDa
 import { getUserPostListSuccess } from '../data/member/getUserPostListData';
 import { getUserProfileError, getUserProfileSuccess } from '../data/member/getUserProfileData';
 import { getUserSaveListSuccess } from '../data/member/getUserSaveData';
-import { getUserSummaryError, getUserSummarySuccess } from '../data/member/getUserSummaryData';
+import { getUserSubscriptionYearly } from '../data/member/getUserSubscriptionData';
+import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
 import { withdrawSuccess } from '../data/member/withdrawData';
 
 export const memberHandlers = [
@@ -141,6 +142,13 @@ export const memberHandlers = [
     }
 
     return new HttpResponse(JSON.stringify(checkNicknameSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 구독 정보 조회
+  http.get(END_POINTS.MEMBERS.SUBSCRIPTION, async () => {
+    return new HttpResponse(JSON.stringify(getUserSubscriptionYearly), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
