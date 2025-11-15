@@ -94,6 +94,7 @@ export type UserSubscription = {
   nextPaymentDate: string;
   startedAt: string;
   duration: number;
+  isPaidBefore: boolean;
 };
 
 export interface UserSubscriptionResponse extends ApiResponse {

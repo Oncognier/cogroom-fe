@@ -44,15 +44,15 @@ export default function Alert({
       {isConfirm ? (
         <S.ButtonGroup>
           {onCancel && (
-            <SolidButton
+            <OutlinedButton
               label={cancelText}
               size='sm'
-              color='primary'
+              color='assistive'
               interactionVariant='normal'
               onClick={handleCancel}
             />
           )}
-          <SolidButton
+          <OutlinedButton
             label={confirmText}
             size='sm'
             color='primary'
