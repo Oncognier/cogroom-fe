@@ -32,9 +32,10 @@ export const PlanDescription = ({ subscription }: PlanDescriptionProps) => {
   const isFreePlan = planId === PLAN_TYPES.FREE;
 
   const isPremium = !isFreePlan && subscription;
-  const premiumDays = isPremium && subscription?.startedAt && subscription?.nextPaymentDate
-    ? calculateDaysBetween(subscription.startedAt, subscription.nextPaymentDate) 
-    : 0;
+  const premiumDays =
+    isPremium && subscription?.startedAt && subscription?.nextPaymentDate
+      ? calculateDaysBetween(subscription.startedAt, subscription.nextPaymentDate)
+      : 0;
 
   const getButtonLabel = () => {
     if (isYearly) return '최대혜택 누리는 중';
