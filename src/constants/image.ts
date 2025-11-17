@@ -62,3 +62,9 @@ export const STREAK_SHARE_IMAGE_URLS: string[] = [
   'https://cdn.cogroom.com/default_image/StreakShare02.png',
   'https://cdn.cogroom.com/default_image/StreakShare03.png',
 ];
+
+// Subscription
+export const DEFAULT_FEATURE_BANNER_1: string = 'https://cdn.cogroom.com/default_image/Feature1.png';
+export const DEFAULT_FEATURE_BANNER_2: string = 'https://cdn.cogroom.com/default_image/Feature2.png';
+export const DEFAULT_FEATURE_BANNER_3: string = 'https://cdn.cogroom.com/default_image/Feature3.png';
+export const DEFAULT_UPGRADE_BANNER: string = 'https://cdn.cogroom.com/default_image/Subscription_Upgrade.png';
