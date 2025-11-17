@@ -15,6 +15,7 @@ import {
   UserCommentListResponse,
   UserPostListResponse,
   UserProfileResponse,
+  UserSubscriptionResponse,
 } from '@/types/member';
 
 import { axiosInstance } from './axios/axiosInstance';
@@ -114,6 +115,12 @@ const withdraw = async ({ reason }: WithdrawRequest) => {
   return data;
 };
 
+/** 구독 정보 조회 */
+const getUserSubscription = async () => {
+  const { data } = await axiosInstance.get<UserSubscriptionResponse>(END_POINTS.MEMBERS.SUBSCRIPTION);
+  return data.result;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
@@ -129,4 +136,5 @@ export const memberApi = {
   editUserInfo,
   checkNickname,
   withdraw,
+  getUserSubscription,
 };

@@ -18,6 +18,11 @@ export const formatDayAsSlashYYMMDD = createDateFormatter((date) => {
   return `${year}/${formatToDigits(date.getMonth() + 1, 2)}/${formatToDigits(date.getDate(), 2)}`;
 });
 
+// YYYY.MM.DD 형식으로 포맷팅 (2025.10.29)
+export const formatDayAsDotYYYYMMDD = createDateFormatter((date) => {
+  return `${date.getFullYear()}.${formatToDigits(date.getMonth() + 1, 2)}.${formatToDigits(date.getDate(), 2)}`;
+});
+
 // MM/DD 형식으로 포맷팅 (08/04)
 export const formatDayAsSlashMMDD = createDateFormatter((date) => {
   return `${formatToDigits(date.getMonth() + 1, 2)}/${formatToDigits(date.getDate(), 2)}`;
@@ -85,3 +90,23 @@ export const formatRelativeKorean = createDateFormatter((date) => {
 
   return formatDayAsDashYYYYMMDD(date);
 });
+
+/**
+ * 시작 날짜부터 종료 날짜까지의 일수 계산
+ * @param startDate 시작 날짜
+ * @param endDate 종료 날짜 (기본값: 오늘)
+ * @returns 일수 차이
+ */
+export const calculateDaysBetween = (startDate: Date | string, endDate: Date | string = new Date()): number => {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  // 시간을 00:00:00으로 초기화하여 정확한 일수 계산
+  start.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+
+  const diffTime = end.getTime() - start.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  return Math.max(0, diffDays);
+};
