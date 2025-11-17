@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
+    <S.Home>
       <Hero />
       <Cogpoint />
       <S.Space />
@@ -43,6 +43,6 @@ export default function Home() {
       <S.Space />
       <Community />
       <ActionBanner />
-    </>
+    </S.Home>
   );
 }
