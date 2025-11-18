@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 
 import { END_POINTS } from '@/constants/api';
 import { ApiResponse, AxiosMeta } from '@/types/api';
+import { RegisterCouponResponse } from '@/types/coupon';
 import {
   CheckNicknameRequest,
   CheckNicknameResponse,
@@ -121,6 +122,14 @@ const getUserSubscription = async () => {
   return data.result;
 };
 
+/** 쿠폰 등록 */
+const registerCoupon = async (code: string) => {
+  const { data } = await axiosInstance.post<RegisterCouponResponse>(
+    `${END_POINTS.MEMBERS.COUPON}?code=${encodeURIComponent(code)}`,
+  );
+  return data;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
@@ -137,4 +146,5 @@ export const memberApi = {
   checkNickname,
   withdraw,
   getUserSubscription,
+  registerCoupon,
 };

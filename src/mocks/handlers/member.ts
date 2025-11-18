@@ -3,6 +3,7 @@ import { http, HttpResponse } from 'msw';
 import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 import type { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
+import { registerCouponSuccess, registerCouponNotFound } from '../data/coupon/registerCouponData';
 import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
 import { deleteUserPostError, deleteUserPostSuccess } from '../data/member/deleteUserPostData';
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
@@ -162,6 +163,22 @@ export const memberHandlers = [
         ['Set-Cookie', 'refreshToken=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax'],
         ['Content-Type', 'application/json'],
       ]),
+    });
+  }),
+
+  // 쿠폰 등록
+  http.post(END_POINTS.MEMBERS.COUPON, async ({ request }) => {
+    const url = new URL(request.url);
+    const code = url.searchParams.get('code');
+
+    if (!code) {
+      return new HttpResponse(JSON.stringify(registerCouponNotFound), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(registerCouponSuccess), {
+      status: HTTP_STATUS_CODE.OK,
     });
   }),
 ];
