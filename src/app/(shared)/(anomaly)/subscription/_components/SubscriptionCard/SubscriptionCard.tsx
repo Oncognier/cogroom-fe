@@ -22,6 +22,8 @@ export interface SubscriptionCardProps {
   disabled?: boolean;
   isBestValue?: boolean;
   isSubscribed?: boolean;
+  isFreeTrial?: boolean;
+  isPremiumSubscribed?: boolean;
 }
 
 export default function SubscriptionCard({
@@ -34,6 +36,8 @@ export default function SubscriptionCard({
   description,
   isBestValue = false,
   isSubscribed = false,
+  isFreeTrial = false,
+  isPremiumSubscribed = false,
 }: SubscriptionCardProps) {
   const router = useRouter();
 
@@ -59,6 +63,55 @@ export default function SubscriptionCard({
       return `${basePrice.toLocaleString('ko-KR')}원`;
     }
     return `${basePrice.toLocaleString('ko-KR')}원 → ${finalPrice.toLocaleString('ko-KR')}원`;
+  };
+
+  const getButtonLabel = () => {
+    if (isFreeTrial) {
+      return isPremiumSubscribed ? '프리미엄 플랜 이용 중' : '현재 이용 중인 플랜';
+    }
+    if (isSubscribed) {
+      return '현재 이용 중인 플랜';
+    }
+    return '시작하기';
+  };
+
+  const renderButton = () => {
+    if (isFreeTrial) {
+      return (
+        <OutlinedButton
+          size='lg'
+          label={getButtonLabel()}
+          color='primary'
+          interactionVariant='normal'
+          fillContainer
+          isDisabled
+        />
+      );
+    }
+
+    if (isSubscribed) {
+      return (
+        <SolidButton
+          size='lg'
+          label={getButtonLabel()}
+          color='assistive'
+          interactionVariant='normal'
+          fillContainer
+          isDisabled
+        />
+      );
+    }
+
+    return (
+      <SolidButton
+        size='lg'
+        label={getButtonLabel()}
+        color='primary'
+        interactionVariant='normal'
+        onClick={handleClick}
+        fillContainer
+      />
+    );
   };
 
   return (
@@ -92,25 +145,7 @@ export default function SubscriptionCard({
             </S.FinalPrice>
           </S.PriceInfoWrapper>
 
-          {isSubscribed ? (
-            <OutlinedButton
-              size='lg'
-              label='시작하기'
-              color='primary'
-              interactionVariant='normal'
-              fillContainer
-              isDisabled
-            />
-          ) : (
-            <SolidButton
-              size='lg'
-              label='시작하기'
-              color='primary'
-              interactionVariant='normal'
-              onClick={handleClick}
-              fillContainer
-            />
-          )}
+          {renderButton()}
 
           <S.PlanDescriptionList>
             {parsedDescription.map((item, index) => {
