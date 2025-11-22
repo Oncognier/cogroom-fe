@@ -69,9 +69,6 @@ export default function SubscriptionCard({
     if (isFreeTrial) {
       return isPremiumSubscribed ? '프리미엄 플랜 이용 중' : '현재 이용 중인 플랜';
     }
-    if (isSubscribed) {
-      return '현재 이용 중인 플랜';
-    }
     return '시작하기';
   };
 
