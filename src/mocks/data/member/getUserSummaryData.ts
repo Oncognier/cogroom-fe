@@ -8,7 +8,7 @@ export const getUserSummarySuccess = {
     imageUrl: MOCK_IMAGE.FEMALE_PROFILE,
     memberRole: 'ADMIN',
     isTrialUsed: true,
-    planId: null,
+    planId: 1,
   },
 };
 

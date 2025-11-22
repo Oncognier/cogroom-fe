@@ -64,7 +64,11 @@ export default function Subscription() {
                 monthlyPrice={plan.monthlyPrice}
                 description={plan.description}
                 isBestValue={plan.planId === PLAN_MAPPING['YEAR']}
-                isSubscribed={plan.planId === PLAN_MAPPING['FREE']}
+                isSubscribed={plan.planId === userSummary?.planId}
+                isFreeTrial={plan.planId === PLAN_MAPPING['FREE']}
+                isPremiumSubscribed={
+                  userSummary?.planId === PLAN_MAPPING['YEAR'] || userSummary?.planId === PLAN_MAPPING['MONTH']
+                }
               />
             ))}
           </S.SubscriptionCardWrapper>
