@@ -3,6 +3,7 @@ import { http, HttpResponse } from 'msw';
 import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 import type { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
+import { getCouponListSuccess } from '../data/coupon/getCouponListData';
 import { registerCouponSuccess, registerCouponNotFound } from '../data/coupon/registerCouponData';
 import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
 import { deleteUserPostError, deleteUserPostSuccess } from '../data/member/deleteUserPostData';
@@ -170,6 +171,13 @@ export const memberHandlers = [
   // 결제 내역 조회
   http.get(END_POINTS.MEMBERS.PAYMENT_HISTORY, async () => {
     return new HttpResponse(JSON.stringify(getPaymentHistorySuccess), {});
+  }),
+
+  // 쿠폰 목록 조회
+  http.get(END_POINTS.MEMBERS.COUPON, async () => {
+    return new HttpResponse(JSON.stringify(getCouponListSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
   }),
 
   // 쿠폰 등록

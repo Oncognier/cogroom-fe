@@ -38,6 +38,13 @@ export const formatTimeAsHHmm = createDateFormatter((date) => {
   return `${formatToDigits(date.getHours(), 2)}:${formatToDigits(date.getMinutes(), 2)}`;
 });
 
+// YYYY.MM.DD HH:MM 형식으로 포맷팅 (2024.12.31 23:59)
+export const formatDateTimeAsDotYYYYMMDDHHMM = createDateFormatter((date) => {
+  const datePart = formatDayAsDotYYYYMMDD(date);
+  const timePart = formatTimeAsHHmm(date);
+  return `${datePart} ${timePart}`;
+});
+
 // 요일 반환 (월~일)
 export const formatWeekday = createDateFormatter((date) => {
   const idx = date.getDay();

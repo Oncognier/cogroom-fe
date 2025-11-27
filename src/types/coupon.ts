@@ -6,6 +6,28 @@ export interface RegisterCouponRequest {
 
 export interface RegisterCouponResponse extends ApiResponse {}
 
+export interface Coupon {
+  id: number;
+  name: string;
+  code: string;
+  discountType: 'PERCENTAGE' | 'AMOUNT';
+  discountValue: number;
+  minOrderAmount: number;
+  maxDiscountAmount: number | null;
+  expiresAt: string;
+  usedAt: string | null;
+  isUsed: boolean;
+}
+
+export interface CouponListResult {
+  coupons: Coupon[];
+  totalCount: number;
+}
+
+export interface CouponListResponse extends ApiResponse {
+  result: CouponListResult;
+}
+
 export type CouponErrorCode =
   | 'MEMBER_NOT_FOUND_ERROR'
   | 'COUPON_NOT_FOUND'
