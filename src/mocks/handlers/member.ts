@@ -4,7 +4,6 @@ import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 import type { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
 import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
-import { getPaymentHistorySuccess } from '../data/payment/getPaymentHistoryData';
 import { deleteUserPostError, deleteUserPostSuccess } from '../data/member/deleteUserPostData';
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
 import { getUserCommentListSuccess } from '../data/member/getUserCommentListData';
@@ -19,6 +18,7 @@ import { getUserSaveListSuccess } from '../data/member/getUserSaveData';
 import { getUserSubscriptionYearly } from '../data/member/getUserSubscriptionData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
 import { withdrawSuccess } from '../data/member/withdrawData';
+import { getPaymentHistorySuccess } from '../data/payment/getPaymentHistoryData';
 
 export const memberHandlers = [
   // 사용자 요약 정보 조회
