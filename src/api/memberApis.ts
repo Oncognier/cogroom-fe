@@ -123,6 +123,20 @@ const getUserSubscription = async () => {
   return data.result;
 };
 
+/** 쿠폰 목록 조회 */
+const getCouponList = async () => {
+  const { data } = await axiosInstance.get(END_POINTS.MEMBERS.COUPON);
+  return data.result;
+};
+
+/** 쿠폰 등록 */
+const registerCoupon = async (code: string) => {
+  const { data } = await axiosInstance.post<RegisterCouponResponse>(
+    `${END_POINTS.MEMBERS.COUPON}?code=${encodeURIComponent(code)}`,
+  );
+  return data;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
@@ -139,4 +153,6 @@ export const memberApi = {
   checkNickname,
   withdraw,
   getUserSubscription,
+  getCouponList,
+  registerCoupon,
 };

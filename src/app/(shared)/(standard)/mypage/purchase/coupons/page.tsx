@@ -12,6 +12,7 @@ import Table from '@/components/organisms/Table/Table';
 import useGetCouponList from '@/hooks/api/member/useGetCouponList';
 import useRegisterCoupon from '@/hooks/api/member/useRegisterCoupon';
 import { TableHeaderItem } from '@/types/common';
+import { Coupon } from '@/types/coupon';
 
 import CouponRow from './_components/CouponRow/CouponRow';
 import * as S from './page.styled';
@@ -99,7 +100,7 @@ export default function Coupons() {
           />
         }
       >
-        {couponData?.coupons?.map((coupon) => (
+        {couponData?.coupons?.map((coupon: Coupon) => (
           <CouponRow
             key={coupon.id}
             coupon={coupon}
