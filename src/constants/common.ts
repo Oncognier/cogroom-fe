@@ -154,6 +154,14 @@ export const ADMIN_COMMENTS_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
   { label: '작성일시', mode: 'fix', width: '10rem', align: 'center' },
 ] as const;
 
+export const PAYMENT_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
+  { label: '결제 플랜', mode: 'fix', width: '15rem', align: 'center' },
+  { label: '결제 여부', mode: 'fix', width: '14rem', align: 'center' },
+  { label: '결제 금액', mode: 'fix', width: '14rem', align: 'center' },
+  { label: '결제 일자', mode: 'fix', width: '15rem', align: 'center' },
+  { label: '상세 보기', mode: 'expand', align: 'right' },
+] as const;
+
 /* ---------- 회원가입/탈퇴 스텝 ---------- */
 export const SIGNUP_STEP = {
   CHECK_ORIGINAL_EMAIL: 'CHECK_ORIGINAL_EMAIL',
