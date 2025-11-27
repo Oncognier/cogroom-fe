@@ -13,3 +13,8 @@ export const CouponForm = styled.form`
     flex: 1;
   }
 `;
+
+export const PaginationWrapper = styled.div`
+  margin: 0 auto;
+  padding: 2.4rem 0;
+`;
