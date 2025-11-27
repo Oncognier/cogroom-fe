@@ -4,6 +4,7 @@ import { END_POINTS, HTTP_STATUS_CODE } from '@/constants/api';
 import type { CheckNicknameRequest, EditUserInfoRequest } from '@/types/member';
 
 import { checkNicknameError, checkNicknameSuccess } from '../data/member/checkNicknameData';
+import { getPaymentHistorySuccess } from '../data/payment/getPaymentHistoryData';
 import { deleteUserPostError, deleteUserPostSuccess } from '../data/member/deleteUserPostData';
 import { editUserInfoError, editUserInfoSuccess } from '../data/member/editUserInfoData';
 import { getUserCommentListSuccess } from '../data/member/getUserCommentListData';
@@ -162,6 +163,13 @@ export const memberHandlers = [
         ['Set-Cookie', 'refreshToken=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax'],
         ['Content-Type', 'application/json'],
       ]),
+    });
+  }),
+
+  // 결제 내역 조회
+  http.get(END_POINTS.MEMBERS.PAYMENT_HISTORY, async () => {
+    return new HttpResponse(JSON.stringify(getPaymentHistorySuccess), {
+      status: HTTP_STATUS_CODE.OK,
     });
   }),
 ];

@@ -93,6 +93,9 @@ export const END_POINTS = {
 
     /** 구독 정보 조회 (GET) */
     SUBSCRIPTION: `${BASE_PATH_V1.MEMBERS}/me/subscription`,
+
+    /** 결제 내역 조회 (GET) */
+    PAYMENT_HISTORY: `${BASE_PATH_V1.MEMBERS}/me/plan/history`,
   },
 
   DAILY: {
