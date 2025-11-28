@@ -105,6 +105,43 @@ export default function Payment() {
                 isDisabled
               />
             </S.InfoWrapper>
+
+            <S.PaymentMethod>
+              <S.PaymentMethodTitle>결제 수단</S.PaymentMethodTitle>
+
+              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('CARD')}>
+                <Checkbox
+                  size='nm'
+                  isChecked={selectedPaymentMethod === 'CARD'}
+                  onToggle={() => setSelectedPaymentMethod('CARD')}
+                  interactionVariant='normal'
+                  round
+                />
+                <S.PaymentMethodLabel>신용카드</S.PaymentMethodLabel>
+              </S.PaymentMethodRow>
+
+              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('KAKAO')}>
+                <Checkbox
+                  size='nm'
+                  isChecked={selectedPaymentMethod === 'KAKAO'}
+                  onToggle={() => setSelectedPaymentMethod('KAKAO')}
+                  interactionVariant='normal'
+                  round
+                />
+                <S.PaymentMethodLabel>카카오페이</S.PaymentMethodLabel>
+              </S.PaymentMethodRow>
+
+              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('PHONE')}>
+                <Checkbox
+                  size='nm'
+                  isChecked={selectedPaymentMethod === 'PHONE'}
+                  onToggle={() => setSelectedPaymentMethod('PHONE')}
+                  interactionVariant='normal'
+                  round
+                />
+                <S.PaymentMethodLabel>휴대폰</S.PaymentMethodLabel>
+              </S.PaymentMethodRow>
+            </S.PaymentMethod>
           </S.PaymentDetail>
 
           <S.Divider />

@@ -57,6 +57,28 @@ export const DiscountInfo = styled.div`
   gap: 0.8rem;
 `;
 
+export const PaymentMethod = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+`;
+
+export const PaymentMethodTitle = styled.p`
+  ${({ theme }) => theme.typography.heading2.medium};
+  color: ${({ theme }) => theme.palette.neutral[30]};
+`;
+
+export const PaymentMethodRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+`;
+
+export const PaymentMethodLabel = styled.p`
+  ${({ theme }) => theme.typography.headline1.medium};
+  color: ${({ theme }) => theme.semantic.label.normal};
+`;
+
 export const Divider = styled.div`
   width: 100%;
   height: 1px;
