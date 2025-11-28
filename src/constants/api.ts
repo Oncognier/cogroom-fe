@@ -1,3 +1,5 @@
+import { PaymentMethod } from '@/types/payment';
+
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const API_V1 = `${BASE_URL}/api/v1`;
@@ -153,6 +155,10 @@ export const END_POINTS = {
 
     /** 빌링키 조회 (GET) — 신규 결제자/플랜 업데이트 대상 확인용 */
     BILLING_KEY: `${BASE_PATH_V1.PAYMENTS}/billingKey`,
+
+    /** 결제 요청 (POST) */
+    COMPLETE_PLAN: (paymentHistoryId: number, paymentMethod: PaymentMethod) =>
+      `${BASE_PATH_V1.PAYMENTS}/${paymentHistoryId}/${paymentMethod}/pay`,
 
     /** 플랜 변경 (PATCH) */
     CHANGE_PLAN: `${BASE_PATH_V1.PAYMENTS}/plan/change`,

@@ -4,7 +4,7 @@ import { END_POINTS } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 import {
   BillingKeyResponse,
-  ChangePlanRequest,
+  CompletePlanRequest,
   PlanInfoRequest,
   PlanInfoResponse,
   PlansResponse,
@@ -35,9 +35,21 @@ const getBillingKey = async () => {
   return data.result;
 };
 
+/** 결제 요청 */
+const completePlan = async ({ paymentHistoryId, paymentMethod }: CompletePlanRequest) => {
+  const { data } = await axiosInstance.post<ApiResponse>(
+    END_POINTS.PAYMENTS.COMPLETE_PLAN(paymentHistoryId, paymentMethod),
+  );
+
+  return data;
+};
+
 /** 플랜 변경 */
-const changePlan = async ({ paymentHistoryId }: ChangePlanRequest) => {
-  const { data } = await axiosInstance.patch<ApiResponse>(END_POINTS.PAYMENTS.CHANGE_PLAN, { paymentHistoryId });
+const changePlan = async ({ paymentHistoryId, paymentMethod }: CompletePlanRequest) => {
+  const { data } = await axiosInstance.patch<ApiResponse>(END_POINTS.PAYMENTS.CHANGE_PLAN, {
+    paymentHistoryId,
+    paymentMethod,
+  });
 
   return data;
 };
@@ -52,4 +64,4 @@ const verifyPayment = async ({ identityVerificationId, paymentHistoryId }: Verif
   return data.result;
 };
 
-export const paymentApi = { getPlanInfo, getPlans, getBillingKey, changePlan, verifyPayment };
+export const paymentApi = { getPlanInfo, getPlans, getBillingKey, completePlan, changePlan, verifyPayment };
