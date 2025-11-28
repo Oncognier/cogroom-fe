@@ -14,8 +14,8 @@ export default function CouponRow({ coupon }: CouponRowProps) {
     <S.CouponRow>
       <S.CouponCell width='7rem'>
         <SolidTag
-          label={coupon.isUsed ? '사용완료' : '사용대기'}
-          color={coupon.isUsed ? 'gray' : 'blue'}
+          label={'사용대기'}
+          color={'blue'}
           round
         />
       </S.CouponCell>
