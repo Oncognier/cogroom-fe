@@ -38,8 +38,11 @@ export interface BillingKeyResponse extends ApiResponse {
   };
 }
 
-export interface ChangePlanRequest {
+export type PaymentMethod = 'CARD' | 'PHONE' | 'KAKAO';
+
+export interface CompletePlanRequest {
   paymentHistoryId: number;
+  paymentMethod: PaymentMethod;
 }
 
 export interface VerifyPaymentRequest {
@@ -48,12 +51,5 @@ export interface VerifyPaymentRequest {
 }
 
 export interface VerifyPaymentResponse extends ApiResponse {
-  result: {
-    email: string;
-    phoneNumber: string;
-    name: string;
-    paymentHistoryId: number;
-    finalPrice: number;
-    planName: string;
-  };
+  result: VerifyPaymentData;
 }
