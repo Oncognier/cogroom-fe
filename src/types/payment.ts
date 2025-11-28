@@ -46,8 +46,17 @@ export interface CompletePlanRequest {
 }
 
 export interface VerifyPaymentRequest {
-  identityVerificationId: string;
+  identityVerificationId?: string;
   paymentHistoryId: number;
+}
+
+export interface VerifyPaymentData {
+  email?: string;
+  phoneNumber?: string;
+  name?: string;
+  paymentHistoryId: number;
+  finalPrice: number;
+  planName: string;
 }
 
 export interface VerifyPaymentResponse extends ApiResponse {
