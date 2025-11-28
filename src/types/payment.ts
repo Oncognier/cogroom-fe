@@ -57,3 +57,43 @@ export interface VerifyPaymentResponse extends ApiResponse {
     planName: string;
   };
 }
+
+export interface PaymentHistory {
+  id: number;
+  plan: string;
+  isPaid: boolean;
+  amount: number;
+  paymentDate: string;
+  status: 'COMPLETED' | 'PENDING' | 'FAILED' | 'CANCELED';
+}
+
+export interface PaymentHistoryResponse extends ApiResponse {
+  result: {
+    payments: PaymentHistory[];
+    totalCount: number;
+  };
+}
+
+export interface PaymentHistoryItem {
+  paymentHistoryId: number;
+  amount: number;
+  status: string;
+  planId: number;
+  planName: string;
+  paymentDate: string;
+}
+
+export interface PaymentHistoryApiResponse extends ApiResponse {
+  result: {
+    data: PaymentHistoryItem[];
+    nextCursor: number;
+    last: boolean;
+    totalElements: number;
+  };
+}
+
+export interface PaymentHistoryParams {
+  cursor?: number;
+  sort?: string;
+  size?: number;
+}

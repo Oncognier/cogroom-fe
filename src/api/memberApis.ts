@@ -17,6 +17,7 @@ import {
   UserProfileResponse,
   UserSubscriptionResponse,
 } from '@/types/member';
+import { PaymentHistoryApiResponse, PaymentHistoryParams } from '@/types/payment';
 
 import { axiosInstance } from './axios/axiosInstance';
 
@@ -121,6 +122,12 @@ const getUserSubscription = async () => {
   return data.result;
 };
 
+/** 결제 내역 조회 */
+const getPaymentHistory = async (params?: PaymentHistoryParams) => {
+  const { data } = await axiosInstance.get<PaymentHistoryApiResponse>(END_POINTS.MEMBERS.PAYMENT_HISTORY, { params });
+  return data.result;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
@@ -137,4 +144,5 @@ export const memberApi = {
   checkNickname,
   withdraw,
   getUserSubscription,
+  getPaymentHistory,
 };

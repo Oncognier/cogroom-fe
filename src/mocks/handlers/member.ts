@@ -18,6 +18,7 @@ import { getUserSaveListSuccess } from '../data/member/getUserSaveData';
 import { getUserSubscriptionYearly } from '../data/member/getUserSubscriptionData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
 import { withdrawSuccess } from '../data/member/withdrawData';
+import { getPaymentHistorySuccess } from '../data/payment/getPaymentHistoryData';
 
 export const memberHandlers = [
   // 사용자 요약 정보 조회
@@ -162,6 +163,13 @@ export const memberHandlers = [
         ['Set-Cookie', 'refreshToken=; HttpOnly; Path=/; Max-Age=0; SameSite=Lax'],
         ['Content-Type', 'application/json'],
       ]),
+    });
+  }),
+
+  // 결제 내역 조회
+  http.get(END_POINTS.MEMBERS.PAYMENT_HISTORY, async () => {
+    return new HttpResponse(JSON.stringify(getPaymentHistorySuccess), {
+      status: HTTP_STATUS_CODE.OK,
     });
   }),
 ];
