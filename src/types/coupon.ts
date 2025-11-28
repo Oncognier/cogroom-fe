@@ -1,4 +1,4 @@
-import { ApiResponse } from './api';
+import { ApiResponse, PaginationResult } from './api';
 
 export interface RegisterCouponRequest {
   code: string;
@@ -19,13 +19,8 @@ export interface Coupon {
   isUsed: boolean;
 }
 
-export interface CouponListResult {
-  coupons: Coupon[];
-  totalCount: number;
-}
-
 export interface CouponListResponse extends ApiResponse {
-  result: CouponListResult;
+  result: PaginationResult<Coupon>;
 }
 
 export type CouponErrorCode =
