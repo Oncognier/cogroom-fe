@@ -8,7 +8,7 @@ import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Table from '@/components/organisms/Table/Table';
 import { PAYMENT_TABLE_HEADER_ITEMS } from '@/constants/common';
 import useGetPaymentHistory from '@/hooks/api/member/useGetPaymentHistory';
-import { PaymentHistory } from '@/types/payment';
+import { PaymentHistory, PaymentHistoryItem } from '@/types/payment';
 
 import * as S from './PaymentList.styled';
 import PaymentRow from '../PaymentRow/PaymentRow';
@@ -30,7 +30,7 @@ export const PaymentList = () => {
   };
 
   const convertedPayments: PaymentHistory[] =
-    paymentData?.data.map((item) => ({
+    paymentData?.data.map((item: PaymentHistoryItem) => ({
       id: item.paymentHistoryId,
       plan: item.planName,
       isPaid: item.status === '정상',

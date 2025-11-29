@@ -137,6 +137,12 @@ const registerCoupon = async (code: string) => {
   return data;
 };
 
+/** 결제 내역 조회 */
+const getPaymentHistory = async (params?: PaymentHistoryParams) => {
+  const { data } = await axiosInstance.get<PaymentHistoryApiResponse>(END_POINTS.MEMBERS.PAYMENT_HISTORY, { params });
+  return data.result;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
@@ -155,4 +161,5 @@ export const memberApi = {
   getUserSubscription,
   getCouponList,
   registerCoupon,
+  getPaymentHistory,
 };
