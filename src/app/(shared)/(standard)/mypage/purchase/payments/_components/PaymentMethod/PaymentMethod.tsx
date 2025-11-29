@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import Kakao from '@/assets/icons/kakao.svg';
+import Naver from '@/assets/icons/naver.svg';
 import Plus from '@/assets/icons/plus.svg';
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
@@ -58,6 +60,7 @@ export const PaymentMethod = () => {
           label={'카카오페이'}
           color='kakao'
           interactionVariant='normal'
+          iconRight={<Kakao className='kakao' />}
           // onClick={() => {}}
         />
 
@@ -75,6 +78,7 @@ export const PaymentMethod = () => {
           label={'네이버페이'}
           color='naver'
           interactionVariant='normal'
+          iconRight={<Naver className='naver' />}
           // onClick={() => {}}
         />
 
