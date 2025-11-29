@@ -33,8 +33,8 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Description = styled.p`
-  ${({ theme }) => theme.typography.heading1.semibold};
-  color: ${({ theme }) => theme.semantic.label.normal};
+  ${({ theme }) => theme.typography.heading2.semibold};
+  color: ${({ theme }) => theme.cogroom.black};
 `;
 
 export const Button = styled.button`

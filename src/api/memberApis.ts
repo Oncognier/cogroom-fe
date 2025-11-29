@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 
 import { END_POINTS } from '@/constants/api';
 import { ApiResponse, AxiosMeta } from '@/types/api';
+import { RegisterCouponResponse } from '@/types/coupon';
 import {
   CheckNicknameRequest,
   CheckNicknameResponse,
@@ -122,6 +123,20 @@ const getUserSubscription = async () => {
   return data.result;
 };
 
+/** 쿠폰 목록 조회 */
+const getCouponList = async () => {
+  const { data } = await axiosInstance.get(END_POINTS.MEMBERS.COUPON);
+  return data.result;
+};
+
+/** 쿠폰 등록 */
+const registerCoupon = async (code: string) => {
+  const { data } = await axiosInstance.post<RegisterCouponResponse>(
+    `${END_POINTS.MEMBERS.COUPON}?code=${encodeURIComponent(code)}`,
+  );
+  return data;
+};
+
 /** 결제 내역 조회 */
 const getPaymentHistory = async (params?: PaymentHistoryParams) => {
   const { data } = await axiosInstance.get<PaymentHistoryApiResponse>(END_POINTS.MEMBERS.PAYMENT_HISTORY, { params });
@@ -144,5 +159,7 @@ export const memberApi = {
   checkNickname,
   withdraw,
   getUserSubscription,
+  getCouponList,
+  registerCoupon,
   getPaymentHistory,
 };

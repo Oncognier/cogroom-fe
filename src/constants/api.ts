@@ -75,6 +75,9 @@ export const END_POINTS = {
     /** 내가 저장한 게시글 목록 조회 (GET) */
     POSTS_SAVES: `${BASE_PATH_V1.MEMBERS}/me/posts/saves`,
 
+    /** 쿠폰 등록 (POST) */
+    COUPON: `${BASE_PATH_V1.MEMBERS}/me/coupon`,
+
     /** 내가 좋아요한 게시글 목록 조회 (GET) */
     POSTS_LIKES: `${BASE_PATH_V1.MEMBERS}/me/posts/likes`,
 

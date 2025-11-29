@@ -15,6 +15,16 @@ export const PaymentMethodsWrapper = styled.div`
 
   gap: 1.2rem;
   padding-top: 1.2rem;
+
+  /* 카카오페이 아이콘 */
+  svg.kakao path {
+    fill: ${({ theme }) => theme.brandColors.kakao} !important;
+  }
+
+  /* 네이버페이 아이콘 */
+  svg.naver path {
+    fill: ${({ theme }) => theme.brandColors.naver} !important;
+  }
 `;
 
 export const Divider = styled.div`
