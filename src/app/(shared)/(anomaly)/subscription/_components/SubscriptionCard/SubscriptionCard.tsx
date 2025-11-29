@@ -6,6 +6,8 @@ import Check from '@/assets/icons/check.svg';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 import { parsePlanDescription } from '@/utils/formatText';
 
 import * as S from './SubscriptionCard.styled';
@@ -40,8 +42,15 @@ export default function SubscriptionCard({
   isPremiumSubscribed = false,
 }: SubscriptionCardProps) {
   const router = useRouter();
+  const isAuth = useAuthStore((s) => s.isAuth());
+  const { open } = useAppModalStore();
 
   const handleClick = () => {
+    if (!isAuth) {
+      open('login');
+      return;
+    }
+
     if (!isSubscribed) {
       let url = '/payment';
 
