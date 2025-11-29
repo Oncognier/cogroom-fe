@@ -7,6 +7,7 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import SolidTag from '@/components/atoms/SolidTag/SolidTag';
+import AuthGuard from '@/components/organisms/AuthGuard/AuthGuard';
 import { PLAN_MAPPING } from '@/constants/common';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useGetBillingKey } from '@/hooks/api/payment/useGetBillingKey';
@@ -15,6 +16,7 @@ import { useGetPlans } from '@/hooks/api/payment/useGetPlans';
 import { usePaymentProcessor } from '@/hooks/api/payment/usePaymentProcessor';
 import { usePaymentResume } from '@/hooks/api/payment/usePaymentResume';
 import { loadPaymentState } from '@/stores/paymentStorage';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { PaymentMethod } from '@/types/payment';
 
 import PaymentCard from './_components/PaymentCard/PaymentCard';
@@ -35,6 +37,7 @@ export default function Payment() {
   const searchParams = useSearchParams();
   const isTrialParam = searchParams.get('trial') === 'true';
   const identityVerificationId = searchParams.get('identityVerificationId'); // 재개 여부 판단
+  const isUnauth = useAuthStore((s) => s.isUnauth());
 
   const [selectedId, setSelectedId] = useState<number>(() => getInitialSelectedId(searchParams));
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
@@ -108,6 +111,10 @@ export default function Payment() {
     if (isFlowProcessing) return '결제 요청 중...';
     return '코그룸 프리미엄 시작하기';
   };
+
+  if (isUnauth) {
+    return <AuthGuard />;
+  }
 
   return (
     <S.Payment>
