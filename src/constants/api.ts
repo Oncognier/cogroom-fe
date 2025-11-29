@@ -1,3 +1,5 @@
+import { PaymentMethod } from '@/types/payment';
+
 export const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const API_V1 = `${BASE_URL}/api/v1`;
@@ -157,6 +159,10 @@ export const END_POINTS = {
     /** 빌링키 조회 (GET) — 신규 결제자/플랜 업데이트 대상 확인용 */
     BILLING_KEY: `${BASE_PATH_V1.PAYMENTS}/billingKey`,
 
+    /** 결제 요청 (POST) */
+    COMPLETE_PLAN: (paymentHistoryId: number, paymentMethod: PaymentMethod) =>
+      `${BASE_PATH_V1.PAYMENTS}/${paymentHistoryId}/${paymentMethod}/pay`,
+
     /** 플랜 변경 (PATCH) */
     CHANGE_PLAN: `${BASE_PATH_V1.PAYMENTS}/plan/change`,
 
@@ -237,7 +243,12 @@ export const GOOGLE_AUTH_API_URL = `https://accounts.google.com/o/oauth2/v2/auth
 
 export const PORTONE = {
   STORE_ID: process.env.NEXT_PUBLIC_PORTONE_STORE_ID,
-  CHANNEL_KEY_SUBSCRIPTION: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY_SUBSCRIPTION, // 정기결제용
-  CHANNEL_KEY_IDENTITY: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY_IDENTITY, // 통합인증용
-  REDIRECT_URL: process.env.NEXT_PUBLIC_PORTONE_REDIRECT_URL,
+  CHANNEL_KEYS: {
+    KAKAO: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY_KAKAO, // 카카오페이 정기결제
+    INICIS: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY_INICIS, // KG 이니시스 정기결제
+    MOBILE: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY_MOBILE, // 휴대폰 정기결제
+    IDENTITY: process.env.NEXT_PUBLIC_PORTONE_CHANNEL_KEY_IDENTITY, // 통합인증
+  },
+  IDENTITY_REDIRECT_URL: process.env.NEXT_PUBLIC_PORTONE_IDENTITY_REDIRECT_URL,
+  PAYMENT_REDIRECT_URL: process.env.NEXT_PUBLIC_PORTONE_PAYMENT_REDIRECT_URL,
 } as const;

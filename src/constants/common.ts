@@ -186,6 +186,12 @@ export const PLAN_MAPPING: Record<string, number> = {
   FREE: 3,
 } as const;
 
+export const PLAN_ID_TO_NAME: Record<number, string> = {
+  1: 'MONTH',
+  2: 'YEAR',
+  3: 'FREE',
+} as const;
+
 /* ---------- UI/기능 관련 ---------- */
 export const WEEK_DAYS = ['월', '화', '수', '목', '금', '토', '일'] as const;
 export const PAGINATION_VISIBLE_RANGE = 5;
