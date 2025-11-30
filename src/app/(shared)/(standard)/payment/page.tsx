@@ -236,7 +236,7 @@ export default function Payment() {
           color='primary'
           interactionVariant='normal'
           onClick={handleClick}
-          isDisabled={planInfo?.isSubscribed || isProcessing}
+          isDisabled={isProcessing}
           fillContainer
         />
       </S.PaymentInfo>
