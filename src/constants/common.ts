@@ -22,6 +22,36 @@ export const SIDEBAR_NAV_ITEMS = [
   { label: '구독 및 결제', href: '/mypage/purchase/subscribe' },
 ] as const;
 
+export const ADMIN_NAV_ITEMS = [
+  { label: '회원관리', href: '/admin/users' },
+  { label: '결제관리', href: '/admin/payments' },
+  { label: '콘텐츠 관리', href: '/admin/contents' },
+  { label: '커뮤니티 관리', href: '/admin/community/posts' },
+] as const;
+
+export const PAYMENT_TAB_OPTIONS: SelectOption[] = [
+  { value: 'payments', label: '결제관리' },
+  { value: 'coupons', label: '쿠폰관리' },
+];
+
+export const PAYMENT_TAB_ROUTES = {
+  payments: '/admin/payments',
+  coupons: '/admin/payments/coupons',
+} as const;
+
+export const COUPON_TYPE_OPTIONS: SelectOption[] = [
+  { value: 'ALL', label: '전체' },
+  { value: 'TRIAL', label: '체험형' },
+  { value: 'PARTNER', label: '제휴형' },
+];
+
+export const COUPON_STATUS_OPTIONS = [
+  { value: 'ALL', label: '전체' },
+  { value: 'ING', label: '발급중' },
+  { value: 'DONE', label: '발급종료' },
+  { value: 'PAUSE', label: '일시정지' },
+] as const;
+
 /* ---------- 메타 데이터 ---------- */
 export const CATEGORY_LABELS = {
   PSYCHOLOGY: '심리학',
@@ -160,6 +190,19 @@ export const PAYMENT_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
   { label: '결제 금액', mode: 'fix', width: '14rem', align: 'center' },
   { label: '결제 일자', mode: 'fix', width: '15rem', align: 'center' },
   { label: '상세 보기', mode: 'expand', align: 'right' },
+] as const;
+
+export const COUPON_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
+  { label: '쿠폰명', mode: 'expand', align: 'center' },
+  { label: '등록일', mode: 'expand', align: 'center' },
+  { label: '등록자', mode: 'expand', align: 'center' },
+  { label: '쿠폰 유형', mode: 'expand', align: 'center' },
+  { label: '사용범위', mode: 'expand', align: 'center' },
+  { label: '사용기간', mode: 'expand', align: 'center' },
+  { label: '수량', mode: 'expand', align: 'center' },
+  { label: '쿠폰상태', mode: 'expand', align: 'center' },
+  { label: '발급내역관리', mode: 'expand', align: 'center' },
+  { label: '수정', mode: 'expand', align: 'center' },
 ] as const;
 
 /* ---------- 회원가입/탈퇴 스텝 ---------- */

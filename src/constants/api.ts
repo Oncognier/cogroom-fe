@@ -197,6 +197,11 @@ export const END_POINTS = {
       /** 커뮤니티 댓글 목록 조회 (GET) */
       COMMENTS: `${BASE_PATH_V1.ADMIN}/community/comments`,
     },
+
+    COUPONS: {
+      /** 쿠폰 리스트 조회 (GET) */
+      LIST: `${BASE_PATH_V1.ADMIN}/coupons`,
+    },
   },
 
   FILES: {

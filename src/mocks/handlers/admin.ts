@@ -7,6 +7,7 @@ import { changeMemberRoleSuccess } from '../data/admin/changeMemberRoleData';
 import { createDailyQuestionsError, createDailyQuestionsSuccess } from '../data/admin/createDailyQuestionsData';
 import { deleteMemberError, deleteMemberSuccess } from '../data/admin/deleteMemberData';
 import { getAdminCommentListSuccess } from '../data/admin/getAdminCommentListData';
+import { getAdminCouponListData } from '../data/admin/getAdminCouponsListData';
 import { getAdminPostListSuccess } from '../data/admin/getAdminPostListData';
 import { getDailyQuestionsSuccess } from '../data/admin/getDailyQuestionsData';
 import {
@@ -92,6 +93,55 @@ export const adminHandlers = [
   // 커뮤니티 댓글 목록 조회
   http.get(END_POINTS.ADMIN.COMMUNITY.COMMENTS, async () => {
     return new HttpResponse(JSON.stringify(getAdminCommentListSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 쿠폰 목록 조회
+  http.get(END_POINTS.ADMIN.COUPONS.LIST, async ({ request }) => {
+    const url = new URL(request.url);
+    const params = Object.fromEntries(url.searchParams.entries());
+    const statusArray = url.searchParams.getAll('status');
+    const keyword = params.keyword;
+    const couponTypes = url.searchParams.getAll('couponTypes');
+    const sort = params.sort || 'latest';
+
+    const size = Number(params.size) || 4;
+    const cursor = Number(params.cursor) || 0;
+
+    let filteredData = [...getAdminCouponListData.result.data];
+
+    if (statusArray.length > 0 && !statusArray.includes('ALL')) {
+      filteredData = filteredData.filter((coupon) => statusArray.includes(coupon.status));
+    }
+
+    if (keyword) {
+      filteredData = filteredData.filter((coupon) => coupon.couponName.toLowerCase().includes(keyword.toLowerCase()));
+    }
+
+    if (couponTypes.length > 0 && !couponTypes.includes('ALL')) {
+      filteredData = filteredData.filter((coupon) => couponTypes.includes(coupon.couponType));
+    }
+
+    // 정렬 적용
+    if (sort === 'latest') {
+      filteredData.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    } else if (sort === 'oldest') {
+      filteredData.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    }
+
+    const paginatedData = filteredData.slice(cursor, cursor + size);
+
+    const response = {
+      ...getAdminCouponListData,
+      result: {
+        ...getAdminCouponListData.result,
+        data: paginatedData,
+        totalElements: filteredData.length,
+      },
+    };
+
+    return new HttpResponse(JSON.stringify(response), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),

@@ -100,3 +100,37 @@ export interface CreateDailyQuestionsRequest {
   categoryList: number[];
   questionList: { question: string }[];
 }
+
+export interface CouponListRequest {
+  keyword?: string;
+  couponTypes?: Set<string>;
+  startDate?: string;
+  endDate?: string;
+  status: Set<string>;
+  cursor?: number;
+  size?: number;
+  sort?: string;
+}
+
+export interface Coupon {
+  couponId: number;
+  couponName: string;
+  createdAt: string;
+  createdBy: string;
+  couponType: string;
+  applicablePlan: number;
+  endedDate: string;
+  issuedCount: number;
+  status: string;
+}
+
+export interface CouponListResponse {
+  code: string;
+  message: string;
+  result: {
+    data: Coupon[];
+    nextCursor: number;
+    last: boolean;
+    totalElements: number;
+  };
+}

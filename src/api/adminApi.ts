@@ -14,6 +14,8 @@ import {
   AdminPostListResponse,
   AdminCommentListRequest,
   AdminCommentListResponse,
+  CouponListRequest,
+  CouponListResponse,
 } from '@/types/admin';
 import { ApiResponse } from '@/types/api';
 
@@ -81,6 +83,17 @@ const getAdminCommentList = async (params: AdminCommentListRequest) => {
   return data.result;
 };
 
+/** 쿠폰 목록 조회 */
+const getCoupons = async (params: CouponListRequest) => {
+  const queryParams = {
+    ...params,
+    status: Array.from(params.status),
+    couponTypes: params.couponTypes ? Array.from(params.couponTypes) : undefined,
+  };
+  const { data } = await axiosInstance.get<CouponListResponse>(END_POINTS.ADMIN.COUPONS.LIST, { params: queryParams });
+  return data.result;
+};
+
 export const adminApi = {
   getMemberList,
   getMemberDailyQuestions,
@@ -90,4 +103,5 @@ export const adminApi = {
   createDailyQuestions,
   getAdminPostList,
   getAdminCommentList,
+  getCoupons,
 };
