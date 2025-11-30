@@ -14,22 +14,37 @@ import {
 } from '@/constants/image';
 import useGetUserSummary from '@/hooks/api/member/useGetUserSummary';
 import { useGetPlans } from '@/hooks/api/payment/useGetPlans';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { useAppModalStore } from '@/stores/useModalStore';
 
 import SubscriptionCard from './_components/SubscriptionCard/SubscriptionCard';
 import * as S from './page.styled';
 
 export default function Subscription() {
   const router = useRouter();
+  const isAuth = useAuthStore((s) => s.isAuth());
+  const { open } = useAppModalStore();
+
   const { data: userSummary } = useGetUserSummary();
   const { data: plans } = useGetPlans();
 
   const reorderedPlans = plans ? [plans[plans.length - 1], ...plans.slice(0, plans.length - 1)] : [];
 
   const handleFreeTrial = () => {
+    if (!isAuth) {
+      open('login');
+      return;
+    }
+
     router.push('/payment?plan=MONTH&trial=true');
   };
 
   const handleClick = () => {
+    if (!isAuth) {
+      open('login');
+      return;
+    }
+
     if (userSummary?.isTrialUsed) {
       router.push('/payment');
     } else {
