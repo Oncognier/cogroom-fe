@@ -15,6 +15,7 @@ import Loading from '@/components/organisms/Loading/Loading';
 import Table from '@/components/organisms/Table/Table';
 import { COUPON_TYPE_OPTIONS, COUPON_STATUS_OPTIONS, COUPON_TABLE_HEADER_ITEMS } from '@/constants/common';
 import { useGetCoupons } from '@/hooks/api/admin/useGetCoupons';
+import { useAlertModalStore } from '@/stores/useModalStore';
 import { Coupon } from '@/types/admin';
 import { SortType } from '@/types/member';
 
@@ -26,6 +27,7 @@ import CouponListRow from '../_components/CouponListRow/CouponListRow';
 export default function Coupons() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { open: openAlert } = useAlertModalStore();
   const [selectedStatusOptions, setSelectedStatusOptions] = useState<string[]>(['ALL']);
   const [sort, setSort] = useState<SortType>('latest');
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
@@ -104,6 +106,54 @@ export default function Coupons() {
     keyword: searchFilters.keyword,
     couponTypes: new Set(searchFilters.couponTypes),
   });
+
+  useEffect(() => {
+    if (error) {
+      const errorCode = (error as { response?: { data?: { errorCode?: string; message?: string } } })?.response?.data
+        ?.errorCode;
+
+      const excludedErrorCodes = [
+        'TOKEN_INVALID_ERROR',
+        'TOKEN_EXPIRED_ERROR',
+        'ACCESS_TOKEN_EMPTY_ERROR',
+        'INTERNAL_SERVER_ERROR',
+      ];
+
+      if (errorCode && !excludedErrorCodes.includes(errorCode)) {
+        let errorMessage = '오류가 발생했습니다.';
+
+        switch (errorCode) {
+          case 'MEMBER_NOT_FOUND_ERROR':
+            errorMessage = '사용자를 찾을 수 없습니다.';
+            break;
+          case 'FORBIDDEN_ERROR':
+            errorMessage = '사용자 권한이 없습니다.';
+            break;
+          case 'COUPON_FORBIDDEN_ERROR':
+            errorMessage = '쿠폰 관리 권한이 없습니다.';
+            break;
+          case 'PAGE_OUT_OF_RANGE_ERROR':
+            errorMessage = '요청한 페이지가 범위를 초과했습니다.';
+            break;
+          case 'DATE_FORMAT_INVALID_ERROR':
+            errorMessage = '유효한 날짜 형식이 아닙니다.';
+            break;
+          case 'INVALID_CATEGORY_ERROR':
+            errorMessage = '유효하지 않은 카테고리입니다.';
+            break;
+          default:
+            errorMessage =
+              (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+              '오류가 발생했습니다.';
+        }
+
+        openAlert('alert', {
+          message: errorMessage,
+          type: 'alert',
+        });
+      }
+    }
+  }, [error, openAlert]);
 
   const coupons = useMemo(() => couponsData?.data ?? ([] as Coupon[]), [couponsData]);
   const currentPageIds = useMemo(() => coupons.map((c: Coupon) => c.couponId), [coupons]);
