@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/molecules/Breadcrumb/Breadcrumb';
 import TabBarList from '@/components/molecules/TabBarList/TabBarList';
 import AdminGuard from '@/components/organisms/AdminGuard/AdminGuard';
 import Loading from '@/components/organisms/Loading/Loading';
+import { ADMIN_NAV_ITEMS } from '@/constants/common';
 import { useAuthStore } from '@/stores/useAuthStore';
 
 import { getAdminTabState } from './_utils/getAdminTabState';
@@ -33,28 +34,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ]}
         />
         <TabBarList
-          items={[
-            {
-              label: '커뮤니티',
-              href: '/admin/community/posts',
-              state: getAdminTabState(pathname, '/admin/community', role),
-            },
-            {
-              label: '콘텐츠 관리',
-              href: '/admin/contents',
-              state: getAdminTabState(pathname, '/admin/contents', role),
-            },
-            {
-              label: '회원관리',
-              href: '/admin/users',
-              state: getAdminTabState(pathname, '/admin/users', role),
-            },
-            {
-              label: '결제관리',
-              href: '/admin/payments',
-              state: getAdminTabState(pathname, '/admin/payments', role),
-            },
-          ]}
+          items={ADMIN_NAV_ITEMS.map((item) => ({
+            label: item.label,
+            href: item.href,
+            state: getAdminTabState(pathname, item.href.includes('community') ? '/admin/community' : item.href, role),
+          }))}
           size='md'
           interactionVariant='normal'
           fillContainer
