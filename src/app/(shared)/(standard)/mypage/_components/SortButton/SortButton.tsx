@@ -11,9 +11,22 @@ interface SortButtonProps {
 }
 
 export default function SortButton({ sort, onClick }: SortButtonProps) {
+  const getSortLabel = () => {
+    switch (sort) {
+      case 'latest':
+        return '최신순';
+      case 'highest':
+        return '높은금액순';
+      case 'lowest':
+        return '낮은금액순';
+      default:
+        return '최신순';
+    }
+  };
+
   return (
     <S.SortButton onClick={onClick}>
-      {sort === 'latest' ? '최신순' : '오래된순'}
+      {getSortLabel()}
       <S.Icon>
         <ChangeIcon />
       </S.Icon>
