@@ -6,6 +6,13 @@ export interface SelectOption {
   value: string | number;
 }
 
+export interface GroupOption {
+  label: string;
+  children: SelectOption[];
+}
+
+export type SelectOptionOrGroup = SelectOption | GroupOption;
+
 export interface DropdownOption {
   label: string;
   value: string | number;

@@ -8,6 +8,7 @@ import { createDailyQuestionsError, createDailyQuestionsSuccess } from '../data/
 import { deleteMemberError, deleteMemberSuccess } from '../data/admin/deleteMemberData';
 import { getAdminCommentListSuccess } from '../data/admin/getAdminCommentListData';
 import { getAdminCouponListData } from '../data/admin/getAdminCouponsListData';
+import { getAdminPaymentHistoryData } from '../data/admin/getAdminPaymentHistoryData';
 import { getAdminPostListSuccess } from '../data/admin/getAdminPostListData';
 import { getDailyQuestionsSuccess } from '../data/admin/getDailyQuestionsData';
 import {
@@ -136,6 +137,56 @@ export const adminHandlers = [
       ...getAdminCouponListData,
       result: {
         ...getAdminCouponListData.result,
+        data: paginatedData,
+        totalElements: filteredData.length,
+      },
+    };
+
+    return new HttpResponse(JSON.stringify(response), {
+      status: HTTP_STATUS_CODE.OK,
+    });
+  }),
+
+  // 어드민 결제 내역 조회
+  http.get(END_POINTS.ADMIN.PAYMENTS.LIST, async ({ request }) => {
+    const url = new URL(request.url);
+    const params = Object.fromEntries(url.searchParams.entries());
+    const categoryArray = url.searchParams.getAll('category');
+    const keyword = params.keyword;
+    const sort = params.sort || 'latest';
+
+    const size = Number(params.size) || 5;
+    const cursor = Number(params.cursor) || 0;
+
+    let filteredData = [...getAdminPaymentHistoryData.result.data];
+
+    if (categoryArray.length > 0) {
+      filteredData = filteredData.filter((payment) => categoryArray.includes(payment.category));
+    }
+
+    if (keyword) {
+      filteredData = filteredData.filter(
+        (payment) =>
+          payment.nickname.toLowerCase().includes(keyword.toLowerCase()) ||
+          payment.paymentHistoryId.toString().includes(keyword),
+      );
+    }
+
+    // 정렬 적용
+    if (sort === 'latest') {
+      filteredData.sort((a, b) => new Date(b.paidAt).getTime() - new Date(a.paidAt).getTime());
+    } else if (sort === 'highest') {
+      filteredData.sort((a, b) => b.price - a.price);
+    } else if (sort === 'lowest') {
+      filteredData.sort((a, b) => a.price - b.price);
+    }
+
+    const paginatedData = filteredData.slice(cursor, cursor + size);
+
+    const response = {
+      ...getAdminPaymentHistoryData,
+      result: {
+        ...getAdminPaymentHistoryData.result,
         data: paginatedData,
         totalElements: filteredData.length,
       },

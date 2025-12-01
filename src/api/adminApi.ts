@@ -16,6 +16,8 @@ import {
   AdminCommentListResponse,
   CouponListRequest,
   CouponListResponse,
+  AdminPaymentHistoryRequest,
+  AdminPaymentHistoryResponse,
 } from '@/types/admin';
 import { ApiResponse } from '@/types/api';
 
@@ -94,6 +96,12 @@ const getCoupons = async (params: CouponListRequest) => {
   return data.result;
 };
 
+/** 어드민 결제 내역 조회 */
+const getPaymentHistory = async (params: AdminPaymentHistoryRequest) => {
+  const { data } = await axiosInstance.get<AdminPaymentHistoryResponse>(END_POINTS.ADMIN.PAYMENTS.LIST, { params });
+  return data.result;
+};
+
 export const adminApi = {
   getMemberList,
   getMemberDailyQuestions,
@@ -104,4 +112,5 @@ export const adminApi = {
   getAdminPostList,
   getAdminCommentList,
   getCoupons,
+  getPaymentHistory,
 };
