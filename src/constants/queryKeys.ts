@@ -57,6 +57,7 @@ const ADMIN_QUERY_KEYS = {
   ADMIN_MEMBER_DAILY: ['admin', 'daily'],
   POST_LIST: ['admin', 'post_list'],
   COMMENT_LIST: ['admin', 'comment_list'],
+  PAYMENT_HISTORY: ['admin', 'payment_history'],
 } as const;
 
 export {
