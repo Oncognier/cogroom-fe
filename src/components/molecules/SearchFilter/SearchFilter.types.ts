@@ -1,9 +1,11 @@
+import { SelectOptionOrGroup } from '@/types/common';
+
 export interface FilterFieldConfig {
   search?: { name: string; placeholder: string }[];
   select?: {
     name: string;
     placeholder: string;
-    options: Array<{ label: string; value: string | number }>;
+    options: SelectOptionOrGroup[];
     isMulti?: boolean;
   }[];
   dateRange?: {

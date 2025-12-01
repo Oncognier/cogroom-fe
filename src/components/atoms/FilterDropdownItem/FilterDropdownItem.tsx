@@ -9,12 +9,25 @@ interface FilterDropdownItemProps {
   label: string;
   value: string | number;
   isChecked: boolean;
+  isPartial?: boolean;
   isMulti: boolean;
+  isGroup?: boolean;
+  isChild?: boolean;
   groupName?: string;
   onToggle: (value: string | number, checked: boolean) => void;
 }
 
-export function FilterDropdownItem({ label, value, isChecked, isMulti, groupName, onToggle }: FilterDropdownItemProps) {
+export function FilterDropdownItem({
+  label,
+  value,
+  isChecked,
+  isPartial = false,
+  isMulti,
+  isGroup = false,
+  isChild = false,
+  groupName,
+  onToggle,
+}: FilterDropdownItemProps) {
   const handleClick = () => {
     onToggle(value, !isChecked);
   };
@@ -31,12 +44,18 @@ export function FilterDropdownItem({ label, value, isChecked, isMulti, groupName
       }}
       aria-pressed={isChecked}
       data-checked={isChecked}
+      style={{
+        paddingLeft: isChild ? '24px' : '12px',
+        fontWeight: isGroup ? '600' : '400',
+        fontSize: isGroup ? '14px' : '13px',
+      }}
     >
       {isMulti ? (
         <Checkbox
           size='sm'
           isDisabled={false}
           isChecked={isChecked}
+          isIndeterminate={isPartial}
           interactionVariant='strong'
           onToggle={() => {}}
           name={String(value)}

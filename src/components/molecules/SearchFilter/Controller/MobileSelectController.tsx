@@ -3,6 +3,7 @@
 import { Controller, type Control } from 'react-hook-form';
 
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
+import { SelectOptionOrGroup } from '@/types/common';
 
 import * as S from '../SearchFilter.styled';
 import type { FilterValues } from '../SearchFilter.types';
@@ -11,7 +12,7 @@ interface MobileSelectControllerProps {
   control: Control<FilterValues>;
   name: string;
   placeholder: string;
-  options: Array<{ label: string; value: string | number }>;
+  options: SelectOptionOrGroup[];
   isMulti?: boolean;
 }
 
@@ -22,6 +23,8 @@ export default function MobileSelectController({
   options,
   isMulti,
 }: MobileSelectControllerProps) {
+  const flatOptions = options.flatMap((option) => ('children' in option ? option.children : [option]));
+
   return (
     <Controller
       name={name}
@@ -42,7 +45,7 @@ export default function MobileSelectController({
           <S.FieldWrapper>
             <S.MobileGroupLabel>{placeholder}</S.MobileGroupLabel>
             <S.OptionButtonGroup>
-              {options.map(({ label, value: v }) => {
+              {flatOptions.map(({ label, value: v }) => {
                 const active = current.includes(v);
                 return (
                   <SolidButton

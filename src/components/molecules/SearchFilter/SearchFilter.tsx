@@ -17,8 +17,11 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
     (key: string, value: string[]) => {
       const selectField = fields.select?.find((s) => s.name === key);
       if (!selectField) return value;
+
+      const flatOptions = selectField.options.flatMap((option) => ('children' in option ? option.children : [option]));
+
       return value.map((v) => {
-        const option = selectField.options.find((opt) => String(opt.value) === v);
+        const option = flatOptions.find((opt) => String(opt.value) === v);
         return option ? option.value : v;
       });
     },
@@ -32,7 +35,10 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
       }
       const selectField = fields.select?.find((s) => s.name === key);
       if (!selectField || !value) return value;
-      const option = selectField.options.find((opt) => String(opt.value) === value);
+
+      const flatOptions = selectField.options.flatMap((option) => ('children' in option ? option.children : [option]));
+
+      const option = flatOptions.find((opt) => String(opt.value) === value);
       return option ? option.value : value;
     },
     [fields.select],
@@ -57,7 +63,6 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
   const { control, handleSubmit } = useForm<FilterValues>({
     defaultValues: getInitialValues(),
   });
-
   const handleFormSubmit = (formValues: FilterValues) => {
     updateSearchParams(formValues);
   };

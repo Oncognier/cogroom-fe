@@ -7,11 +7,13 @@ import { Select } from '@/components/molecules/Select/Select';
 import * as S from '../SearchFilter.styled';
 import type { FilterValues } from '../SearchFilter.types';
 
+import { SelectOptionOrGroup } from '@/types/common';
+
 interface SelectControllerProps {
   control: Control<FilterValues>;
   name: string;
   placeholder: string;
-  options: Array<{ label: string; value: string | number }>;
+  options: SelectOptionOrGroup[];
   isMulti?: boolean;
 }
 

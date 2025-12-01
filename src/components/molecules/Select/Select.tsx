@@ -5,7 +5,7 @@ import React from 'react';
 import ChevronDown from '@/assets/icons/chevrondown.svg';
 import InputLabel from '@/components/atoms/InputLabel/InputLabel';
 import { useDropdown } from '@/hooks/useDropdown';
-import { SelectOption } from '@/types/common';
+import { SelectOption, SelectOptionOrGroup } from '@/types/common';
 
 import * as S from './Select.styled';
 import type { SelectStyleProps } from './Select.styled';
@@ -13,7 +13,7 @@ import { FilterDropdownList } from '../FilterDropdownList/FilterDropdownList';
 import { SelectTagList } from './SelectTagList/SelectTagList';
 
 interface SelectProps extends SelectStyleProps {
-  options: SelectOption[];
+  options: SelectOptionOrGroup[];
   value: Array<string | number>;
   onChange: (value: Array<string | number>) => void;
   isMulti?: boolean;
@@ -38,7 +38,12 @@ export function Select({
 }: SelectProps) {
   const { isOpen, toggle, handleBlur, dropdownRef } = useDropdown();
 
-  const selectedLabels = options.filter((opt) => value.includes(opt.value)).map((opt) => opt.label);
+  const getAllOptions = (options: SelectOptionOrGroup[]): SelectOption[] => {
+    return options.flatMap((option) => ('children' in option ? option.children : [option]));
+  };
+
+  const allOptions = getAllOptions(options);
+  const selectedLabels = allOptions.filter((opt) => value.includes(opt.value)).map((opt) => opt.label);
 
   const handleSelect = (next: Array<string | number>) => {
     onChange(next);
@@ -70,7 +75,7 @@ export function Select({
         >
           {isMulti && (
             <SelectTagList
-              options={options}
+              options={allOptions}
               value={value}
               onRemove={handleRemove}
             />

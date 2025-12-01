@@ -9,6 +9,7 @@ interface CheckboxProps extends CheckboxStyleProps {
   name?: string;
   tabIndex?: number;
   stopPropagation?: boolean;
+  isIndeterminate?: boolean;
 }
 
 export default function Checkbox({
@@ -22,6 +23,7 @@ export default function Checkbox({
   round,
   tabIndex,
   stopPropagation = false,
+  isIndeterminate = false,
 }: CheckboxProps) {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (stopPropagation) {
@@ -51,13 +53,20 @@ export default function Checkbox({
         disabled={isDisabled}
         name={name}
         required={required}
+        ref={(input) => {
+          if (input) input.indeterminate = isIndeterminate;
+        }}
       />
-      {isChecked && (
+      {(isChecked || isIndeterminate) && (
         <S.Icon
           size={size}
           interactionVariant={interactionVariant}
         >
-          <Check />
+          {isIndeterminate ? (
+            <div style={{ width: '8px', height: '2px', backgroundColor: 'currentColor' }} />
+          ) : (
+            <Check />
+          )}
         </S.Icon>
       )}
     </S.Checkbox>
