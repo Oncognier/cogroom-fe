@@ -21,7 +21,7 @@ export type Typography = {
   label2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
   caption1: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
   caption2: Pick<TypographyStyle, 'regular' | 'medium' | 'semibold'>;
-  mini1: Pick<TypographyStyle, 'semibold'>;
+  mini1: Pick<TypographyStyle, 'regular' | 'semibold'>;
   mini2: Pick<TypographyStyle, 'regular'>;
 };
 

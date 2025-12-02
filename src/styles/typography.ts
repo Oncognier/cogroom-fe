@@ -334,6 +334,10 @@ export const typography: Typography = {
       ${baseTextStyle.mini1};
       font-weight: ${weights.semibold};
     `,
+    regular: css`
+      ${baseTextStyle.mini1};
+      font-weight: ${weights.regular};
+    `,
   },
   mini2: {
     regular: css`
