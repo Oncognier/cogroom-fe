@@ -18,7 +18,7 @@ export default function InputCount({ maxLength, value, onChange }: InputCountPro
       isOverLimit={isOverLimit}
       isShaking={isShaking}
     >
-      {value.length}/{maxLength - 1}
+      {value.length}/{maxLength}
     </S.InputCount>
   );
 }
