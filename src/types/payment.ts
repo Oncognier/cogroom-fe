@@ -54,6 +54,11 @@ export interface CompletePlanRequest {
   paymentMethod: PaymentMethod;
 }
 
+export interface ChangePlanRequest {
+  paymentHistoryId: number;
+  applyNow: boolean;
+}
+
 export interface VerifyPaymentRequest {
   identityVerificationId?: string;
   paymentHistoryId: number;
