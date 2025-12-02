@@ -1,7 +1,7 @@
 import PortOne from '@portone/browser-sdk/v2';
 
 import { PORTONE } from '@/constants/api';
-import { PaymentMethod } from '@/types/payment';
+import { PaymentMethod, RegisteredPaymentMethod } from '@/types/payment';
 
 export type IdentityResponse = {
   identityVerificationId: string;
@@ -131,11 +131,49 @@ export const requestBillingKey = async (method: PaymentMethod, params: BillingRe
   switch (method) {
     case 'CARD':
       return requestInicisBillingKey(params);
-    case 'KAKAO':
+    case 'KAKAO_PAY':
       return requestKakaoBillingKey(params);
     case 'PHONE':
       return requestMobileBillingKey(params);
     default:
       throw new Error(`[requestBillingKey] Unsupported billing method: ${method}`);
   }
+};
+
+/**
+ * @typedef {Object} PaymentStatus
+ * @property {boolean} hasCARD - CARD 타입 결제 수단 등록 여부
+ * @property {boolean} hasKAKAOPAY - KAKAO_PAY 타입 결제 수단 등록 여부
+ */
+
+/**
+ * 등록된 결제 수단 목록에서 CARD 또는 KAKAO_PAY 타입의 등록 여부를 확인합니다.
+ *
+ * @param {RegisteredPaymentMethod[]} paymentMethods - 등록된 결제 수단 객체 배열
+ * @returns {PaymentStatus} - CARD 및 KAKAO_PAY의 등록 상태 객체
+ */
+export const checkPaymentMethods = (paymentMethods: RegisteredPaymentMethod[]) => {
+  const result = {
+    hasCARD: false,
+    hasKAKAOPAY: false,
+  };
+
+  for (const method of paymentMethods) {
+    if (result.hasCARD && result.hasKAKAOPAY) {
+      break;
+    }
+
+    if (method.isPresent === true) {
+      switch (method.paymentType) {
+        case 'CARD':
+          result.hasCARD = true;
+          break;
+        case 'KAKAO_PAY':
+          result.hasKAKAOPAY = true;
+          break;
+      }
+    }
+  }
+
+  return result;
 };
