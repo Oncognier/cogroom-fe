@@ -147,6 +147,14 @@ export default function ModalTestPage() {
     });
   };
 
+  const openUpgradePlanModal = () => {
+    largeStoreOpen('upgradePlan', {});
+  };
+
+  const openDowngradePlanModal = () => {
+    largeStoreOpen('downgradePlan', {});
+  };
+
   return (
     <Container>
       <h1>Modal Component Test</h1>
@@ -161,6 +169,9 @@ export default function ModalTestPage() {
         <Button onClick={openInfoModal}>Info 모달 띄우기 (2버튼)</Button>
         <Button onClick={openConfirmModal}>Confirm 모달 띄우기</Button>
         <Button onClick={openFormModal}>Form 모달 띄우기</Button>
+
+        <Button onClick={openUpgradePlanModal}>UpgradePlan 모달 띄우기</Button>
+        <Button onClick={openDowngradePlanModal}>DowngradePlan 모달 띄우기</Button>
       </Section>
 
       <hr />
