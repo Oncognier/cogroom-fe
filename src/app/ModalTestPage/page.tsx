@@ -45,7 +45,6 @@ export default function ModalTestPage() {
   const MAX_LENGTH = 100;
 
   const openInfoModal = () => {
-    console.log('sdf');
     largeStoreOpen('info', {
       title: '정보 모달 테스트',
       description: '작업을 성공적으로 완료했습니다! 상세 내용을 확인하세요.',

@@ -1,14 +1,14 @@
 'use client';
 
-import React, { ChangeEvent, useRef, useState, useCallback, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
+import Textarea from '@/components/molecules/Textarea/Textarea';
+import InputCount from '@/components/organisms/Question/_components/InputCount';
 import { ModalOptions } from '@/types/modal2';
 
 import * as S from './Form.styled';
 import { ButtonProps } from '../../../modalConfig2';
-import Textarea from '@/components/molecules/Textarea/Textarea';
-import InputCount from '@/components/organisms/Question/_components/InputCount';
 
 export interface FormModalProps extends ModalOptions {
   [key: string]: unknown;
