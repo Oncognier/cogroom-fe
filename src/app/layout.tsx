@@ -13,6 +13,7 @@ import { getMetaPixelId } from '@/utils/metaPixel';
 
 import KakaoInitializer from './KakaoInitializer';
 import ModalProvider from './ModalProvider';
+import ModalProvider2 from './ModalProvider2';
 
 export const metadata: Metadata = {
   verification: {
@@ -139,6 +140,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <QueryProvider>
               <HydrationBoundary state={dehydratedState}>{children}</HydrationBoundary>
               <ModalProvider />
+              <ModalProvider2 />
             </QueryProvider>
           </MSWProvider>
         </EmotionRegistry>
