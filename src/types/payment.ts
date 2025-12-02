@@ -32,13 +32,22 @@ export interface PlansResponse extends ApiResponse {
   result: Plan[];
 }
 
+export type PaymentMethod = 'CARD' | 'PHONE' | 'KAKAO_PAY';
+
+export interface RegisteredPaymentMethod {
+  paymentMethodId: number;
+  isPresent: boolean;
+  cardCompanyName: string;
+  cardMaskedNumber: string;
+  paymentType: PaymentMethod;
+}
+
 export interface BillingKeyResponse extends ApiResponse {
   result: {
     isExist: boolean;
+    paymentMethods: RegisteredPaymentMethod[];
   };
 }
-
-export type PaymentMethod = 'CARD' | 'PHONE' | 'KAKAO';
 
 export interface CompletePlanRequest {
   paymentHistoryId: number;

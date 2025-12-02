@@ -18,6 +18,7 @@ import { usePaymentResume } from '@/hooks/api/payment/usePaymentResume';
 import { loadPaymentState } from '@/stores/paymentStorage';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { PaymentMethod } from '@/types/payment';
+import { checkPaymentMethods } from '@/utils/portone';
 
 import PaymentCard from './_components/PaymentCard/PaymentCard';
 import * as S from './page.styled';
@@ -95,9 +96,18 @@ export default function Payment() {
 
     setIsFlowProcessing(true);
 
+    const registeredStatus = checkPaymentMethods(billingKey.paymentMethods);
+    let billingKeyExistsForSelectedMethod = false;
+
+    if (selectedPaymentMethod === 'CARD') {
+      billingKeyExistsForSelectedMethod = registeredStatus.hasCARD;
+    } else if (selectedPaymentMethod === 'KAKAO_PAY') {
+      billingKeyExistsForSelectedMethod = registeredStatus.hasKAKAOPAY;
+    }
+
     await startPaymentFlow(
       planInfo.paymentHistoryId,
-      billingKey.isExist,
+      billingKeyExistsForSelectedMethod,
       selectedPaymentMethod,
       isSubscribed(),
       selectedId,
@@ -180,11 +190,11 @@ export default function Payment() {
                 <S.PaymentMethodLabel>신용카드</S.PaymentMethodLabel>
               </S.PaymentMethodRow>
 
-              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('KAKAO')}>
+              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('KAKAO_PAY')}>
                 <Checkbox
                   size='nm'
-                  isChecked={selectedPaymentMethod === 'KAKAO'}
-                  onToggle={() => setSelectedPaymentMethod('KAKAO')}
+                  isChecked={selectedPaymentMethod === 'KAKAO_PAY'}
+                  onToggle={() => setSelectedPaymentMethod('KAKAO_PAY')}
                   interactionVariant='normal'
                   round
                 />
