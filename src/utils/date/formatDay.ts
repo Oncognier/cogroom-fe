@@ -33,9 +33,19 @@ export const formatDayAsYYYYMM = createDateFormatter((date) => {
   return `${date.getFullYear()}년 ${formatToDigits(date.getMonth() + 1, 2)}월`;
 });
 
+// YYYY년 MM월 DD일 형식으로 포맷팅 (2025년 08월 04일)
+export const formatDayAsYYYYMMDD = createDateFormatter((date) => {
+  return `${date.getFullYear()}년 ${formatToDigits(date.getMonth() + 1, 2)}월 ${formatToDigits(date.getDate(), 2)}일`;
+});
+
 // HH:mm 형식으로 포맷팅 (예: 13:32)
 export const formatTimeAsHHmm = createDateFormatter((date) => {
   return `${formatToDigits(date.getHours(), 2)}:${formatToDigits(date.getMinutes(), 2)}`;
+});
+
+// HH:mm:ss 형식으로 포맷팅 (예: 13:32:45)
+export const formatTimeAsHHmmss = createDateFormatter((date) => {
+  return `${formatToDigits(date.getHours(), 2)}:${formatToDigits(date.getMinutes(), 2)}:${formatToDigits(date.getSeconds(), 2)}`;
 });
 
 // YYYY.MM.DD HH:MM 형식으로 포맷팅 (2024.12.31 23:59)
