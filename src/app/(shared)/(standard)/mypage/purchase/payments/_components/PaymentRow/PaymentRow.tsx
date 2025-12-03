@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation';
+
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { PaymentHistory } from '@/types/payment';
 import { formatDayAsDotYYYYMMDD, formatTimeAsHHmm } from '@/utils/date/formatDay';
@@ -9,8 +11,10 @@ interface PaymentRowProps {
 }
 
 export default function PaymentRow({ payment }: PaymentRowProps) {
+  const router = useRouter();
+
   const handleDetailClick = () => {
-    // TODO: 상세 보기 로직 구현
+    router.push(`/mypage/purchase/payments/${payment.id}`);
   };
 
   const getStatusText = () => {
