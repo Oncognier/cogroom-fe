@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useUrlSearchParams } from '@/hooks/queryParams/useUrlSearchParams';
@@ -60,9 +60,15 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
     return mergedValues;
   }, [getAllSearchParams, convertArrayValue, convertSingleValue]);
 
-  const { control, handleSubmit } = useForm<FilterValues>({
+  const { control, handleSubmit, reset } = useForm<FilterValues>({
     defaultValues: getInitialValues(),
   });
+
+  useEffect(() => {
+    const currentUrlValues = getInitialValues();
+    reset(currentUrlValues);
+  }, [getAllSearchParams, reset, getInitialValues]);
+
   const handleFormSubmit = (formValues: FilterValues) => {
     updateSearchParams(formValues);
   };
