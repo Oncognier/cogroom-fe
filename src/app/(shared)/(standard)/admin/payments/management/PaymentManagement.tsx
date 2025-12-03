@@ -190,7 +190,7 @@ export default function PaymentManagement() {
   return (
     <S.PaymentManagementContainer>
       <S.SearchWrapper>
-        <S.SearchTitle>전체 결제({paymentsData?.totalElements ?? 0}건)</S.SearchTitle>
+        <S.SearchTitle>전체 결제 ({paymentsData?.totalElements ?? 0}건)</S.SearchTitle>
         <S.SearchFilterWrapper>
           <SearchFilter
             fields={filterFields}
