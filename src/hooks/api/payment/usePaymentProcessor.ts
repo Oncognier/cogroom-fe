@@ -1,4 +1,3 @@
-import { useChangePlanMutation } from '@/hooks/api/payment/useChangePlan';
 import { useVerifyPaymentMutation } from '@/hooks/api/payment/useVerifyPayment';
 import { clearPaymentState, savePaymentState } from '@/stores/paymentStorage';
 import { PaymentMethod, VerifyPaymentData } from '@/types/payment';
@@ -10,7 +9,6 @@ import { useCompletePlanMutation } from './useCompletePlan';
  * 결제 플로우를 처리하는 커스텀 훅
  */
 export const usePaymentProcessor = () => {
-  const { changePlan } = useChangePlanMutation();
   const { completePlan } = useCompletePlanMutation();
   const { verifyPayment } = useVerifyPaymentMutation();
 
@@ -75,7 +73,6 @@ export const usePaymentProcessor = () => {
   ) => {
     // 1. 플랜 변경 (구독 중, 빌링키 있음)
     if (isSubscribed && billingKeyExists) {
-      // changePlan({ paymentHistoryId, paymentMethod });
       return;
     }
 
