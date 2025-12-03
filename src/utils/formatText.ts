@@ -79,3 +79,19 @@ export const parsePlanDescription = (description: string): string[] => {
     .map((item) => item.trim()) // 공백 제거
     .filter((item) => item.length > 0); // 빈 문자열 제거
 };
+
+/**
+ * ID를 주문번호 형식으로 변환하는 함수
+ * @param id 숫자 또는 숫자 문자열
+ * @returns ORD00000123 형식의 주문번호
+ *
+ * @example
+ * formatOrderNumber(123);     // "ORD00000123"
+ * formatOrderNumber("456");   // "ORD00000456"
+ * formatOrderNumber(12345);   // "ORD00012345"
+ */
+export const formatOrderNumber = (id: number | string): string => {
+  const num = Number(id).toString();
+  const padded = num.padStart(8, '0');
+  return `ORD${padded}`;
+};
