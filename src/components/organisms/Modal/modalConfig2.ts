@@ -1,5 +1,7 @@
 import type { ModalMap2 } from '@/types/modal2';
 
+import DowngradePlan, { DowngradePlanModalProps } from './templates/Large/ChangePlan/DowngradePlan/DowngradePlan';
+import UpgradePlan, { UpgradePlanModalProps } from './templates/Large/ChangePlan/UpgradePlan/UpgradePlan';
 import ConfirmLarge, { ConfirmLargeModalProps } from './templates/Large/Confirm/Confirm';
 import Form, { FormModalProps } from './templates/Large/Form/Form';
 import Info, { InfoModalProps } from './templates/Large/Info/Info';
@@ -16,12 +18,18 @@ export type LargeModalProps = {
   info: InfoModalProps;
   confirm: ConfirmLargeModalProps;
   form: FormModalProps;
+
+  upgradePlan: UpgradePlanModalProps;
+  downgradePlan: DowngradePlanModalProps;
 };
 
 export const LargeModalRegistry = {
   info: { Component: Info },
   confirm: { Component: ConfirmLarge },
   form: { Component: Form },
+
+  upgradePlan: { Component: UpgradePlan },
+  downgradePlan: { Component: DowngradePlan },
 } satisfies ModalMap2<LargeModalProps>;
 
 export type MediumModalProps = {

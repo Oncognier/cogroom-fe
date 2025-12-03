@@ -75,7 +75,7 @@ export const usePaymentProcessor = () => {
   ) => {
     // 1. 플랜 변경 (구독 중, 빌링키 있음)
     if (isSubscribed && billingKeyExists) {
-      changePlan({ paymentHistoryId, paymentMethod });
+      // changePlan({ paymentHistoryId, paymentMethod });
       return;
     }
 

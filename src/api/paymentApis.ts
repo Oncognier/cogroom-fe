@@ -4,6 +4,7 @@ import { END_POINTS } from '@/constants/api';
 import { ApiResponse } from '@/types/api';
 import {
   BillingKeyResponse,
+  ChangePlanRequest,
   CompletePlanRequest,
   PlanInfoRequest,
   PlanInfoResponse,
@@ -45,10 +46,10 @@ const completePlan = async ({ paymentHistoryId, paymentMethod }: CompletePlanReq
 };
 
 /** 플랜 변경 */
-const changePlan = async ({ paymentHistoryId, paymentMethod }: CompletePlanRequest) => {
+const changePlan = async ({ paymentHistoryId, applyNow }: ChangePlanRequest) => {
   const { data } = await axiosInstance.patch<ApiResponse>(END_POINTS.PAYMENTS.CHANGE_PLAN, {
     paymentHistoryId,
-    paymentMethod,
+    applyNow,
   });
 
   return data;
