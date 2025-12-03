@@ -16,9 +16,9 @@ export default function SortButton({ sort, onClick }: SortButtonProps) {
       case 'latest':
         return '최신순';
       case 'highest':
-        return '높은금액순';
+        return '높은 금액순';
       case 'lowest':
-        return '낮은금액순';
+        return '낮은 금액순';
       default:
         return '최신순';
     }
