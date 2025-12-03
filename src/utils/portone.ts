@@ -99,32 +99,6 @@ export const requestKakaoBillingKey = async (opts: BillingRequestParams) => {
 };
 
 /**
- * 휴대폰 정기결제 빌링키 요청 유틸 함수
- */
-export const requestMobileBillingKey = async (opts: BillingRequestParams) => {
-  if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEYS.INICIS) {
-    alert(ALERT_PAYMENT_ERROR);
-    return null;
-  }
-
-  const { finalPrice, paymentHistoryId, planName, customer } = opts;
-
-  return await PortOne.requestIssueBillingKey({
-    storeId: PORTONE.STORE_ID,
-    currency: 'KRW',
-    redirectUrl: PORTONE.PAYMENT_REDIRECT_URL,
-    offerPeriod: { interval: '1m' },
-
-    displayAmount: finalPrice,
-    billingKeyMethod: 'MOBILE',
-    channelKey: PORTONE.CHANNEL_KEYS.INICIS,
-    issueId: String(paymentHistoryId),
-    issueName: planName,
-    customer,
-  });
-};
-
-/**
  * 결제 수단에 따라 적절한 빌링키 발급 요청 유틸 함수를 호출하는 메인 함수
  */
 export const requestBillingKey = async (method: PaymentMethod, params: BillingRequestParams) => {
@@ -133,8 +107,6 @@ export const requestBillingKey = async (method: PaymentMethod, params: BillingRe
       return requestInicisBillingKey(params);
     case 'KAKAO_PAY':
       return requestKakaoBillingKey(params);
-    case 'PHONE':
-      return requestMobileBillingKey(params);
     default:
       throw new Error(`[requestBillingKey] Unsupported billing method: ${method}`);
   }

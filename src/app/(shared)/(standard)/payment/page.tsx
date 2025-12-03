@@ -279,17 +279,6 @@ export default function Payment() {
                   />
                   <S.PaymentMethodLabel>카카오페이</S.PaymentMethodLabel>
                 </S.PaymentMethodRow>
-
-                <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('PHONE')}>
-                  <Checkbox
-                    size='nm'
-                    isChecked={selectedPaymentMethod === 'PHONE'}
-                    onToggle={() => setSelectedPaymentMethod('PHONE')}
-                    interactionVariant='normal'
-                    round
-                  />
-                  <S.PaymentMethodLabel>휴대폰</S.PaymentMethodLabel>
-                </S.PaymentMethodRow>
               </S.PaymentMethod>
             </S.PaymentDetail>
 

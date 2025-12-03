@@ -32,7 +32,7 @@ export interface PlansResponse extends ApiResponse {
   result: Plan[];
 }
 
-export type PaymentMethod = 'CARD' | 'PHONE' | 'KAKAO_PAY';
+export type PaymentMethod = 'CARD' | 'KAKAO_PAY';
 
 export interface RegisteredPaymentMethod {
   paymentMethodId: number;
