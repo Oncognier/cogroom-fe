@@ -158,6 +158,10 @@ export const checkPaymentMethods = (paymentMethods: RegisteredPaymentMethod[]) =
     hasKAKAOPAY: false,
   };
 
+  if (!Array.isArray(paymentMethods) || paymentMethods === null) {
+    return result;
+  }
+
   for (const method of paymentMethods) {
     if (result.hasCARD && result.hasKAKAOPAY) {
       break;
