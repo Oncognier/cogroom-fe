@@ -38,7 +38,7 @@ export const PlanDescription = ({ subscription }: PlanDescriptionProps) => {
       : 0;
 
   const getButtonLabel = () => {
-    if (isYearly) return '최대혜택 누리는 중';
+    if (isYearly) return '최대 혜택 누리는 중';
     if (isMonthly) return '업그레이드 하기';
     return subscription?.isPaidBefore ? '플랜 다시 시작하기' : '플랜 시작하기';
   };
