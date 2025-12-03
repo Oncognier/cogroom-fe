@@ -17,6 +17,7 @@ import { usePaymentProcessor } from '@/hooks/api/payment/usePaymentProcessor';
 import { usePaymentResume } from '@/hooks/api/payment/usePaymentResume';
 import { loadPaymentState } from '@/stores/paymentStorage';
 import { useAuthStore } from '@/stores/useAuthStore';
+import { useLargeModalStore } from '@/stores/useModalStore2';
 import { PaymentMethod } from '@/types/payment';
 import { checkPaymentMethods } from '@/utils/portone';
 
@@ -39,6 +40,7 @@ export default function Payment() {
   const isTrialParam = searchParams.get('trial') === 'true';
   const identityVerificationId = searchParams.get('identityVerificationId'); // 재개 여부 판단
   const isUnauth = useAuthStore((s) => s.isUnauth());
+  const { open: largeStoreOpen } = useLargeModalStore();
 
   const [selectedId, setSelectedId] = useState<number>(() => getInitialSelectedId(searchParams));
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
@@ -79,47 +81,123 @@ export default function Payment() {
     return currentPlanId === PLAN_MAPPING.MONTH || currentPlanId === PLAN_MAPPING.YEAR;
   };
 
-  const handleClick = async () => {
-    if (isProcessing) return;
+  /**
+   * 현재 구독 상태와 선택된 플랜을 기반으로 버튼의 '액션 타입'을 결정합니다.
+   */
+  const getPlanActionType = () => {
+    const currentPlanId = userSummary?.planId;
+    const selectedPlanId = selectedId;
+    const { MONTH, YEAR } = PLAN_MAPPING;
 
-    if (!isAgreed) {
-      setShowAgreementError(true);
-      return;
+    if (isSubscribed()) {
+      if (currentPlanId === MONTH) {
+        if (selectedPlanId === MONTH) return 'NONE'; // 동일 플랜
+        if (selectedPlanId === YEAR) return 'UPGRADE'; // 업그레이드
+      }
+
+      if (currentPlanId === YEAR) {
+        if (selectedPlanId === YEAR) return 'NONE'; // 동일 플랜
+        if (selectedPlanId === MONTH) return 'DOWNGRADE'; // 다운그레이드
+      }
     }
 
-    setShowAgreementError(false);
+    // 구독 중이 아닌 경우 (신규 결제 또는 빌링키 재사용)
+    return 'PAYMENT';
+  };
+
+  /**
+   * 버튼 레이블을 결정합니다. (getButtonLabel)
+   */
+  const getButtonLabel = () => {
+    const action = getPlanActionType();
+
+    if (isResuming) return '결제 재개 및 인증 중...';
+    if (isFlowProcessing) return '결제 요청 중...';
+
+    switch (action) {
+      case 'NONE':
+        return '해당 플랜 이용 중';
+      case 'UPGRADE':
+      case 'DOWNGRADE':
+        return '플랜 변경하기';
+      case 'PAYMENT':
+      default:
+        return '코그룸 프리미엄 시작하기';
+    }
+  };
+
+  /**
+   * 버튼의 비활성화 상태를 결정합니다. (getButtonDisabledStatus)
+   */
+  const getButtonDisabledStatus = () => {
+    const action = getPlanActionType();
+
+    // 'NONE' 액션 (동일 플랜 선택) 일 때는 무조건 비활성화
+    if (action === 'NONE') {
+      return true;
+    }
+
+    // 처리 중일 때 (결제 재개 또는 흐름 시작) 비활성화
+    if (isProcessing) {
+      return true;
+    }
+
+    // 나머지 경우 (업그레이드, 다운그레이드, PAYMENT)는 활성화
+    return false;
+  };
+
+  const handleClick = async () => {
+    const action = getPlanActionType();
+
+    // 1. 비활성화 상태이거나 처리 중인 경우 클릭 무시
+    if (getButtonDisabledStatus()) return;
 
     if (!planInfo || !billingKey) {
       alert('결제 정보를 불러오는 데 실패했습니다.');
       return;
     }
 
-    setIsFlowProcessing(true);
-
-    const registeredStatus = checkPaymentMethods(billingKey.paymentMethods);
-    let billingKeyExistsForSelectedMethod = false;
-
-    if (selectedPaymentMethod === 'CARD') {
-      billingKeyExistsForSelectedMethod = registeredStatus.hasCARD;
-    } else if (selectedPaymentMethod === 'KAKAO_PAY') {
-      billingKeyExistsForSelectedMethod = registeredStatus.hasKAKAOPAY;
+    // 3. 플랜 변경 (모달 오픈)
+    if (action === 'UPGRADE') {
+      largeStoreOpen('upgradePlan', {});
+      return;
     }
 
-    await startPaymentFlow(
-      planInfo.paymentHistoryId,
-      billingKeyExistsForSelectedMethod,
-      selectedPaymentMethod,
-      isSubscribed(),
-      selectedId,
-    );
+    if (action === 'DOWNGRADE') {
+      largeStoreOpen('downgradePlan', {});
+      return;
+    }
 
-    setIsFlowProcessing(false);
-  };
+    // 2. 약관 동의 확인 (플로우 시작 전)
+    if (!isAgreed) {
+      setShowAgreementError(true);
+      return;
+    }
+    setShowAgreementError(false);
 
-  const getButtonLabel = () => {
-    if (isResuming) return '결제 재개 및 인증 중...';
-    if (isFlowProcessing) return '결제 요청 중...';
-    return '코그룸 프리미엄 시작하기';
+    // 4. 신규/재사용 결제 플로우 시작 (action === 'PAYMENT')
+    if (action === 'PAYMENT') {
+      setIsFlowProcessing(true);
+
+      const registeredStatus = checkPaymentMethods(billingKey.paymentMethods);
+      let billingKeyExistsForSelectedMethod = false;
+
+      if (selectedPaymentMethod === 'CARD') {
+        billingKeyExistsForSelectedMethod = registeredStatus.hasCARD;
+      } else if (selectedPaymentMethod === 'KAKAO_PAY') {
+        billingKeyExistsForSelectedMethod = registeredStatus.hasKAKAOPAY;
+      }
+
+      await startPaymentFlow(
+        planInfo.paymentHistoryId,
+        billingKeyExistsForSelectedMethod,
+        selectedPaymentMethod,
+        isSubscribed(),
+        selectedId,
+      );
+
+      setIsFlowProcessing(false);
+    }
   };
 
   if (isUnauth) {
@@ -146,106 +224,108 @@ export default function Payment() {
       </S.PaymentCardWrapper>
 
       <S.PaymentInfo>
-        <S.PaymentSummary>
-          <S.PaymentDetail>
-            <S.InfoWrapper>
-              <S.InfoText>코그룸 프리미엄 구독</S.InfoText>
-              <S.PlanPrice>{planInfo?.basePrice ?? '-'} KRW</S.PlanPrice>
-            </S.InfoWrapper>
-
-            <S.DiscountInfo>
-              <S.InfoText>할인 적용</S.InfoText>
+        {getPlanActionType() === 'PAYMENT' && (
+          <S.PaymentSummary>
+            <S.PaymentDetail>
               <S.InfoWrapper>
-                <SolidTag
-                  color='blue'
-                  label='기본 적용 할인'
-                  round
-                />
-                <S.DiscountPrice>-{planInfo?.baseDiscountAmount ?? 0} KRW</S.DiscountPrice>
+                <S.InfoText>코그룸 프리미엄 구독</S.InfoText>
+                <S.PlanPrice>{planInfo?.basePrice ?? '-'} KRW</S.PlanPrice>
               </S.InfoWrapper>
-            </S.DiscountInfo>
 
-            <S.InfoWrapper>
-              <S.InfoText>쿠폰 사용</S.InfoText>
-              <OutlinedButton
-                size='sm'
-                color='assistive'
-                label='선택하기'
-                interactionVariant='normal'
-                isDisabled
-              />
-            </S.InfoWrapper>
+              <S.DiscountInfo>
+                <S.InfoText>할인 적용</S.InfoText>
+                <S.InfoWrapper>
+                  <SolidTag
+                    color='blue'
+                    label='기본 적용 할인'
+                    round
+                  />
+                  <S.DiscountPrice>-{planInfo?.baseDiscountAmount ?? 0} KRW</S.DiscountPrice>
+                </S.InfoWrapper>
+              </S.DiscountInfo>
 
-            <S.PaymentMethod>
-              <S.PaymentMethodTitle>결제 수단</S.PaymentMethodTitle>
-
-              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('CARD')}>
-                <Checkbox
-                  size='nm'
-                  isChecked={selectedPaymentMethod === 'CARD'}
-                  onToggle={() => setSelectedPaymentMethod('CARD')}
+              <S.InfoWrapper>
+                <S.InfoText>쿠폰 사용</S.InfoText>
+                <OutlinedButton
+                  size='sm'
+                  color='assistive'
+                  label='선택하기'
                   interactionVariant='normal'
-                  round
+                  isDisabled
                 />
-                <S.PaymentMethodLabel>신용카드</S.PaymentMethodLabel>
-              </S.PaymentMethodRow>
+              </S.InfoWrapper>
 
-              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('KAKAO_PAY')}>
-                <Checkbox
-                  size='nm'
-                  isChecked={selectedPaymentMethod === 'KAKAO_PAY'}
-                  onToggle={() => setSelectedPaymentMethod('KAKAO_PAY')}
-                  interactionVariant='normal'
-                  round
-                />
-                <S.PaymentMethodLabel>카카오페이</S.PaymentMethodLabel>
-              </S.PaymentMethodRow>
+              <S.PaymentMethod>
+                <S.PaymentMethodTitle>결제 수단</S.PaymentMethodTitle>
 
-              <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('PHONE')}>
-                <Checkbox
-                  size='nm'
-                  isChecked={selectedPaymentMethod === 'PHONE'}
-                  onToggle={() => setSelectedPaymentMethod('PHONE')}
-                  interactionVariant='normal'
-                  round
-                />
-                <S.PaymentMethodLabel>휴대폰</S.PaymentMethodLabel>
-              </S.PaymentMethodRow>
-            </S.PaymentMethod>
-          </S.PaymentDetail>
+                <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('CARD')}>
+                  <Checkbox
+                    size='nm'
+                    isChecked={selectedPaymentMethod === 'CARD'}
+                    onToggle={() => setSelectedPaymentMethod('CARD')}
+                    interactionVariant='normal'
+                    round
+                  />
+                  <S.PaymentMethodLabel>신용카드</S.PaymentMethodLabel>
+                </S.PaymentMethodRow>
 
-          <S.Divider />
+                <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('KAKAO_PAY')}>
+                  <Checkbox
+                    size='nm'
+                    isChecked={selectedPaymentMethod === 'KAKAO_PAY'}
+                    onToggle={() => setSelectedPaymentMethod('KAKAO_PAY')}
+                    interactionVariant='normal'
+                    round
+                  />
+                  <S.PaymentMethodLabel>카카오페이</S.PaymentMethodLabel>
+                </S.PaymentMethodRow>
 
-          <S.PaymentResult>
-            <S.InfoWrapper>
-              <S.ResultText>결제 및 총합</S.ResultText>
-              <S.ResultText>{planInfo?.monthlyPrice ?? '-'} KRW</S.ResultText>
-            </S.InfoWrapper>
+                <S.PaymentMethodRow onClick={() => setSelectedPaymentMethod('PHONE')}>
+                  <Checkbox
+                    size='nm'
+                    isChecked={selectedPaymentMethod === 'PHONE'}
+                    onToggle={() => setSelectedPaymentMethod('PHONE')}
+                    interactionVariant='normal'
+                    round
+                  />
+                  <S.PaymentMethodLabel>휴대폰</S.PaymentMethodLabel>
+                </S.PaymentMethodRow>
+              </S.PaymentMethod>
+            </S.PaymentDetail>
 
-            <S.AgreementSection>
-              <S.AgreementRow>
-                <Checkbox
-                  size='nm'
-                  isChecked={isAgreed}
-                  onToggle={(checked) => {
-                    setIsAgreed(checked);
-                    if (checked) setShowAgreementError(false);
-                  }}
-                  interactionVariant='normal'
-                />
-                <S.AgreementLabel>
-                  (필수){' '}
-                  <S.AgreementLink href='https://oncognier.notion.site/2963f9bd81c68065aa38c15fb5c6b484'>
-                    결제 약관 및 방침
-                  </S.AgreementLink>
-                  에 동의합니다
-                </S.AgreementLabel>
-              </S.AgreementRow>
+            <S.Divider />
 
-              {showAgreementError && <S.AgreementError>결제 약관 및 방침에 동의해주세요</S.AgreementError>}
-            </S.AgreementSection>
-          </S.PaymentResult>
-        </S.PaymentSummary>
+            <S.PaymentResult>
+              <S.InfoWrapper>
+                <S.ResultText>결제 및 총합</S.ResultText>
+                <S.ResultText>{planInfo?.monthlyPrice ?? '-'} KRW</S.ResultText>
+              </S.InfoWrapper>
+
+              <S.AgreementSection>
+                <S.AgreementRow>
+                  <Checkbox
+                    size='nm'
+                    isChecked={isAgreed}
+                    onToggle={(checked) => {
+                      setIsAgreed(checked);
+                      if (checked) setShowAgreementError(false);
+                    }}
+                    interactionVariant='normal'
+                  />
+                  <S.AgreementLabel>
+                    (필수){' '}
+                    <S.AgreementLink href='https://oncognier.notion.site/2963f9bd81c68065aa38c15fb5c6b484'>
+                      결제 약관 및 방침
+                    </S.AgreementLink>
+                    에 동의합니다
+                  </S.AgreementLabel>
+                </S.AgreementRow>
+
+                {showAgreementError && <S.AgreementError>결제 약관 및 방침에 동의해주세요</S.AgreementError>}
+              </S.AgreementSection>
+            </S.PaymentResult>
+          </S.PaymentSummary>
+        )}
 
         <SolidButton
           size='lg'
@@ -253,7 +333,7 @@ export default function Payment() {
           color='primary'
           interactionVariant='normal'
           onClick={handleClick}
-          isDisabled={isProcessing}
+          isDisabled={getButtonDisabledStatus()}
           fillContainer
         />
       </S.PaymentInfo>
