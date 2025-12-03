@@ -134,3 +134,43 @@ export interface CouponListResponse {
     totalElements: number;
   };
 }
+
+export interface AdminPaymentHistoryRequest {
+  startDate?: string;
+  endDate?: string;
+  keyword?: string;
+  category?: string[];
+  cursor?: number;
+  size?: number;
+  sort?: string;
+}
+
+export interface PaymentHistory {
+  paymentHistoryId: string;
+  memberId: string;
+  nickname: string;
+  planId: number;
+  planName: string;
+  category: string;
+  count: number;
+  price: number;
+  method: string;
+  status: string;
+  paidAt: string;
+  paymentMethodId: number;
+}
+
+export interface AdminPaymentHistoryResponse {
+  code: string;
+  message: string;
+  result: {
+    totalCount: number;
+    totalPrice: number;
+    totalMember: number;
+    averageAmount: number;
+    data: PaymentHistory[];
+    nextCursor: number;
+    last: boolean;
+    totalElements: number;
+  };
+}

@@ -202,6 +202,11 @@ export const END_POINTS = {
       /** 쿠폰 리스트 조회 (GET) */
       LIST: `${BASE_PATH_V1.ADMIN}/coupons`,
     },
+
+    PAYMENTS: {
+      /** 어드민 결제 내역 조회 (GET) */
+      LIST: `${BASE_PATH_V1.ADMIN}/payments`,
+    },
   },
 
   FILES: {

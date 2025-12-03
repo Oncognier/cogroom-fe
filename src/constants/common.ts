@@ -1,7 +1,7 @@
 import Graph from '@/assets/icons/graph.svg';
 import HandHeart from '@/assets/icons/handheart.svg';
 import Smile from '@/assets/icons/smile.svg';
-import { DeployEnv, SelectOption, TableHeaderItem } from '@/types/common';
+import { DeployEnv, SelectOption, SelectOptionOrGroup, TableHeaderItem } from '@/types/common';
 
 /* ---------- 기본 URL/환경 ---------- */
 export const BASE_URL = 'https://cogroom.com';
@@ -35,7 +35,7 @@ export const PAYMENT_TAB_OPTIONS: SelectOption[] = [
 ];
 
 export const PAYMENT_TAB_ROUTES = {
-  payments: '/admin/payments',
+  payments: '/admin/payments/management',
   coupons: '/admin/payments/coupons',
 } as const;
 
@@ -43,6 +43,24 @@ export const COUPON_TYPE_OPTIONS: SelectOption[] = [
   { value: 'ALL', label: '전체' },
   { value: 'TRIAL', label: '체험형' },
   { value: 'PARTNER', label: '제휴형' },
+];
+
+export const PAYMENT_CATEGORY_OPTIONS: SelectOptionOrGroup[] = [
+  {
+    label: '상품명',
+    children: [
+      { value: 'PREMIUM_MONTH', label: '프리미엄 결제 / 월' },
+      { value: 'PREMIUM_YEAR', label: '프리미엄 결제 / 연' },
+      { value: 'OTHER_PRODUCT', label: '기타' },
+    ],
+  },
+  {
+    label: '카테고리',
+    children: [
+      { value: 'SUBSCRIPTION', label: '구독' },
+      { value: 'OTHER_CATEGORY', label: '기타' },
+    ],
+  },
 ];
 
 export const COUPON_STATUS_OPTIONS = [
@@ -185,11 +203,17 @@ export const ADMIN_COMMENTS_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
 ] as const;
 
 export const PAYMENT_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
-  { label: '결제 플랜', mode: 'fix', width: '15rem', align: 'center' },
-  { label: '결제 여부', mode: 'fix', width: '14rem', align: 'center' },
-  { label: '결제 금액', mode: 'fix', width: '14rem', align: 'center' },
-  { label: '결제 일자', mode: 'fix', width: '15rem', align: 'center' },
-  { label: '상세 보기', mode: 'expand', align: 'right' },
+  { label: '주문번호', mode: 'expand', align: 'center' },
+  { label: '회원 번호', mode: 'fix', width: '10rem', align: 'center' },
+  { label: '닉네임', mode: 'expand', align: 'center' },
+  { label: '상품명', mode: 'fix', width: '10rem', align: 'center' },
+  { label: '카테고리', mode: 'expand', align: 'center' },
+  { label: '수량', mode: 'fix', width: '2.5rem', align: 'center' },
+  { label: '결제금액', mode: 'expand', align: 'center' },
+  { label: '결제수단', mode: 'expand', align: 'center' },
+  { label: '결제상태', mode: 'expand', align: 'center' },
+  { label: '결제일시', mode: 'expand', align: 'center' },
+  { label: '상세보기', mode: 'expand', align: 'center' },
 ] as const;
 
 export const COUPON_TABLE_HEADER_ITEMS: TableHeaderItem[] = [

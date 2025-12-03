@@ -1,5 +1,6 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -10,15 +11,18 @@ import type { FilterProps, FilterValues } from './SearchFilter.types';
 import SearchFilterDesktop from './SearchFilterDesktop';
 import SearchFilterMobile from './SearchFilterMobile';
 
-export default function SearchFilter({ totalTitle, total, fields, action, className }: FilterProps) {
+function SearchFilterContent({ totalTitle, total, fields, action, className }: FilterProps) {
   const { updateSearchParams, getAllSearchParams } = useUrlSearchParams();
 
   const convertArrayValue = useCallback(
     (key: string, value: string[]) => {
       const selectField = fields.select?.find((s) => s.name === key);
       if (!selectField) return value;
+
+      const flatOptions = selectField.options.flatMap((option) => ('children' in option ? option.children : [option]));
+
       return value.map((v) => {
-        const option = selectField.options.find((opt) => String(opt.value) === v);
+        const option = flatOptions.find((opt) => String(opt.value) === v);
         return option ? option.value : v;
       });
     },
@@ -32,7 +36,10 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
       }
       const selectField = fields.select?.find((s) => s.name === key);
       if (!selectField || !value) return value;
-      const option = selectField.options.find((opt) => String(opt.value) === value);
+
+      const flatOptions = selectField.options.flatMap((option) => ('children' in option ? option.children : [option]));
+
+      const option = flatOptions.find((opt) => String(opt.value) === value);
       return option ? option.value : value;
     },
     [fields.select],
@@ -87,5 +94,17 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
         />
       </S.MobileOnly>
     </>
+  );
+}
+
+export default function SearchFilter(props: FilterProps) {
+  const searchParams = useSearchParams();
+  const formKey = searchParams.toString();
+
+  return (
+    <SearchFilterContent
+      key={formKey}
+      {...props}
+    />
   );
 }

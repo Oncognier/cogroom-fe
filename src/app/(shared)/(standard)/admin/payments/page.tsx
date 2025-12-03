@@ -1,12 +1,14 @@
 'use client';
 
-import PaymentTabSelect from './_components/PaymentTabSelect/PaymentTabSelect';
-import * as S from './page.styled';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Payments() {
-  return (
-    <S.PaymentContainer>
-      <PaymentTabSelect />
-    </S.PaymentContainer>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push('/admin/payments/management');
+  }, [router]);
+
+  return null;
 }

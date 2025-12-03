@@ -3,6 +3,7 @@
 import { Controller, type Control } from 'react-hook-form';
 
 import { Select } from '@/components/molecules/Select/Select';
+import { SelectOptionOrGroup } from '@/types/common';
 
 import * as S from '../SearchFilter.styled';
 import type { FilterValues } from '../SearchFilter.types';
@@ -11,7 +12,7 @@ interface SelectControllerProps {
   control: Control<FilterValues>;
   name: string;
   placeholder: string;
-  options: Array<{ label: string; value: string | number }>;
+  options: SelectOptionOrGroup[];
   isMulti?: boolean;
 }
 

@@ -101,11 +101,16 @@ export const useUrlSearchParams = () => {
     return allParams;
   }, [currentSearchParams]);
 
+  const clearAllSearchParams = useCallback(() => {
+    nextRouter.replace(currentPathname, { scroll: false });
+  }, [currentPathname, nextRouter]);
+
   return {
     updateSearchParams,
     getSearchParam,
     getSearchParamAsArray,
     getSearchParamAsDate,
     getAllSearchParams,
+    clearAllSearchParams,
   };
 };
