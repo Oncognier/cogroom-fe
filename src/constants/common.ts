@@ -202,6 +202,14 @@ export const ADMIN_COMMENTS_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
   { label: '작성일시', mode: 'fix', width: '10rem', align: 'center' },
 ] as const;
 
+export const MYPAGE_PAYMENT_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
+  { label: '결제 플랜', mode: 'fix', width: '15rem', align: 'center' },
+  { label: '결제 여부', mode: 'expand', align: 'center' },
+  { label: '결제 금액', mode: 'fix', width: '14rem', align: 'center' },
+  { label: '결제 일자', mode: 'fix', width: '16rem', align: 'center' },
+  { label: '상세 보기', mode: 'fix', width: '14.5rem', align: 'center' },
+] as const;
+
 export const PAYMENT_TABLE_HEADER_ITEMS: TableHeaderItem[] = [
   { label: '주문번호', mode: 'expand', align: 'center' },
   { label: '회원 번호', mode: 'fix', width: '10rem', align: 'center' },

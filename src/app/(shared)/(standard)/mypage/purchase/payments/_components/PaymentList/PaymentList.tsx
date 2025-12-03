@@ -6,7 +6,7 @@ import MessageCircleX from '@/assets/icons/message-circle-x.svg';
 import NumberPagination from '@/components/molecules/NumberPagination/NumberPagination';
 import EmptyState from '@/components/organisms/EmptyState/EmptyState';
 import Table from '@/components/organisms/Table/Table';
-import { PAYMENT_TABLE_HEADER_ITEMS } from '@/constants/common';
+import { MYPAGE_PAYMENT_TABLE_HEADER_ITEMS } from '@/constants/common';
 import useGetPaymentHistory from '@/hooks/api/member/useGetPaymentHistory';
 import { PaymentHistory, PaymentHistoryItem } from '@/types/payment';
 
@@ -43,7 +43,7 @@ export const PaymentList = () => {
     <S.Container>
       <Table
         showSelection={false}
-        headerItems={PAYMENT_TABLE_HEADER_ITEMS}
+        headerItems={MYPAGE_PAYMENT_TABLE_HEADER_ITEMS}
         isEmpty={isEmpty}
         emptyState={
           <EmptyState
