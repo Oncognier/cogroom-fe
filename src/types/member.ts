@@ -4,7 +4,7 @@ import { Post } from './post';
 
 export type MemberRole = 'USER' | 'ADMIN' | 'CONTENT_PROVIDER';
 
-export type SortType = 'latest' | 'highest' | 'lowest';
+export type SortType = 'latest' | 'oldest' | 'highest' | 'lowest';
 
 export type UserSummary = {
   nickname: string;
