@@ -19,23 +19,6 @@ export const PaymentMethod = () => {
       <S.PaymentMethodsWrapper>
         <OutlinedButton
           size='sm'
-          label={'휴대폰 결제'}
-          color='primary'
-          interactionVariant='normal'
-          // onClick={() => {}}
-        />
-
-        <TextButton
-          size='sm'
-          color='primary'
-          label='추가하기'
-          interactionVariant='normal'
-          iconLeft={<Plus />}
-          // onClick={() =>{} }
-        />
-
-        <OutlinedButton
-          size='sm'
           label={'체크/신용 카드'}
           color='primary'
           interactionVariant='normal'
@@ -61,24 +44,6 @@ export const PaymentMethod = () => {
           color='kakao'
           interactionVariant='normal'
           iconRight={<Kakao className='kakao' />}
-          // onClick={() => {}}
-        />
-
-        <TextButton
-          size='sm'
-          color='primary'
-          label='추가하기'
-          interactionVariant='normal'
-          iconLeft={<Plus />}
-          // onClick={() =>{} }
-        />
-
-        <OutlinedButton
-          size='sm'
-          label={'네이버페이'}
-          color='naver'
-          interactionVariant='normal'
-          iconRight={<Naver className='naver' />}
           // onClick={() => {}}
         />
 
