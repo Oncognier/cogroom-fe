@@ -101,6 +101,9 @@ export const END_POINTS = {
 
     /** 결제 내역 조회 (GET) */
     PAYMENT_HISTORY: `${BASE_PATH_V1.MEMBERS}/me/plan/history`,
+
+    /** 결제 상세 정보 조회 (GET) */
+    PAYMENT_DETAIL: `${BASE_PATH_V1.MEMBERS}/me/payment`,
   },
 
   DAILY: {

@@ -18,7 +18,12 @@ import {
   UserProfileResponse,
   UserSubscriptionResponse,
 } from '@/types/member';
-import { PaymentHistoryApiResponse, PaymentHistoryParams } from '@/types/payment';
+import {
+  PaymentHistoryApiResponse,
+  PaymentHistoryParams,
+  PaymentDetailResponse,
+  PaymentDetailParams,
+} from '@/types/payment';
 
 import { axiosInstance } from './axios/axiosInstance';
 
@@ -143,6 +148,12 @@ const getPaymentHistory = async (params?: PaymentHistoryParams) => {
   return data.result;
 };
 
+/** 결제 상세 정보 조회 */
+const getPaymentDetail = async (params: PaymentDetailParams) => {
+  const { data } = await axiosInstance.get<PaymentDetailResponse>(END_POINTS.MEMBERS.PAYMENT_DETAIL, { params });
+  return data.result;
+};
+
 export const memberApi = {
   getUserSummary,
   getUserDashboard,
@@ -162,4 +173,5 @@ export const memberApi = {
   getCouponList,
   registerCoupon,
   getPaymentHistory,
+  getPaymentDetail,
 };
