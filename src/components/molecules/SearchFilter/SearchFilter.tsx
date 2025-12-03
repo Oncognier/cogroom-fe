@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { useUrlSearchParams } from '@/hooks/queryParams/useUrlSearchParams';
@@ -10,7 +11,7 @@ import type { FilterProps, FilterValues } from './SearchFilter.types';
 import SearchFilterDesktop from './SearchFilterDesktop';
 import SearchFilterMobile from './SearchFilterMobile';
 
-export default function SearchFilter({ totalTitle, total, fields, action, className }: FilterProps) {
+function SearchFilterContent({ totalTitle, total, fields, action, className }: FilterProps) {
   const { updateSearchParams, getAllSearchParams } = useUrlSearchParams();
 
   const convertArrayValue = useCallback(
@@ -60,14 +61,9 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
     return mergedValues;
   }, [getAllSearchParams, convertArrayValue, convertSingleValue]);
 
-  const { control, handleSubmit, reset } = useForm<FilterValues>({
+  const { control, handleSubmit } = useForm<FilterValues>({
     defaultValues: getInitialValues(),
   });
-
-  useEffect(() => {
-    const currentUrlValues = getInitialValues();
-    reset(currentUrlValues);
-  }, [getAllSearchParams, reset, getInitialValues]);
 
   const handleFormSubmit = (formValues: FilterValues) => {
     updateSearchParams(formValues);
@@ -98,5 +94,17 @@ export default function SearchFilter({ totalTitle, total, fields, action, classN
         />
       </S.MobileOnly>
     </>
+  );
+}
+
+export default function SearchFilter(props: FilterProps) {
+  const searchParams = useSearchParams();
+  const formKey = searchParams.toString();
+
+  return (
+    <SearchFilterContent
+      key={formKey}
+      {...props}
+    />
   );
 }
