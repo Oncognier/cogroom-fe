@@ -3,11 +3,10 @@
 import { Controller, type Control } from 'react-hook-form';
 
 import { Select } from '@/components/molecules/Select/Select';
+import { SelectOptionOrGroup } from '@/types/common';
 
 import * as S from '../SearchFilter.styled';
 import type { FilterValues } from '../SearchFilter.types';
-
-import { SelectOptionOrGroup } from '@/types/common';
 
 interface SelectControllerProps {
   control: Control<FilterValues>;
