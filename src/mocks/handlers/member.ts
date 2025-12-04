@@ -20,6 +20,7 @@ import { getUserSaveListSuccess } from '../data/member/getUserSaveData';
 import { getUserSubscriptionYearly } from '../data/member/getUserSubscriptionData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
 import { withdrawSuccess } from '../data/member/withdrawData';
+import { getPaymentDetailSuccess, getPaymentDetailPaymentRecordNotFound } from '../data/payment/getPaymentDetailData';
 import { getPaymentHistorySuccess } from '../data/payment/getPaymentHistoryData';
 
 export const memberHandlers = [
@@ -171,6 +172,22 @@ export const memberHandlers = [
   // 결제 내역 조회
   http.get(END_POINTS.MEMBERS.PAYMENT_HISTORY, async () => {
     return new HttpResponse(JSON.stringify(getPaymentHistorySuccess), {});
+  }),
+
+  // 결제 상세 정보 조회
+  http.get(END_POINTS.MEMBERS.PAYMENT_DETAIL, async ({ request }) => {
+    const url = new URL(request.url);
+    const paymentHistoryId = url.searchParams.get('paymentHistoryId');
+
+    if (!paymentHistoryId) {
+      return new HttpResponse(JSON.stringify(getPaymentDetailPaymentRecordNotFound), {
+        status: HTTP_STATUS_CODE.BAD_REQUEST,
+      });
+    }
+
+    return new HttpResponse(JSON.stringify(getPaymentDetailSuccess), {
+      status: HTTP_STATUS_CODE.OK,
+    });
   }),
 
   // 쿠폰 목록 조회

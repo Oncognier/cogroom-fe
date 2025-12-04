@@ -117,3 +117,30 @@ export interface PaymentHistoryParams {
   sort?: string;
   size?: number;
 }
+
+export type PaymentStatus = 'PAID' | 'FAILED' | 'PENDING';
+
+export interface PaymentDetailData {
+  planName: string;
+  paymentHistoryId: number;
+  status: PaymentStatus;
+  memberId: number;
+  email: string;
+  paidAt: string;
+  method: PaymentMethod;
+  nextPaymentDate?: string;
+  basePrice: number;
+  baseDiscountAmount: number;
+  couponName?: string;
+  couponDiscountAmount?: number;
+  amount: number;
+  cardCompanyName: string;
+}
+
+export interface PaymentDetailResponse extends ApiResponse {
+  result: PaymentDetailData;
+}
+
+export interface PaymentDetailParams {
+  paymentHistoryId: number;
+}

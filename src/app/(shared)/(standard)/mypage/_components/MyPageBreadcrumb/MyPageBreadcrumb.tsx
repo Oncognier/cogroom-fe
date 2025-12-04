@@ -15,7 +15,7 @@ export default function MyPageBreadcrumb() {
       { name: '마이페이지', href: '/mypage' },
     ];
 
-    if (pageName !== '마이페이지') {
+    if (pageName !== '마이페이지' && pathname !== '/mypage') {
       items.push({ name: pageName, href: pathname });
     }
 
