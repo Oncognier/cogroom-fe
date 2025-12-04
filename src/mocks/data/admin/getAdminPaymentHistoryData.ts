@@ -24,7 +24,7 @@ export const getAdminPaymentHistoryData: AdminPaymentHistoryResponse = {
     averageAmount: 90000,
     data: [
       {
-        paymentHistoryId: 'ORD00000121',
+        paymentHistoryId: '121',
         memberId: 'lee@naver.com',
         nickname: 'S2선로S2',
         planId: 1,
@@ -38,7 +38,7 @@ export const getAdminPaymentHistoryData: AdminPaymentHistoryResponse = {
         paymentMethodId: 1,
       },
       {
-        paymentHistoryId: 'ORD00000122',
+        paymentHistoryId: '122',
         memberId: 'hahaha@naver.com',
         nickname: '배고파요',
         planId: 2,
@@ -52,7 +52,7 @@ export const getAdminPaymentHistoryData: AdminPaymentHistoryResponse = {
         paymentMethodId: 2,
       },
       {
-        paymentHistoryId: 'ORD00000123',
+        paymentHistoryId: '123',
         memberId: 'hihihihi485@gmail.com',
         nickname: '반갑습니다',
         planId: 1,
@@ -66,7 +66,7 @@ export const getAdminPaymentHistoryData: AdminPaymentHistoryResponse = {
         paymentMethodId: 3,
       },
       {
-        paymentHistoryId: 'ORD00000124',
+        paymentHistoryId: '124',
         memberId: 'wownice@naver.com',
         nickname: 'S2선로S2',
         planId: 1,
@@ -80,7 +80,7 @@ export const getAdminPaymentHistoryData: AdminPaymentHistoryResponse = {
         paymentMethodId: 1,
       },
       {
-        paymentHistoryId: 'ORD00000125',
+        paymentHistoryId: '125',
         memberId: 'kikiki_2@kakao.com',
         nickname: '개발자체크셔츠',
         planId: 1,
