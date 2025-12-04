@@ -8,6 +8,7 @@ export type IdentityResponse = {
 } | null;
 
 export type BillingCustomer = {
+  customerId: string;
   fullName?: string;
   phoneNumber?: string;
   email?: string;

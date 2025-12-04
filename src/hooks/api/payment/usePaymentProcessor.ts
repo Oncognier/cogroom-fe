@@ -22,7 +22,7 @@ export const usePaymentProcessor = () => {
       finalPrice,
       planName,
       paymentHistoryId,
-      customer: { fullName: name, phoneNumber, email },
+      customer: { customerId: String(memberId), fullName: name, phoneNumber, email },
     };
 
     const billingKeyRes = await requestBillingKey(paymentMethod, params);
