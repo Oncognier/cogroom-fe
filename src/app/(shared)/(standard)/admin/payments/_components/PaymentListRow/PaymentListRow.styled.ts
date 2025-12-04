@@ -40,6 +40,12 @@ export const DayCell = styled(Cell)`
   flex-direction: column;
 `;
 
+export const OrderNumberCell = styled(Cell)`
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+`;
+
 export const OtherCell = styled(Cell)`
   width: 11rem;
   flex: none;

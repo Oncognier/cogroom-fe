@@ -4,6 +4,7 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { PaymentHistory } from '@/types/admin';
 import { formatDayAsSlashYYMMDD, formatTimeAsHHmm } from '@/utils/date/formatDay';
+import { splitOrderNumber } from '@/utils/formatText';
 
 import * as S from './PaymentListRow.styled';
 
@@ -37,18 +38,9 @@ const getPaymentMethod = (method: string) => {
   }
 };
 
-const formatOrderNumber = (orderNumber: string) => {
-  if (orderNumber.startsWith('ORD')) {
-    const prefix = 'ORD';
-    const number = orderNumber.slice(3);
-    return { prefix, number };
-  }
-  return { prefix: '', number: orderNumber };
-};
-
 export default function PaymentListRow({ payment, checked, onCheckToggle }: PaymentListRowProps) {
   const handleDetailView = () => {};
-  const { prefix, number } = formatOrderNumber(payment.paymentHistoryId);
+  const orderNumber = splitOrderNumber(payment.paymentHistoryId);
 
   return (
     <S.Row>
@@ -62,10 +54,10 @@ export default function PaymentListRow({ payment, checked, onCheckToggle }: Paym
         />
       </S.CheckboxCell>
 
-      <S.Cell>
-        <div>{prefix}</div>
-        <div>{number}</div>
-      </S.Cell>
+      <S.OrderNumberCell>
+        <div>{orderNumber.prefix}</div>
+        <div>{orderNumber.number}</div>
+      </S.OrderNumberCell>
       <S.OtherCell>{payment.memberId}</S.OtherCell>
       <S.Cell>{payment.nickname}</S.Cell>
       <S.OtherCell>{payment.planName}</S.OtherCell>
