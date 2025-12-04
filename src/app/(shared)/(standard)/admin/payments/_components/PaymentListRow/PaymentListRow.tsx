@@ -1,10 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { PaymentHistory } from '@/types/admin';
 import { formatDayAsSlashYYMMDD, formatTimeAsHHmm } from '@/utils/date/formatDay';
-import { splitOrderNumber } from '@/utils/formatText';
+import { parseOrderNumber, splitOrderNumber } from '@/utils/formatText';
 
 import * as S from './PaymentListRow.styled';
 
@@ -39,8 +41,13 @@ const getPaymentMethod = (method: string) => {
 };
 
 export default function PaymentListRow({ payment, checked, onCheckToggle }: PaymentListRowProps) {
-  const handleDetailView = () => {};
+  const router = useRouter();
   const orderNumber = splitOrderNumber(payment.paymentHistoryId);
+
+  const handleDetailView = () => {
+    const paymentId = parseOrderNumber(payment.paymentHistoryId);
+    router.push(`/admin/payments/management/${paymentId}`);
+  };
 
   return (
     <S.Row>
