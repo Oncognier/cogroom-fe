@@ -84,7 +84,7 @@ export const requestKakaoBillingKey = async (opts: BillingRequestParams) => {
     return null;
   }
 
-  const { finalPrice, paymentHistoryId, planName } = opts;
+  const { finalPrice, paymentHistoryId, planName, customer } = opts;
 
   return await PortOne.requestIssueBillingKey({
     storeId: PORTONE.STORE_ID,
@@ -96,6 +96,7 @@ export const requestKakaoBillingKey = async (opts: BillingRequestParams) => {
     channelKey: PORTONE.CHANNEL_KEYS.KAKAO,
     issueId: String(paymentHistoryId),
     issueName: planName,
+    customer,
   });
 };
 
