@@ -114,3 +114,24 @@ export const splitOrderNumber = (id: number | string): { prefix: string; number:
     number: padded,
   };
 };
+
+/**
+ * ORD 형식의 주문번호에서 숫자만 추출하는 함수
+ * @param orderNumber ORD00000123 형식의 주문번호 또는 숫자
+ * @returns 추출된 숫자 (예: 123)
+ *
+ * @example
+ * parseOrderNumber("ORD00000123");  // 123
+ * parseOrderNumber("ORD00012345");  // 12345
+ * parseOrderNumber(123);            // 123
+ */
+export const parseOrderNumber = (orderNumber: string | number): number => {
+  // 이미 숫자인 경우 그대로 반환
+  if (typeof orderNumber === 'number') {
+    return orderNumber;
+  }
+
+  // ORD 접두사 제거 후 숫자로 변환
+  const numStr = orderNumber.replace(/^ORD/i, '');
+  return Number(numStr);
+};
