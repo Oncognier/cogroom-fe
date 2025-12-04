@@ -16,7 +16,7 @@ export const usePaymentProcessor = () => {
    * 서버 검증 후 빌링키 생성 로직 (verifyPayment 성공 후 실행)
    */
   const handleBillingKeyCreation = async (data: VerifyPaymentData, paymentMethod: PaymentMethod) => {
-    const { finalPrice, planName, email, phoneNumber, name, paymentHistoryId } = data;
+    const { finalPrice, planName, email, phoneNumber, name, paymentHistoryId, memberId } = data;
 
     const params: BillingRequestParams = {
       finalPrice,

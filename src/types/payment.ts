@@ -71,6 +71,7 @@ export interface VerifyPaymentData {
   paymentHistoryId: number;
   finalPrice: number;
   planName: string;
+  memberId: number;
 }
 
 export interface VerifyPaymentResponse extends ApiResponse {
