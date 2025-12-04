@@ -171,7 +171,8 @@ export const adminHandlers = [
         const idMatch = payment.paymentHistoryId.toString().includes(keyword);
 
         // ORD 형식으로 검색 시 (예: ORD00000125)
-        const ordMatch = searchKeyword.startsWith('ord') &&
+        const ordMatch =
+          searchKeyword.startsWith('ord') &&
           payment.paymentHistoryId.toString().padStart(8, '0').includes(searchKeyword.substring(3));
 
         return nicknameMatch || idMatch || ordMatch;
