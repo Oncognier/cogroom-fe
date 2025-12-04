@@ -95,3 +95,22 @@ export const formatOrderNumber = (id: number | string): string => {
   const padded = num.padStart(8, '0');
   return `ORD${padded}`;
 };
+
+/**
+ * ID를 주문번호 prefix와 숫자로 분리하는 함수
+ * @param id 숫자 또는 숫자 문자열
+ * @returns { prefix: "ORD", number: "00000123" } 형식의 객체
+ *
+ * @example
+ * splitOrderNumber(123);     // { prefix: "ORD", number: "00000123" }
+ * splitOrderNumber("456");   // { prefix: "ORD", number: "00000456" }
+ * splitOrderNumber(12345);   // { prefix: "ORD", number: "00012345" }
+ */
+export const splitOrderNumber = (id: number | string): { prefix: string; number: string } => {
+  const num = Number(id).toString();
+  const padded = num.padStart(8, '0');
+  return {
+    prefix: 'ORD',
+    number: padded,
+  };
+};
