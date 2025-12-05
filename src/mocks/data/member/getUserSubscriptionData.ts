@@ -9,6 +9,7 @@ export const getUserSubscriptionMonthly = {
     startedAt: '2024-12-15T10:00:00Z',
     duration: 30,
     isPaidBefore: true,
+    paymentHistoryId: 123,
   },
 };
 
@@ -23,6 +24,7 @@ export const getUserSubscriptionYearly = {
     startedAt: '2025-10-29T15:27:23',
     duration: 0,
     isPaidBefore: false,
+    paymentHistoryId: 12,
   },
 };
 
@@ -37,6 +39,7 @@ export const getUserSubscriptionFree = {
     startedAt: '',
     duration: 0,
     isPaidBefore: true,
+    paymentHistoryId: 1,
   },
 };
 

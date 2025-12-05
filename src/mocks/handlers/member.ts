@@ -17,7 +17,7 @@ import { getUserLikePostListSuccess } from '../data/member/getUserLikePostListDa
 import { getUserPostListSuccess } from '../data/member/getUserPostListData';
 import { getUserProfileError, getUserProfileSuccess } from '../data/member/getUserProfileData';
 import { getUserSaveListSuccess } from '../data/member/getUserSaveData';
-import { getUserSubscriptionYearly } from '../data/member/getUserSubscriptionData';
+import { getUserSubscriptionMonthly } from '../data/member/getUserSubscriptionData';
 import { getUserSummarySuccess } from '../data/member/getUserSummaryData';
 import { withdrawSuccess } from '../data/member/withdrawData';
 import { getPaymentDetailSuccess, getPaymentDetailPaymentRecordNotFound } from '../data/payment/getPaymentDetailData';
@@ -152,7 +152,7 @@ export const memberHandlers = [
 
   // 구독 정보 조회
   http.get(END_POINTS.MEMBERS.SUBSCRIPTION, async () => {
-    return new HttpResponse(JSON.stringify(getUserSubscriptionYearly), {
+    return new HttpResponse(JSON.stringify(getUserSubscriptionMonthly), {
       status: HTTP_STATUS_CODE.OK,
     });
   }),
