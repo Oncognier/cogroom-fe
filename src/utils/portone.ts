@@ -27,8 +27,10 @@ const ALERT_PAYMENT_ERROR = '결제 시스템 설정에 오류가 발생했습�
  * 본인 인증 요청 유틸리티 함수
  * 필요한 결제 상태는 호출 전 Session Storage에 저장됩니다.
  */
-export const requestIdentityVerification = async (): Promise<IdentityResponse | null> => {
-  if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEYS.IDENTITY || !PORTONE.IDENTITY_REDIRECT_URL) {
+export const requestIdentityVerification = async (isFromMyPage: boolean = false): Promise<IdentityResponse | null> => {
+  const redirectUrl = isFromMyPage ? PORTONE.MYPAGE_IDENTITY_REDIRECT_URL : PORTONE.IDENTITY_REDIRECT_URL;
+
+  if (!PORTONE.STORE_ID || !PORTONE.CHANNEL_KEYS.IDENTITY || !redirectUrl) {
     alert(ALERT_PAYMENT_ERROR);
     return null;
   }
@@ -39,7 +41,7 @@ export const requestIdentityVerification = async (): Promise<IdentityResponse | 
     storeId: PORTONE.STORE_ID,
     identityVerificationId: id,
     channelKey: PORTONE.CHANNEL_KEYS.IDENTITY,
-    redirectUrl: PORTONE.IDENTITY_REDIRECT_URL,
+    redirectUrl,
   });
 
   if (!response || response.code) {

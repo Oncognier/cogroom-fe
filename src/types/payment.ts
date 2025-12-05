@@ -61,7 +61,7 @@ export interface ChangePlanRequest {
 
 export interface VerifyPaymentRequest {
   identityVerificationId?: string;
-  paymentHistoryId: number;
+  paymentHistoryId?: number;
 }
 
 export interface VerifyPaymentData {
