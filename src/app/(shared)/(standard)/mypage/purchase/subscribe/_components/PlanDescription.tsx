@@ -6,7 +6,7 @@ import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
 import { PLAN_TYPES, PREMIUM_BENEFITS } from '@/constants/common';
-import { useAlertModalStore } from '@/stores/useModalStore';
+import { useLargeModalStore } from '@/stores/useModalStore2';
 import { UserSubscription } from '@/types/member';
 import { formatDayAsDotYYYYMMDD, calculateDaysBetween } from '@/utils/date/formatDay';
 
@@ -16,14 +16,8 @@ interface PlanDescriptionProps {
   subscription: UserSubscription | null;
 }
 
-const MODAL_CONFIG = {
-  message: '어떤 작업을 하시겠습니까?',
-  confirmText: '플랜 변경하기',
-  cancelText: '구독 취소하기',
-};
-
 export const PlanDescription = ({ subscription }: PlanDescriptionProps) => {
-  const { open } = useAlertModalStore();
+  const { open: largeModalOpen, close: largeModalClose } = useLargeModalStore();
   const router = useRouter();
 
   const planId = subscription?.planId;
@@ -53,12 +47,34 @@ export const PlanDescription = ({ subscription }: PlanDescriptionProps) => {
     router.push('/subscription');
   };
 
+  const handleButtonClick = () => {
+    if (isMonthly) {
+      largeModalOpen('upgradePlan', {});
+    } else {
+      router.push('/subscription');
+    }
+  };
+
   const handlePlanChange = () => {
-    open('alert', {
-      ...MODAL_CONFIG,
-      type: 'confirm',
-      onConfirm: () => {},
-      onCancel: () => {},
+    largeModalOpen('confirm', {
+      title: '플랜 변경하기',
+      description: '',
+
+      primaryButton: {
+        label: '플랜 변경하기',
+        onClick: () => {
+          largeModalClose();
+          if (isMonthly) {
+            largeModalOpen('upgradePlan', {});
+          } else if (isYearly) {
+            largeModalOpen('downgradePlan', {});
+          }
+        },
+      },
+      assistiveButton: {
+        label: '구독 취소하기',
+        onClick: largeModalClose,
+      },
     });
   };
 
@@ -105,45 +121,38 @@ export const PlanDescription = ({ subscription }: PlanDescriptionProps) => {
           </S.DetailButton>
 
           <S.ButtonWrapper>
-            {isPremium && (
-              <TextButton
-                size='sm'
-                color='assistive'
-                label='구독 취소'
-                interactionVariant='normal'
-                onClick={() => {}}
-              />
-            )}
-
             {isYearly ? (
-              <OutlinedButton
-                size='lg'
-                label={getButtonLabel()}
-                color={'primary'}
-                interactionVariant='normal'
-                onClick={() => {}}
-              />
+              <S.OverideButton>
+                <OutlinedButton
+                  size='lg'
+                  label={getButtonLabel()}
+                  color={'primary'}
+                  interactionVariant='normal'
+                />
+              </S.OverideButton>
             ) : (
               <SolidButton
                 size='lg'
                 label={getButtonLabel()}
                 color={'primary'}
                 interactionVariant='normal'
-                onClick={() => {}}
+                onClick={handleButtonClick}
               />
             )}
           </S.ButtonWrapper>
         </S.PlanStartBox>
       </S.ContentWrapper>
-      <S.PlanChgButtonWrapper>
-        <TextButton
-          size='sm'
-          color='normal'
-          label='플랜 변경하기'
-          interactionVariant='normal'
-          onClick={handlePlanChange}
-        />
-      </S.PlanChgButtonWrapper>
+      {!isFreePlan && (
+        <S.PlanChgButtonWrapper>
+          <TextButton
+            size='sm'
+            color='primary'
+            label='플랜 변경하기'
+            interactionVariant='normal'
+            onClick={handlePlanChange}
+          />
+        </S.PlanChgButtonWrapper>
+      )}
     </S.Container>
   );
 };

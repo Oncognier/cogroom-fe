@@ -140,3 +140,9 @@ export const PlanChgButtonWrapper = styled.div`
   float: left;
   padding-top: 0.8rem;
 `;
+
+export const OverideButton = styled.div`
+  button {
+    cursor: default !important;
+  }
+`;
