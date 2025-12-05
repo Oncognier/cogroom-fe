@@ -1,5 +1,3 @@
-import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { UserSubscription } from '@/types/member';
 
 import * as S from './CurrentPlanBanner.styled';
@@ -10,8 +8,21 @@ interface CurrentPlanBannerProps {
 
 export const CurrentPlanBanner = ({ subscription }: CurrentPlanBannerProps) => {
   const planId = subscription?.planId;
-  const isFreePlan = planId === 3;
-  const planName = isFreePlan ? '무료플랜' : subscription?.name || '무료플랜';
+
+  const getPlanName = (id: number | undefined) => {
+    switch (id) {
+      case 1:
+        return '프리미엄 플랜(월간 구독)';
+      case 2:
+        return '프리미엄 플랜(연간 구독)';
+      case 3:
+        return '무료플랜';
+      default:
+        return '무료플랜';
+    }
+  };
+
+  const planName = getPlanName(planId);
 
   return (
     <S.PlanBannerContainer>
