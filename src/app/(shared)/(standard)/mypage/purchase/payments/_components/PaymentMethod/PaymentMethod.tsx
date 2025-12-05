@@ -3,16 +3,39 @@
 import { useState } from 'react';
 
 import Kakao from '@/assets/icons/kakao.svg';
-import Naver from '@/assets/icons/naver.svg';
 import Plus from '@/assets/icons/plus.svg';
 import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import TextButton from '@/components/atoms/TextButton/TextButton';
+import { useRegisterPaymentMethod } from '@/hooks/api/payment/useRegisterPaymentMethod';
 
 import * as S from './PaymentMethod.styled';
 
 export const PaymentMethod = () => {
   const [savePaymentMethod, setSavePaymentMethod] = useState(false);
+  const { registerPaymentMethod } = useRegisterPaymentMethod();
+
+  const handleAddCard = () => {
+    registerPaymentMethod({
+      paymentMethod: 'CARD',
+      billingParams: {
+        finalPrice: 0,
+        planName: '카드 등록',
+      },
+      isFromMyPage: true,
+    });
+  };
+
+  const handleAddKakaoPay = () => {
+    registerPaymentMethod({
+      paymentMethod: 'KAKAO_PAY',
+      billingParams: {
+        finalPrice: 0,
+        planName: '카카오페이 등록',
+      },
+      isFromMyPage: true,
+    });
+  };
 
   return (
     <S.MethodContainer>
@@ -22,7 +45,6 @@ export const PaymentMethod = () => {
           label={'체크/신용 카드'}
           color='primary'
           interactionVariant='normal'
-          // onClick={() => {}}
         />
 
         <TextButton
@@ -31,7 +53,7 @@ export const PaymentMethod = () => {
           label='추가하기'
           interactionVariant='normal'
           iconLeft={<Plus />}
-          // onClick={() =>{} }
+          onClick={handleAddCard}
         />
       </S.PaymentMethodsWrapper>
 
@@ -44,7 +66,6 @@ export const PaymentMethod = () => {
           color='kakao'
           interactionVariant='normal'
           iconRight={<Kakao className='kakao' />}
-          // onClick={() => {}}
         />
 
         <TextButton
@@ -53,7 +74,7 @@ export const PaymentMethod = () => {
           label='추가하기'
           interactionVariant='normal'
           iconLeft={<Plus />}
-          // onClick={() =>{} }
+          onClick={handleAddKakaoPay}
         />
       </S.PaymentMethodsWrapper>
 
@@ -63,7 +84,7 @@ export const PaymentMethod = () => {
         <Checkbox
           size='nm'
           isChecked={savePaymentMethod}
-          // onToggle={onCheckToggle}
+          onToggle={setSavePaymentMethod}
           interactionVariant='normal'
         />
         <S.CheckboxLabel>선택한 결제 수단을 다음에도 사용</S.CheckboxLabel>
