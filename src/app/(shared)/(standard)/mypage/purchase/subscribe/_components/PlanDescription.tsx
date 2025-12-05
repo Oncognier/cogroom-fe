@@ -48,11 +48,7 @@ export const PlanDescription = ({ subscription }: PlanDescriptionProps) => {
   };
 
   const handleButtonClick = () => {
-    if (isMonthly) {
-      largeModalOpen('upgradePlan', {});
-    } else {
-      router.push('/subscription');
-    }
+    router.push('/subscription');
   };
 
   const handlePlanChange = () => {
