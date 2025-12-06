@@ -51,7 +51,8 @@ export const paymentHandlers = [
   http.post(END_POINTS.PAYMENTS.VERIFY, async ({ request }) => {
     const body = (await request.json()) as VerifyPaymentRequest;
 
-    if (!body.identityVerificationId || !body.paymentHistoryId) {
+    // 마이페이지에서는 paymentHistoryId가 없음
+    if (!body.identityVerificationId) {
       return new HttpResponse(JSON.stringify(verifyPaymentError), {
         status: HTTP_STATUS_CODE.BAD_REQUEST,
       });
