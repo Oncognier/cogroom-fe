@@ -12,6 +12,7 @@ export const usePaymentProcessor = () => {
   const { completePlan } = useCompletePlanMutation();
   const { verifyPayment } = useVerifyPaymentMutation();
 
+  //
   /**
    * 서버 검증 후 빌링키 생성 로직 (verifyPayment 성공 후 실행)
    */
@@ -97,7 +98,7 @@ export const usePaymentProcessor = () => {
           return;
         }
 
-        await handleNewPayment(paymentHistoryId, paymentMethod);
+        await handleNewPayment(paymentHistoryId, paymentMethod, identityRes.identityVerificationId);
         return;
       } else {
         // 본인 인증이 필요 없는 경우, 바로 신규 결제 흐름 시작
