@@ -4,8 +4,8 @@ import Checkbox from '@/components/atoms/Checkbox/Checkbox';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Loading from '@/components/organisms/Loading/Loading';
 import { PLAN_MAPPING } from '@/constants/common';
-import { useChangePlanMutation } from '@/hooks/api/payment/useChangePlan';
 import { useGetPlanInfo } from '@/hooks/api/payment/useGetPlanInfo';
+import { usePlanChangeMutation } from '@/hooks/api/payment/usePlanChange';
 import { useLargeModalStore } from '@/stores/useModalStore2';
 import { ModalOptions } from '@/types/modal2';
 
@@ -19,7 +19,7 @@ export interface UpgradePlanModalProps extends ModalOptions {
 export default function UpgradePlan() {
   const { close } = useLargeModalStore();
   const { data: planInfo, isLoading } = useGetPlanInfo(PLAN_MAPPING['YEAR'], false);
-  const { changePlan } = useChangePlanMutation();
+  const { planChange } = usePlanChangeMutation();
 
   const [applyNow, setApplyNow] = useState(true);
 
@@ -32,7 +32,7 @@ export default function UpgradePlan() {
   }
 
   const handleUpgrade = () => {
-    changePlan({ paymentHistoryId: planInfo.paymentHistoryId, applyNow });
+    planChange({ paymentHistoryId: planInfo.paymentHistoryId, applyNow });
     close();
   };
 

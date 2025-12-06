@@ -1,5 +1,3 @@
-import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
-import SolidButton from '@/components/atoms/SolidButton/SolidButton';
 import { UserSubscription } from '@/types/member';
 
 import * as S from './CurrentPlanBanner.styled';
@@ -10,36 +8,27 @@ interface CurrentPlanBannerProps {
 
 export const CurrentPlanBanner = ({ subscription }: CurrentPlanBannerProps) => {
   const planId = subscription?.planId;
-  const isFreePlan = planId === 3;
-  const planName = isFreePlan ? '무료플랜' : subscription?.name || '무료플랜';
 
-  const goPlan = () => {};
+  const getPlanName = (id: number | undefined) => {
+    switch (id) {
+      case 1:
+        return '프리미엄 플랜(월간 구독)';
+      case 2:
+        return '프리미엄 플랜(연간 구독)';
+      case 3:
+        return '무료플랜';
+      default:
+        return '무료플랜';
+    }
+  };
 
-  const isPremium = planId === 2;
+  const planName = getPlanName(planId);
 
   return (
     <S.PlanBannerContainer>
       <S.PlanName>
         현재 코그룸 <S.CurrentPlanName>{planName}</S.CurrentPlanName>을 이용하고 있어요.
       </S.PlanName>
-
-      {isPremium ? (
-        <OutlinedButton
-          size='sm'
-          label='현재 혜택을 최대한 누리고 있어요'
-          color='primary'
-          interactionVariant='normal'
-          onClick={goPlan}
-        />
-      ) : (
-        <SolidButton
-          size='sm'
-          label='업그레이드 하고 더욱 깊이 성장하기'
-          color='primary'
-          interactionVariant='normal'
-          onClick={goPlan}
-        />
-      )}
     </S.PlanBannerContainer>
   );
 };

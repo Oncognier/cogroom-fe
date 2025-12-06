@@ -3,8 +3,8 @@ import React from 'react';
 import OutlinedButton from '@/components/atoms/OutlinedButton/OutlinedButton';
 import Loading from '@/components/organisms/Loading/Loading';
 import { PLAN_MAPPING } from '@/constants/common';
-import { useChangePlanMutation } from '@/hooks/api/payment/useChangePlan';
 import { useGetPlanInfo } from '@/hooks/api/payment/useGetPlanInfo';
+import { usePlanChangeMutation } from '@/hooks/api/payment/usePlanChange';
 import { useLargeModalStore } from '@/stores/useModalStore2';
 import { ModalOptions } from '@/types/modal2';
 
@@ -18,7 +18,7 @@ export interface DowngradePlanModalProps extends ModalOptions {
 export default function DowngradePlan() {
   const { close } = useLargeModalStore();
   const { data: planInfo, isLoading } = useGetPlanInfo(PLAN_MAPPING['MONTH'], false);
-  const { changePlan } = useChangePlanMutation();
+  const { planChange } = usePlanChangeMutation();
 
   if (isLoading) {
     return <Loading />;
@@ -29,7 +29,7 @@ export default function DowngradePlan() {
   }
 
   const handleDowngrade = () => {
-    changePlan({ paymentHistoryId: planInfo.paymentHistoryId, applyNow: false });
+    planChange({ paymentHistoryId: planInfo.paymentHistoryId, applyNow: false });
     close();
   };
 

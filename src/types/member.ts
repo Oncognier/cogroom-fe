@@ -96,6 +96,7 @@ export type UserSubscription = {
   nextPaymentDate: string;
   startedAt: string;
   duration: number;
+  paymentHistoryId: number | null;
   isPaidBefore: boolean;
 };
 
