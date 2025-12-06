@@ -86,7 +86,7 @@ export const usePaymentProcessor = () => {
     // 3. 신규 빌링키 생성 플로우 (빌링키 없음, 구독 중 아님)
     if (!billingKeyExists && !isSubscribed) {
       // 본인 인증이 필요한 경우 (카드, 휴대폰)
-      if (['CARD'].includes(paymentMethod)) {
+      if (paymentMethod === 'CARD') {
         // 상태를 저장하고 본인 인증 리다이렉트 요청
         savePaymentState({ paymentHistoryId, paymentMethod, planId });
 
