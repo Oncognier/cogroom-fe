@@ -6,7 +6,7 @@ import { loadPaymentState } from '@/stores/paymentStorage';
 import { usePaymentProcessor } from './usePaymentProcessor';
 
 /**
- * 본인 인증 리다이렉트 후 결제 플로우를 재개하는 로직을 담당하는 훅
+ * 본인 인증 리다이렉트 후 결제 플로우를 재개하는 로직을 담당하는  훅
  */
 export const usePaymentResume = () => {
   const searchParams = useSearchParams();
